@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag (e.g. v1.75)'
+        required: false
+        default: 'v1.75'
 
 permissions:
   contents: write
@@ -26,61 +32,51 @@ jobs:
           distribution: 'microsoft'
           java-version: '21'
 
-      - name: Verify or Setup Android SDK
+      - name: Verify Android SDK
         run: |
           SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
-          if [ ! -d "$SDK_DIR" ]; then
-            echo "Android SDK directory not found: $SDK_DIR"
-            exit 1
-          fi
+          echo "SDK_DIR=$SDK_DIR"
+          ls -la "$SDK_DIR"
           echo "ANDROID_HOME=$SDK_DIR" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$SDK_DIR" >> "$GITHUB_ENV"
-          echo "Using Android SDK at $SDK_DIR"
 
       - name: Install dependencies & sync Capacitor
         working-directory: mobile-app
         run: |
-          set -e
+          pwd
+          ls -la
+          node -v
+          npm -v
           mkdir -p www
           if [ ! -f www/index.html ] && [ -f index.html ]; then
             cp index.html www/index.html
           fi
           if [ ! -f package.json ]; then
-            cat <<'EOF' > package.json
-          {
-            "name": "aquatwin-ai-mobile",
-            "version": "1.75.0",
-            "private": true,
-            "dependencies": {
-              "@capacitor/android": "^6.0.0",
-              "@capacitor/cli": "^6.0.0",
-              "@capacitor/core": "^6.0.0"
-            }
-          }
-          EOF
-          fi
-          if [ -f package-lock.json ]; then
-            npm ci --no-audit --no-fund
+            npm init -y
+            npm install --no-audit --no-fund @capacitor/core @capacitor/cli @capacitor/android
+          elif [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund || npm install --no-audit --no-fund
           else
             npm install --no-audit --no-fund
           fi
-          if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
-            npx cap init "AquaTwin AI" "com.aquatwin.ai" --web-dir www
-          fi
+          npx cap --version
           npx cap sync android
 
       - name: Build debug APK
         working-directory: mobile-app/android
         run: |
-          set -e
+          pwd
+          ls -la
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --stacktrace
           cp app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
 
       - name: Publish or update GitHub Release
         uses: softprops/action-gh-release@v2
+        env:
+          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag_name || github.ref_name }}
         with:
-          tag_name: ${{ github.ref_name }}
-          name: AquaTwin AI ${{ github.ref_name }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: AquaTwin AI ${{ env.RELEASE_TAG }}
           files: AquaTwin-AI.apk
           make_latest: true
