@@ -1,8 +1,8 @@
 {
-    "version":  "1.78",
-    "version_code":  78,
+    "version":  "1.79",
+    "version_code":  79,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Your update notes",
+    "notes":  "• Your release notes",
     "force":  false,
-    "updated_at":  "2026-11-24 20:09 IST"
+    "updated_at":  "2026-11-24 20:12 IST"
 }
