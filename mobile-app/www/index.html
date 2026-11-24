@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.87";
+window.AQUATWIN_VERSION = "1.88";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5106,22 +5106,22 @@ nav > div:not(#at-lg-tab-lens),
 </script>
 <!-- SECURITY_HARDENING_END -->
 
+
 <!-- LIQUID_DEMO_SWITCH_START -->
 <style id="at-liquid-demo-css">
 .at-demo-btn {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 2px 4px !important;
+  padding: 2px 3px 2px 8px !important;
   margin-left: auto !important;
   border-radius: 999px !important;
-  font-size: 9px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.25px;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  background: rgba(15, 23, 42, 0.65) !important;
+  background: rgba(15, 23, 42, 0.68) !important;
   backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   color: #e2e8f0 !important;
@@ -5137,14 +5137,24 @@ nav > div:not(#at-lg-tab-lens),
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25)) !important;
   box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 16px rgba(16, 185, 129, 0.38);
 }
+.at-liq-left-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  line-height: 1;
+  pointer-events: none;
+}
+.at-demo-btn.on .at-liq-left-label {
+  color: #6ee7b7;
+}
 .at-liq-track {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 54px;
-  height: 24px;
-  padding: 0 7px;
+  width: 50px;
+  height: 22px;
+  padding: 0 6px;
   box-sizing: border-box;
   border-radius: 999px;
   background: rgba(148, 163, 184, 0.26);
@@ -5172,7 +5182,7 @@ nav > div:not(#at-lg-tab-lens),
 .at-liq-state-off {
   position: relative;
   z-index: 2;
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 800;
   line-height: 1;
   pointer-events: none;
@@ -5198,8 +5208,8 @@ nav > div:not(#at-lg-tab-lens),
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 999px;
   background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.48), inset 0 1px 1px #ffffff;
@@ -5208,24 +5218,25 @@ nav > div:not(#at-lg-tab-lens),
               width 0.22s ease;
 }
 .at-demo-btn:active .at-liq-thumb {
-  width: 22px;
+  width: 20px;
 }
 .at-demo-btn.on .at-liq-thumb {
-  transform: translateX(32px);
+  transform: translateX(30px);
 }
 .at-demo-btn.on:active .at-liq-thumb {
-  transform: translateX(28px);
+  transform: translateX(26px);
 }
 </style>
 <script id="at-liquid-demo-js">
 (function(){
   function upgradeDemoToLiquid(){
     var btn = document.getElementById('at-demo-toggle');
-    if (!btn || btn.dataset.liqTrackReady === '1') return;
-    btn.dataset.liqTrackReady = '1';
+    if (!btn || btn.dataset.liqDemoReady === '1') return;
+    btn.dataset.liqDemoReady = '1';
 
     var isOn = btn.classList.contains('on') || /\bon\b/i.test(btn.textContent || '');
     btn.innerHTML =
+      '<span class="at-liq-left-label">Demo</span>' +
       '<span class="at-liq-track">' +
         '<span class="at-liq-wave"></span>' +
         '<span class="at-liq-state-on">ON</span>' +

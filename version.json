@@ -1,8 +1,8 @@
 {
-    "version":  "1.87",
-    "version_code":  87,
+    "version":  "1.88",
+    "version_code":  88,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Placed ON/OFF inside liquid glass switch on the right side",
+    "notes":  "• Added Demo label on left side of liquid glass ON/OFF switch",
     "force":  false,
-    "updated_at":  "2026-11-24 20:54 IST"
+    "updated_at":  "2026-11-24 20:57 IST"
 }
