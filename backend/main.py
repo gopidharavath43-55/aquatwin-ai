@@ -48,6 +48,23 @@ app.add_middleware(SlowAPIMiddleware)
 
 BASE_DIR = Path(__file__).resolve().parent
 
+@app.middleware("http")
+async def security_headers_and_size_guard(request: Request, call_next):
+    content_length = request.headers.get("content-length")
+    if content_length and content_length.isdigit() and int(content_length) > 16384:
+        return JSONResponse(
+            status_code=413,
+            content={"ok": False, "code": "PAYLOAD_TOO_LARGE", "message": "Request payload exceeds 16 KB limit."},
+        )
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+    return response
+
+
 
 # 4. Convert all unexpected/unwanted errors into clean, expected JSON
 @app.exception_handler(RateLimitExceeded)
