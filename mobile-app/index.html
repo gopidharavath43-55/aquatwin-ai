@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.86";
+window.AQUATWIN_VERSION = "1.87";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5105,24 +5105,27 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- SECURITY_HARDENING_END -->
+
 <!-- LIQUID_DEMO_SWITCH_START -->
 <style id="at-liquid-demo-css">
 .at-demo-btn {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 7px !important;
-  padding: 3px 9px 3px 4px !important;
+  gap: 6px !important;
+  padding: 2px 4px !important;
+  margin-left: auto !important;
   border-radius: 999px !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.2px;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.20) !important;
-  background: rgba(15, 23, 42, 0.62) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: rgba(15, 23, 42, 0.65) !important;
   backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
-  color: #cbd5e1 !important;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.22), 0 4px 12px rgba(0,0,0,0.28);
+  color: #e2e8f0 !important;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.22), 0 4px 12px rgba(0,0,0,0.30);
   transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
               border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1),
               box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
@@ -5130,19 +5133,23 @@ nav > div:not(#at-lg-tab-lens),
   -webkit-tap-highlight-color: transparent;
 }
 .at-demo-btn.on {
-  border-color: rgba(52, 211, 153, 0.65) !important;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.36), rgba(5, 150, 105, 0.24)) !important;
-  color: #ecfdf5 !important;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 16px rgba(16, 185, 129, 0.35);
+  border-color: rgba(52, 211, 153, 0.70) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25)) !important;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 16px rgba(16, 185, 129, 0.38);
 }
 .at-liq-track {
   position: relative;
-  width: 38px;
-  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 54px;
+  height: 24px;
+  padding: 0 7px;
+  box-sizing: border-box;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.28);
+  background: rgba(148, 163, 184, 0.26);
   border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.42);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45);
   overflow: hidden;
   flex-shrink: 0;
   transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
@@ -5156,61 +5163,80 @@ nav > div:not(#at-lg-tab-lens),
 .at-liq-wave {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.48), transparent 65%);
+  background: radial-gradient(circle at 28% 28%, rgba(255,255,255,0.42), transparent 65%);
   opacity: 0.75;
   pointer-events: none;
+  z-index: 1;
+}
+.at-liq-state-on,
+.at-liq-state-off {
+  position: relative;
+  z-index: 2;
+  font-size: 8.5px;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.at-liq-state-on {
+  color: #064e3b;
+  opacity: 0.35;
+}
+.at-liq-state-off {
+  color: #cbd5e1;
+  opacity: 0.95;
+}
+.at-demo-btn.on .at-liq-state-on {
+  color: #ffffff;
+  opacity: 1;
+}
+.at-demo-btn.on .at-liq-state-off {
+  color: #a7f3d0;
+  opacity: 0.35;
 }
 .at-liq-thumb {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
   background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), inset 0 1px 1px #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.48), inset 0 1px 1px #ffffff;
+  z-index: 3;
   transition: transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1),
               width 0.22s ease;
 }
 .at-demo-btn:active .at-liq-thumb {
-  width: 21px;
+  width: 22px;
 }
 .at-demo-btn.on .at-liq-thumb {
-  transform: translateX(16px);
+  transform: translateX(32px);
 }
 .at-demo-btn.on:active .at-liq-thumb {
-  transform: translateX(11px);
-}
-.at-liq-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding-right: 2px;
+  transform: translateX(28px);
 }
 </style>
 <script id="at-liquid-demo-js">
 (function(){
   function upgradeDemoToLiquid(){
     var btn = document.getElementById('at-demo-toggle');
-    if (!btn || btn.dataset.liquidReady === '1') return;
-    btn.dataset.liquidReady = '1';
+    if (!btn || btn.dataset.liqTrackReady === '1') return;
+    btn.dataset.liqTrackReady = '1';
 
-    var isOn = btn.classList.contains('on') || /on/i.test(btn.textContent || '');
+    var isOn = btn.classList.contains('on') || /\bon\b/i.test(btn.textContent || '');
     btn.innerHTML =
       '<span class="at-liq-track">' +
         '<span class="at-liq-wave"></span>' +
+        '<span class="at-liq-state-on">ON</span>' +
+        '<span class="at-liq-state-off">OFF</span>' +
         '<span class="at-liq-thumb"></span>' +
-      '</span>' +
-      '<span class="at-liq-label" id="at-demo-txt">' + (isOn ? 'Demo ON' : 'Demo OFF') + '</span>';
+      '</span>';
+    btn.setAttribute('aria-label', isOn ? 'Demo ON' : 'Demo OFF');
 
-    // Keep label text synced cleanly whenever Demo toggles ON or OFF
     var obs = new MutationObserver(function(){
       var onNow = btn.classList.contains('on');
-      var lbl = document.getElementById('at-demo-txt');
-      if (lbl) {
-        var targetTxt = onNow ? 'Demo ON' : 'Demo OFF';
-        if (lbl.textContent !== targetTxt) lbl.textContent = targetTxt;
-      }
+      btn.setAttribute('aria-label', onNow ? 'Demo ON' : 'Demo OFF');
     });
     obs.observe(btn, { attributes: true, attributeFilter: ['class'] });
   }
