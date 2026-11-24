@@ -1,8 +1,8 @@
 {
-    "version":  "1.84",
-    "version_code":  84,
+    "version":  "1.85",
+    "version_code":  85,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Final security-hardened release with R8 obfuscation, HTTPS-only network policy \u0026 API client guard",
+    "notes":  "• Your update notes",
     "force":  false,
-    "updated_at":  "2026-11-24 20:42 IST"
+    "updated_at":  "2026-11-24 20:45 IST"
 }
