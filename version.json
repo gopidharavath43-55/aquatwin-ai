@@ -1,8 +1,8 @@
 {
-    "version":  "1.79",
-    "version_code":  79,
+    "version":  "1.80",
+    "version_code":  80,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Your release notes",
+    "notes":  "• Connected live Render cloud FastAPI backend with automatic offline fallback",
     "force":  false,
-    "updated_at":  "2026-11-24 20:12 IST"
+    "updated_at":  "2026-11-24 20:17 IST"
 }
