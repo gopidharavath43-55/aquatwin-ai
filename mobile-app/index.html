@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.91";
+window.AQUATWIN_VERSION = "1.92";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5107,160 +5107,7 @@ nav > div:not(#at-lg-tab-lens),
 <!-- SECURITY_HARDENING_END -->
 
 
-<!-- LIQUID_DEMO_SWITCH_START -->
-<style id="at-liquid-demo-css">
-.at-demo-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  padding: 2px 3px 2px 8px !important;
-  margin-left: auto !important;
-  border-radius: 999px !important;
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.25px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  background: rgba(15, 23, 42, 0.68) !important;
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  color: #e2e8f0 !important;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.22), 0 4px 12px rgba(0,0,0,0.30);
-  transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.at-demo-btn.on {
-  border-color: rgba(52, 211, 153, 0.70) !important;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25)) !important;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 16px rgba(16, 185, 129, 0.38);
-}
-.at-liq-left-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: #cbd5e1;
-  line-height: 1;
-  pointer-events: none;
-}
-.at-demo-btn.on .at-liq-left-label {
-  color: #6ee7b7;
-}
-.at-liq-track {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 50px;
-  height: 22px;
-  padding: 0 6px;
-  box-sizing: border-box;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.26);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-  flex-shrink: 0;
-  transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.at-demo-btn.on .at-liq-track {
-  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
-  border-color: rgba(167, 243, 208, 0.85);
-  box-shadow: inset 0 1px 2px rgba(255,255,255,0.45), 0 0 12px rgba(52, 211, 153, 0.55);
-}
-.at-liq-wave {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 28% 28%, rgba(255,255,255,0.42), transparent 65%);
-  opacity: 0.75;
-  pointer-events: none;
-  z-index: 1;
-}
-.at-liq-state-on,
-.at-liq-state-off {
-  position: relative;
-  z-index: 2;
-  font-size: 8px;
-  font-weight: 800;
-  line-height: 1;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-.at-liq-state-on {
-  color: #064e3b;
-  opacity: 0.35;
-}
-.at-liq-state-off {
-  color: #cbd5e1;
-  opacity: 0.95;
-}
-.at-demo-btn.on .at-liq-state-on {
-  color: #ffffff;
-  opacity: 1;
-}
-.at-demo-btn.on .at-liq-state-off {
-  color: #a7f3d0;
-  opacity: 0.35;
-}
-.at-liq-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.48), inset 0 1px 1px #ffffff;
-  z-index: 3;
-  transition: transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1),
-              width 0.22s ease;
-}
-.at-demo-btn:active .at-liq-thumb {
-  width: 20px;
-}
-.at-demo-btn.on .at-liq-thumb {
-  transform: translateX(30px);
-}
-.at-demo-btn.on:active .at-liq-thumb {
-  transform: translateX(26px);
-}
-</style>
-<script id="at-liquid-demo-js">
-(function(){
-  function upgradeDemoToLiquid(){
-    var btn = document.getElementById('at-demo-toggle');
-    if (!btn || btn.dataset.liqDemoReady === '1') return;
-    btn.dataset.liqDemoReady = '1';
 
-    var isOn = btn.classList.contains('on') || /\bon\b/i.test(btn.textContent || '');
-    btn.innerHTML =
-      '<span class="at-liq-left-label">Demo</span>' +
-      '<span class="at-liq-track">' +
-        '<span class="at-liq-wave"></span>' +
-        '<span class="at-liq-state-on">ON</span>' +
-        '<span class="at-liq-state-off">OFF</span>' +
-        '<span class="at-liq-thumb"></span>' +
-      '</span>';
-    btn.setAttribute('aria-label', isOn ? 'Demo ON' : 'Demo OFF');
-
-    var obs = new MutationObserver(function(){
-      var onNow = btn.classList.contains('on');
-      btn.setAttribute('aria-label', onNow ? 'Demo ON' : 'Demo OFF');
-    });
-    obs.observe(btn, { attributes: true, attributeFilter: ['class'] });
-  }
-
-  setInterval(upgradeDemoToLiquid, 400);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', upgradeDemoToLiquid);
-  } else {
-    upgradeDemoToLiquid();
-  }
-})();
-</script>
-<!-- LIQUID_DEMO_SWITCH_END -->
 <!-- ASK_AI_STATE_GUARD_START -->
 <script id="at-ask-ai-state-guard">
 (function(){
@@ -5648,5 +5495,140 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- AUTO_OPEN_UPDATE_END -->
+<!-- LIQUID_DEMO_SWITCH_START -->
+<style id="at-liquid-demo-css">
+.at-demo-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 10px 4px 12px !important;
+  border-radius: 999px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  color: #e2e8f0 !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), 0 4px 12px rgba(0, 0, 0, 0.28);
+  transition: background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.at-demo-btn.on {
+  border-color: rgba(52, 211, 153, 0.65) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.34), rgba(5, 150, 105, 0.24)) !important;
+  color: #ecfdf5 !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32), 0 0 16px rgba(16, 185, 129, 0.35);
+}
+.at-liq-left-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1;
+  pointer-events: none;
+}
+.at-demo-btn.on .at-liq-left-label {
+  color: #6ee7b7;
+}
+.at-liq-track {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.at-demo-btn.on .at-liq-track {
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+  border-color: rgba(167, 243, 208, 0.85);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.45), 0 0 12px rgba(52, 211, 153, 0.55);
+}
+.at-liq-wave {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.45), transparent 65%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.at-liq-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 1px #ffffff;
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 0.2s ease;
+}
+.at-demo-btn:active .at-liq-thumb {
+  width: 18px;
+}
+.at-demo-btn.on .at-liq-thumb {
+  transform: translateX(16px);
+}
+.at-demo-btn.on:active .at-liq-thumb {
+  transform: translateX(12px);
+}
+.at-liq-right-state {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: #cbd5e1;
+  line-height: 1;
+  pointer-events: none;
+}
+.at-demo-btn.on .at-liq-right-state {
+  color: #6ee7b7;
+}
+</style>
+<script id="at-liquid-demo-js">
+(function(){
+  function syncLiquidDemo(){
+    var btn = document.getElementById('at-demo-toggle');
+    if (!btn) return;
+
+    var isOn = btn.classList.contains('on');
+    if (btn.dataset.liqPillReady !== '1') {
+      btn.dataset.liqPillReady = '1';
+      btn.innerHTML =
+        '<span class="at-liq-left-label">Demo</span>' +
+        '<span class="at-liq-track">' +
+          '<span class="at-liq-wave"></span>' +
+          '<span class="at-liq-thumb"></span>' +
+        '</span>' +
+        '<span class="at-liq-right-state" id="at-demo-txt">' + (isOn ? 'ON' : 'OFF') + '</span>';
+    }
+
+    var stateEl = document.getElementById('at-demo-txt');
+    if (stateEl) {
+      var nextLabel = isOn ? 'ON' : 'OFF';
+      if (stateEl.textContent !== nextLabel) stateEl.textContent = nextLabel;
+    }
+    btn.setAttribute('aria-label', isOn ? 'Demo ON' : 'Demo OFF');
+  }
+
+  setInterval(syncLiquidDemo, 350);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncLiquidDemo);
+  } else {
+    syncLiquidDemo();
+  }
+})();
+</script>
+<!-- LIQUID_DEMO_SWITCH_END -->
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
-    "version":  "1.91",
-    "version_code":  91,
+    "version":  "1.92",
+    "version_code":  92,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Automatic update banner on open without startup update modal",
+    "notes":  "• Styled Demo toggle pill with Demo label, liquid slider, and OFF/ON state indicator",
     "force":  false,
-    "updated_at":  "2026-11-24 21:10 IST"
+    "updated_at":  "2026-11-24 21:16 IST"
 }
