@@ -4551,6 +4551,11 @@ window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/
   };
 
   function checkForRemoteUpdate() {
+    var isNative = Boolean(
+      (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) ||
+      location.protocol === 'capacitor:'
+    );
+    if (!isNative) return;
     var url = window.AQUATWIN_OTA_URL;
     if (!url) return;
 
