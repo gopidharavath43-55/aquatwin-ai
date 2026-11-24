@@ -86,10 +86,8 @@ EOF
 
       - name: Publish or update GitHub Release
         uses: softprops/action-gh-release@v2
-        env:
-          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag_name || github.ref_name }}
         with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          name: AquaTwin AI ${{ env.RELEASE_TAG }}
+          tag_name: ${{ inputs.tag_name || github.ref_name }}
+          name: AquaTwin AI ${{ inputs.tag_name || github.ref_name }}
           files: AquaTwin-AI.apk
           make_latest: true
