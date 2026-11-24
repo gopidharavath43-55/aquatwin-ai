@@ -44,32 +44,19 @@ jobs:
           echo "ANDROID_SDK_ROOT=$SDK_DIR" >> "$GITHUB_ENV"
           echo "PATH=$SDK_DIR/platform-tools:$SDK_DIR/cmdline-tools/latest/bin:$PATH" >> "$GITHUB_ENV"
 
-      - name: Install dependencies & sync Capacitor
+      - name: Install dependencies and sync Capacitor
         working-directory: mobile-app
         run: |
           set -e
           mkdir -p www
-          if [ ! -f www/index.html ] && [ -f index.html ]; then
-            cp index.html www/index.html
-          fi
-          if [ ! -f www/ml_data.js ] && [ -f ml_data.js ]; then
-            cp ml_data.js www/ml_data.js
-          fi
+          if [ -f index.html ]; then cp index.html www/index.html; fi
+          if [ -f ml_data.js ]; then cp ml_data.js www/ml_data.js; fi
           if [ ! -f package.json ]; then
-            cat <<'EOF' > package.json
-          {
-            "name": "aquatwin-ai-mobile",
-            "version": "1.75.0",
-            "private": true,
-            "dependencies": {
-              "@capacitor/android": "^6.0.0",
-              "@capacitor/cli": "^6.0.0",
-              "@capacitor/core": "^6.0.0"
-            }
-          }
-          EOF
+            npm init -y
+            npm install --no-audit --no-fund @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
+          else
+            npm install --no-audit --no-fund
           fi
-          npm install --no-audit --no-fund
           if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
             npx cap init "AquaTwin AI" "com.aquatwin.ai" --web-dir www
           fi
@@ -82,9 +69,10 @@ jobs:
         working-directory: mobile-app/android
         run: |
           set -e
-          rm -f local.properties
+          printf "sdk.dir=%s\n" "$ANDROID_SDK_ROOT" > local.properties
+          sed -i 's/\r$//' gradlew
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace
           cp app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
 
       - name: Publish or update GitHub Release
