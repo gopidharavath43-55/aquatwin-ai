@@ -29,38 +29,52 @@ jobs:
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'microsoft'
+          distribution: 'temurin'
           java-version: '21'
 
-      - name: Prepare Android SDK
-        run: |
-          set -e
-          SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
-          if [ ! -d "$SDK_DIR" ]; then
-            echo "Android SDK not found at $SDK_DIR"
-            exit 1
-          fi
-          echo "ANDROID_HOME=$SDK_DIR" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$SDK_DIR" >> "$GITHUB_ENV"
-          echo "PATH=$SDK_DIR/platform-tools:$SDK_DIR/cmdline-tools/latest/bin:$PATH" >> "$GITHUB_ENV"
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Install dependencies and sync Capacitor
         working-directory: mobile-app
         run: |
           set -e
           mkdir -p www
-          if [ -f index.html ]; then cp index.html www/index.html; fi
-          if [ -f ml_data.js ]; then cp ml_data.js www/ml_data.js; fi
+          if [ -f index.html ]; then cp -f index.html www/index.html; fi
+          if [ -f ml_data.js ]; then cp -f ml_data.js www/ml_data.js; fi
+          if [ ! -f www/index.html ]; then
+            echo "<h1>AquaTwin AI</h1>" > www/index.html
+          fi
+
+          cat <<'EOF' > capacitor.config.json
+          {
+            "appId": "com.aquatwin.ai",
+            "appName": "AquaTwin AI",
+            "webDir": "www",
+            "bundledWebRuntime": false
+          }
+          EOF
+
           if [ ! -f package.json ]; then
-            npm init -y
-            npm install --no-audit --no-fund @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
-          else
-            npm install --no-audit --no-fund
+            cat <<'EOF' > package.json
+          {
+            "name": "aquatwin-ai-mobile",
+            "version": "1.75.0",
+            "private": true,
+            "dependencies": {
+              "@capacitor/android": "^6.1.2",
+              "@capacitor/cli": "^6.1.2",
+              "@capacitor/core": "^6.1.2"
+            }
+          }
+          EOF
           fi
-          if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
-            npx cap init "AquaTwin AI" "com.aquatwin.ai" --web-dir www
-          fi
-          if [ ! -d android ]; then
+
+          rm -f package-lock.json
+          npm install --no-audit --no-fund --legacy-peer-deps
+
+          if [ ! -f android/app/build.gradle ]; then
+            rm -rf android
             npx cap add android
           fi
           npx cap sync android
@@ -69,11 +83,11 @@ jobs:
         working-directory: mobile-app/android
         run: |
           set -e
-          printf "sdk.dir=%s\n" "$ANDROID_SDK_ROOT" > local.properties
+          printf "sdk.dir=%s\n" "${ANDROID_HOME:-$ANDROID_SDK_ROOT}" > local.properties
           sed -i 's/\r$//' gradlew
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --stacktrace
-          cp app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
+          cp -f app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
 
       - name: Publish or update GitHub Release
         uses: softprops/action-gh-release@v2
