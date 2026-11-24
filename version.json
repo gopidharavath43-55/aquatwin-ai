@@ -1,8 +1,8 @@
 {
-    "version":  "1.68",
-    "version_code":  68,
+    "version":  "1.69",
+    "version_code":  69,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "â€¢ All 33 Telangana districts with full official names\nâ€¢ Smooth Satellite Map \u0026 Apple Liquid Glass Dock\nâ€¢ Live Ask AI water quality, Sentinel-2 \u0026 groundwater telemetry",
+    "notes":  "• Added new feature",
     "force":  false,
-    "updated_at":  "2026-11-24 15:07 IST"
+    "updated_at":  "2026-11-24 15:21 IST"
 }
