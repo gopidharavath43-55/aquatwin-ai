@@ -1,0 +1,1971 @@
+{
+    "model_version":  "v3-spatiotemporal-ensemble",
+    "count":  33,
+    "districts":  [
+                      {
+                          "district":  "Adilabad",
+                          "latitude":  19.5157,
+                          "longitude":  78.5739,
+                          "ndwi_mean":  -0.5505,
+                          "turbidity_index":  0.9685,
+                          "water_coverage_pct":  0.404,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  67.0,
+                          "lstm_1m_wqi":  69.2,
+                          "lstm_6m_wqi":  70.1,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  50.0
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  51.1
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  49.9
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  49.2
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  46.8
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  45.0
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  50.8,
+                          "ensemble_6m_wqi":  49.1,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  48.3,
+                          "anomaly_status":  "Watch",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  9.59,
+                          "gw_extraction_pct":  42.9,
+                          "gw_recharge_mm":  12.06,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.18,
+                          "gw_pred_6m":  10.43,
+                          "lstm_3m_wqi":  71.0,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  73.74,
+                          "temp_c":  34.6,
+                          "evap_mm":  172.09,
+                          "pollution_idx":  46.4,
+                          "reservoir_idx":  39.42,
+                          "ndmi_proxy":  0.0949,
+                          "wqi_score":  70.83,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Bhadradri Kothagudem",
+                          "latitude":  17.7618,
+                          "longitude":  80.847,
+                          "ndwi_mean":  -0.5459,
+                          "turbidity_index":  0.8088,
+                          "water_coverage_pct":  4.001,
+                          "status":  "Low Water",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  77.0,
+                          "lstm_1m_wqi":  82.4,
+                          "lstm_6m_wqi":  82.3,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  68.2
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  67.8
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  67.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  66.3
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  58.1
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  57.2
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  55.3,
+                          "ensemble_6m_wqi":  57.1,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  41.2,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  8.34,
+                          "gw_extraction_pct":  40.9,
+                          "gw_recharge_mm":  2.19,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  8.95,
+                          "gw_pred_6m":  9.93,
+                          "lstm_3m_wqi":  83.0,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  12.02,
+                          "temp_c":  33.18,
+                          "evap_mm":  152.13,
+                          "pollution_idx":  57.0,
+                          "reservoir_idx":  28.24,
+                          "ndmi_proxy":  0.1748,
+                          "wqi_score":  75.35,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Hanumakonda",
+                          "latitude":  18.0,
+                          "longitude":  79.5882,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  68.5,
+                          "lstm_1m_wqi":  69.7,
+                          "lstm_3m_wqi":  69.0,
+                          "lstm_6m_wqi":  67.7,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  8.5,
+                          "gw_extraction_pct":  61.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  8.65,
+                          "gw_pred_6m":  8.95,
+                          "gw_status":  "Safe",
+                          "risk_level":  "Moderate Risk"
+                      },
+                      {
+                          "district":  "Hyderabad",
+                          "latitude":  17.385,
+                          "longitude":  78.4867,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  64.2,
+                          "lstm_1m_wqi":  65.4,
+                          "lstm_3m_wqi":  64.7,
+                          "lstm_6m_wqi":  63.4,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  11.1,
+                          "gw_extraction_pct":  98.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  11.25,
+                          "gw_pred_6m":  11.55,
+                          "gw_status":  "Critical",
+                          "risk_level":  "Moderate Risk"
+                      },
+                      {
+                          "district":  "Jagtial",
+                          "latitude":  18.8337,
+                          "longitude":  78.885,
+                          "ndwi_mean":  -0.5643,
+                          "turbidity_index":  0.8555,
+                          "water_coverage_pct":  1.0977,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  74.0,
+                          "lstm_1m_wqi":  86.1,
+                          "lstm_6m_wqi":  87.1,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  76.7
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  75.2
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  75.9
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  77.4
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  76.3
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  71.4
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  76.6,
+                          "ensemble_6m_wqi":  78.0,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  22.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  7.27,
+                          "gw_extraction_pct":  50.6,
+                          "gw_recharge_mm":  10.78,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  7.66,
+                          "gw_pred_6m":  9.58,
+                          "lstm_3m_wqi":  87.8,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  65.72,
+                          "temp_c":  35.17,
+                          "evap_mm":  173.08,
+                          "pollution_idx":  52.51,
+                          "reservoir_idx":  46.36,
+                          "ndmi_proxy":  0.1954,
+                          "wqi_score":  72.31,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Jangaon",
+                          "latitude":  17.7913,
+                          "longitude":  79.2944,
+                          "ndwi_mean":  -0.5146,
+                          "turbidity_index":  1.05,
+                          "water_coverage_pct":  1.9172,
+                          "status":  "Low Water",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  69.9,
+                          "lstm_1m_wqi":  78.8,
+                          "lstm_6m_wqi":  80.9,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  72.7
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  72.7
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  72.5
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  71.4
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  69.0
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  68.6
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  71.5,
+                          "ensemble_6m_wqi":  73.3,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  8.3,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  11.12,
+                          "gw_extraction_pct":  62.7,
+                          "gw_recharge_mm":  8.74,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.94,
+                          "gw_pred_6m":  11.79,
+                          "lstm_3m_wqi":  80.6,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  52.96,
+                          "temp_c":  31.63,
+                          "evap_mm":  160.6,
+                          "pollution_idx":  49.07,
+                          "reservoir_idx":  41.27,
+                          "ndmi_proxy":  0.0606,
+                          "wqi_score":  70.82,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Jayashankar Bhupalpally",
+                          "latitude":  18.4386,
+                          "longitude":  79.8606,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  68.5,
+                          "lstm_1m_wqi":  69.7,
+                          "lstm_3m_wqi":  69.0,
+                          "lstm_6m_wqi":  67.7,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  6.2,
+                          "gw_extraction_pct":  43.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  6.35,
+                          "gw_pred_6m":  6.65,
+                          "gw_status":  "Safe",
+                          "risk_level":  "Moderate Risk"
+                      },
+                      {
+                          "district":  "Jogulamba Gadwal",
+                          "latitude":  16.2336,
+                          "longitude":  77.8081,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  68.5,
+                          "lstm_1m_wqi":  69.7,
+                          "lstm_3m_wqi":  69.0,
+                          "lstm_6m_wqi":  67.7,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  8.1,
+                          "gw_extraction_pct":  46.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  8.25,
+                          "gw_pred_6m":  8.55,
+                          "gw_status":  "Safe",
+                          "risk_level":  "Moderate Risk"
+                      },
+                      {
+                          "district":  "Kamareddy",
+                          "latitude":  18.3244,
+                          "longitude":  78.0626,
+                          "ndwi_mean":  -0.5563,
+                          "turbidity_index":  0.967,
+                          "water_coverage_pct":  1.358,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  70.3,
+                          "lstm_1m_wqi":  79.3,
+                          "lstm_6m_wqi":  81.0,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  74.4
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  72.2
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  70.8
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  69.1
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  68.7
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  65.2
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  68.7,
+                          "ensemble_6m_wqi":  68.4,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  11.5,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  14.54,
+                          "gw_extraction_pct":  55.0,
+                          "gw_recharge_mm":  5.36,
+                          "gw_status":  "Over-Exploited",
+                          "gw_pred_1m":  14.12,
+                          "gw_pred_6m":  13.8,
+                          "lstm_3m_wqi":  81.1,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  31.83,
+                          "temp_c":  34.18,
+                          "evap_mm":  153.52,
+                          "pollution_idx":  55.05,
+                          "reservoir_idx":  50.73,
+                          "ndmi_proxy":  0.1166,
+                          "wqi_score":  70.03,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Karimnagar",
+                          "latitude":  18.3759,
+                          "longitude":  79.245,
+                          "ndwi_mean":  -0.4739,
+                          "turbidity_index":  1.0089,
+                          "water_coverage_pct":  3.4465,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  77.3,
+                          "lstm_1m_wqi":  91.4,
+                          "lstm_6m_wqi":  90.7,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  89.5
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  89.2
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  89.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  88.8
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  87.1
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  85.4
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  90.0,
+                          "ensemble_6m_wqi":  90.1,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  65.5,
+                          "anomaly_status":  "Watch",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  9.76,
+                          "gw_extraction_pct":  58.7,
+                          "gw_recharge_mm":  13.64,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.3,
+                          "gw_pred_6m":  12.75,
+                          "lstm_3m_wqi":  92.2,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  83.58,
+                          "temp_c":  35.15,
+                          "evap_mm":  172.95,
+                          "pollution_idx":  56.22,
+                          "reservoir_idx":  57.09,
+                          "ndmi_proxy":  0.1163,
+                          "wqi_score":  71.91,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Khammam",
+                          "latitude":  17.2094,
+                          "longitude":  80.3654,
+                          "ndwi_mean":  -0.5527,
+                          "turbidity_index":  0.8313,
+                          "water_coverage_pct":  3.0577,
+                          "status":  "Low Water",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  78.6,
+                          "lstm_1m_wqi":  89.6,
+                          "lstm_6m_wqi":  88.7,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  85.8
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  83.1
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  82.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  81.9
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  80.9
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  81.0
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  85.4,
+                          "ensemble_6m_wqi":  86.3,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  27.2,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  6.82,
+                          "gw_extraction_pct":  47.8,
+                          "gw_recharge_mm":  7.06,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  6.52,
+                          "gw_pred_6m":  8.79,
+                          "lstm_3m_wqi":  90.1,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  42.45,
+                          "temp_c":  32.58,
+                          "evap_mm":  169.22,
+                          "pollution_idx":  44.71,
+                          "reservoir_idx":  39.9,
+                          "ndmi_proxy":  0.162,
+                          "wqi_score":  77.1,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Kumuram Bheem Asifabad",
+                          "latitude":  19.3591,
+                          "longitude":  79.4209,
+                          "ndwi_mean":  -0.5982,
+                          "turbidity_index":  0.8223,
+                          "water_coverage_pct":  0.2405,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  67.9,
+                          "lstm_1m_wqi":  75.7,
+                          "lstm_6m_wqi":  76.9,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  57.5
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  57.8
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  57.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  56.1
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  56.5
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  56.2
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  49.3,
+                          "ensemble_6m_wqi":  49.2,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  33.4,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  8.61,
+                          "gw_extraction_pct":  42.0,
+                          "gw_recharge_mm":  8.02,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  8.97,
+                          "gw_pred_6m":  9.43,
+                          "lstm_3m_wqi":  77.3,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  48.46,
+                          "temp_c":  30.67,
+                          "evap_mm":  137.9,
+                          "pollution_idx":  55.53,
+                          "reservoir_idx":  34.13,
+                          "ndmi_proxy":  0.1953,
+                          "wqi_score":  70.45,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Mahabubabad",
+                          "latitude":  17.668,
+                          "longitude":  79.9834,
+                          "ndwi_mean":  -0.5622,
+                          "turbidity_index":  0.8958,
+                          "water_coverage_pct":  1.2307,
+                          "status":  "Low Water",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  73.5,
+                          "lstm_1m_wqi":  81.2,
+                          "lstm_6m_wqi":  83.2,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  69.3
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  68.5
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  66.9
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  65.7
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  60.7
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  57.5
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  68.6,
+                          "ensemble_6m_wqi":  69.9,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  29.1,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  9.82,
+                          "gw_extraction_pct":  58.2,
+                          "gw_recharge_mm":  2.66,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  9.86,
+                          "gw_pred_6m":  10.8,
+                          "lstm_3m_wqi":  82.9,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  14.95,
+                          "temp_c":  32.02,
+                          "evap_mm":  157.59,
+                          "pollution_idx":  51.91,
+                          "reservoir_idx":  33.04,
+                          "ndmi_proxy":  0.1343,
+                          "wqi_score":  71.92,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Mahabubnagar",
+                          "latitude":  16.7533,
+                          "longitude":  77.9956,
+                          "ndwi_mean":  -0.4751,
+                          "turbidity_index":  1.1421,
+                          "water_coverage_pct":  0.4397,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  64.7,
+                          "lstm_1m_wqi":  70.8,
+                          "lstm_6m_wqi":  73.5,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  63.6
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  63.4
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  60.5
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  57.7
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  56.8
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  56.0
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  56.0,
+                          "ensemble_6m_wqi":  56.5,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  27.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  11.9,
+                          "gw_extraction_pct":  79.2,
+                          "gw_recharge_mm":  6.87,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  11.58,
+                          "gw_pred_6m":  13.01,
+                          "lstm_3m_wqi":  72.8,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  41.26,
+                          "temp_c":  31.9,
+                          "evap_mm":  168.28,
+                          "pollution_idx":  62.62,
+                          "reservoir_idx":  39.55,
+                          "ndmi_proxy":  0.0026,
+                          "wqi_score":  63.7,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Mancherial",
+                          "latitude":  18.999,
+                          "longitude":  79.518,
+                          "ndwi_mean":  -0.5761,
+                          "turbidity_index":  0.8314,
+                          "water_coverage_pct":  0.6318,
+                          "status":  "Low Water",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  71.5,
+                          "lstm_1m_wqi":  79.0,
+                          "lstm_6m_wqi":  79.8,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  66.5
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  64.7
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  64.1
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  60.1
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  56.7
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  56.0
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  58.1,
+                          "ensemble_6m_wqi":  57.2,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  29.3,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  8.62,
+                          "gw_extraction_pct":  45.7,
+                          "gw_recharge_mm":  6.86,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  8.61,
+                          "gw_pred_6m":  9.2,
+                          "lstm_3m_wqi":  80.5,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  41.2,
+                          "temp_c":  32.67,
+                          "evap_mm":  161.67,
+                          "pollution_idx":  50.78,
+                          "reservoir_idx":  35.49,
+                          "ndmi_proxy":  0.1643,
+                          "wqi_score":  72.19,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Medak",
+                          "latitude":  17.9554,
+                          "longitude":  78.2569,
+                          "ndwi_mean":  -0.5051,
+                          "turbidity_index":  1.0711,
+                          "water_coverage_pct":  1.5796,
+                          "status":  "Normal",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  68.9,
+                          "lstm_1m_wqi":  77.3,
+                          "lstm_6m_wqi":  79.2,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  74.2
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  73.2
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  71.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  71.3
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  71.4
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  71.7
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  71.4,
+                          "ensemble_6m_wqi":  74.3,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  5.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  11.94,
+                          "gw_extraction_pct":  73.6,
+                          "gw_recharge_mm":  4.7,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  11.76,
+                          "gw_pred_6m":  12.98,
+                          "lstm_3m_wqi":  79.0,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  27.7,
+                          "temp_c":  30.1,
+                          "evap_mm":  145.8,
+                          "pollution_idx":  51.6,
+                          "reservoir_idx":  42.94,
+                          "ndmi_proxy":  0.0431,
+                          "wqi_score":  69.33,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Medchal-Malkajgiri",
+                          "latitude":  17.5466,
+                          "longitude":  78.5613,
+                          "ndwi_mean":  -0.4327,
+                          "turbidity_index":  1.0402,
+                          "water_coverage_pct":  1.0487,
+                          "status":  "Low Water",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  68.1,
+                          "lstm_1m_wqi":  75.8,
+                          "lstm_6m_wqi":  77.0,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  67.5
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  67.0
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  66.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  63.2
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  61.1
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  60.9
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  66.8,
+                          "ensemble_6m_wqi":  67.9,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  29.7,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  10.61,
+                          "gw_extraction_pct":  49.4,
+                          "gw_recharge_mm":  11.37,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.92,
+                          "gw_pred_6m":  12.23,
+                          "lstm_3m_wqi":  77.2,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  69.38,
+                          "temp_c":  33.64,
+                          "evap_mm":  153.05,
+                          "pollution_idx":  55.47,
+                          "reservoir_idx":  40.41,
+                          "ndmi_proxy":  0.0318,
+                          "wqi_score":  68.18,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Mulugu",
+                          "latitude":  18.2537,
+                          "longitude":  80.234,
+                          "ndwi_mean":  -0.638,
+                          "turbidity_index":  0.7131,
+                          "water_coverage_pct":  0.0615,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  69.2,
+                          "lstm_1m_wqi":  79.2,
+                          "lstm_6m_wqi":  80.6,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  67.1
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  67.3
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  66.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  65.0
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  59.4
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  58.7
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  62.0,
+                          "ensemble_6m_wqi":  62.0,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  13.2,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  8.35,
+                          "gw_extraction_pct":  38.9,
+                          "gw_recharge_mm":  3.92,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  8.8,
+                          "gw_pred_6m":  9.4,
+                          "lstm_3m_wqi":  80.8,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  22.86,
+                          "temp_c":  31.62,
+                          "evap_mm":  164.07,
+                          "pollution_idx":  49.81,
+                          "reservoir_idx":  42.69,
+                          "ndmi_proxy":  0.2087,
+                          "wqi_score":  71.63,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Nagarkurnool",
+                          "latitude":  16.3928,
+                          "longitude":  78.5981,
+                          "ndwi_mean":  -0.5083,
+                          "turbidity_index":  1.1694,
+                          "water_coverage_pct":  0.5397,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  63.5,
+                          "lstm_1m_wqi":  61.1,
+                          "lstm_6m_wqi":  63.8,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  59.9
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  62.0
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  59.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  57.0
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  55.8
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  54.9
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  51.5,
+                          "ensemble_6m_wqi":  50.2,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  49.2,
+                          "anomaly_status":  "Watch",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  10.8,
+                          "gw_extraction_pct":  43.3,
+                          "gw_recharge_mm":  12.26,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.8,
+                          "gw_pred_6m":  12.41,
+                          "lstm_3m_wqi":  63.9,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  74.99,
+                          "temp_c":  33.72,
+                          "evap_mm":  172.09,
+                          "pollution_idx":  64.74,
+                          "reservoir_idx":  43.61,
+                          "ndmi_proxy":  0.0045,
+                          "wqi_score":  62.82,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Nalgonda",
+                          "latitude":  16.8759,
+                          "longitude":  79.2008,
+                          "ndwi_mean":  -0.433,
+                          "turbidity_index":  1.1463,
+                          "water_coverage_pct":  1.7087,
+                          "status":  "Normal",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  69.3,
+                          "lstm_1m_wqi":  77.5,
+                          "lstm_6m_wqi":  80.2,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  77.5
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  80.1
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  78.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  74.8
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  65.0
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  69.4
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  70.7,
+                          "ensemble_6m_wqi":  72.7,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  20.4,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  12.4,
+                          "gw_extraction_pct":  51.8,
+                          "gw_recharge_mm":  3.34,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  12.16,
+                          "gw_pred_6m":  12.81,
+                          "lstm_3m_wqi":  79.5,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  19.24,
+                          "temp_c":  31.86,
+                          "evap_mm":  173.21,
+                          "pollution_idx":  54.49,
+                          "reservoir_idx":  49.08,
+                          "ndmi_proxy":  -0.0005,
+                          "wqi_score":  67.44,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Narayanpet",
+                          "latitude":  16.6407,
+                          "longitude":  77.5792,
+                          "ndwi_mean":  -0.4701,
+                          "turbidity_index":  1.2191,
+                          "water_coverage_pct":  0.05,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  63.5,
+                          "lstm_1m_wqi":  64.6,
+                          "lstm_6m_wqi":  66.0,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  63.3
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  64.1
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  61.3
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  58.1
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  56.7
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  56.7
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  62.6,
+                          "ensemble_6m_wqi":  63.7,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  8.1,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  11.02,
+                          "gw_extraction_pct":  43.8,
+                          "gw_recharge_mm":  5.57,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.82,
+                          "gw_pred_6m":  12.17,
+                          "lstm_3m_wqi":  66.4,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  33.18,
+                          "temp_c":  32.72,
+                          "evap_mm":  155.66,
+                          "pollution_idx":  48.48,
+                          "reservoir_idx":  38.2,
+                          "ndmi_proxy":  -0.0563,
+                          "wqi_score":  65.31,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Nirmal",
+                          "latitude":  19.1112,
+                          "longitude":  78.3185,
+                          "ndwi_mean":  -0.5149,
+                          "turbidity_index":  0.917,
+                          "water_coverage_pct":  3.8053,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  74.1,
+                          "lstm_1m_wqi":  81.8,
+                          "lstm_6m_wqi":  82.1,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  75.9
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  74.8
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  73.1
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  70.6
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  68.0
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  64.7
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  71.7,
+                          "ensemble_6m_wqi":  72.8,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  33.7,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  9.59,
+                          "gw_extraction_pct":  48.7,
+                          "gw_recharge_mm":  7.72,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.18,
+                          "gw_pred_6m":  11.19,
+                          "lstm_3m_wqi":  82.8,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  46.6,
+                          "temp_c":  33.47,
+                          "evap_mm":  140.26,
+                          "pollution_idx":  59.78,
+                          "reservoir_idx":  70.23,
+                          "ndmi_proxy":  0.1295,
+                          "wqi_score":  73.18,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Nizamabad",
+                          "latitude":  18.696,
+                          "longitude":  78.2131,
+                          "ndwi_mean":  -0.4942,
+                          "turbidity_index":  1.0128,
+                          "water_coverage_pct":  1.5895,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  70.8,
+                          "lstm_1m_wqi":  83.5,
+                          "lstm_6m_wqi":  84.9,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  83.4
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  83.5
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  83.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  79.5
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  73.7
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  74.1
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  83.3,
+                          "ensemble_6m_wqi":  83.6,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  23.4,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  9.94,
+                          "gw_extraction_pct":  55.2,
+                          "gw_recharge_mm":  10.28,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.55,
+                          "gw_pred_6m":  11.32,
+                          "lstm_3m_wqi":  85.3,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  62.58,
+                          "temp_c":  31.43,
+                          "evap_mm":  142.17,
+                          "pollution_idx":  50.53,
+                          "reservoir_idx":  64.19,
+                          "ndmi_proxy":  0.092,
+                          "wqi_score":  70.66,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Peddapalli",
+                          "latitude":  18.6248,
+                          "longitude":  79.4575,
+                          "ndwi_mean":  -0.5337,
+                          "turbidity_index":  0.9095,
+                          "water_coverage_pct":  1.3752,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  74.4,
+                          "lstm_1m_wqi":  88.2,
+                          "lstm_6m_wqi":  88.5,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  83.2
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  81.8
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  81.9
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  80.8
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  75.0
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  70.9
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  81.3,
+                          "ensemble_6m_wqi":  84.5,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  27.1,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  8.63,
+                          "gw_extraction_pct":  49.5,
+                          "gw_recharge_mm":  10.22,
+                          "gw_status":  "Safe",
+                          "gw_pred_1m":  8.94,
+                          "gw_pred_6m":  10.0,
+                          "lstm_3m_wqi":  89.7,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  62.2,
+                          "temp_c":  32.62,
+                          "evap_mm":  167.33,
+                          "pollution_idx":  48.48,
+                          "reservoir_idx":  47.15,
+                          "ndmi_proxy":  0.155,
+                          "wqi_score":  72.73,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Rajanna Sircilla",
+                          "latitude":  18.42,
+                          "longitude":  78.7654,
+                          "ndwi_mean":  -0.4913,
+                          "turbidity_index":  0.9859,
+                          "water_coverage_pct":  3.1915,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  78.7,
+                          "lstm_1m_wqi":  82.6,
+                          "lstm_6m_wqi":  84.1,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  83.3
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  83.0
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  80.6
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  76.2
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  67.5
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  74.6
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  77.2,
+                          "ensemble_6m_wqi":  77.6,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  10.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  11.39,
+                          "gw_extraction_pct":  71.8,
+                          "gw_recharge_mm":  3.99,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  11.28,
+                          "gw_pred_6m":  13.05,
+                          "lstm_3m_wqi":  84.4,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  23.29,
+                          "temp_c":  33.71,
+                          "evap_mm":  151.29,
+                          "pollution_idx":  41.35,
+                          "reservoir_idx":  58.71,
+                          "ndmi_proxy":  0.1004,
+                          "wqi_score":  75.68,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Ranga Reddy",
+                          "latitude":  17.1316,
+                          "longitude":  78.4113,
+                          "ndwi_mean":  -0.474,
+                          "turbidity_index":  1.1791,
+                          "water_coverage_pct":  0.3226,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  64.3,
+                          "lstm_1m_wqi":  58.7,
+                          "lstm_6m_wqi":  61.3,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  61.0
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  63.5
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  62.4
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  62.7
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  62.3
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  60.8
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  48.4,
+                          "ensemble_6m_wqi":  46.8,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  42.0,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Low Monsoon Recharge \u0026 High Evap",
+                          "gw_depth_mbgl":  12.98,
+                          "gw_extraction_pct":  72.2,
+                          "gw_recharge_mm":  1.5,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  12.83,
+                          "gw_pred_6m":  13.91,
+                          "lstm_3m_wqi":  61.7,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  1.0,
+                          "temp_c":  32.82,
+                          "evap_mm":  158.56,
+                          "pollution_idx":  61.14,
+                          "reservoir_idx":  38.03,
+                          "ndmi_proxy":  -0.0213,
+                          "wqi_score":  63.24,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Sangareddy",
+                          "latitude":  17.7859,
+                          "longitude":  77.8745,
+                          "ndwi_mean":  -0.4812,
+                          "turbidity_index":  1.0978,
+                          "water_coverage_pct":  5.3201,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  68.4,
+                          "lstm_1m_wqi":  68.4,
+                          "lstm_6m_wqi":  69.3,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  66.0
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  67.0
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  67.1
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  65.6
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  65.9
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  66.0
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  54.3,
+                          "ensemble_6m_wqi":  54.2,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  45.3,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Industrial/Urban Pollution Load",
+                          "gw_depth_mbgl":  12.31,
+                          "gw_extraction_pct":  52.0,
+                          "gw_recharge_mm":  6.42,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  11.95,
+                          "gw_pred_6m":  13.75,
+                          "lstm_3m_wqi":  70.1,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  38.48,
+                          "temp_c":  33.77,
+                          "evap_mm":  169.46,
+                          "pollution_idx":  69.79,
+                          "reservoir_idx":  47.9,
+                          "ndmi_proxy":  0.0888,
+                          "wqi_score":  69.54,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Siddipet",
+                          "latitude":  18.0114,
+                          "longitude":  78.8542,
+                          "ndwi_mean":  -0.5138,
+                          "turbidity_index":  1.0253,
+                          "water_coverage_pct":  1.5465,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  70.1,
+                          "lstm_1m_wqi":  78.2,
+                          "lstm_6m_wqi":  79.8,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  76.1
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  75.2
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  73.3
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  72.1
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  71.6
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  70.6
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  70.4,
+                          "ensemble_6m_wqi":  74.0,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  10.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  11.75,
+                          "gw_extraction_pct":  73.2,
+                          "gw_recharge_mm":  4.67,
+                          "gw_status":  "Critical",
+                          "gw_pred_1m":  11.15,
+                          "gw_pred_6m":  12.38,
+                          "lstm_3m_wqi":  79.9,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  27.53,
+                          "temp_c":  31.41,
+                          "evap_mm":  138.61,
+                          "pollution_idx":  51.88,
+                          "reservoir_idx":  52.2,
+                          "ndmi_proxy":  0.0692,
+                          "wqi_score":  70.04,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Suryapet",
+                          "latitude":  17.0841,
+                          "longitude":  79.758,
+                          "ndwi_mean":  -0.5332,
+                          "turbidity_index":  0.9594,
+                          "water_coverage_pct":  0.7674,
+                          "status":  "Normal",
+                          "risk_level":  "Safe",
+                          "xgb_wqi":  70.0,
+                          "lstm_1m_wqi":  89.7,
+                          "lstm_6m_wqi":  90.4,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  87.9
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  87.7
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  87.5
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  85.8
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  83.2
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  86.4
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  84.9,
+                          "ensemble_6m_wqi":  85.7,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  42.3,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  10.3,
+                          "gw_extraction_pct":  57.5,
+                          "gw_recharge_mm":  11.19,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.3,
+                          "gw_pred_6m":  10.91,
+                          "lstm_3m_wqi":  91.2,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  68.29,
+                          "temp_c":  32.69,
+                          "evap_mm":  173.43,
+                          "pollution_idx":  50.02,
+                          "reservoir_idx":  51.01,
+                          "ndmi_proxy":  0.1067,
+                          "wqi_score":  70.6,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Vikarabad",
+                          "latitude":  17.251,
+                          "longitude":  77.7418,
+                          "ndwi_mean":  -0.5472,
+                          "turbidity_index":  1.0631,
+                          "water_coverage_pct":  1.1444,
+                          "status":  "High Turbidity",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  67.8,
+                          "lstm_1m_wqi":  68.5,
+                          "lstm_6m_wqi":  69.9,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  57.8
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  60.3
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  58.8
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  56.6
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  55.9
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  55.6
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  54.0,
+                          "ensemble_6m_wqi":  58.4,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  25.9,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  15.88,
+                          "gw_extraction_pct":  66.3,
+                          "gw_recharge_mm":  12.44,
+                          "gw_status":  "Over-Exploited",
+                          "gw_pred_1m":  11.99,
+                          "gw_pred_6m":  11.56,
+                          "lstm_3m_wqi":  70.3,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  76.1,
+                          "temp_c":  32.72,
+                          "evap_mm":  159.31,
+                          "pollution_idx":  47.11,
+                          "reservoir_idx":  38.95,
+                          "ndmi_proxy":  0.0807,
+                          "wqi_score":  69.99,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Wanaparthy",
+                          "latitude":  16.2921,
+                          "longitude":  78.0352,
+                          "ndwi_mean":  -0.4602,
+                          "turbidity_index":  1.1021,
+                          "water_coverage_pct":  1.8912,
+                          "status":  "Normal",
+                          "risk_level":  "Moderate Risk",
+                          "xgb_wqi":  69.2,
+                          "lstm_1m_wqi":  76.9,
+                          "lstm_6m_wqi":  79.9,
+                          "forecast_6m":  [
+                                              {
+                                                  "month":  "+1M",
+                                                  "lstm_wqi":  76.8
+                                              },
+                                              {
+                                                  "month":  "+2M",
+                                                  "lstm_wqi":  76.5
+                                              },
+                                              {
+                                                  "month":  "+3M",
+                                                  "lstm_wqi":  74.7
+                                              },
+                                              {
+                                                  "month":  "+4M",
+                                                  "lstm_wqi":  73.3
+                                              },
+                                              {
+                                                  "month":  "+5M",
+                                                  "lstm_wqi":  72.2
+                                              },
+                                              {
+                                                  "month":  "+6M",
+                                                  "lstm_wqi":  70.7
+                                              }
+                                          ],
+                          "ensemble_1m_wqi":  73.8,
+                          "ensemble_6m_wqi":  75.2,
+                          "ci_1m":  [
+                                        53.3,
+                                        86.6
+                                    ],
+                          "ci_6m":  [
+                                        52.5,
+                                        86.2
+                                    ],
+                          "anomaly_score":  14.2,
+                          "anomaly_status":  "Normal",
+                          "top_driver":  "Surface Water Shrinkage (NDWI)",
+                          "gw_depth_mbgl":  10.15,
+                          "gw_extraction_pct":  47.4,
+                          "gw_recharge_mm":  9.3,
+                          "gw_status":  "Semi-Critical",
+                          "gw_pred_1m":  10.32,
+                          "gw_pred_6m":  11.02,
+                          "lstm_3m_wqi":  78.7,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "rainfall_mm":  56.44,
+                          "temp_c":  32.38,
+                          "evap_mm":  155.1,
+                          "pollution_idx":  47.66,
+                          "reservoir_idx":  56.36,
+                          "ndmi_proxy":  0.0363,
+                          "wqi_score":  70.19,
+                          "data_month":  "2026-11"
+                      },
+                      {
+                          "district":  "Warangal",
+                          "latitude":  17.9689,
+                          "longitude":  79.5941,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  68.5,
+                          "lstm_1m_wqi":  69.7,
+                          "lstm_3m_wqi":  69.0,
+                          "lstm_6m_wqi":  67.7,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  8.3,
+                          "gw_extraction_pct":  58.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  8.45,
+                          "gw_pred_6m":  8.75,
+                          "gw_status":  "Safe",
+                          "risk_level":  "Moderate Risk"
+                      },
+                      {
+                          "district":  "Yadadri Bhuvanagiri",
+                          "latitude":  17.515,
+                          "longitude":  78.8886,
+                          "last_satellite_sync":  "2026-11-24 12:45 IST",
+                          "xgb_wqi":  68.5,
+                          "lstm_1m_wqi":  69.7,
+                          "lstm_3m_wqi":  69.0,
+                          "lstm_6m_wqi":  67.7,
+                          "ndwi_mean":  -0.18,
+                          "ndmi_proxy":  0.05,
+                          "turbidity_index":  1.12,
+                          "water_coverage_pct":  1.45,
+                          "gw_depth_mbgl":  9.1,
+                          "gw_extraction_pct":  70.0,
+                          "gw_recharge_mm":  7.8,
+                          "gw_pred_1m":  9.25,
+                          "gw_pred_6m":  9.55,
+                          "gw_status":  "Semi-Critical",
+                          "risk_level":  "Moderate Risk"
+                      }
+                  ],
+    "last_satellite_sync":  "2026-11-24 12:45 IST",
+    "satellite_source":  "Sentinel-2 L2A (GEE Live)",
+    "satellite_window":  "2026-10-10 to 2026-11-24"
+}

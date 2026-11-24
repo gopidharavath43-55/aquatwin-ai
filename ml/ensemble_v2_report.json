@@ -1,0 +1,44 @@
+{
+  "dataset": "telangana_upgraded_dataset.csv",
+  "rows": 990,
+  "feature_count": 17,
+  "xgboost_models": {
+    "1": "aquatwin_xgb_1m.json",
+    "3": "aquatwin_xgb_3m.json",
+    "6": "aquatwin_xgb_6m.json"
+  },
+  "xgboost_metrics": {
+    "1m": {
+      "r2": 0.8097,
+      "mae": 4.187,
+      "rmse": 5.264
+    },
+    "3m": {
+      "r2": 0.8314,
+      "mae": 3.998,
+      "rmse": 5.052
+    },
+    "6m": {
+      "r2": 0.8066,
+      "mae": 4.354,
+      "rmse": 5.441
+    }
+  },
+  "dl_hybrid_lstm_gru_metrics": {
+    "1m": {
+      "r2": 0.83,
+      "mae": 3.708,
+      "rmse": 5.046
+    },
+    "3m": {
+      "r2": 0.8428,
+      "mae": 3.684,
+      "rmse": 4.896
+    },
+    "6m": {
+      "r2": 0.8603,
+      "mae": 3.488,
+      "rmse": 4.522
+    }
+  }
+}

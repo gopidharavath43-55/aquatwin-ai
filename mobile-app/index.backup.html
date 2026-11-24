@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>AquaTwin AI</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.6.1/dist/chart.umd.min.js"></script>
+  <script src="data.js"></script>
+  <style>
+    :root {
+      --bg: #000000;
+      --card: #1c1c1e;
+      --card2: #2c2c2e;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: #8e8e93;
+      --blue: #0a84ff;
+      --green: #30d158;
+      --red: #ff453a;
+      --amber: #ff9f0a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* Top Glass Header */
+    header {
+      padding: 14px 18px 12px;
+      background: rgba(28, 28, 30, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 10;
+    }
+    header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
+    .pill-live { background: rgba(48, 209, 88, 0.16); color: var(--green); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+
+    /* Main Views */
+    main { flex: 1; position: relative; overflow: hidden; }
+    .view {
+      position: absolute; inset: 0; overflow-y: auto; padding: 14px 16px 24px;
+      opacity: 0; pointer-events: none; transform: translateY(8px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .view.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #view-map { padding: 0; overflow: hidden; }
+    #map { width: 100%; height: 100%; }
+
+    /* Summary Cards */
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 12px 14px; }
+    .stat-card span { font-size: 12px; color: var(--muted); }
+    .stat-card h2 { font-size: 24px; font-weight: 700; margin-top: 2px; }
+
+    /* Search & Filter */
+    .search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+    input[type="text"], select {
+      background: var(--card); color: var(--text); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 12px; font-size: 14px; outline: none;
+    }
+    input[type="text"] { flex: 1; }
+    select { width: 130px; }
+
+    /* District List */
+    .list { display: flex; flex-direction: column; gap: 10px; }
+    .d-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 13px 14px; display: flex; justify-content: space-between; align-items: center;
+      transition: transform 0.14s ease, background 0.14s ease; cursor: pointer;
+    }
+    .d-card:active { transform: scale(0.98); background: var(--card2); }
+    .d-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+    .d-meta { font-size: 12px; color: var(--muted); }
+    .tag { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 999px; }
+    .Normal { background: rgba(48, 209, 88, 0.15); color: var(--green); }
+    .High { background: rgba(255, 69, 58, 0.15); color: var(--red); }
+    .Low { background: rgba(255, 159, 10, 0.15); color: var(--amber); }
+
+    /* Simulator Panel */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 14px; margin-bottom: 12px; }
+    .sim-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .sim-head select { flex: 1; width: auto; font-weight: 600; }
+    .btn-reset { background: var(--card2); color: var(--text); border: none; padding: 10px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-reset:active { transform: scale(0.96); }
+
+    .slider-row { margin-bottom: 12px; }
+    .slider-row:last-child { margin-bottom: 0; }
+    .slider-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+    .slider-top b { color: var(--blue); }
+    input[type="range"] { width: 100%; accent-color: var(--blue); height: 6px; }
+
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .m-box { background: var(--card2); border-radius: 14px; padding: 10px; text-align: center; }
+    .m-box small { display: block; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .m-box strong { font-size: 17px; font-weight: 700; }
+
+    .ai-rec { font-size: 13px; line-height: 1.45; color: #e5e5ea; border-left: 3px solid var(--blue); padding-left: 10px; }
+    .chart-box { height: 180px; position: relative; }
+
+    /* Bottom Apple-style Tab Bar */
+    nav {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: rgba(28, 28, 30, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    }
+    .tab {
+      background: none; border: none; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      transition: color 0.18s ease, transform 0.14s ease;
+    }
+    .tab span.ico { font-size: 20px; line-height: 1; }
+    .tab.active { color: var(--blue); }
+    .tab:active { transform: scale(0.92); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AquaTwin AI</h1>
+    <span class="pill-live">Offline Ready • 33 Districts</span>
+  </header>
+
+  <main>
+    <!-- TAB 1: DISTRICTS -->
+    <section id="view-list" class="view active">
+      <div class="stats">
+        <div class="stat-card"><span>Avg AI WQI</span><h2 id="avgWqi" style="color:var(--blue)">-</h2></div>
+        <div class="stat-card"><span>Normal</span><h2 id="normalCount" style="color:var(--green)">-</h2></div>
+        <div class="stat-card"><span>High Turbidity</span><h2 id="highCount" style="color:var(--red)">-</h2></div>
+        <div class="stat-card"><span>Low Water</span><h2 id="lowCount" style="color:var(--amber)">-</h2></div>
+      </div>
+
+      <div class="search-bar">
+        <input id="searchBox" type="text" placeholder="Search Telangana district..." />
+        <select id="statusFilter">
+          <option value="ALL">All</option>
+          <option value="Normal">Normal</option>
+          <option value="High Turbidity">High Turb</option>
+          <option value="Low Water">Low Water</option>
+        </select>
+      </div>
+
+      <div id="districtList" class="list"></div>
+    </section>
+
+    <!-- TAB 2: MAP -->
+    <section id="view-map" class="view">
+      <div id="map"></div>
+    </section>
+
+    <!-- TAB 3: AI DIGITAL TWIN SIMULATOR -->
+    <section id="view-sim" class="view">
+      <div class="sim-head">
+        <select id="simSelect"></select>
+        <button class="btn-reset" onclick="resetSliders()">Reset</button>
+      </div>
+
+      <div class="card">
+        <div class="slider-row">
+          <div class="slider-top"><span>Rainfall Change</span><b id="rainVal">0%</b></div>
+          <input id="rainSlider" type="range" min="-50" max="50" value="0" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-top"><span>Temperature Change</span><b id="tempVal">0°C</b></div>
+          <input id="tempSlider" type="range" min="-3" max="5" step="0.5" value="0" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-top"><span>Pollution Load</span><b id="pollVal">0%</b></div>
+          <input id="pollSlider" type="range" min="-30" max="50" value="0" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="metrics-grid">
+          <div class="m-box"><small>Projected WQI</small><strong id="simWqi" style="color:var(--blue)">-</strong></div>
+          <div class="m-box"><small>Risk Level</small><strong id="simRisk">-</strong></div>
+          <div class="m-box"><small>Turbidity Index</small><strong id="simTurb">-</strong></div>
+          <div class="m-box"><small>Water Coverage</small><strong id="simWater">-</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">AI Recommendation</div>
+        <div id="simAction" class="ai-rec">-</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">6-Month WQI Forecast</div>
+        <div class="chart-box"><canvas id="forecastChart"></canvas></div>
+      </div>
+    </section>
+  </main>
+
+  <nav>
+    <button class="tab active" onclick="switchTab('list', this)"><span class="ico">📊</span><span>Districts</span></button>
+    <button class="tab" onclick="switchTab('map', this)"><span class="ico">🗺️</span><span>Map</span></button>
+    <button class="tab" onclick="switchTab('sim', this)"><span class="ico">⚡</span><span>AI Twin</span></button>
+  </nav>
+
+  <script>
+    // 1. Offline AI Engine (Instant 60fps local calculation)
+    function getStatus(turb, water) {
+      if (isNaN(turb)) return 'Unknown';
+      if (turb >= 1.15) return 'High Turbidity';
+      if (!isNaN(water) && water < 1.0) return 'Low Water';
+      return 'Normal';
+    }
+
+    function computeAI(turb, water, ndwi) {
+      const t = isNaN(turb) ? 1.0 : turb;
+      const w = isNaN(water) ? 1.5 : water;
+      const n = isNaN(ndwi) ? -0.45 : ndwi;
+
+      const raw = 88.0 - Math.max(0, (t - 0.95) * 110.0) + Math.min(10.0, w * 2.2) + (n + 0.5) * 20.0;
+      const wqi = Number(Math.max(15.0, Math.min(98.0, raw)).toFixed(1));
+
+      let risk = 'Low Risk';
+      let action = 'Water clarity and storage levels are within safe targets.';
+      if (wqi < 55) {
+        risk = 'High Risk';
+        action = 'Deploy sediment filtration & inspect runoff sources immediately.';
+      } else if (wqi < 72) {
+        risk = 'Moderate Risk';
+        action = 'Increase weekly monitoring & optimize local reservoir inflow.';
+      }
+      if (w < 1.0) action = 'Trigger drought conservation plan & prioritize groundwater recharge.';
+
+      return { wqi, risk, action };
+    }
+
+    // 2. Load packed Telangana data
+    const districts = (window.TELANGANA_DATA || []).map(r => {
+      const lat = Number(r.latitude);
+      const lng = Number(r.longitude);
+      const ndwi = Number(r.ndwi_mean);
+      const turb = Number(r.turbidity_index);
+      const water = Number(r.water_coverage_pct);
+      const status = getStatus(turb, water);
+      const ai = computeAI(turb, water, ndwi);
+      return {
+        district: r.district,
+        lat, lng,
+        ndwi: Number(ndwi.toFixed(4)),
+        turb: Number(turb.toFixed(4)),
+        water: Number(water.toFixed(4)),
+        status,
+        ...ai
+      };
+    });
+
+    let selected = districts[0];
+    let map, forecastChart;
+
+    function statusClass(s) {
+      if (s === 'High Turbidity') return 'High';
+      if (s === 'Low Water') return 'Low';
+      return 'Normal';
+    }
+
+    function statusColor(s) {
+      if (s === 'High Turbidity') return '#ff453a';
+      if (s === 'Low Water') return '#ff9f0a';
+      return '#30d158';
+    }
+
+    // 3. Tab Switching
+    function switchTab(name, btn) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('view-' + name).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (name === 'map' && map) setTimeout(() => map.invalidateSize(), 240);
+    }
+
+    // 4. Render District List
+    function renderList() {
+      const q = document.getElementById('searchBox').value.toLowerCase();
+      const st = document.getElementById('statusFilter').value;
+      const filtered = districts.filter(d =>
+        d.district.toLowerCase().includes(q) && (st === 'ALL' || d.status === st)
+      );
+
+      const box = document.getElementById('districtList');
+      box.innerHTML = '';
+      filtered.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'd-card';
+        el.innerHTML = `
+          <div>
+            <div class="d-name">${d.district}</div>
+            <div class="d-meta">WQI: <b>${d.wqi}</b> • Turb: ${d.turb} • Water: ${d.water}%</div>
+          </div>
+          <span class="tag ${statusClass(d.status)}">${d.status}</span>
+        `;
+        el.onclick = () => {
+          selected = d;
+          document.getElementById('simSelect').value = d.district;
+          runSim();
+          switchTab('sim', document.querySelectorAll('.tab')[2]);
+        };
+        box.appendChild(el);
+      });
+    }
+
+    // 5. Map Setup
+    function initMap() {
+      map = L.map('map').setView([18.0, 79.1], 7);
+      const street = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+        { attribution: '&copy; Esri', maxZoom: 18 }
+      ).addTo(map);
+      const sat = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        { attribution: '&copy; Esri', maxZoom: 18 }
+      );
+      L.control.layers({ 'Map': street, 'Satellite': sat }).addTo(map);
+
+      districts.forEach(d => {
+        if (!isNaN(d.lat) && !isNaN(d.lng)) {
+          L.circleMarker([d.lat, d.lng], {
+            radius: 9, fillColor: statusColor(d.status), color: '#fff', weight: 1.5, fillOpacity: 0.9
+          }).bindPopup(`<b>${d.district}</b><br/>Status: ${d.status}<br/>AI WQI: ${d.wqi}/100<br/>Turbidity: ${d.turb}`)
+            .on('click', () => {
+              selected = d;
+              document.getElementById('simSelect').value = d.district;
+              runSim();
+            })
+            .addTo(map);
+        }
+      });
+    }
+
+    // 6. Instant Digital Twin Simulator
+    function resetSliders() {
+      document.getElementById('rainSlider').value = 0;
+      document.getElementById('tempSlider').value = 0;
+      document.getElementById('pollSlider').value = 0;
+      runSim();
+    }
+
+    function runSim() {
+      if (!selected) return;
+      const rain = Number(document.getElementById('rainSlider').value);
+      const temp = Number(document.getElementById('tempSlider').value);
+      const poll = Number(document.getElementById('pollSlider').value);
+
+      document.getElementById('rainVal').textContent = (rain > 0 ? '+' : '') + rain + '%';
+      document.getElementById('tempVal').textContent = (temp > 0 ? '+' : '') + temp + '°C';
+      document.getElementById('pollVal').textContent = (poll > 0 ? '+' : '') + poll + '%';
+
+      const waterFactor = 1.0 + (rain * 0.009) - (temp * 0.045);
+      const simWater = Number(Math.max(0.1, selected.water * waterFactor).toFixed(4));
+      const simTurb = Number(Math.max(0.5, selected.turb + Math.max(0, rain) * 0.0018 + poll * 0.0045 + Math.max(0, temp) * 0.015).toFixed(4));
+      const simNdwi = Number(Math.max(-1, Math.min(1, selected.ndwi + (simWater - selected.water) * 0.04)).toFixed(4));
+      const ai = computeAI(simTurb, simWater, simNdwi);
+
+      document.getElementById('simWqi').textContent = ai.wqi + ' / 100';
+      const riskEl = document.getElementById('simRisk');
+      riskEl.textContent = ai.risk;
+      riskEl.style.color = ai.risk === 'High Risk' ? 'var(--red)' : ai.risk === 'Moderate Risk' ? 'var(--amber)' : 'var(--green)';
+      document.getElementById('simTurb').textContent = simTurb;
+      document.getElementById('simWater').textContent = simWater + '%';
+      document.getElementById('simAction').textContent = ai.action;
+
+      const labels = [];
+      const scores = [];
+      for (let m = 1; m <= 6; m++) {
+        const r = m / 6;
+        const mT = selected.turb + (simTurb - selected.turb) * r;
+        const mW = selected.water + (simWater - selected.water) * r;
+        const mN = selected.ndwi + (simNdwi - selected.ndwi) * r;
+        labels.push('M+' + m);
+        scores.push(computeAI(mT, mW, mN).wqi);
+      }
+
+      if (forecastChart) {
+        forecastChart.data.labels = labels;
+        forecastChart.data.datasets[0].data = scores;
+        forecastChart.update('none');
+      } else {
+        const ctx = document.getElementById('forecastChart').getContext('2d');
+        forecastChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [{
+              data: scores,
+              borderColor: '#0a84ff',
+              backgroundColor: 'rgba(10, 132, 255, 0.18)',
+              fill: true, tension: 0.38, pointRadius: 4, pointBackgroundColor: '#0a84ff'
+            }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#8e8e93' }, grid: { display: false } },
+              y: { min: 10, max: 100, ticks: { color: '#8e8e93' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+            }
+          }
+        });
+      }
+    }
+
+    // 7. Boot App
+    document.getElementById('normalCount').textContent = districts.filter(d => d.status === 'Normal').length;
+    document.getElementById('highCount').textContent = districts.filter(d => d.status === 'High Turbidity').length;
+    document.getElementById('lowCount').textContent = districts.filter(d => d.status === 'Low Water').length;
+    const avg = districts.length ? (districts.reduce((a, b) => a + b.wqi, 0) / districts.length).toFixed(1) : '-';
+    document.getElementById('avgWqi').textContent = avg;
+
+    const sel = document.getElementById('simSelect');
+    districts.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.district;
+      opt.textContent = d.district + ' Twin';
+      sel.appendChild(opt);
+    });
+    sel.onchange = () => {
+      selected = districts.find(d => d.district === sel.value);
+      runSim();
+    };
+
+    ['rainSlider', 'tempSlider', 'pollSlider'].forEach(id =>
+      document.getElementById(id).addEventListener('input', runSim)
+    );
+    document.getElementById('searchBox').addEventListener('input', renderList);
+    document.getElementById('statusFilter').addEventListener('change', renderList);
+
+    renderList();
+    initMap();
+    runSim();
+  </script>
+</body>
+</html>

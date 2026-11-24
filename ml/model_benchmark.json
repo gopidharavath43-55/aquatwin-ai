@@ -1,0 +1,32 @@
+{
+  "lstm_r2": 0.8881,
+  "lstm_mae": 2.917,
+  "lstm_rmse": 3.793,
+  "sample_district": "Adilabad",
+  "forecast_6m": [
+    {
+      "step": "+1M",
+      "wqi": 50.0
+    },
+    {
+      "step": "+2M",
+      "wqi": 51.1
+    },
+    {
+      "step": "+3M",
+      "wqi": 49.9
+    },
+    {
+      "step": "+4M",
+      "wqi": 49.2
+    },
+    {
+      "step": "+5M",
+      "wqi": 46.8
+    },
+    {
+      "step": "+6M",
+      "wqi": 45.0
+    }
+  ]
+}

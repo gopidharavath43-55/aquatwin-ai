@@ -1,0 +1,34 @@
+district,year_month,gw_depth_mbgl,gw_extraction_pct,gw_recharge_mm,gw_status
+Vikarabad,2026-05,15.88,66.3,12.44,Over-Exploited
+Kamareddy,2026-05,14.54,55.0,5.36,Over-Exploited
+Rangareddy,2026-05,12.98,72.2,1.5,Critical
+Nalgonda,2026-05,12.4,51.8,3.34,Critical
+Sangareddy,2026-05,12.31,52.0,6.42,Critical
+Medak,2026-05,11.94,73.6,4.7,Critical
+Mahabubnagar,2026-05,11.9,79.2,6.87,Critical
+Siddipet,2026-05,11.75,73.2,4.67,Critical
+Rajanna Sircilla,2026-05,11.39,71.8,3.99,Semi-Critical
+Jangaon,2026-05,11.12,62.7,8.74,Semi-Critical
+Narayanpet,2026-05,11.02,43.8,5.57,Semi-Critical
+Nagarkurnool,2026-05,10.8,43.3,12.26,Semi-Critical
+Jayashankar,2026-05,10.69,49.5,8.37,Semi-Critical
+Yadadri Bhongiri,2026-05,10.67,50.1,14.27,Semi-Critical
+Hydrabad,2026-05,10.65,52.4,3.04,Semi-Critical
+Jogulamba,2026-05,10.64,51.2,9.51,Semi-Critical
+Medchal,2026-05,10.61,49.4,11.37,Semi-Critical
+Warangal (R),2026-05,10.49,50.4,12.09,Semi-Critical
+Suryapet,2026-05,10.3,57.5,11.19,Semi-Critical
+Warangal (U),2026-05,10.29,49.7,6.11,Semi-Critical
+Wanaparthy,2026-05,10.15,47.4,9.3,Semi-Critical
+Nizamabad,2026-05,9.94,55.2,10.28,Semi-Critical
+Mahabubabad,2026-05,9.82,58.2,2.66,Semi-Critical
+Karimnagar,2026-05,9.76,58.7,13.64,Semi-Critical
+Adilabad,2026-05,9.59,42.9,12.06,Semi-Critical
+Nirmal,2026-05,9.59,48.7,7.72,Semi-Critical
+Peddapalli,2026-05,8.63,49.5,10.22,Safe
+Mancherial,2026-05,8.62,45.7,6.86,Safe
+Komaram Bheem,2026-05,8.61,42.0,8.02,Safe
+Mulugu,2026-05,8.35,38.9,3.92,Safe
+Bhadradri,2026-05,8.34,40.9,2.19,Safe
+Jagtial,2026-05,7.27,50.6,10.78,Safe
+Khammam,2026-05,6.82,47.8,7.06,Safe
