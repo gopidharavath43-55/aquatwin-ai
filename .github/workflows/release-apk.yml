@@ -52,27 +52,29 @@ jobs:
           if [ ! -f www/index.html ] && [ -f index.html ]; then
             cp index.html www/index.html
           fi
+          if [ ! -f www/ml_data.js ] && [ -f ml_data.js ]; then
+            cp ml_data.js www/ml_data.js
+          fi
           if [ ! -f package.json ]; then
             cat <<'EOF' > package.json
-{
-  "name": "aquatwin-ai-mobile",
-  "version": "1.75.0",
-  "private": true,
-  "dependencies": {
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/cli": "^6.0.0",
-    "@capacitor/core": "^6.0.0"
-  }
-}
-EOF
+          {
+            "name": "aquatwin-ai-mobile",
+            "version": "1.75.0",
+            "private": true,
+            "dependencies": {
+              "@capacitor/android": "^6.0.0",
+              "@capacitor/cli": "^6.0.0",
+              "@capacitor/core": "^6.0.0"
+            }
+          }
+          EOF
           fi
-          if [ -f package-lock.json ]; then
-            npm ci --no-audit --no-fund || npm install --no-audit --no-fund
-          else
-            npm install --no-audit --no-fund
-          fi
+          npm install --no-audit --no-fund
           if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
             npx cap init "AquaTwin AI" "com.aquatwin.ai" --web-dir www
+          fi
+          if [ ! -d android ]; then
+            npx cap add android
           fi
           npx cap sync android
 
@@ -80,6 +82,7 @@ EOF
         working-directory: mobile-app/android
         run: |
           set -e
+          rm -f local.properties
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
           cp app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
