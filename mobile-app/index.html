@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.88";
+window.AQUATWIN_VERSION = "1.89";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5261,5 +5261,261 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- LIQUID_DEMO_SWITCH_END -->
+<!-- ASK_AI_STATE_GUARD_START -->
+<script id="at-ask-ai-state-guard">
+(function(){
+  var ALIASES = {
+    "hyd": "hyderabad",
+    "hyderabad": "hyderabad",
+    "wgl": "warangal",
+    "warangal": "warangal",
+    "warangal rural": "warangal",
+    "hanumakonda": "hanumakonda",
+    "hanamkonda": "hanumakonda",
+    "warangal urban": "hanumakonda",
+    "kmm": "khammam",
+    "khammam": "khammam",
+    "jangaon": "jangaon",
+    "jangoan": "jangaon",
+    "adilabad": "adilabad",
+    "bhadradri": "bhadradri kothagudem",
+    "kothagudem": "bhadradri kothagudem",
+    "bhadradri kothagudem": "bhadradri kothagudem",
+    "jagtial": "jagtial",
+    "jagitial": "jagtial",
+    "jayashankar": "jayashankar bhupalpally",
+    "bhupalpally": "jayashankar bhupalpally",
+    "jayashankar bhupalpally": "jayashankar bhupalpally",
+    "jogulamba": "jogulamba gadwal",
+    "gadwal": "jogulamba gadwal",
+    "jogulamba gadwal": "jogulamba gadwal",
+    "kamareddy": "kamareddy",
+    "karimnagar": "karimnagar",
+    "komaram bheem": "kumuram bheem asifabad",
+    "kumuram bheem": "kumuram bheem asifabad",
+    "asifabad": "kumuram bheem asifabad",
+    "kumuram bheem asifabad": "kumuram bheem asifabad",
+    "mahabubabad": "mahabubabad",
+    "mahbubabad": "mahabubabad",
+    "mahabubnagar": "mahabubnagar",
+    "mahbubnagar": "mahabubnagar",
+    "mancherial": "mancherial",
+    "medak": "medak",
+    "medchal": "medchal malkajgiri",
+    "malkajgiri": "medchal malkajgiri",
+    "medchal malkajgiri": "medchal malkajgiri",
+    "mulugu": "mulugu",
+    "nagarkurnool": "nagarkurnool",
+    "nalgonda": "nalgonda",
+    "narayanpet": "narayanpet",
+    "nirmal": "nirmal",
+    "nizamabad": "nizamabad",
+    "peddapalli": "peddapalli",
+    "peddapalle": "peddapalli",
+    "rajanna": "rajanna sircilla",
+    "sircilla": "rajanna sircilla",
+    "rajanna sircilla": "rajanna sircilla",
+    "rangareddy": "rangareddy",
+    "ranga reddy": "rangareddy",
+    "sangareddy": "sangareddy",
+    "siddipet": "siddipet",
+    "suryapet": "suryapet",
+    "vikarabad": "vikarabad",
+    "wanaparthy": "wanaparthy",
+    "yadadri": "yadadri bhuvanagiri",
+    "bhuvanagiri": "yadadri bhuvanagiri",
+    "bhongir": "yadadri bhuvanagiri",
+    "yadadri bhuvanagiri": "yadadri bhuvanagiri"
+  };
+
+  function normKey(s){
+    return String(s || "").toLowerCase().replace(/[^a-z0-9\s]+/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function getDistricts(){
+    return (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts))
+      ? window.AQUATWIN_ML_DATA.districts
+      : [];
+  }
+
+  function matchDistrict(text){
+    var clean = normKey(text);
+    if (!clean) return null;
+    var list = getDistricts();
+    if (!list.length) return null;
+
+    var mapped = ALIASES[clean];
+    if (mapped) {
+      var exactMapped = list.find(function(d){ return normKey(d.district) === mapped; });
+      if (exactMapped) return exactMapped;
+    }
+
+    // Check if any district name or alias appears as a full word/phrase inside the query
+    var padded = " " + clean + " ";
+    for (var i = 0; i < list.length; i++) {
+      var dNorm = normKey(list[i].district);
+      if (dNorm && padded.indexOf(" " + dNorm + " ") !== -1) {
+        return list[i];
+      }
+    }
+
+    var tokens = clean.split(" ").filter(function(t){ return t.length >= 3; });
+    for (var tIdx = 0; tIdx < tokens.length; tIdx++) {
+      var tok = tokens[tIdx];
+      if (ALIASES[tok]) {
+        var m2 = list.find(function(d){ return normKey(d.district) === ALIASES[tok]; });
+        if (m2) return m2;
+      }
+      var prefixMatches = list.filter(function(d){
+        var dn = normKey(d.district);
+        return dn.indexOf(tok) === 0 || dn.split(" ").some(function(part){ return part.indexOf(tok) === 0; });
+      });
+      if (prefixMatches.length === 1) return prefixMatches[0];
+    }
+    return null;
+  }
+
+  function isStateQuery(text){
+    var clean = normKey(text);
+    return /\b(telangana|state|all 33|33 districts|overview|statewide)\b/.test(clean);
+  }
+
+  function buildStateSummary(){
+    var list = getDistricts();
+    if (!list.length) {
+      return "Give state name (e.g., <b>Telangana</b>) or any of its 33 districts (e.g., <b>Hyderabad</b>, <b>Warangal</b>, <b>Khammam</b>, <b>Jangaon</b>) to get the answer.";
+    }
+    var sumWqi = list.reduce(function(a, b){ return a + Number(b.xgb_wqi || b.wqi_score || 70); }, 0);
+    var avgWqi = (sumWqi / list.length).toFixed(1);
+    var highRisk = list.filter(function(d){ return Number(d.xgb_wqi || d.wqi_score || 70) < 55; });
+    var medRisk  = list.filter(function(d){ var w = Number(d.xgb_wqi || d.wqi_score || 70); return w >= 55 && w < 70; });
+    var safeRisk = list.filter(function(d){ return Number(d.xgb_wqi || d.wqi_score || 70) >= 70; });
+    var topAlert = highRisk.slice(0, 3).map(function(d){ return d.district + " (" + Number(d.xgb_wqi || d.wqi_score).toFixed(1) + ")"; }).join(", ") || "None critical";
+
+    return (
+      "<b>Telangana State Water Summary (33 Districts)</b><br>" +
+      "• <b>State Avg WQI:</b> " + avgWqi + " / 100<br>" +
+      "• <b>Status Split:</b> Safe: " + safeRisk.length + " • Moderate: " + medRisk.length + " • High Risk: " + highRisk.length + "<br>" +
+      "• <b>Top Watch Districts:</b> " + topAlert + "<br>" +
+      "• <i>Type any district name (e.g., Hyderabad, Warangal, Khammam, Jangaon) for full district telemetry.</i>"
+    );
+  }
+
+  function findAskAiModal(){
+    var headings = document.querySelectorAll("h1, h2, h3, h4, div, span");
+    for (var i = 0; i < headings.length; i++) {
+      var el = headings[i];
+      if (el.children.length === 0 && /^AquaTwin Ask AI$/i.test((el.textContent || "").trim())) {
+        var box = el.parentElement;
+        while (box && box.parentElement && box.parentElement.tagName !== "BODY") {
+          var rect = box.getBoundingClientRect();
+          if (rect.height > 260 && rect.width > 240) return box;
+          box = box.parentElement;
+        }
+        return el.parentElement;
+      }
+    }
+    return null;
+  }
+
+  function appendAskAiPrompt(modal, userText, replyHtml){
+    var input = modal.querySelector("input[type='text'], input:not([type]), textarea");
+    var sendBtn = Array.from(modal.querySelectorAll("button")).find(function(b){
+      return /^send$/i.test((b.textContent || "").trim());
+    });
+
+    // Find scrollable message container inside Ask AI modal
+    var msgContainer = null;
+    if (input) {
+      var cur = input.parentElement;
+      for (var d = 0; d < 6 && cur && cur !== modal; d++) {
+        var prev = cur.previousElementSibling;
+        if (prev && prev.scrollHeight >= prev.clientHeight) {
+          msgContainer = prev;
+          break;
+        }
+        cur = cur.parentElement;
+      }
+    }
+    if (!msgContainer) {
+      var divs = Array.from(modal.querySelectorAll("div"));
+      divs.sort(function(a, b){ return b.clientHeight - a.clientHeight; });
+      msgContainer = divs[0] || modal;
+    }
+
+    var wrap = document.createElement("div");
+    wrap.style.cssText = "display:flex;flex-direction:column;gap:8px;margin:8px 0;";
+
+    var uBubble = document.createElement("div");
+    uBubble.style.cssText = "align-self:flex-end;max-width:82%;padding:9px 13px;border-radius:14px;background:rgba(37,99,235,0.88);color:#fff;font-size:12.5px;font-weight:600;";
+    uBubble.textContent = userText;
+
+    var bBubble = document.createElement("div");
+    bBubble.style.cssText = "align-self:flex-start;max-width:92%;padding:11px 14px;border-radius:14px;background:rgba(12,48,78,0.92);border:1px solid rgba(56,189,248,0.35);color:#e2e8f0;font-size:12px;line-height:1.45;";
+    bBubble.innerHTML = replyHtml;
+
+    wrap.appendChild(uBubble);
+    wrap.appendChild(bBubble);
+    msgContainer.appendChild(wrap);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    if (input) {
+      input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    if (sendBtn) sendBtn.blur();
+  }
+
+  function interceptAskAiSend(e){
+    var modal = findAskAiModal();
+    if (!modal || !modal.contains(e.target)) return;
+
+    var input = modal.querySelector("input[type='text'], input:not([type]), textarea");
+    var sendBtn = Array.from(modal.querySelectorAll("button")).find(function(b){
+      return /^send$/i.test((b.textContent || "").trim());
+    });
+
+    var isSendClick = sendBtn && (e.target === sendBtn || sendBtn.contains(e.target));
+    var isEnterKey = (e.type === "keydown" || e.type === "keypress") && e.key === "Enter" && input && (e.target === input || input.contains(e.target));
+    if (!isSendClick && !isEnterKey) return;
+
+    if (!input) return;
+    var rawText = (input.value || "").trim();
+    if (!rawText) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+      appendAskAiPrompt(modal, "(Empty)", "Give state name (e.g., <b>Telangana</b>) or a Telangana district name (e.g., <b>Hyderabad</b>, <b>Warangal</b>, <b>Khammam</b>) to get the answer.");
+      return;
+    }
+
+    // If user typed a valid district, let normal Ask AI district answer run
+    if (matchDistrict(rawText)) return;
+
+    // If user typed state name (Telangana / State), give Telangana state summary
+    if (isStateQuery(rawText)) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+      appendAskAiPrompt(modal, rawText, buildStateSummary());
+      return;
+    }
+
+    // Otherwise user gave non-district/invalid text -> prompt to give state name first
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    appendAskAiPrompt(
+      modal,
+      rawText,
+      "<b>Give state name</b> (type <b>Telangana</b>) or enter a valid district name (e.g., <b>Hyderabad</b>, <b>Warangal</b>, <b>Khammam</b>, <b>Jangaon</b>), then ask again to get the answer."
+    );
+  }
+
+  document.addEventListener("click", interceptAskAiSend, true);
+  document.addEventListener("keydown", interceptAskAiSend, true);
+})();
+</script>
+<!-- ASK_AI_STATE_GUARD_END -->
 </body>
 </html>

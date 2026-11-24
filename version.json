@@ -1,8 +1,8 @@
 {
-    "version":  "1.88",
-    "version_code":  88,
+    "version":  "1.89",
+    "version_code":  89,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Added Demo label on left side of liquid glass ON/OFF switch",
+    "notes":  "• Ask AI: prompt for state/district name on non-district input and answer when state/district is given",
     "force":  false,
-    "updated_at":  "2026-11-24 20:57 IST"
+    "updated_at":  "2026-11-24 21:02 IST"
 }
