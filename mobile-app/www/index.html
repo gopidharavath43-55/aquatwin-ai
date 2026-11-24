@@ -392,6 +392,28 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 }
 </style>
 <!-- POLISH_V2_END -->
+<!-- AQUATWIN_PERF_OPT_START -->
+<style id="at-perf-css">
+  html, body, .leaflet-container { -webkit-overflow-scrolling: touch; touch-action: manipulation; }
+  .at-v3-card, [id*="at-"] { contain: layout style; }
+</style>
+<script id="at-perf-fetch">
+(function() {
+  var origFetch = window.fetch;
+  if (!origFetch) return;
+  window.fetch = function(input, init) {
+    var url = typeof input === "string" ? input : (input && input.url) || "";
+    if (url.indexOf("127.0.0.1:8001") !== -1 || url.indexOf("localhost:8001") !== -1) {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function() { ctrl.abort(); }, 2500);
+      var opts = Object.assign({}, init || {}, { signal: ctrl.signal });
+      return origFetch(input, opts).finally(function() { clearTimeout(timer); });
+    }
+    return origFetch(input, init);
+  };
+})();
+</script>
+<!-- AQUATWIN_PERF_OPT_END -->
 </head>
 <body>
   <header>
