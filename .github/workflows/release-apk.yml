@@ -32,41 +32,54 @@ jobs:
           distribution: 'microsoft'
           java-version: '21'
 
-      - name: Verify Android SDK
+      - name: Prepare Android SDK
         run: |
+          set -e
           SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
-          echo "SDK_DIR=$SDK_DIR"
-          ls -la "$SDK_DIR"
+          if [ ! -d "$SDK_DIR" ]; then
+            echo "Android SDK not found at $SDK_DIR"
+            exit 1
+          fi
           echo "ANDROID_HOME=$SDK_DIR" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$SDK_DIR" >> "$GITHUB_ENV"
+          echo "PATH=$SDK_DIR/platform-tools:$SDK_DIR/cmdline-tools/latest/bin:$PATH" >> "$GITHUB_ENV"
 
       - name: Install dependencies & sync Capacitor
         working-directory: mobile-app
         run: |
-          pwd
-          ls -la
-          node -v
-          npm -v
+          set -e
           mkdir -p www
           if [ ! -f www/index.html ] && [ -f index.html ]; then
             cp index.html www/index.html
           fi
           if [ ! -f package.json ]; then
-            npm init -y
-            npm install --no-audit --no-fund @capacitor/core @capacitor/cli @capacitor/android
-          elif [ -f package-lock.json ]; then
+            cat <<'EOF' > package.json
+{
+  "name": "aquatwin-ai-mobile",
+  "version": "1.75.0",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  }
+}
+EOF
+          fi
+          if [ -f package-lock.json ]; then
             npm ci --no-audit --no-fund || npm install --no-audit --no-fund
           else
             npm install --no-audit --no-fund
           fi
-          npx cap --version
+          if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
+            npx cap init "AquaTwin AI" "com.aquatwin.ai" --web-dir www
+          fi
           npx cap sync android
 
       - name: Build debug APK
         working-directory: mobile-app/android
         run: |
-          pwd
-          ls -la
+          set -e
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
           cp app/build/outputs/apk/debug/app-debug.apk ../../AquaTwin-AI.apk
