@@ -1,8 +1,8 @@
 {
-    "version":  "1.85",
-    "version_code":  85,
+    "version":  "1.86",
+    "version_code":  86,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Your update notes",
+    "notes":  "• Added iOS Liquid Glass ON/OFF toggle switch for Live Demo mode",
     "force":  false,
-    "updated_at":  "2026-11-24 20:45 IST"
+    "updated_at":  "2026-11-24 20:52 IST"
 }

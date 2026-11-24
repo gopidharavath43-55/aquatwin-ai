@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.85";
+window.AQUATWIN_VERSION = "1.86";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5105,5 +5105,124 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- SECURITY_HARDENING_END -->
+<!-- LIQUID_DEMO_SWITCH_START -->
+<style id="at-liquid-demo-css">
+.at-demo-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 3px 9px 3px 4px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  background: rgba(15, 23, 42, 0.62) !important;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  color: #cbd5e1 !important;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.22), 0 4px 12px rgba(0,0,0,0.28);
+  transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.at-demo-btn.on {
+  border-color: rgba(52, 211, 153, 0.65) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.36), rgba(5, 150, 105, 0.24)) !important;
+  color: #ecfdf5 !important;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 16px rgba(16, 185, 129, 0.35);
+}
+.at-liq-track {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.at-demo-btn.on .at-liq-track {
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+  border-color: rgba(167, 243, 208, 0.85);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.45), 0 0 12px rgba(52, 211, 153, 0.55);
+}
+.at-liq-wave {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.48), transparent 65%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.at-liq-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), inset 0 1px 1px #ffffff;
+  transition: transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 0.22s ease;
+}
+.at-demo-btn:active .at-liq-thumb {
+  width: 21px;
+}
+.at-demo-btn.on .at-liq-thumb {
+  transform: translateX(16px);
+}
+.at-demo-btn.on:active .at-liq-thumb {
+  transform: translateX(11px);
+}
+.at-liq-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 2px;
+}
+</style>
+<script id="at-liquid-demo-js">
+(function(){
+  function upgradeDemoToLiquid(){
+    var btn = document.getElementById('at-demo-toggle');
+    if (!btn || btn.dataset.liquidReady === '1') return;
+    btn.dataset.liquidReady = '1';
+
+    var isOn = btn.classList.contains('on') || /on/i.test(btn.textContent || '');
+    btn.innerHTML =
+      '<span class="at-liq-track">' +
+        '<span class="at-liq-wave"></span>' +
+        '<span class="at-liq-thumb"></span>' +
+      '</span>' +
+      '<span class="at-liq-label" id="at-demo-txt">' + (isOn ? 'Demo ON' : 'Demo OFF') + '</span>';
+
+    // Keep label text synced cleanly whenever Demo toggles ON or OFF
+    var obs = new MutationObserver(function(){
+      var onNow = btn.classList.contains('on');
+      var lbl = document.getElementById('at-demo-txt');
+      if (lbl) {
+        var targetTxt = onNow ? 'Demo ON' : 'Demo OFF';
+        if (lbl.textContent !== targetTxt) lbl.textContent = targetTxt;
+      }
+    });
+    obs.observe(btn, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  setInterval(upgradeDemoToLiquid, 400);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', upgradeDemoToLiquid);
+  } else {
+    upgradeDemoToLiquid();
+  }
+})();
+</script>
+<!-- LIQUID_DEMO_SWITCH_END -->
 </body>
 </html>
