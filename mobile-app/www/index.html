@@ -1157,24 +1157,6 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 })();
 </script>
 <!-- POLISH_V2_END -->
-<!-- CLEAN_HDR_START -->
-<script id="clean-hdr-js">
-(function(){
-  function hideGreenBadge(){
-    var hdr = document.querySelector('header');
-    if(!hdr) return;
-    hdr.querySelectorAll('span, div, small, p').forEach(function(el){
-      if(el.children.length === 0 && /offline\s*ready|33\s*districts/i.test(el.textContent || '')){
-        el.style.display = 'none';
-      }
-    });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hideGreenBadge);
-  else hideGreenBadge();
-  setTimeout(hideGreenBadge, 150);
-})();
-</script>
-<!-- CLEAN_HDR_END -->
 
 <!-- FINAL_POLISH_START -->
 <style id="final-polish-css">
@@ -1637,7 +1619,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
     var existing = document.getElementById("at-picker-backdrop");
     if (existing) existing.remove();
   }
-
 
   function cleanDistrictLabel(raw) {
     return String(raw || "")
@@ -2496,7 +2477,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
 </script>
 <!-- GROUNDWATER_UI_END -->
 
-
 <!-- REALTIME_LIVE_START -->
 <style id="at-rt-css">
 .at-demo-btn {
@@ -3003,8 +2983,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
 })();
 </script>
 <!-- REALTIME_LIVE_END -->
-
-
 
 <!-- ASKAI_ONLY_START -->
 <style id="at-askai-css">
@@ -3612,10 +3590,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
 </script>
 <!-- ASKAI_ONLY_END -->
 
-
-
-
-
 <!-- ASKAI_HISTORY_START -->
 <style id="at-top-hist-css">
 #at-history-btn {
@@ -3995,20 +3969,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
 })();
 </script>
 <!-- ASKAI_HISTORY_END -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- MAP_FULLSCREEN_FIX_START -->
 <style id="at-map-fs-css">
@@ -4392,709 +4352,6 @@ nav,
 </script>
 <!-- MAP_SAT_SMOOTH_END -->
 
-
-<!-- SPLASH_GATE_START -->
-<style id="at-splash-gate-css">
-html.at-boot-splash #at-history-btn,
-html.at-boot-splash #at-askai-fab,
-html.at-boot-splash #at-sat-toggle-btn {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transform: scale(0.92) translateY(8px) !important;
-}
-#at-history-btn,
-#at-askai-fab {
-  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1), transform 0.42s cubic-bezier(0.22, 1, 0.36, 1) !important;
-}
-.at-lg-splash {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 2147483600 !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 50% 42%, #0e2747 0%, #071326 60%, #040a14 100%);
-  pointer-events: none;
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.at-lg-splash.hide {
-  opacity: 0;
-  transform: scale(1.09);
-}
-.at-lg-squircle {
-  position: relative;
-  width: 104px;
-  height: 104px;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(155deg, rgba(255,255,255,0.18) 0%, rgba(28,36,49,0.78) 42%, rgba(12,16,24,0.92) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow:
-    0 22px 48px rgba(0, 0, 0, 0.62),
-    0 0 38px rgba(56, 189, 248, 0.28),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.45),
-    inset 0 -8px 18px rgba(56, 189, 248, 0.14);
-  overflow: hidden;
-  animation: atLgPop 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.at-lg-squircle::after {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: linear-gradient(115deg, transparent 36%, rgba(255,255,255,0.34) 50%, transparent 64%);
-  transform: translateX(-75%) rotate(12deg);
-  animation: atLgSweep 1.35s cubic-bezier(0.25, 1, 0.5, 1) 0.22s both;
-}
-.at-lg-wordmark {
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-  color: #f8fafc;
-  text-shadow: 0 4px 18px rgba(56, 189, 248, 0.25);
-  animation: atLgFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-}
-.at-lg-sub {
-  margin-top: 5px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  color: rgba(186, 230, 253, 0.85);
-  animation: atLgFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
-}
-@keyframes atLgPop {
-  0% { opacity: 0; transform: scale(0.76); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes atLgSweep {
-  0% { transform: translateX(-80%) rotate(12deg); }
-  100% { transform: translateX(85%) rotate(12deg); }
-}
-@keyframes atLgFadeUp {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-</style>
-<script id="at-splash-gate-js">
-(function(){
-  if (window.__AT_SPLASH_GATE_V2__) return;
-  window.__AT_SPLASH_GATE_V2__ = true;
-
-  var startedAt = Date.now();
-  var MIN_SPLASH_MS = 1350;
-  document.documentElement.classList.add('at-boot-splash');
-
-  function ensureGlassSplash(){
-    if (document.getElementById('at-splash-brand')) return;
-    var ov = document.createElement('div');
-    ov.id = 'at-splash-brand';
-    ov.className = 'at-lg-splash';
-    ov.innerHTML =
-      '<div class="at-lg-squircle">' +
-        '<svg width="62" height="62" viewBox="0 0 64 64" fill="none">' +
-          '<defs>' +
-            '<linearGradient id="atLgDrop" x1="14" y1="8" x2="50" y2="58" gradientUnits="userSpaceOnUse">' +
-              '<stop offset="0%" stop-color="#A5F8FF"/>' +
-              '<stop offset="38%" stop-color="#38BDF8"/>' +
-              '<stop offset="72%" stop-color="#608AFF"/>' +
-              '<stop offset="100%" stop-color="#D892FF"/>' +
-            '</linearGradient>' +
-            '<radialGradient id="atLgSpec" cx="38%" cy="34%" r="48%">' +
-              '<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.92"/>' +
-              '<stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.18"/>' +
-              '<stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>' +
-            '</radialGradient>' +
-          '</defs>' +
-          '<path d="M32 6C32 6 13 26.8 13 40.2C13 50.6 21.5 58 32 58C42.5 58 51 50.6 51 40.2C51 26.8 32 6 32 6Z" fill="url(#atLgDrop)" stroke="rgba(255,255,255,0.68)" stroke-width="1.6"/>' +
-          '<path d="M32 8.5C32 8.5 15.5 27.6 15.5 40C15.5 49 22.8 55.5 32 55.5C41.2 55.5 48.5 49 48.5 40C48.5 27.6 32 8.5 32 8.5Z" fill="url(#atLgSpec)"/>' +
-          '<ellipse cx="25.5" cy="36.5" rx="3.4" ry="6.2" transform="rotate(-14 25.5 36.5)" fill="rgba(255,255,255,0.72)"/>' +
-        '</svg>' +
-      '</div>' +
-      '<div class="at-lg-wordmark">AquaTwin AI</div>' +
-      '<div class="at-lg-sub">Telangana Water Digital Twin</div>';
-    document.body.appendChild(ov);
-  }
-
-  function scrubUpdateBanner(){
-    var els = document.querySelectorAll('div, p, span');
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (el.children.length === 0 && /Checking for Updates|AquaTwin AI is up to date/i.test(el.textContent || '')) {
-        var box = el.parentElement;
-        if (box && box.offsetHeight > 0 && box.offsetHeight < 120) {
-          box.style.setProperty('display', 'none', 'important');
-        } else {
-          el.style.setProperty('display', 'none', 'important');
-        }
-      }
-    }
-  }
-
-  function reveal(){
-    var wait = Math.max(0, MIN_SPLASH_MS - (Date.now() - startedAt));
-    setTimeout(function(){
-      scrubUpdateBanner();
-      document.documentElement.classList.remove('at-boot-splash');
-      var ov = document.getElementById('at-splash-brand');
-      if (ov) {
-        ov.classList.add('hide');
-        setTimeout(function(){ if (ov && ov.parentNode) ov.parentNode.removeChild(ov); }, 540);
-      }
-    }, wait);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ ensureGlassSplash(); scrubUpdateBanner(); reveal(); });
-  } else {
-    ensureGlassSplash();
-    scrubUpdateBanner();
-    reveal();
-  }
-  setTimeout(scrubUpdateBanner, 800);
-  setTimeout(scrubUpdateBanner, 2000);
-})();
-</script>
-<!-- SPLASH_GATE_END -->
-<!-- LIQUID_GLASS_THEME_START -->
-<style id="at-liquid-glass-css">
-#at-history-btn,
-#at-sat-toggle-btn {
-  background: linear-gradient(180deg, rgba(28, 46, 74, 0.72), rgba(10, 22, 42, 0.80)) !important;
-  backdrop-filter: blur(18px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.24) !important;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.34) !important;
-}
-#at-sat-toggle-btn.sat-on {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.78), rgba(37, 99, 235, 0.82)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.38) !important;
-  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.48) !important;
-}
-#at-askai-fab {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.84), rgba(59, 130, 246, 0.86)) !important;
-  backdrop-filter: blur(18px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(190%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.42) !important;
-  box-shadow: 0 12px 28px rgba(14, 165, 233, 0.42), inset 0 1.5px 0 rgba(255, 255, 255, 0.55) !important;
-}
-nav,
-[class*="bottom-nav"],
-[class*="tab-bar"] {
-  background: rgba(7, 17, 34, 0.78) !important;
-  backdrop-filter: blur(22px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
-}
-</style>
-<!-- LIQUID_GLASS_THEME_END -->
-
-
-
-<!-- LIQUID_GLASS_DOCK_START -->
-<style id="at-lg-dock-css">
-/* Lifted, Crystal-Clear Apple Liquid Glass Floating Dock */
-nav,
-[class*="bottom-nav"],
-[class*="tab-bar"] {
-  position: fixed !important;
-  left: 24px !important;
-  right: 24px !important;
-  bottom: 26px !important;
-  width: auto !important;
-  max-width: 360px !important;
-  height: 52px !important;
-  min-height: 52px !important;
-  max-height: 52px !important;
-  box-sizing: border-box !important;
-  margin: 0 auto !important;
-  padding: 4px 6px !important;
-  border-radius: 999px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.04) 48%,
-    rgba(10, 22, 42, 0.22) 100%
-  ) !important;
-  backdrop-filter: blur(28px) saturate(235%) brightness(1.12) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(235%) brightness(1.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
-  box-shadow:
-    0 14px 34px rgba(0, 0, 0, 0.42),
-    0 2px 10px rgba(0, 0, 0, 0.22),
-    inset 0 1.25px 0 rgba(255, 255, 255, 0.58),
-    inset 0 -1px 1px rgba(147, 197, 253, 0.22) !important;
-  overflow: visible !important;
-  touch-action: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  z-index: 2147482500 !important;
-}
-
-/* Subtle curved specular top sheen across the glass capsule */
-nav::before,
-[class*="bottom-nav"]::before,
-[class*="tab-bar"]::before {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 16px;
-  right: 16px;
-  height: 40%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-nav > button,
-nav > a,
-nav > div:not(#at-lg-tab-lens),
-[class*="bottom-nav"] > button,
-[class*="bottom-nav"] > a,
-[class*="tab-bar"] > button,
-[class*="tab-bar"] > a {
-  position: relative !important;
-  z-index: 2 !important;
-  flex: 1 1 0 !important;
-  height: 42px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 0 2px 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 999px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  line-height: 1.1 !important;
-  gap: 2px !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
-  transition: transform 0.22s cubic-bezier(0.22, 1.25, 0.36, 1), color 0.18s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-nav > button svg,
-nav > a svg,
-[class*="bottom-nav"] > button svg,
-[class*="bottom-nav"] > a svg,
-[class*="tab-bar"] > button svg,
-[class*="tab-bar"] > a svg {
-  width: 18px !important;
-  height: 18px !important;
-  margin: 0 !important;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.30));
-}
-
-.at-lg-tab-hover {
-  transform: scale(1.09) translateY(-1px) !important;
-  color: #ffffff !important;
-}
-
-/* Resting Active Pill — Clear Luminous Apple Crystal Glass */
-#at-lg-tab-lens {
-  position: absolute !important;
-  top: 4px !important;
-  left: 0;
-  height: 42px !important;
-  width: 68px;
-  border-radius: 999px;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  background: radial-gradient(
-    ellipse at 50% 45%,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.11) 68%,
-    rgba(210, 238, 255, 0.20) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.40);
-  box-shadow:
-    inset 0 1.2px 0 rgba(255, 255, 255, 0.70),
-    inset 0 -1px 3px rgba(147, 197, 253, 0.22),
-    0 4px 12px rgba(0, 0, 0, 0.18);
-  transition:
-    transform 0.36s cubic-bezier(0.22, 1.28, 0.36, 1),
-    width 0.32s cubic-bezier(0.22, 1.28, 0.36, 1),
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
-  will-change: transform, width;
-  overflow: hidden;
-}
-
-#at-lg-tab-lens::before {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 14%;
-  right: 14%;
-  height: 38%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0) 100%);
-  pointer-events: none;
-  opacity: 0.72;
-  transition: opacity 0.16s ease;
-}
-
-/* Sliding Magnification Lens — Pure Optical Liquid Glass Droplet */
-#at-lg-tab-lens.dragging {
-  background: radial-gradient(
-    ellipse at 50% 48%,
-    rgba(255, 255, 255, 0.015) 0%,
-    rgba(255, 255, 255, 0.045) 56%,
-    rgba(218, 244, 255, 0.24) 100%
-  ) !important;
-  backdrop-filter: blur(2px) brightness(1.26) contrast(1.08) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(2px) brightness(1.26) contrast(1.08) saturate(190%) !important;
-  border: 1.4px solid rgba(255, 255, 255, 0.82) !important;
-  box-shadow:
-    0 12px 26px rgba(0, 0, 0, 0.32),
-    0 0 18px rgba(186, 230, 253, 0.28),
-    inset 0 1.6px 2px rgba(255, 255, 255, 0.94),
-    inset 0 -1.6px 4px rgba(125, 211, 252, 0.44) !important;
-  transition:
-    background 0.12s ease,
-    border-color 0.12s ease,
-    box-shadow 0.12s ease !important;
-}
-
-#at-lg-tab-lens.dragging::before {
-  opacity: 0.96;
-}
-
-/* Keep Ask AI comfortably above the lifted dock */
-#at-askai-fab {
-  bottom: 116px !important;
-  right: 16px !important;
-}
-</style>
-<script id="at-lg-dock-js">
-(function(){
-  if (window.__AT_LG_DOCK_V4__) return;
-  window.__AT_LG_DOCK_V4__ = true;
-
-  var navEl = null;
-  var lensEl = null;
-  var isDragging = false;
-  var activeIdx = 0;
-  var hoverIdx = -1;
-  var dragX = 0;
-  var targetX = 0;
-  var lastX = 0;
-  var lensW = 68;
-  var rafId = null;
-  var switchTimer = null;
-
-  function getNav(){
-    return document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
-  }
-
-  function getTabs(nav){
-    if (!nav) return [];
-    var children = Array.prototype.slice.call(nav.children).filter(function(el){
-      return el.id !== 'at-lg-tab-lens' && el.offsetWidth > 20;
-    });
-    if (children.length >= 2) return children;
-    return Array.prototype.slice.call(nav.querySelectorAll('button, a')).filter(function(el){
-      return el.offsetWidth > 20;
-    });
-  }
-
-  function enforceCompactMetrics(nav){
-    if (nav) {
-      nav.style.setProperty('box-sizing', 'border-box', 'important');
-      nav.style.setProperty('bottom', '26px', 'important');
-      nav.style.setProperty('height', '52px', 'important');
-      nav.style.setProperty('min-height', '52px', 'important');
-      nav.style.setProperty('max-height', '52px', 'important');
-      nav.style.setProperty('padding-top', '4px', 'important');
-      nav.style.setProperty('padding-bottom', '4px', 'important');
-    }
-    var fab = document.getElementById('at-askai-fab');
-    if (fab) {
-      fab.style.setProperty('bottom', '116px', 'important');
-      fab.style.setProperty('right', '16px', 'important');
-    }
-  }
-
-  function detectActiveIndex(tabs){
-    for (var i = 0; i < tabs.length; i++) {
-      var el = tabs[i];
-      var cls = (el.className || '').toLowerCase();
-      var aria = (el.getAttribute('aria-selected') || el.getAttribute('aria-current') || '').toLowerCase();
-      var col = window.getComputedStyle(el).color || '';
-      if (/active|selected|current/.test(cls) || aria === 'true' || aria === 'page' || /56,\s*189,\s*248|14,\s*165,\s*233|2,\s*132,\s*199/.test(col)) {
-        return i;
-      }
-    }
-    return activeIdx < tabs.length ? activeIdx : 0;
-  }
-
-  function snapToIndex(idx, instant){
-    if (!navEl || !lensEl) return;
-    var tabs = getTabs(navEl);
-    if (!tabs.length) return;
-    idx = Math.max(0, Math.min(tabs.length - 1, idx));
-    activeIdx = idx;
-
-    var tab = tabs[idx];
-    var navR = navEl.getBoundingClientRect();
-    var tabR = tab.getBoundingClientRect();
-    var left = tabR.left - navR.left;
-    var width = Math.max(52, tabR.width);
-
-    lensW = width;
-    dragX = left;
-    targetX = left;
-    lastX = left;
-
-    if (instant) {
-      lensEl.style.transition = 'none';
-      lensEl.style.width = width + 'px';
-      lensEl.style.transform = 'translate3d(' + left + 'px, 0, 0) scale(1, 1)';
-      lensEl.offsetHeight;
-      lensEl.style.transition = '';
-    } else {
-      lensEl.style.width = width + 'px';
-      lensEl.style.transform = 'translate3d(' + left + 'px, 0, 0) scale(1, 1)';
-    }
-  }
-
-  function clearHover(tabs){
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].classList.remove('at-lg-tab-hover');
-    }
-  }
-
-  function animateDrag(){
-    if (!isDragging || !lensEl) {
-      rafId = null;
-      return;
-    }
-    dragX += (targetX - dragX) * 0.36;
-    var vx = dragX - lastX;
-    lastX = dragX;
-    var stretchX = Math.min(1.24, 1.11 + Math.abs(vx) * 0.011);
-    var stretchY = Math.max(1.04, 1.15 - Math.abs(vx) * 0.005);
-
-    lensEl.style.transform = 'translate3d(' + dragX.toFixed(1) + 'px, 0, 0) scale(' + stretchX.toFixed(3) + ', ' + stretchY.toFixed(3) + ')';
-    rafId = requestAnimationFrame(animateDrag);
-  }
-
-  function updatePointer(clientX, allowLiveSwitch){
-    if (!navEl || !lensEl) return;
-    var tabs = getTabs(navEl);
-    if (!tabs.length) return;
-
-    var navR = navEl.getBoundingClientRect();
-    var pad = 5;
-    var minX = pad;
-    var maxX = Math.max(pad, navR.width - lensW - pad);
-    targetX = Math.max(minX, Math.min(maxX, clientX - navR.left - lensW * 0.5));
-
-    var bestIdx = 0;
-    var bestDist = Infinity;
-    for (var i = 0; i < tabs.length; i++) {
-      var tr = tabs[i].getBoundingClientRect();
-      var cx = tr.left + tr.width * 0.5;
-      var d = Math.abs(clientX - cx);
-      if (d < bestDist) {
-        bestDist = d;
-        bestIdx = i;
-      }
-    }
-
-    if (bestIdx !== hoverIdx) {
-      hoverIdx = bestIdx;
-      clearHover(tabs);
-      tabs[bestIdx].classList.add('at-lg-tab-hover');
-
-      if (allowLiveSwitch && bestIdx !== activeIdx) {
-        if (switchTimer) clearTimeout(switchTimer);
-        var idxCopy = bestIdx;
-        switchTimer = setTimeout(function(){
-          if (isDragging && hoverIdx === idxCopy) {
-            activeIdx = idxCopy;
-            try { tabs[idxCopy].click(); } catch(e){}
-          }
-        }, 55);
-      }
-    }
-  }
-
-  function bindDock(){
-    var nav = getNav();
-    enforceCompactMetrics(nav);
-    if (!nav) return;
-    if (navEl === nav && lensEl && lensEl.parentNode === nav) {
-      if (!isDragging) {
-        var tabs = getTabs(nav);
-        var det = detectActiveIndex(tabs);
-        if (det !== activeIdx) snapToIndex(det, false);
-      }
-      return;
-    }
-
-    navEl = nav;
-    lensEl = nav.querySelector('#at-lg-tab-lens');
-    if (!lensEl) {
-      lensEl = document.createElement('div');
-      lensEl.id = 'at-lg-tab-lens';
-      nav.insertBefore(lensEl, nav.firstChild);
-    }
-
-    if (nav.dataset.atLgBound !== '1') {
-      nav.dataset.atLgBound = '1';
-
-      function onStart(clientX){
-        var tabs = getTabs(navEl);
-        if (!tabs.length) return;
-        isDragging = true;
-        hoverIdx = -1;
-        lensEl.classList.add('dragging');
-        updatePointer(clientX, false);
-        dragX = targetX;
-        lastX = targetX;
-        if (!rafId) rafId = requestAnimationFrame(animateDrag);
-      }
-
-      function onMove(clientX){
-        if (!isDragging) return;
-        updatePointer(clientX, true);
-      }
-
-      function onEnd(){
-        if (!isDragging) return;
-        isDragging = false;
-        if (switchTimer) { clearTimeout(switchTimer); switchTimer = null; }
-        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        var tabs = getTabs(navEl);
-        clearHover(tabs);
-        lensEl.classList.remove('dragging');
-        var finalIdx = hoverIdx >= 0 ? hoverIdx : detectActiveIndex(tabs);
-        if (tabs[finalIdx] && finalIdx !== activeIdx) {
-          activeIdx = finalIdx;
-          try { tabs[finalIdx].click(); } catch(e){}
-        }
-        snapToIndex(finalIdx, false);
-        hoverIdx = -1;
-      }
-
-      nav.addEventListener('touchstart', function(e){
-        if (!e.touches || !e.touches.length) return;
-        onStart(e.touches[0].clientX);
-      }, { passive: true });
-
-      nav.addEventListener('touchmove', function(e){
-        if (!isDragging || !e.touches || !e.touches.length) return;
-        e.preventDefault();
-        onMove(e.touches[0].clientX);
-      }, { passive: false });
-
-      nav.addEventListener('touchend', function(){ onEnd(); }, { passive: true });
-      nav.addEventListener('touchcancel', function(){ onEnd(); }, { passive: true });
-
-      nav.addEventListener('mousedown', function(e){ onStart(e.clientX); });
-      window.addEventListener('mousemove', function(e){ if (isDragging) onMove(e.clientX); });
-      window.addEventListener('mouseup', function(){ if (isDragging) onEnd(); });
-
-      nav.addEventListener('click', function(){
-        setTimeout(function(){
-          if (!isDragging && navEl) {
-            snapToIndex(detectActiveIndex(getTabs(navEl)), false);
-          }
-        }, 60);
-      });
-    }
-
-    setTimeout(function(){ snapToIndex(detectActiveIndex(getTabs(navEl)), true); }, 120);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(bindDock, 250); });
-  } else {
-    setTimeout(bindDock, 250);
-  }
-  window.addEventListener('resize', function(){
-    if (navEl && !isDragging) snapToIndex(detectActiveIndex(getTabs(navEl)), true);
-  });
-  setInterval(bindDock, 1200);
-})();
-</script>
-<!-- LIQUID_GLASS_DOCK_END -->
-<!-- MOBILE_DIAG_START -->
-<script id="at-mobile-diag-js">
-(function(){
-  if (window.__AT_DIAG_V1__) return;
-  window.__AT_DIAG_V1__ = true;
-
-  var jsErrors = [];
-  window.addEventListener('error', function(e){
-    jsErrors.push((e && e.message) ? e.message : 'Unknown JS error');
-  });
-
-  setTimeout(function(){
-    var report = [];
-    var d = window.AQUATWIN_ML_DATA;
-    var list = (d && Array.isArray(d.districts)) ? d.districts : [];
-    report.push('DISTRICTS=' + list.length + '/33');
-
-    var names = list.map(function(x){ return String(x.district || '').toLowerCase(); });
-    var keyDistricts = ['hyderabad', 'warangal', 'khammam', 'jangaon', 'adilabad'];
-    var missing = keyDistricts.filter(function(k){ return names.indexOf(k) === -1; });
-    report.push('KEY_DISTRICTS=' + (missing.length === 0 ? 'PASS' : 'MISSING:' + missing.join(',')));
-
-    var nanCount = 0;
-    list.forEach(function(item){
-      ['latitude','longitude','xgb_wqi','gw_depth_mbgl','turbidity_index'].forEach(function(f){
-        if (!isFinite(Number(item[f]))) nanCount++;
-      });
-    });
-    report.push('DATA_VALIDITY=' + (nanCount === 0 ? 'PASS' : 'FAIL_NAN:' + nanCount));
-
-    var storageOk = false;
-    try {
-      localStorage.setItem('__at_test__', '1');
-      storageOk = (localStorage.getItem('__at_test__') === '1');
-      localStorage.removeItem('__at_test__');
-    } catch(e){}
-    report.push('HISTORY_STORAGE=' + (storageOk ? 'PASS' : 'FAIL'));
-
-    report.push('LEAFLET_MAP=' + (typeof window.L !== 'undefined' ? 'PASS' : 'FAIL'));
-    report.push('ASKAI_BTN=' + (document.getElementById('at-askai-fab') ? 'PASS' : 'FAIL'));
-    report.push('HISTORY_BTN=' + (document.getElementById('at-history-btn') ? 'PASS' : 'FAIL'));
-    report.push('GLASS_DOCK=' + (document.getElementById('at-lg-tab-lens') ? 'PASS' : 'FAIL'));
-    report.push('JS_ERRORS=' + (jsErrors.length === 0 ? '0_CLEAN' : jsErrors.join(' | ')));
-
-    console.log('AQUATWIN_MOBILE_TEST: ' + report.join(' ; '));
-
-    // Verify live mobile Open-Meteo telemetry endpoint directly from the phone
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=17.385&longitude=78.4867&current=temperature_2m&timezone=Asia%2FKolkata')
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(j){
-        var t = (j && j.current && j.current.temperature_2m != null) ? j.current.temperature_2m : null;
-        console.log('AQUATWIN_MOBILE_TEST: LIVE_WEATHER=' + (t !== null ? 'PASS(' + t + 'C)' : 'OFFLINE_FALLBACK'));
-      })
-      .catch(function(){
-        console.log('AQUATWIN_MOBILE_TEST: LIVE_WEATHER=OFFLINE_FALLBACK');
-      });
-  }, 2200);
-})();
-</script>
-<!-- MOBILE_DIAG_END -->
-
 <!-- APP_UPDATER_START -->
 <style id="at-updater-css">
 #at-update-backdrop {
@@ -5202,7 +4459,7 @@ nav > a svg,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.69";
+window.AQUATWIN_VERSION = "1.74";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5294,5 +4551,431 @@ window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/
 })();
 </script>
 <!-- APP_UPDATER_END -->
+<!-- SMOOTH_OPT_START -->
+<style id="at-smooth-opt-css">
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+main, section, [class*="scroll"], [class*="list"] {
+  -webkit-overflow-scrolling: touch;
+}
+nav,
+[class*="bottom-nav"],
+[class*="tab-bar"] {
+  position: fixed !important;
+  left: 24px !important;
+  right: 24px !important;
+  bottom: 26px !important;
+  width: auto !important;
+  max-width: 360px !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+  padding: 4px 6px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 48%,
+    rgba(10, 22, 42, 0.24) 100%
+  ) !important;
+  backdrop-filter: blur(24px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(210%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.52) !important;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52) !important;
+  overflow: visible !important;
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  transform: translateZ(0);
+  z-index: 2147482500 !important;
+}
+nav > button,
+nav > a,
+nav > div:not(#at-lg-tab-lens),
+[class*="bottom-nav"] > button,
+[class*="bottom-nav"] > a,
+[class*="tab-bar"] > button,
+[class*="tab-bar"] > a {
+  position: relative !important;
+  z-index: 2 !important;
+  flex: 1 1 0 !important;
+  height: 42px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 0 2px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+  gap: 2px !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+#at-lg-tab-lens {
+  position: absolute !important;
+  top: 4px !important;
+  left: 0;
+  height: 42px !important;
+  width: 68px;
+  border-radius: 999px;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 3px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 0.28s cubic-bezier(0.22, 1.2, 0.36, 1), width 0.26s cubic-bezier(0.22, 1.2, 0.36, 1);
+  will-change: transform, width;
+}
+#at-lg-tab-lens.dragging {
+  background: rgba(210, 240, 255, 0.16) !important;
+  backdrop-filter: blur(3px) brightness(1.18) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(3px) brightness(1.18) saturate(170%) !important;
+  border-color: rgba(255, 255, 255, 0.78) !important;
+  transition: none !important;
+}
+#at-askai-fab {
+  bottom: 116px !important;
+  right: 16px !important;
+  transform: translateZ(0);
+}
+</style>
+<script id="at-smooth-opt-js">
+(function(){
+  if (window.__AT_SMOOTH_OPT__) return;
+  window.__AT_SMOOTH_OPT__ = true;
+
+  var errCount = 0;
+  window.addEventListener('error', function(e){
+    errCount++;
+    if (window.__AT_DEBUG_ERRS__) window.__AT_DEBUG_ERRS__.push(e && e.message ? e.message : 'Error');
+  });
+  window.__AT_DEBUG_ERRS__ = [];
+
+  var navEl = null, lensEl = null, isDragging = false, activeIdx = 0, hoverIdx = -1;
+  var dragX = 0, targetX = 0, lensW = 68, rafId = null, switchTimer = null;
+
+  function getNav(){
+    return document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
+  }
+  function getTabs(nav){
+    if (!nav) return [];
+    var items = Array.prototype.slice.call(nav.children).filter(function(el){
+      return el.id !== 'at-lg-tab-lens' && el.offsetWidth > 20;
+    });
+    return items.length >= 2 ? items : Array.prototype.slice.call(nav.querySelectorAll('button, a')).filter(function(el){ return el.offsetWidth > 20; });
+  }
+  function detectActive(tabs){
+    for (var i = 0; i < tabs.length; i++){
+      var el = tabs[i];
+      var cls = (el.className || '').toLowerCase();
+      var aria = (el.getAttribute('aria-selected') || el.getAttribute('aria-current') || '').toLowerCase();
+      if (/active|selected|current/.test(cls) || aria === 'true' || aria === 'page') return i;
+    }
+    return activeIdx < tabs.length ? activeIdx : 0;
+  }
+  function snapLens(idx, instant){
+    if (!navEl || !lensEl) return;
+    var tabs = getTabs(navEl);
+    if (!tabs.length) return;
+    idx = Math.max(0, Math.min(tabs.length - 1, idx));
+    activeIdx = idx;
+    var navR = navEl.getBoundingClientRect();
+    var tabR = tabs[idx].getBoundingClientRect();
+    var left = tabR.left - navR.left;
+    var w = Math.max(52, tabR.width);
+    lensW = w;
+    dragX = targetX = left;
+    if (instant) {
+      lensEl.style.transition = 'none';
+      lensEl.style.width = w + 'px';
+      lensEl.style.transform = 'translate3d(' + left.toFixed(1) + 'px, 0, 0)';
+      lensEl.offsetHeight;
+      lensEl.style.transition = '';
+    } else {
+      lensEl.style.width = w + 'px';
+      lensEl.style.transform = 'translate3d(' + left.toFixed(1) + 'px, 0, 0)';
+    }
+  }
+  function stepFrame(){
+    if (!isDragging || !lensEl) { rafId = null; return; }
+    dragX += (targetX - dragX) * 0.42;
+    lensEl.style.transform = 'translate3d(' + dragX.toFixed(1) + 'px, 0, 0) scale(1.08, 1.06)';
+    rafId = requestAnimationFrame(stepFrame);
+  }
+  function handleMove(clientX, allowSwitch){
+    if (!navEl || !lensEl) return;
+    var tabs = getTabs(navEl);
+    if (!tabs.length) return;
+    var navR = navEl.getBoundingClientRect();
+    targetX = Math.max(5, Math.min(Math.max(5, navR.width - lensW - 5), clientX - navR.left - lensW * 0.5));
+    var best = 0, bestD = Infinity;
+    for (var i = 0; i < tabs.length; i++){
+      var r = tabs[i].getBoundingClientRect();
+      var d = Math.abs(clientX - (r.left + r.width * 0.5));
+      if (d < bestD) { bestD = d; best = i; }
+    }
+    if (best !== hoverIdx){
+      hoverIdx = best;
+      if (allowSwitch && best !== activeIdx){
+        if (switchTimer) clearTimeout(switchTimer);
+        var idxCopy = best;
+        switchTimer = setTimeout(function(){
+          if (isDragging && hoverIdx === idxCopy){
+            activeIdx = idxCopy;
+            try { tabs[idxCopy].click(); } catch(e){}
+          }
+        }, 45);
+      }
+    }
+  }
+  function initDock(){
+    try {
+      var fab = document.getElementById('at-askai-fab');
+      if (fab) { fab.style.setProperty('bottom', '116px', 'important'); fab.style.setProperty('right', '16px', 'important'); }
+      var nav = getNav();
+      if (!nav) return;
+      navEl = nav;
+      lensEl = nav.querySelector('#at-lg-tab-lens');
+      if (!lensEl){
+        lensEl = document.createElement('div');
+        lensEl.id = 'at-lg-tab-lens';
+        nav.insertBefore(lensEl, nav.firstChild);
+      }
+      if (nav.dataset.atOptBound !== '1'){
+        nav.dataset.atOptBound = '1';
+        nav.addEventListener('touchstart', function(e){
+          if (!e.touches || !e.touches.length) return;
+          isDragging = true; hoverIdx = -1;
+          lensEl.classList.add('dragging');
+          handleMove(e.touches[0].clientX, false);
+          dragX = targetX;
+          if (!rafId) rafId = requestAnimationFrame(stepFrame);
+        }, { passive: true });
+        nav.addEventListener('touchmove', function(e){
+          if (!isDragging || !e.touches || !e.touches.length) return;
+          e.preventDefault();
+          handleMove(e.touches[0].clientX, true);
+        }, { passive: false });
+        function endDrag(){
+          if (!isDragging) return;
+          isDragging = false;
+          if (switchTimer) { clearTimeout(switchTimer); switchTimer = null; }
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+          lensEl.classList.remove('dragging');
+          var tabs = getTabs(navEl);
+          var finalIdx = hoverIdx >= 0 ? hoverIdx : detectActive(tabs);
+          if (tabs[finalIdx] && finalIdx !== activeIdx){
+            activeIdx = finalIdx;
+            try { tabs[finalIdx].click(); } catch(e){}
+          }
+          snapLens(finalIdx, false);
+          hoverIdx = -1;
+        }
+        nav.addEventListener('touchend', endDrag, { passive: true });
+        nav.addEventListener('touchcancel', endDrag, { passive: true });
+        nav.addEventListener('click', function(){
+          setTimeout(function(){ if (!isDragging && navEl) snapLens(detectActive(getTabs(navEl)), false); }, 50);
+        });
+      }
+      if (!isDragging) snapLens(detectActive(getTabs(navEl)), true);
+    } catch(e) {}
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(initDock, 150); });
+  else setTimeout(initDock, 150);
+  window.addEventListener('resize', function(){ if (!isDragging) initDock(); });
+
+  setTimeout(function(){
+    var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
+    console.log('AQUATWIN_OPT_CHECK: districts=' + dCount + '/33 | js_errors=' + errCount + ' | dock=' + (document.getElementById('at-lg-tab-lens') ? 'ok' : 'pending'));
+  }, 1800);
+})();
+</script>
+<!-- SMOOTH_OPT_END -->
+<!-- LENS_FIT_FIX_START -->
+<style id="at-lens-fit-css">
+#at-lg-tab-lens {
+  top: 4px !important;
+  bottom: 4px !important;
+  height: calc(100% - 8px) !important;
+  min-height: 44px !important;
+  border-radius: 999px !important;
+}
+</style>
+<script id="at-lens-fit-js">
+(function(){
+  if (window.__AT_LENS_FIT_V2__) return;
+  window.__AT_LENS_FIT_V2__ = true;
+
+  function hideBadge(){
+    var hdr = document.querySelector('header');
+    if (!hdr) return;
+    hdr.querySelectorAll('span, div, small, p').forEach(function(el){
+      if (el.children.length === 0 && /offline\s*ready|33\s*districts/i.test(el.textContent || '')){
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+  }
+
+  function fitActiveLens(){
+    hideBadge();
+    var nav = document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
+    if (!nav) return;
+    var lens = nav.querySelector('#at-lg-tab-lens');
+    var tabs = Array.prototype.slice.call(nav.children).filter(function(el){
+      return el.id !== 'at-lg-tab-lens' && el.offsetWidth > 20;
+    });
+    if (!lens || !tabs.length) return;
+
+    var idx = 0;
+    for (var i = 0; i < tabs.length; i++){
+      var cls = (tabs[i].className || '').toLowerCase();
+      var aria = (tabs[i].getAttribute('aria-selected') || tabs[i].getAttribute('aria-current') || '').toLowerCase();
+      if (/active|selected|current/.test(cls) || aria === 'true' || aria === 'page') { idx = i; break; }
+    }
+
+    var navR = nav.getBoundingClientRect();
+    var tabR = tabs[idx].getBoundingClientRect();
+    var pad = 4;
+    var w = Math.max(48, Math.round(tabR.width - pad * 2));
+    var x = Math.max(pad, Math.round(tabR.left - navR.left + pad));
+    lens.style.width = w + 'px';
+    lens.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(fitActiveLens, 200); });
+  } else {
+    setTimeout(fitActiveLens, 200);
+  }
+  window.addEventListener('resize', function(){ setTimeout(fitActiveLens, 100); });
+  document.addEventListener('click', function(){ setTimeout(fitActiveLens, 80); });
+  setTimeout(fitActiveLens, 1200);
+})();
+</script>
+<!-- LENS_FIT_FIX_END -->
+<!-- APPLE_GLASS_CLEAR_START -->
+<style id="at-apple-clear-css">
+nav,
+[class*="bottom-nav"],
+[class*="tab-bar"] {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 34, 46, 0.56) 0%,
+    rgba(14, 18, 28, 0.68) 100%
+  ) !important;
+  backdrop-filter: blur(22px) saturate(190%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(190%) brightness(1.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
+}
+nav > button,
+nav > a,
+nav > div:not(#at-lg-tab-lens),
+[class*="bottom-nav"] > button,
+[class*="bottom-nav"] > a,
+[class*="tab-bar"] > button,
+[class*="tab-bar"] > a {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65) !important;
+}
+#at-lg-tab-lens {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.06) 72%,
+    rgba(255, 255, 255, 0.16) 100%
+  ) !important;
+  backdrop-filter: blur(3px) brightness(1.18) contrast(1.06) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(3px) brightness(1.18) contrast(1.06) saturate(165%) !important;
+  border: 1.4px solid rgba(255, 255, 255, 0.78) !important;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.34),
+    inset 0 1.4px 2px rgba(255, 255, 255, 0.88),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.30) !important;
+}
+#at-lg-tab-lens::before {
+  opacity: 0.62 !important;
+}
+#at-lg-tab-lens.dragging {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.09) 70%,
+    rgba(255, 255, 255, 0.22) 100%
+  ) !important;
+  backdrop-filter: blur(4px) brightness(1.24) contrast(1.08) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(4px) brightness(1.24) contrast(1.08) saturate(180%) !important;
+  border: 1.6px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.42),
+    inset 0 1.6px 2.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 4px rgba(255, 255, 255, 0.38) !important;
+}
+</style>
+<script id="at-apple-clear-js">
+(function(){
+  if (window.__AT_APPLE_CLEAR_V2__) return;
+  window.__AT_APPLE_CLEAR_V2__ = true;
+
+  function tuneGlass(){
+    var nav = document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
+    if (!nav) return;
+    var lens = nav.querySelector('#at-lg-tab-lens');
+    var tabs = Array.prototype.slice.call(nav.children).filter(function(el){
+      return el.id !== 'at-lg-tab-lens' && el.offsetWidth > 20;
+    });
+    if (!lens || !tabs.length) return;
+
+    var idx = 0;
+    for (var i = 0; i < tabs.length; i++){
+      var cls = (tabs[i].className || '').toLowerCase();
+      var aria = (tabs[i].getAttribute('aria-selected') || tabs[i].getAttribute('aria-current') || '').toLowerCase();
+      if (/active|selected|current/.test(cls) || aria === 'true' || aria === 'page') { idx = i; break; }
+    }
+
+    var navR = nav.getBoundingClientRect();
+    var tabR = tabs[idx].getBoundingClientRect();
+    var pad = 4;
+    var w = Math.max(48, Math.round(tabR.width - pad * 2));
+    var x = Math.max(pad, Math.round(tabR.left - navR.left + pad));
+    lens.style.top = '4px';
+    lens.style.bottom = '4px';
+    lens.style.height = 'calc(100% - 8px)';
+    lens.style.width = w + 'px';
+    lens.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(tuneGlass, 200); });
+  } else {
+    setTimeout(tuneGlass, 200);
+  }
+  window.addEventListener('resize', function(){ setTimeout(tuneGlass, 100); });
+  document.addEventListener('click', function(){ setTimeout(tuneGlass, 80); });
+  setTimeout(tuneGlass, 1200);
+})();
+</script>
+<!-- APPLE_GLASS_CLEAR_END -->
 </body>
 </html>
