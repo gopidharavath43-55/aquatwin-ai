@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.89";
+window.AQUATWIN_VERSION = "1.90";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5517,5 +5517,109 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_STATE_GUARD_END -->
+<!-- AUTO_OPEN_UPDATE_START -->
+<style id="at-auto-open-css">
+#at-auto-toast {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translate(-50%, -140%);
+  z-index: 2147483500;
+  width: min(92vw, 350px);
+  padding: 11px 14px;
+  border-radius: 16px;
+  background: rgba(10, 25, 47, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.48);
+  color: #f8fafc;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+#at-auto-toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+.at-auto-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.at-auto-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+.at-auto-bar {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.at-auto-fill {
+  height: 100%;
+  width: 35%;
+  background: linear-gradient(90deg, #34d399, #38bdf8);
+  transition: width 0.55s ease;
+}
+</style>
+<script id="at-auto-open-js">
+(function(){
+  if (window.__AT_AUTO_OPEN_BOUND__) return;
+  window.__AT_AUTO_OPEN_BOUND__ = true;
+
+  // Neutralize any legacy modal trigger so it never blocks first screen
+  window.showUpdateModal = function(){};
+  window.checkForRemoteUpdate = function(){};
+
+  function runAutoOpenSync(){
+    var ver = String(window.AQUATWIN_VERSION || 'latest').replace(/^v/i, '');
+    var key = 'aquatwin_last_applied_ver';
+    var prev = localStorage.getItem(key);
+    if (prev === ver) return;
+
+    var toast = document.getElementById('at-auto-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'at-auto-toast';
+      toast.innerHTML =
+        '<div class="at-auto-row"><span id="at-auto-title">Updating AquaTwin AI...</span><span style="color:#34d399">v' + ver + '</span></div>' +
+        '<div class="at-auto-sub" id="at-auto-sub">Applying latest version automatically</div>' +
+        '<div class="at-auto-bar"><div class="at-auto-fill" id="at-auto-fill"></div></div>';
+      document.body.appendChild(toast);
+    }
+
+    requestAnimationFrame(function(){
+      toast.classList.add('show');
+      var fill = document.getElementById('at-auto-fill');
+      if (fill) setTimeout(function(){ fill.style.width = '100%'; }, 80);
+    });
+
+    setTimeout(function(){
+      localStorage.setItem(key, ver);
+      var tEl = document.getElementById('at-auto-title');
+      var sEl = document.getElementById('at-auto-sub');
+      if (tEl) tEl.textContent = 'AquaTwin AI Updated';
+      if (sEl) sEl.textContent = 'Running v' + ver;
+    }, 750);
+
+    setTimeout(function(){
+      toast.classList.remove('show');
+    }, 2100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(runAutoOpenSync, 500); });
+  } else {
+    setTimeout(runAutoOpenSync, 500);
+  }
+})();
+</script>
+<!-- AUTO_OPEN_UPDATE_END -->
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
-    "version":  "1.89",
-    "version_code":  89,
+    "version":  "1.90",
+    "version_code":  90,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Ask AI: prompt for state/district name on non-district input and answer when state/district is given",
+    "notes":  "• Automatic update on app open without blocking startup popup",
     "force":  false,
-    "updated_at":  "2026-11-24 21:02 IST"
+    "updated_at":  "2026-11-24 21:07 IST"
 }
