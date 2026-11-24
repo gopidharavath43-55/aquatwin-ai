@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.90";
+window.AQUATWIN_VERSION = "1.91";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5517,8 +5517,17 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_STATE_GUARD_END -->
+
 <!-- AUTO_OPEN_UPDATE_START -->
 <style id="at-auto-open-css">
+#at-update-backdrop,
+[id*="update-backdrop"],
+[class*="at-up-card"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 #at-auto-toast {
   position: fixed;
   top: calc(14px + env(safe-area-inset-top));
@@ -5573,20 +5582,35 @@ nav > div:not(#at-lg-tab-lens),
   if (window.__AT_AUTO_OPEN_BOUND__) return;
   window.__AT_AUTO_OPEN_BOUND__ = true;
 
-  // Neutralize any legacy modal trigger so it never blocks first screen
   window.showUpdateModal = function(){};
   window.checkForRemoteUpdate = function(){};
 
-  function runAutoOpenSync(){
-    var ver = String(window.AQUATWIN_VERSION || 'latest').replace(/^v/i, '');
-    var key = 'aquatwin_last_applied_ver';
-    var prev = localStorage.getItem(key);
-    if (prev === ver) return;
+  function purgeUpdateModal(){
+    var ids = ["at-update-backdrop"];
+    ids.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    });
+    document.querySelectorAll("div, section").forEach(function(el){
+      if (el.id === "at-auto-toast") return;
+      var txt = (el.textContent || "");
+      if (/New Update Available/i.test(txt) && /How to install/i.test(txt) && el.offsetHeight > 120) {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }
+    });
+  }
 
-    var toast = document.getElementById('at-auto-toast');
+  function runAutoOpenSync(){
+    purgeUpdateModal();
+    var ver = String(window.AQUATWIN_VERSION || "").replace(/^v/i, "");
+    var key = "aquatwin_last_applied_ver";
+    var prev = localStorage.getItem(key);
+    if (!ver || prev === ver) return;
+
+    var toast = document.getElementById("at-auto-toast");
     if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'at-auto-toast';
+      toast = document.createElement("div");
+      toast.id = "at-auto-toast";
       toast.innerHTML =
         '<div class="at-auto-row"><span id="at-auto-title">Updating AquaTwin AI...</span><span style="color:#34d399">v' + ver + '</span></div>' +
         '<div class="at-auto-sub" id="at-auto-sub">Applying latest version automatically</div>' +
@@ -5595,28 +5619,31 @@ nav > div:not(#at-lg-tab-lens),
     }
 
     requestAnimationFrame(function(){
-      toast.classList.add('show');
-      var fill = document.getElementById('at-auto-fill');
-      if (fill) setTimeout(function(){ fill.style.width = '100%'; }, 80);
+      toast.classList.add("show");
+      var fill = document.getElementById("at-auto-fill");
+      if (fill) setTimeout(function(){ fill.style.width = "100%"; }, 80);
     });
 
     setTimeout(function(){
       localStorage.setItem(key, ver);
-      var tEl = document.getElementById('at-auto-title');
-      var sEl = document.getElementById('at-auto-sub');
-      if (tEl) tEl.textContent = 'AquaTwin AI Updated';
-      if (sEl) sEl.textContent = 'Running v' + ver;
+      var tEl = document.getElementById("at-auto-title");
+      var sEl = document.getElementById("at-auto-sub");
+      if (tEl) tEl.textContent = "AquaTwin AI Updated";
+      if (sEl) sEl.textContent = "Running v" + ver;
     }, 750);
 
     setTimeout(function(){
-      toast.classList.remove('show');
+      toast.classList.remove("show");
     }, 2100);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(runAutoOpenSync, 500); });
+  var obs = new MutationObserver(purgeUpdateModal);
+  obs.observe(document.documentElement || document.body, { childList: true, subtree: true });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(runAutoOpenSync, 400); });
   } else {
-    setTimeout(runAutoOpenSync, 500);
+    setTimeout(runAutoOpenSync, 400);
   }
 })();
 </script>

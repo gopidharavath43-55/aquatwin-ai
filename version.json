@@ -1,8 +1,8 @@
 {
-    "version":  "1.90",
-    "version_code":  90,
+    "version":  "1.91",
+    "version_code":  91,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Automatic update on app open without blocking startup popup",
+    "notes":  "• Automatic update banner on open without startup update modal",
     "force":  false,
-    "updated_at":  "2026-11-24 21:07 IST"
+    "updated_at":  "2026-11-24 21:10 IST"
 }
