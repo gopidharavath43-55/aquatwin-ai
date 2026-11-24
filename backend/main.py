@@ -1,40 +1,119 @@
 import csv
+import logging
 import math
+import os
 from pathlib import Path
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, ConfigDict, Field
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from slowapi.util import get_remote_address
 
-app = FastAPI(title="AquaTwin AI Backend")
+logger = logging.getLogger("aquatwin.security")
+IS_PROD = os.getenv("ENV", "development").lower() == "production"
 
+# 1. Disable public Swagger/OpenAPI docs in production
+app = FastAPI(
+    title="AquaTwin AI Backend",
+    docs_url=None if IS_PROD else "/docs",
+    redoc_url=None if IS_PROD else "/redoc",
+    openapi_url=None if IS_PROD else "/openapi.json",
+)
+
+# 2. Strict CORS allowlist (no wildcard "*")
+ALLOWED_ORIGINS = [
+    "https://www-gold-five.vercel.app",
+    "https://aquatwin-ai.vercel.app",
+    "https://localhost",
+    "capacitor://localhost",
+    "http://localhost",
+    "http://127.0.0.1:5500",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "Authorization"],
 )
+
+# 3. Burst & DDoS rate limiting
+limiter = Limiter(key_func=get_remote_address, default_limits=["60/minute"])
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
 
 BASE_DIR = Path(__file__).resolve().parent
 
 
+# 4. Convert all unexpected/unwanted errors into clean, expected JSON
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={
+            "ok": False,
+            "code": "RATE_LIMITED",
+            "message": "Too many requests. Please wait a minute and try again.",
+        },
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={
+            "ok": False,
+            "code": "INVALID_INPUT",
+            "message": "One or more input fields are invalid or outside allowed limits.",
+        },
+    )
+
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "ok": False,
+            "code": f"HTTP_{exc.status_code}",
+            "message": str(exc.detail),
+        },
+    )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.exception("Unhandled error on %s", request.url.path)
+    return JSONResponse(
+        status_code=500,
+        content={
+            "ok": False,
+            "code": "SERVER_ERROR",
+            "message": "Something went wrong. Please try again later.",
+        },
+    )
+
+
+# 5. Strict input validation & numeric bounds
 class SimulationRequest(BaseModel):
-    district: str
-    rainfall_change_pct: float = 0.0   # -50% to +50%
-    temp_change_c: float = 0.0         # -3°C to +5°C
-    pollution_load_pct: float = 0.0    # -30% to +50%
+    model_config = ConfigDict(extra="forbid")
+    district: str = Field(..., min_length=2, max_length=60, pattern=r"^[A-Za-z0-9\s\-]+$")
+    rainfall_change_pct: float = Field(0.0, ge=-50.0, le=50.0)
+    temp_change_c: float = Field(0.0, ge=-3.0, le=5.0)
+    pollution_load_pct: float = Field(0.0, ge=-30.0, le=50.0)
 
 
 def find_csv():
-    data_dirs = [BASE_DIR.parent / "data", BASE_DIR / "data", Path.cwd() / "data"]
+    # Restricted strictly to project data directories (never scan user Downloads)
+    data_dirs = [BASE_DIR.parent / "data", BASE_DIR / "data"]
     for d in data_dirs:
         if d.exists():
             for f in sorted(d.rglob("*.csv")):
-                if "telangana" in f.name.lower():
-                    return f
-    other_dirs = [BASE_DIR.parent, BASE_DIR, Path.cwd(), Path.home() / "Downloads"]
-    for d in other_dirs:
-        if d.exists():
-            for f in sorted(d.glob("*.csv")):
                 if "telangana" in f.name.lower():
                     return f
     return None
@@ -65,7 +144,6 @@ def compute_ai_metrics(turbidity, water_pct, ndwi):
     w = water_pct if water_pct is not None else 1.5
     n = ndwi if ndwi is not None else -0.45
 
-    # AI Water Quality Index (0-100)
     score = 88.0 - max(0.0, (t - 0.95) * 110.0) + min(10.0, w * 2.2) + (n + 0.5) * 20.0
     wqi_score = round(max(15.0, min(98.0, score)), 1)
 
@@ -116,33 +194,41 @@ def load_all_districts():
 
 
 @app.get("/")
-def home():
-    return {"message": "AquaTwin AI backend is running!"}
+@limiter.limit("60/minute")
+def home(request: Request):
+    return {"ok": True, "message": "AquaTwin AI backend is running!"}
+
+
+@app.get("/health")
+@limiter.limit("60/minute")
+def health(request: Request):
+    return {"ok": True, "status": "online", "service": "AquaTwin AI FastAPI"}
 
 
 @app.get("/districts")
-def get_districts():
+@limiter.limit("30/minute")
+def get_districts(request: Request):
     records = load_all_districts()
     if not records:
-        return {"error": "No Telangana CSV found"}
-    return {"count": len(records), "districts": records}
+        raise HTTPException(status_code=503, detail="District data temporarily unavailable.")
+    return {"ok": True, "count": len(records), "districts": records}
 
 
 @app.post("/simulate")
-def simulate_digital_twin(req: SimulationRequest):
+@limiter.limit("20/minute")
+def simulate_digital_twin(request: Request, req: SimulationRequest):
     records = load_all_districts()
     target = next(
-        (d for d in records if str(d.get("district", "")).lower() == req.district.lower()),
+        (d for d in records if str(d.get("district", "")).lower() == req.district.strip().lower()),
         None,
     )
     if not target:
-        raise HTTPException(status_code=404, detail=f"District '{req.district}' not found")
+        raise HTTPException(status_code=404, detail="Requested district was not found.")
 
     base_turb = target.get("turbidity_index") or 1.05
     base_water = target.get("water_coverage_pct") or 1.5
     base_ndwi = target.get("ndwi_mean") or -0.45
 
-    # Digital Twin projection model
     water_factor = 1.0 + (req.rainfall_change_pct * 0.009) - (req.temp_change_c * 0.045)
     sim_water = round(max(0.1, base_water * water_factor), 4)
 
@@ -155,7 +241,6 @@ def simulate_digital_twin(req: SimulationRequest):
     sim_status = get_status(sim_turb, sim_water)
     sim_ai = compute_ai_metrics(sim_turb, sim_water, sim_ndwi)
 
-    # 6-month forecast curve
     forecast_6m = []
     for m in range(1, 7):
         ratio = m / 6.0
@@ -171,6 +256,7 @@ def simulate_digital_twin(req: SimulationRequest):
         })
 
     return {
+        "ok": True,
         "district": target["district"],
         "inputs": req.model_dump(),
         "baseline": {

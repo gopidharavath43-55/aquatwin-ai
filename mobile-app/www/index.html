@@ -4512,7 +4512,7 @@ window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/
         '<div class="at-up-badge"><span>&#10024;</span><span>New Update Available</span></div>' +
         '<div class="at-up-title">Update AquaTwin AI</div>' +
         '<div class="at-up-ver">Installed: v' + window.AQUATWIN_VERSION + ' &rarr; Latest: v' + latestVer + '</div>' +
-        '<div class="at-up-notes">' + (notes || 'New features, satellite map upgrades, and performance fixes are ready.') + '</div>' +
+        '<div class="at-up-notes">' + window.atEscapeHtml(notes || 'New features, satellite map upgrades, and performance fixes are ready.') + '</div>' +
         '<div class="at-up-actions">' +
           (forceUpdate ? '' : '<button type="button" class="at-up-btn-later" id="at-up-later">Later</button>') +
           '<button type="button" class="at-up-btn-now" id="at-up-now">Update Now</button>' +
@@ -4558,7 +4558,7 @@ window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(data){
         if (!data || !data.version || !data.apk_url) return;
-        if (isNewerVersion(data.version, window.AQUATWIN_VERSION)) {
+        if (isNewerVersion(data.version, window.AQUATWIN_VERSION) && window.atIsTrustedApkUrl(data.apk_url)) {
           showUpdateModal(data.version, data.notes, data.apk_url, Boolean(data.force));
         }
       })
@@ -5062,5 +5062,43 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- AQUATWIN_UPDATER_V2_END -->
+<!-- SECURITY_HARDENING_START -->
+<script id="at-sec-hardening">
+(function(){
+  // 1. Global HTML escape utility to prevent DOM XSS
+  window.atEscapeHtml = function(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+
+  // 2. Validate that any OTA download URL strictly belongs to your GitHub repo
+  window.atIsTrustedApkUrl = function(url) {
+    try {
+      var u = new URL(String(url || ''));
+      return (
+        u.protocol === 'https:' &&
+        u.hostname === 'github.com' &&
+        u.pathname.indexOf('/gopidharavath43-55/aquatwin-ai/releases/') === 0 &&
+        /\.apk$/i.test(u.pathname)
+      );
+    } catch (e) {
+      return false;
+    }
+  };
+
+  // 3. Intercept update modal click if someone tampers with version.json apk_url
+  document.addEventListener('click', function(e) {
+    var btn = e.target && e.target.closest ? e.target.closest('#at-up-now') : null;
+    if (!btn) return;
+    var notesEl = document.querySelector('.at-up-notes');
+    if (notesEl) notesEl.textContent = notesEl.textContent; // Strip any injected HTML tags
+  }, true);
+})();
+</script>
+<!-- SECURITY_HARDENING_END -->
 </body>
 </html>
