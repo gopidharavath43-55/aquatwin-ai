@@ -1,8 +1,8 @@
 {
-    "version":  "1.95",
-    "version_code":  95,
-    "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Verified 3Y multi-modal forecasts (+1M/+2M/+6M/+1Y), SHA-256 integrity \u0026 GitHub Actions CI",
-    "force":  false,
-    "updated_at":  "2026-11-26 00:35 IST"
+  "version": "1.96",
+  "version_code": 96,
+  "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
+  "notes": "• Removed sliders box above 3Y forecast card; synced 3Y forecasts (+1M/+2M/+6M/+12M) & SHA-256 integrity",
+  "force": false,
+  "updated_at": "2026-11-26 00:50 IST"
 }
