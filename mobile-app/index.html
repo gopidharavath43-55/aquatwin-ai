@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.111";
+window.AQUATWIN_VERSION = "1.112";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6261,5 +6261,123 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- STRICT_33D_AI_REC_END -->
+<!-- MAP_TAB_SWITCH_FIX_START -->
+<style id="at-map-switch-css">
+body.at-force-map-tab .at-nonmap-hide {
+  display: none !important;
+}
+body.at-force-map-tab #map,
+body.at-force-map-tab #aquatwin-map,
+body.at-force-map-tab .leaflet-container {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 25 !important;
+}
+</style>
+<script id="at-map-switch-js">
+(function(){
+  if (window.__AT_MAP_SWITCH_FIX__) return;
+  window.__AT_MAP_SWITCH_FIX__ = true;
+
+  function isMapTabButton(el){
+    if (!el) return false;
+    var btn = el.closest ? el.closest("button, [role='tab'], [role='button'], a, div") : el;
+    if (!btn) return false;
+    var t = (btn.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+    return t === "map";
+  }
+
+  function findMapElement(){
+    var ids = ["map", "aquatwin-map", "telangana-map", "leaflet-map"];
+    for (var i = 0; i < ids.length; i++){
+      var el = document.getElementById(ids[i]);
+      if (el) return el;
+    }
+    var q = document.querySelector("[id*='map' i], [class*='map-container' i], .leaflet-container");
+    return q || null;
+  }
+
+  function refreshLeafletMaps(){
+    for (var k in window){
+      try {
+        var v = window[k];
+        if (v && typeof v.invalidateSize === "function" && typeof v.setView === "function"){
+          v.invalidateSize({ pan: false });
+          if (typeof v.getZoom === "function" && v.getZoom() < 6){
+            v.setView([17.85, 79.05], 7, { animate: false });
+          }
+        }
+      } catch(e){}
+    }
+  }
+
+  function activateMapScreen(){
+    document.body.classList.add("at-force-map-tab");
+
+    // Hide Ask AI floating button or open modals when switching to Map
+    var askBtn = Array.from(document.querySelectorAll("button, div")).find(function(n){
+      return n.children.length === 0 && /^ask ai$/i.test((n.textContent || "").trim());
+    });
+    if (askBtn && askBtn.closest("button, div")){
+      var wrap = askBtn.closest("button");
+      if (wrap) wrap.classList.add("at-nonmap-hide");
+    }
+
+    var mapEl = findMapElement();
+    if (mapEl){
+      mapEl.style.setProperty("display", "block", "important");
+      mapEl.style.setProperty("visibility", "visible", "important");
+      mapEl.style.setProperty("opacity", "1", "important");
+      var nav = document.querySelector("nav, [class*='bottom-nav'], [class*='tab-bar']");
+      var navH = nav ? Math.max(58, Math.round(nav.getBoundingClientRect().height)) : 64;
+      mapEl.style.setProperty("position", "fixed", "important");
+      mapEl.style.setProperty("left", "0px", "important");
+      mapEl.style.setProperty("right", "0px", "important");
+      mapEl.style.setProperty("top", "78px", "important");
+      mapEl.style.setProperty("bottom", navH + "px", "important");
+      mapEl.style.setProperty("width", "100%", "important");
+      mapEl.style.setProperty("height", "calc(100vh - " + (78 + navH) + "px)", "important");
+    }
+
+    setTimeout(refreshLeafletMaps, 60);
+    setTimeout(refreshLeafletMaps, 250);
+    setTimeout(refreshLeafletMaps, 650);
+  }
+
+  function deactivateMapScreenIfOtherTab(target){
+    var btn = target && target.closest ? target.closest("button, [role='tab'], [role='button'], a") : null;
+    if (!btn) return;
+    var t = (btn.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+    if (t === "map") return;
+    if (t === "home" || t === "districts" || t === "ai twin"){
+      document.body.classList.remove("at-force-map-tab");
+      document.querySelectorAll(".at-nonmap-hide").forEach(function(el){
+        el.classList.remove("at-nonmap-hide");
+      });
+      var mapEl = findMapElement();
+      if (mapEl){
+        mapEl.style.removeProperty("position");
+        mapEl.style.removeProperty("left");
+        mapEl.style.removeProperty("right");
+        mapEl.style.removeProperty("top");
+        mapEl.style.removeProperty("bottom");
+        mapEl.style.removeProperty("width");
+        mapEl.style.removeProperty("height");
+      }
+    }
+  }
+
+  document.addEventListener("click", function(e){
+    if (isMapTabButton(e.target)){
+      setTimeout(activateMapScreen, 30);
+      setTimeout(activateMapScreen, 180);
+    } else {
+      deactivateMapScreenIfOtherTab(e.target);
+    }
+  }, true);
+})();
+</script>
+<!-- MAP_TAB_SWITCH_FIX_END -->
 </body>
 </html>
