@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.112";
+window.AQUATWIN_VERSION = "1.113";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6261,123 +6261,241 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- STRICT_33D_AI_REC_END -->
-<!-- MAP_TAB_SWITCH_FIX_START -->
-<style id="at-map-switch-css">
-body.at-force-map-tab .at-nonmap-hide {
+<!-- MAP_SECTION_COMPLETE_FIX_START -->
+<style id="at-map-section-fix-css">
+body.at-map-tab-mode .at-map-hide-other {
   display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
-body.at-force-map-tab #map,
-body.at-force-map-tab #aquatwin-map,
-body.at-force-map-tab .leaflet-container {
+body.at-map-tab-mode #map,
+body.at-map-tab-mode #aquatwin-map,
+body.at-map-tab-mode .leaflet-container {
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
-  z-index: 25 !important;
+  pointer-events: auto !important;
+}
+#at-sat-toggle-btn {
+  position: fixed !important;
+  top: 88px !important;
+  right: 12px !important;
+  z-index: 2147482950 !important;
+  display: none !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.65);
+  background: rgba(8, 22, 42, 0.95);
+  color: #f8fafc;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
+body.at-map-tab-mode #at-sat-toggle-btn {
+  display: inline-flex !important;
+}
+#at-sat-toggle-btn.sat-on {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  border-color: #bae6fd;
+  color: #ffffff;
 }
 </style>
-<script id="at-map-switch-js">
+<script id="at-map-section-fix-js">
 (function(){
-  if (window.__AT_MAP_SWITCH_FIX__) return;
-  window.__AT_MAP_SWITCH_FIX__ = true;
+  if (window.__AT_MAP_SECTION_COMPLETE_FIX__) return;
+  window.__AT_MAP_SECTION_COMPLETE_FIX__ = true;
 
-  function isMapTabButton(el){
+  var mapTabActive = false;
+  var satOn = true;
+  var satLayer = null;
+  var placeLayer = null;
+
+  function normText(s){
+    return String(s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function isMapNavClick(target){
+    if (!target) return false;
+    var el = target.closest ? target.closest("button, [role='tab'], [role='button'], a, div") : target;
     if (!el) return false;
-    var btn = el.closest ? el.closest("button, [role='tab'], [role='button'], a, div") : el;
-    if (!btn) return false;
-    var t = (btn.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-    return t === "map";
+    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
+    if (r.top < window.innerHeight * 0.65) return false;
+    return normText(el.textContent) === "map";
   }
 
-  function findMapElement(){
-    var ids = ["map", "aquatwin-map", "telangana-map", "leaflet-map"];
-    for (var i = 0; i < ids.length; i++){
-      var el = document.getElementById(ids[i]);
-      if (el) return el;
+  function isOtherNavClick(target){
+    if (!target) return false;
+    var el = target.closest ? target.closest("button, [role='tab'], [role='button'], a, div") : target;
+    if (!el) return false;
+    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
+    if (r.top < window.innerHeight * 0.65) return false;
+    var t = normText(el.textContent);
+    return (t === "home" || t === "districts" || t === "ai twin");
+  }
+
+  function findMapContainer(){
+    var candidates = document.querySelectorAll("#map, #aquatwin-map, #telangana-map, .leaflet-container, [id*='map' i]");
+    for (var i = 0; i < candidates.length; i++){
+      var el = candidates[i];
+      if (!el || el.id === "at-sat-toggle-btn") continue;
+      if (el.closest && (el.closest("nav") || el.closest("[class*='bottom-nav']") || el.closest("[class*='tab-bar']"))) continue;
+      var r = el.getBoundingClientRect();
+      if (r.width >= 100 || el.id === "map" || el.id === "aquatwin-map") return el;
     }
-    var q = document.querySelector("[id*='map' i], [class*='map-container' i], .leaflet-container");
-    return q || null;
+    return null;
   }
 
-  function refreshLeafletMaps(){
+  function getLeafletInstances(){
+    var out = [];
     for (var k in window){
       try {
-        var v = window[k];
-        if (v && typeof v.invalidateSize === "function" && typeof v.setView === "function"){
-          v.invalidateSize({ pan: false });
-          if (typeof v.getZoom === "function" && v.getZoom() < 6){
-            v.setView([17.85, 79.05], 7, { animate: false });
-          }
+        var obj = window[k];
+        if (obj && typeof obj.invalidateSize === "function" && typeof obj.addLayer === "function" && typeof obj.setView === "function"){
+          out.push(obj);
         }
       } catch(e){}
     }
+    return out;
   }
 
-  function activateMapScreen(){
-    document.body.classList.add("at-force-map-tab");
-
-    // Hide Ask AI floating button or open modals when switching to Map
-    var askBtn = Array.from(document.querySelectorAll("button, div")).find(function(n){
-      return n.children.length === 0 && /^ask ai$/i.test((n.textContent || "").trim());
-    });
-    if (askBtn && askBtn.closest("button, div")){
-      var wrap = askBtn.closest("button");
-      if (wrap) wrap.classList.add("at-nonmap-hide");
+  function syncSatelliteLayers(){
+    if (!window.L || !window.L.tileLayer) return;
+    if (!satLayer){
+      satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 19,
+        updateWhenIdle: false,
+        updateWhenZooming: true,
+        keepBuffer: 4
+      });
     }
+    if (!placeLayer){
+      placeLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 19,
+        opacity: 0.95,
+        updateWhenIdle: false,
+        keepBuffer: 4
+      });
+    }
+    var maps = getLeafletInstances();
+    maps.forEach(function(m){
+      try {
+        if (satOn){
+          if (!m.hasLayer(satLayer)) satLayer.addTo(m);
+          if (!m.hasLayer(placeLayer)) placeLayer.addTo(m);
+          if (placeLayer.bringToFront) placeLayer.bringToFront();
+        } else {
+          if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
+          if (m.hasLayer(placeLayer)) m.removeLayer(placeLayer);
+        }
+        m.invalidateSize({ pan: false });
+      } catch(e){}
+    });
+  }
 
-    var mapEl = findMapElement();
+  function ensureSatToggleButton(){
+    var btn = document.getElementById("at-sat-toggle-btn");
+    if (!btn){
+      btn = document.createElement("button");
+      btn.id = "at-sat-toggle-btn";
+      btn.type = "button";
+      btn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        satOn = !satOn;
+        btn.classList.toggle("sat-on", satOn);
+        btn.textContent = satOn ? "🗺 Map View" : "🛰 Satellite";
+        syncSatelliteLayers();
+      });
+      document.body.appendChild(btn);
+    }
+    btn.classList.toggle("sat-on", satOn);
+    btn.textContent = satOn ? "🗺 Map View" : "🛰 Satellite";
+  }
+
+  function hideNonMapElements(mapEl){
+    var keepSet = new Set();
+    var cur = mapEl;
+    while (cur && cur !== document.body && cur !== document.documentElement){
+      keepSet.add(cur);
+      cur = cur.parentElement;
+    }
+    var satBtn = document.getElementById("at-sat-toggle-btn");
+    if (satBtn) keepSet.add(satBtn);
+
+    var topLevel = document.body ? Array.from(document.body.children) : [];
+    topLevel.forEach(function(child){
+      if (!child || child.tagName === "SCRIPT" || child.tagName === "STYLE") return;
+      if (keepSet.has(child)) return;
+      if (child.contains && mapEl && child.contains(mapEl)){
+        // Hide sibling sections/cards inside this wrapper that don't contain mapEl
+        Array.from(child.children).forEach(function(sub){
+          if (!sub || sub.tagName === "SCRIPT" || sub.tagName === "STYLE") return;
+          if (keepSet.has(sub) || (sub.contains && sub.contains(mapEl))) return;
+          var r = sub.getBoundingClientRect ? sub.getBoundingClientRect() : { top: 0 };
+          if (r.top >= window.innerHeight * 0.65) return; // keep bottom nav
+          sub.classList.add("at-map-hide-other");
+        });
+        return;
+      }
+      var r = child.getBoundingClientRect ? child.getBoundingClientRect() : { top: 0 };
+      if (r.top >= window.innerHeight * 0.65) return; // keep bottom nav
+      child.classList.add("at-map-hide-other");
+    });
+  }
+
+  function enterMapSection(){
+    mapTabActive = true;
+    document.body.classList.add("at-map-tab-mode");
+    ensureSatToggleButton();
+
+    var mapEl = findMapContainer();
     if (mapEl){
-      mapEl.style.setProperty("display", "block", "important");
-      mapEl.style.setProperty("visibility", "visible", "important");
-      mapEl.style.setProperty("opacity", "1", "important");
+      hideNonMapElements(mapEl);
       var nav = document.querySelector("nav, [class*='bottom-nav'], [class*='tab-bar']");
       var navH = nav ? Math.max(58, Math.round(nav.getBoundingClientRect().height)) : 64;
+      var topOffset = 82;
       mapEl.style.setProperty("position", "fixed", "important");
       mapEl.style.setProperty("left", "0px", "important");
       mapEl.style.setProperty("right", "0px", "important");
-      mapEl.style.setProperty("top", "78px", "important");
+      mapEl.style.setProperty("top", topOffset + "px", "important");
       mapEl.style.setProperty("bottom", navH + "px", "important");
       mapEl.style.setProperty("width", "100%", "important");
-      mapEl.style.setProperty("height", "calc(100vh - " + (78 + navH) + "px)", "important");
+      mapEl.style.setProperty("height", "calc(100vh - " + (topOffset + navH) + "px)", "important");
+      mapEl.style.setProperty("z-index", "30", "important");
     }
 
-    setTimeout(refreshLeafletMaps, 60);
-    setTimeout(refreshLeafletMaps, 250);
-    setTimeout(refreshLeafletMaps, 650);
+    syncSatelliteLayers();
+    setTimeout(syncSatelliteLayers, 120);
+    setTimeout(syncSatelliteLayers, 400);
   }
 
-  function deactivateMapScreenIfOtherTab(target){
-    var btn = target && target.closest ? target.closest("button, [role='tab'], [role='button'], a") : null;
-    if (!btn) return;
-    var t = (btn.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-    if (t === "map") return;
-    if (t === "home" || t === "districts" || t === "ai twin"){
-      document.body.classList.remove("at-force-map-tab");
-      document.querySelectorAll(".at-nonmap-hide").forEach(function(el){
-        el.classList.remove("at-nonmap-hide");
+  function exitMapSection(){
+    mapTabActive = false;
+    document.body.classList.remove("at-map-tab-mode");
+    document.querySelectorAll(".at-map-hide-other").forEach(function(el){
+      el.classList.remove("at-map-hide-other");
+    });
+    var mapEl = findMapContainer();
+    if (mapEl){
+      ["position", "left", "right", "top", "bottom", "width", "height", "z-index"].forEach(function(prop){
+        mapEl.style.removeProperty(prop);
       });
-      var mapEl = findMapElement();
-      if (mapEl){
-        mapEl.style.removeProperty("position");
-        mapEl.style.removeProperty("left");
-        mapEl.style.removeProperty("right");
-        mapEl.style.removeProperty("top");
-        mapEl.style.removeProperty("bottom");
-        mapEl.style.removeProperty("width");
-        mapEl.style.removeProperty("height");
-      }
     }
   }
 
   document.addEventListener("click", function(e){
-    if (isMapTabButton(e.target)){
-      setTimeout(activateMapScreen, 30);
-      setTimeout(activateMapScreen, 180);
-    } else {
-      deactivateMapScreenIfOtherTab(e.target);
+    if (isMapNavClick(e.target)){
+      setTimeout(enterMapSection, 30);
+      setTimeout(enterMapSection, 180);
+    } else if (isOtherNavClick(e.target)){
+      exitMapSection();
     }
   }, true);
 })();
 </script>
-<!-- MAP_TAB_SWITCH_FIX_END -->
+<!-- MAP_SECTION_COMPLETE_FIX_END -->
 </body>
 </html>
