@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '30 21 * * 6'   # Every Sunday 03:00 AM IST
+    - cron: '30 21 * * 6'
   workflow_dispatch:
 
 permissions:
@@ -24,8 +24,5 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Verify SHA-256 Integrity Manifest
-        run: python ml/verify_integrity.py
-
-      - name: Run Full 3Y Model & Security Audit
+      - name: Run 3Y Model, Forecast & SHA-256 Security Audit
         run: python ml/run_final_audit.py
