@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.123";
+window.AQUATWIN_VERSION = "1.124";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5470,8 +5470,7 @@ nav > div:not(#at-lg-tab-lens),
 
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
-  --at-glass-card: linear-gradient(155deg, rgba(255, 255, 255, 0.125) 0%, rgba(165, 220, 255, 0.05) 45%, rgba(8, 22, 42, 0.28) 100%);
-  --at-glass-pill: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 54%, rgba(125, 211, 252, 0.10) 100%);
+  --at-map-ctrl-top: 90px;
 }
 
 * {
@@ -5488,11 +5487,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.004em !important;
-  word-spacing: 0.04em !important;
+  word-spacing: 0.03em !important;
   line-height: 1.4;
 }
 
-/* Deep luminous fluid ocean caustic backdrop so every Liquid Glass surface refracts vibrant light */
 body::before {
   content: "";
   position: fixed;
@@ -5500,14 +5498,13 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(68% 46% at 14% 10%, rgba(14, 165, 233, 0.30) 0%, rgba(14, 165, 233, 0) 68%),
-    radial-gradient(58% 42% at 88% 22%, rgba(129, 140, 248, 0.24) 0%, rgba(129, 140, 248, 0) 68%),
-    radial-gradient(64% 48% at 50% 88%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 70%),
+    radial-gradient(66% 44% at 14% 10%, rgba(14, 165, 233, 0.28) 0%, rgba(14, 165, 233, 0) 68%),
+    radial-gradient(56% 40% at 88% 22%, rgba(129, 140, 248, 0.22) 0%, rgba(129, 140, 248, 0) 68%),
+    radial-gradient(62% 46% at 50% 88%, rgba(20, 184, 166, 0.20) 0%, rgba(20, 184, 166, 0) 70%),
     linear-gradient(180deg, #040c1c 0%, #081830 50%, #040b18 100%);
   transform: translate3d(0, 0, 0);
 }
 
-/* Crisp Apple Typography Scale & Proper Spacing (fixes squished words & numbers) */
 h1, h2 {
   letter-spacing: -0.014em !important;
   word-spacing: 0.02em !important;
@@ -5515,19 +5512,14 @@ h1, h2 {
   font-variant-numeric: tabular-nums !important;
 }
 h3, h4, .at-rt-title {
-  letter-spacing: -0.005em !important;
+  letter-spacing: -0.004em !important;
   word-spacing: 0.03em !important;
   font-weight: 600 !important;
-}
-p, small, span, div, td, th {
-  letter-spacing: 0.004em;
-  word-spacing: 0.04em;
 }
 [class*="val"], [class*="pct"], [class*="score"], [class*="metric"], td, .at-rt-pct, b, strong {
   font-variant-numeric: tabular-nums !important;
 }
 
-/* Give all scrollable screens generous bottom clearance so cards never hide behind the floating dock */
 main,
 #view-dash, #view-list, #view-sim,
 #screen-home, #screen-districts, #screen-sim,
@@ -5535,12 +5527,12 @@ main,
   padding-bottom: 112px !important;
 }
 
-/* Translucent Liquid Glass Header */
-header, .topbar, [class*="header"] {
-  background: linear-gradient(180deg, rgba(12, 24, 46, 0.64) 0%, rgba(6, 15, 30, 0.36) 100%) !important;
-  backdrop-filter: blur(28px) saturate(230%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(230%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
+/* Floating Translucent Header */
+header, .topbar, [class*="header"], .at-top-header-bar {
+  background: linear-gradient(180deg, rgba(8, 18, 36, 0.72) 0%, rgba(6, 14, 28, 0.42) 100%) !important;
+  backdrop-filter: blur(20px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
 }
 
 /* Iridescent Apple Liquid Glass Brand Emblem */
@@ -5554,16 +5546,13 @@ header, .topbar, [class*="header"] {
   border-radius: 9px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.30) 0%, rgba(125, 211, 252, 0.16) 52%, rgba(196, 181, 253, 0.18) 100%);
   border: 1px solid rgba(255, 255, 255, 0.52);
-  box-shadow:
-    0 4px 14px rgba(14, 165, 233, 0.32),
-    inset 0 1px 1px rgba(255, 255, 255, 0.90),
-    inset 0 -1px 3px rgba(56, 189, 248, 0.38);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.90), inset 0 -1px 3px rgba(56, 189, 248, 0.38);
   vertical-align: middle;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
 }
 
-/* Ultra-Clear Apple Concentric Liquid Glass Cards (24px radius + refractive specular rims) */
+/* GPU-Fast Luminous Glass Cards (NO per-card backdrop-filter = zero 1-second blank screen or scroll stall) */
 .card,
 .panel,
 .stat-card,
@@ -5572,41 +5561,39 @@ header, .topbar, [class*="header"] {
 .at-rt-panel,
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
-  background: var(--at-glass-card) !important;
-  backdrop-filter: blur(26px) saturate(225%) brightness(1.05) !important;
-  -webkit-backdrop-filter: blur(26px) saturate(225%) brightness(1.05) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.22) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
+  background: linear-gradient(155deg, rgba(28, 52, 86, 0.62) 0%, rgba(12, 26, 48, 0.76) 52%, rgba(7, 17, 34, 0.86) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.42) !important;
   border-radius: 24px !important;
   box-shadow:
-    0 14px 36px rgba(0, 0, 0, 0.30),
-    inset 0 1px 0.75px rgba(255, 255, 255, 0.54),
-    inset 1px 0 0.5px rgba(255, 255, 255, 0.16),
-    inset 0 -1px 2px rgba(56, 189, 248, 0.18) !important;
+    0 12px 28px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0.75px rgba(255, 255, 255, 0.46),
+    inset 0 -1px 2px rgba(56, 189, 248, 0.14) !important;
 }
 
-/* Crisp Glass List Items & Sub-Cells */
 .dash-item,
 .at-rt-row,
 .at-ml-cell,
 .district-item,
 .district-card {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.095) 0%, rgba(255, 255, 255, 0.025) 100%) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.16) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.32) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.085) 0%, rgba(12, 26, 48, 0.56) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.15) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.30) !important;
   border-radius: 18px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
-  transition: transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1), background 0.16s ease !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+  transition: transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
 }
 .dash-item:active,
 .at-rt-row:active,
 .district-item:active,
 .district-card:active {
   transform: scale(0.975) translate3d(0, 0, 0) !important;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.18) 0%, rgba(56, 189, 248, 0.14) 100%) !important;
 }
 
-/* Dashboard Action Tiles (Live Water Map / AI Twin Simulator) stay sleek 22px rounded tiles, NOT stretched ovals */
 .dash-btn,
 .dash-action,
 .quick-btn,
@@ -5618,41 +5605,33 @@ header, .topbar, [class*="header"] {
   text-align: left !important;
 }
 
-/* Optical Liquid Glass Pill Buttons & Badges (excluding nav tabs and large multi-line tile buttons) */
 button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn),
 .dash-badge,
 .at-demo-btn,
 #at-history-btn,
 #at-askai-fab {
-  background: var(--at-glass-pill) !important;
-  backdrop-filter: blur(20px) saturate(225%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(225%) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 54%, rgba(125, 211, 252, 0.10) 100%) !important;
   border: 0.75px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.64) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.62) !important;
   border-radius: 999px !important;
-  box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.26),
-    inset 0 1px 0.75px rgba(255, 255, 255, 0.72),
-    inset 0 -1px 2px rgba(56, 189, 248, 0.24) !important;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.24), inset 0 1px 0.75px rgba(255, 255, 255, 0.68), inset 0 -1px 2px rgba(56, 189, 248, 0.22) !important;
   color: #f8fafc !important;
   touch-action: manipulation;
-  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.18s ease !important;
+  transition: transform 0.18s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
 button:not([data-at-tab="1"]):active,
 #at-askai-fab:active {
   transform: scale(0.955) translate3d(0, 0, 0) !important;
 }
 
-/* Floating Ask AI Optical Glass Lens Button */
 #at-askai-fab {
   bottom: 92px !important;
   right: 16px !important;
-  background: linear-gradient(150deg, rgba(56, 189, 248, 0.44) 0%, rgba(14, 165, 233, 0.22) 55%, rgba(255, 255, 255, 0.16) 100%) !important;
+  backdrop-filter: blur(14px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(200%) !important;
+  background: linear-gradient(150deg, rgba(56, 189, 248, 0.48) 0%, rgba(14, 165, 233, 0.26) 55%, rgba(255, 255, 255, 0.18) 100%) !important;
   border: 1px solid rgba(186, 230, 253, 0.72) !important;
-  box-shadow:
-    0 10px 26px rgba(2, 132, 199, 0.38),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.88),
-    inset 0 -1.5px 4px rgba(56, 189, 248, 0.38) !important;
+  box-shadow: 0 10px 26px rgba(2, 132, 199, 0.38), inset 0 1.5px 1px rgba(255, 255, 255, 0.88) !important;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
@@ -5660,17 +5639,14 @@ button:not([data-at-tab="1"]):active,
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(12, 26, 48, 0.50) 100%) !important;
-  backdrop-filter: blur(20px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(210%) !important;
+  background: linear-gradient(180deg, rgba(26, 46, 78, 0.72) 0%, rgba(12, 24, 46, 0.84) 100%) !important;
   border: 0.75px solid rgba(255, 255, 255, 0.26) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.50) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
   border-radius: 16px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 6px 16px rgba(0, 0, 0, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 6px 14px rgba(0, 0, 0, 0.22) !important;
   color: #f8fafc !important;
 }
 
-/* Apple Liquid Glass Range Sliders */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -5689,14 +5665,60 @@ input[type="range"]::-webkit-slider-thumb {
   border: 1px solid rgba(255, 255, 255, 0.96);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.96);
   cursor: pointer;
-  transition: transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1);
-}
-input[type="range"]:active::-webkit-slider-thumb {
-  transform: scale(1.18, 1.12);
 }
 
 /* ============================================================================
-   EXACT APPLE LIQUID GLASS FLOATING CAPSULE DOCK + 120HZ SLIDING DROPLET LENS
+   TRUE EDGE-TO-EDGE FULL-SCREEN MAP (ZERO TOP DARK GAP, ZERO BOTTOM GAP)
+   ============================================================================ */
+body.at-on-map-screen {
+  overflow: hidden !important;
+}
+body.at-on-map-screen .at-top-header-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 2147482400 !important;
+}
+body.at-on-map-screen .at-map-ancestor {
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+  will-change: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+body.at-on-map-screen #map,
+body.at-on-map-screen #aquatwin-map,
+body.at-on-map-screen .leaflet-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  z-index: 15 !important;
+}
+body.at-on-map-screen .leaflet-top {
+  top: var(--at-map-ctrl-top, 90px) !important;
+}
+body.at-on-map-screen .leaflet-bottom {
+  bottom: 92px !important;
+}
+
+/* ============================================================================
+   APPLE LIQUID GLASS FLOATING DOCK + ZERO-BUFFER 120HZ DROPLET SLIDER
    ============================================================================ */
 nav,
 [class*="bottom-nav"],
@@ -5718,21 +5740,12 @@ nav,
   align-items: center !important;
   justify-content: space-between !important;
   gap: 0 !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.13) 0%,
-    rgba(255, 255, 255, 0.03) 48%,
-    rgba(10, 20, 36, 0.34) 100%
-  ) !important;
-  backdrop-filter: blur(34px) saturate(250%) brightness(1.10) !important;
-  -webkit-backdrop-filter: blur(34px) saturate(250%) brightness(1.10) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 48%, rgba(10, 20, 36, 0.42) 100%) !important;
+  backdrop-filter: blur(24px) saturate(220%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(220%) brightness(1.08) !important;
   border: 0.75px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.2px solid rgba(255, 255, 255, 0.64) !important;
-  box-shadow:
-    0 16px 42px rgba(0, 0, 0, 0.44),
-    0 2px 10px rgba(0, 0, 0, 0.22),
-    inset 0 1.2px 0 rgba(255, 255, 255, 0.62),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.44), inset 0 1.2px 0 rgba(255, 255, 255, 0.62), inset 0 -1px 1px rgba(255, 255, 255, 0.16) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
@@ -5777,7 +5790,7 @@ nav > div:not(#at-lg-tab-lens),
   letter-spacing: 0 !important;
   word-spacing: 0.02em !important;
   gap: 3px !important;
-  transition: color 0.16s ease, transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
+  transition: color 0.14s ease, transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
 }
 
 [data-at-tab="1"] svg {
@@ -5791,7 +5804,6 @@ nav > div:not(#at-lg-tab-lens),
   stroke-linejoin: round !important;
   color: inherit !important;
   stroke: currentColor;
-  transition: transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1);
 }
 [data-at-tab="1"] span,
 [data-at-tab="1"] small {
@@ -5809,7 +5821,6 @@ nav > div:not(#at-lg-tab-lens),
   font-weight: 600 !important;
 }
 [data-at-tab="1"][data-at-active="1"] svg {
-  transform: translateY(-0.5px);
   filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.48));
 }
 [data-at-tab="1"].at-lg-hover {
@@ -5817,7 +5828,6 @@ nav > div:not(#at-lg-tab-lens),
   transform: scale(1.08) translate3d(0, -1px, 0) !important;
 }
 
-/* Optical Crystal-Clear Apple Liquid Glass Droplet Slider */
 #at-lg-tab-lens {
   position: absolute !important;
   top: 5px !important;
@@ -5829,8 +5839,8 @@ nav > div:not(#at-lg-tab-lens),
   z-index: 1 !important;
   background: radial-gradient(
     115% 135% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.26) 0%,
-    rgba(255, 255, 255, 0.05) 48%,
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.04) 48%,
     rgba(56, 189, 248, 0.08) 82%,
     rgba(255, 255, 255, 0.16) 100%
   ) !important;
@@ -5877,57 +5887,58 @@ nav > div:not(#at-lg-tab-lens),
   opacity: 0.72;
   pointer-events: none;
 }
-
-/* Crystal-clear magnified liquid bubble while sliding left/right — zero milky washout */
 #at-lg-tab-lens.dragging {
   background: radial-gradient(
     120% 140% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.22) 0%,
     rgba(255, 255, 255, 0.03) 54%,
-    rgba(125, 211, 252, 0.11) 86%,
-    rgba(255, 255, 255, 0.22) 100%
+    rgba(125, 211, 252, 0.10) 86%,
+    rgba(255, 255, 255, 0.20) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border: 1.1px solid rgba(255, 255, 255, 0.92) !important;
   box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.36),
-    0 0 18px rgba(125, 211, 252, 0.30),
+    0 10px 26px rgba(0, 0, 0, 0.34),
+    0 0 16px rgba(125, 211, 252, 0.28),
     inset 0 2px 1.2px rgba(255, 255, 255, 0.96),
-    inset 0 -2px 4px rgba(167, 139, 250, 0.38) !important;
+    inset 0 -2px 4px rgba(167, 139, 250, 0.36) !important;
 }
 #at-lg-tab-lens.dragging::after { opacity: 1; }
 
-/* Smooth 120Hz Directional Right <-> Left Tab Transitions (no black flashes) */
-@keyframes atLiquidSlideFromRight {
-  0% { opacity: 0.92; transform: translate3d(24px, 0, 0); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+/* Ultra-light 120Hz directional nudge (GPU transform ONLY — zero opacity blink, zero layout stall) */
+@keyframes atLiquidNudgeRight {
+  0% { transform: translate3d(16px, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
-@keyframes atLiquidSlideFromLeft {
-  0% { opacity: 0.92; transform: translate3d(-24px, 0, 0); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+@keyframes atLiquidNudgeLeft {
+  0% { transform: translate3d(-16px, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
-.at-anim-slide-right { animation: atLiquidSlideFromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform, opacity; }
-.at-anim-slide-left  { animation: atLiquidSlideFromLeft  0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform, opacity; }
+.at-anim-slide-right { animation: atLiquidNudgeRight 0.18s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
+.at-anim-slide-left  { animation: atLiquidNudgeLeft  0.18s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
 
-/* Map-only Satellite Toggle Optical Pill */
+/* Map-only Satellite Toggle Optical Pill — sits cleanly right next to Leaflet layers icon over the live map */
 #at-sat-toggle-btn {
   position: fixed !important;
-  top: 84px !important;
-  right: 12px !important;
-  z-index: 2147482950 !important;
+  top: var(--at-map-ctrl-top, 90px) !important;
+  right: 62px !important;
+  z-index: 2147482450 !important;
   display: none !important;
   align-items: center;
   gap: 6px;
   padding: 8px 14px !important;
   font-size: 12px !important;
   font-weight: 700 !important;
+  backdrop-filter: blur(16px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(210%) !important;
   cursor: pointer;
+  transform: translate3d(0, 0, 0);
 }
 #at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
 #at-sat-toggle-btn.sat-on {
-  background: linear-gradient(150deg, rgba(14, 165, 233, 0.62), rgba(2, 132, 199, 0.44)) !important;
-  border-color: rgba(186, 230, 253, 0.86) !important;
+  background: linear-gradient(150deg, rgba(14, 165, 233, 0.68), rgba(2, 132, 199, 0.48)) !important;
+  border-color: rgba(186, 230, 253, 0.88) !important;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
 .leaflet-tile-pane { filter: none !important; will-change: transform; }
@@ -5935,8 +5946,8 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_APPLE_LIQUID_V3__) return;
-  window.__AT_APPLE_LIQUID_V3__ = true;
+  if (window.__AT_APPLE_LIQUID_V4__) return;
+  window.__AT_APPLE_LIQUID_V4__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -5947,7 +5958,32 @@ nav > div:not(#at-lg-tab-lens),
     }, { once: true });
   }
 
+  function findHeaderBar(){
+    var hdr = document.querySelector("header, .topbar");
+    if (hdr) return hdr;
+    var nodes = document.querySelectorAll("h1, h2, div, span");
+    for (var i = 0; i < nodes.length; i++){
+      var el = nodes[i];
+      if (el.children.length !== 0) continue;
+      if (el.closest && (el.closest("#at-hist-bg") || el.closest("#at-askai-bg"))) continue;
+      if ((el.textContent || "").trim() === "AquaTwin AI"){
+        var cur = el.parentElement;
+        while (cur && cur.parentElement && cur.parentElement !== document.body){
+          var r = cur.getBoundingClientRect();
+          if (r.width >= window.innerWidth * 0.85 && r.height >= 40 && r.height <= 115 && r.top <= 45) return cur;
+          cur = cur.parentElement;
+        }
+        return el.parentElement;
+      }
+    }
+    return null;
+  }
+
   function mountGlassBrandLogo(){
+    var hdr = findHeaderBar();
+    if (hdr && !hdr.classList.contains("at-top-header-bar")) {
+      hdr.classList.add("at-top-header-bar");
+    }
     if (document.getElementById("at-apple-glass-logo")) return;
     var nodes = document.querySelectorAll("h1, h2, div, span");
     for (var i = 0; i < nodes.length; i++){
@@ -5956,21 +5992,21 @@ nav > div:not(#at-lg-tab-lens),
       if (el.closest && (el.closest("#at-hist-bg") || el.closest("#at-askai-bg"))) continue;
       if ((el.textContent || "").trim() === "AquaTwin AI"){
         var r = el.getBoundingClientRect();
-        if (r.top < 110 && r.width > 40){
+        if (r.top < 115 && r.width > 40){
           var badge = document.createElement("span");
           badge.id = "at-apple-glass-logo";
           badge.setAttribute("aria-hidden", "true");
           badge.innerHTML =
             '<svg viewBox="0 0 24 24" width="17" height="17" fill="none">' +
               '<defs>' +
-                '<linearGradient id="atLgDropV3" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
+                '<linearGradient id="atLgDropV4" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
                   '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>' +
                   '<stop offset="46%" stop-color="#7dd3fc" stop-opacity="0.90"/>' +
                   '<stop offset="76%" stop-color="#c4b5fd" stop-opacity="0.86"/>' +
                   '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.96"/>' +
                 '</linearGradient>' +
               '</defs>' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV3)" stroke="rgba(255,255,255,0.92)" stroke-width="1.2"/>' +
+              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV4)" stroke="rgba(255,255,255,0.92)" stroke-width="1.2"/>' +
               '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.88"/>' +
             '</svg>';
           if (el.parentNode){
@@ -5984,7 +6020,6 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
-  // Keep Live Water Map & AI Twin Simulator as sleek 22px rounded tiles (never 999px pills)
   function tagDashboardActionTiles(){
     var btns = document.querySelectorAll("button");
     for (var i = 0; i < btns.length; i++){
@@ -6040,22 +6075,24 @@ nav > div:not(#at-lg-tab-lens),
     }
     var r = el.getBoundingClientRect();
     if (r.width < 12 || r.height < (minH || 1)) return false;
-    if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 40 || r.top >= window.innerHeight - 40) return false;
+    if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 0 || r.top >= window.innerHeight) return false;
     return true;
   }
 
   function hapticTap(){
-    try { if (navigator.vibrate) navigator.vibrate(6); } catch(e){}
+    try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
   }
 
-  // 120Hz Critically-Damped Apple Spring Engine (stiffness 420, damping 32)
+  // 120Hz Spring Engine (stiffness 420, damping 32) with zero-lag 1:1 drag tracking + transition lock
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0;
   var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
+  var lockedIdx = -1, navLockUntil = 0;
   var springX = 0, springVx = 0, springTargetX = 0;
   var springW = 82, springVw = 0, springTargetW = 82;
   var springScale = 1, springVs = 0, springTargetScale = 1;
   var animRaf = null, lastTs = 0, mutatingNav = false;
+  var wasOnMap = false;
   var STIFFNESS = 420, DAMPING = 32;
 
   function getNav(){
@@ -6102,22 +6139,31 @@ nav > div:not(#at-lg-tab-lens),
     var dt = Math.min(0.032, Math.max(0.002, (ts - lastTs) / 1000));
     lastTs = ts;
 
-    var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
-    springVx += ax * dt;
-    springX += springVx * dt;
+    if (isDragging){
+      // Tight 1:1 zero-buffer thumb tracking at 120Hz while sliding
+      var prevX = springX;
+      springX += (springTargetX - springX) * 0.68;
+      springVx = (springX - prevX) / dt;
+      springW += (springTargetW - springW) * 0.5;
+      springScale += (springTargetScale - springScale) * 0.5;
+    } else {
+      // Critically-damped Apple spring physics (stiffness 420, damping 32) on tap/release
+      var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
+      springVx += ax * dt;
+      springX += springVx * dt;
 
-    var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
-    springVw += aw * dt;
-    springW += springVw * dt;
+      var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
+      springVw += aw * dt;
+      springW += springVw * dt;
 
-    var as = STIFFNESS * (springTargetScale - springScale) - DAMPING * springVs;
-    springVs += as * dt;
-    springScale += springVs * dt;
+      var as = STIFFNESS * (springTargetScale - springScale) - DAMPING * springVs;
+      springVs += as * dt;
+      springScale += springVs * dt;
+    }
 
-    // Velocity-based liquid stretch like real water/glass droplet
-    var stretch = Math.min(0.22, Math.abs(springVx) * 0.00025);
+    var stretch = Math.min(0.18, Math.abs(springVx) * 0.00018);
     var sx = springScale + stretch;
-    var sy = Math.max(0.90, springScale - stretch * 0.42);
+    var sy = Math.max(0.91, springScale - stretch * 0.40);
 
     lensEl.style.width = springW.toFixed(1) + "px";
     lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + sx.toFixed(3) + ", " + sy.toFixed(3) + ")";
@@ -6147,10 +6193,34 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
+  function applyTabVisualState(idx){
+    var tabs = tabsCache;
+    if (!tabs.length) return;
+    mutatingNav = true;
+    try {
+      for (var j = 0; j < tabs.length; j++){
+        var isAct = (j === idx);
+        tabs[j].classList.toggle("active", isAct);
+        tabs[j].setAttribute("data-at-active", isAct ? "1" : "0");
+        if (isAct){
+          tabs[j].setAttribute("aria-selected", "true");
+          tabs[j].setAttribute("aria-current", "page");
+        } else {
+          tabs[j].classList.remove("selected", "current");
+          tabs[j].removeAttribute("aria-selected");
+          tabs[j].removeAttribute("aria-current");
+          if (tabs[j].style && tabs[j].style.color) tabs[j].style.removeProperty("color");
+        }
+      }
+    } finally {
+      mutatingNav = false;
+    }
+  }
+
   function snapLens(idx, instant){
     var nav = getNav();
     if (!nav || !lensEl || isDragging) return;
-    measureDock();
+    if (!tabRects.length) measureDock();
     if (!tabRects.length) return;
     idx = Math.max(0, Math.min(tabRects.length - 1, idx));
     activeIdx = idx;
@@ -6175,16 +6245,14 @@ nav > div:not(#at-lg-tab-lens),
 
   function updateCausticLight(clientX){
     if (!lensEl) return;
-    var r = lensEl.getBoundingClientRect();
-    if (r.width < 20) return;
-    var pct = Math.max(12, Math.min(88, ((clientX - r.left) / r.width) * 100));
+    var pct = navWidth > 0 ? Math.max(12, Math.min(88, ((clientX - navLeft - springX) / Math.max(40, springW)) * 100)) : 50;
     lensEl.style.setProperty("--lg-hx", pct.toFixed(1) + "%");
   }
 
   function pointerGlide(clientX){
     if (!tabRects.length) return;
     springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), clientX - navLeft - springW * 0.5));
-    springTargetScale = 1.10;
+    springTargetScale = 1.08;
     updateCausticLight(clientX);
     kickSpring();
     var best = 0, bestD = Infinity;
@@ -6215,22 +6283,20 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   function animateScreenTransition(screen, fromIdx, toIdx){
-    if (fromIdx < 0 || fromIdx === toIdx) return;
+    if (fromIdx < 0 || fromIdx === toIdx || screen === "map") return;
     document.querySelectorAll(".at-anim-slide-right, .at-anim-slide-left").forEach(function(el){
       el.classList.remove("at-anim-slide-right", "at-anim-slide-left");
     });
-    if (screen === "map") return;
     var panel = findActiveScreenPanel(screen);
     if (!panel) return;
-    void panel.offsetWidth;
     var cls = (toIdx > fromIdx ? "at-anim-slide-right" : "at-anim-slide-left");
     panel.classList.add(cls);
     var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left"); };
     panel.addEventListener("animationend", done, { once: true });
-    setTimeout(done, 260);
+    setTimeout(done, 210);
   }
 
-  // Warm Satellite Map Layers (keepBuffer: 5, Satellite ON by default on Map)
+  // Full-Screen Map Controller + Warm Satellite Layer (keepBuffer: 5)
   var satEnabled = true, satLayer = null, labelLayer = null;
   function getLeafletMaps(){
     var res = [];
@@ -6242,7 +6308,8 @@ nav > div:not(#at-lg-tab-lens),
     }
     return res;
   }
-  function applySatellite(){
+
+  function applySatellite(forceInvalidate){
     if (!window.L || !window.L.tileLayer) return;
     if (!satLayer){
       satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
@@ -6264,11 +6331,39 @@ nav > div:not(#at-lg-tab-lens),
           if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
           if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
         }
+        if (forceInvalidate) m.invalidateSize({ animate: false, pan: false });
       } catch(e){}
     });
   }
 
-  // Clean screen detector: Districts search checked FIRST, never confused by "All" dropdown
+  function setMapFullScreen(active){
+    if (active){
+      var hdr = findHeaderBar();
+      var hdrBottom = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 82;
+      document.documentElement.style.setProperty("--at-map-ctrl-top", Math.max(84, hdrBottom + 10) + "px");
+      var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
+      if (mapEl){
+        var cur = mapEl.parentElement;
+        while (cur && cur !== document.body && cur !== document.documentElement){
+          cur.classList.add("at-map-ancestor");
+          cur = cur.parentElement;
+        }
+      }
+      document.body.classList.add("at-on-map-screen");
+      if (!wasOnMap){
+        wasOnMap = true;
+        applySatellite(true);
+        setTimeout(function(){ applySatellite(true); }, 140);
+      }
+    } else if (wasOnMap || document.body.classList.contains("at-on-map-screen")){
+      wasOnMap = false;
+      document.body.classList.remove("at-on-map-screen");
+      document.querySelectorAll(".at-map-ancestor").forEach(function(el){
+        el.classList.remove("at-map-ancestor");
+      });
+    }
+  }
+
   function detectScreen(){
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
@@ -6340,6 +6435,9 @@ nav > div:not(#at-lg-tab-lens),
     mountGlassBrandLogo();
     tagDashboardActionTiles();
     var screen = detectScreen();
+    var onMap = (screen === "map");
+
+    setMapFullScreen(onMap);
 
     var satBtn = document.getElementById("at-sat-toggle-btn");
     if (!satBtn){
@@ -6354,19 +6452,17 @@ nav > div:not(#at-lg-tab-lens),
         satEnabled = !satEnabled;
         satBtn.classList.toggle("sat-on", satEnabled);
         satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-        applySatellite();
+        applySatellite(false);
       });
       document.body.appendChild(satBtn);
     }
-    var onMap = (screen === "map");
     satBtn.classList.toggle("at-map-only-visible", onMap);
     satBtn.classList.toggle("sat-on", satEnabled);
     satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-    if (onMap) applySatellite();
 
     var nav = getNav();
     if (nav){
-      var tabs = getTabs(nav);
+      var tabs = tabsCache.length ? tabsCache : getTabs(nav);
       var targetIdx = -1;
       for (var i = 0; i < tabs.length; i++){
         var t = (tabs[i].textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
@@ -6381,26 +6477,16 @@ nav > div:not(#at-lg-tab-lens),
           break;
         }
       }
+      // Prevent mid-transition lens bounce-back while tab content finishes swapping
+      if (performance.now() < navLockUntil && lockedIdx >= 0 && targetIdx !== lockedIdx){
+        targetIdx = lockedIdx;
+      } else if (targetIdx === lockedIdx){
+        lockedIdx = -1;
+        navLockUntil = 0;
+      }
+
       if (targetIdx >= 0){
-        mutatingNav = true;
-        try {
-          for (var j = 0; j < tabs.length; j++){
-            var isAct = (j === targetIdx);
-            tabs[j].classList.toggle("active", isAct);
-            tabs[j].setAttribute("data-at-active", isAct ? "1" : "0");
-            if (isAct){
-              tabs[j].setAttribute("aria-selected", "true");
-              tabs[j].setAttribute("aria-current", "page");
-            } else {
-              tabs[j].classList.remove("selected", "current");
-              tabs[j].removeAttribute("aria-selected");
-              tabs[j].removeAttribute("aria-current");
-              if (tabs[j].style && tabs[j].style.color) tabs[j].style.removeProperty("color");
-            }
-          }
-        } finally {
-          mutatingNav = false;
-        }
+        applyTabVisualState(targetIdx);
         var wasFirst = (prevScreenIdx < 0);
         if (allowAnim !== false && !wasFirst && prevScreenIdx !== targetIdx){
           animateScreenTransition(screen, prevScreenIdx, targetIdx);
@@ -6437,10 +6523,11 @@ nav > div:not(#at-lg-tab-lens),
       nav.insertBefore(lensEl, nav.firstChild);
     }
 
-    var tabs = getTabs(nav);
+    measureDock();
+    var tabs = tabsCache;
 
-    if (typeof MutationObserver === "function" && nav.dataset.atV3Obs !== "1"){
-      nav.dataset.atV3Obs = "1";
+    if (typeof MutationObserver === "function" && nav.dataset.atV4Obs !== "1"){
+      nav.dataset.atV4Obs = "1";
       var tabObs = new MutationObserver(function(){
         if (!mutatingNav && !isDragging) scheduleSync(0);
       });
@@ -6449,8 +6536,21 @@ nav > div:not(#at-lg-tab-lens),
       });
     }
 
-    if (nav.dataset.atV3Bound !== "1"){
-      nav.dataset.atV3Bound = "1";
+    if (nav.dataset.atV4Bound !== "1"){
+      nav.dataset.atV4Bound = "1";
+
+      // Lock immediately on direct single-tap so the lens glides once without fighting
+      nav.addEventListener("click", function(e){
+        var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
+        if (!tab) return;
+        var idx = tabsCache.indexOf(tab);
+        if (idx >= 0){
+          lockedIdx = idx;
+          navLockUntil = performance.now() + 280;
+          applyTabVisualState(idx);
+          snapLens(idx, false);
+        }
+      }, true);
 
       function beginGlide(clientX){
         measureDock();
@@ -6464,7 +6564,7 @@ nav > div:not(#at-lg-tab-lens),
 
       function moveGlide(clientX, evt){
         if (!isDragging) return;
-        if (!didDragMove && Math.abs(clientX - startClientX) > 6) didDragMove = true;
+        if (!didDragMove && Math.abs(clientX - startClientX) > 5) didDragMove = true;
         if (didDragMove){
           if (evt && evt.cancelable) evt.preventDefault();
           pointerGlide(clientX);
@@ -6480,18 +6580,20 @@ nav > div:not(#at-lg-tab-lens),
         didDragMove = false;
         hoverIdx = -1;
         if (targetToClick >= 0){
+          lockedIdx = targetToClick;
+          navLockUntil = performance.now() + 280;
           activeIdx = targetToClick;
+          applyTabVisualState(targetToClick);
+          snapLens(targetToClick, false);
           hapticTap();
           try { tabsCache[targetToClick].click(); } catch(e){}
-          snapLens(targetToClick, false);
+          scheduleSync(60);
+          scheduleSync(220);
         } else {
           snapLens(activeIdx, false);
         }
-        scheduleSync(40);
-        scheduleSync(160);
       }
 
-      // Touch drag (Android / iOS)
       nav.addEventListener("touchstart", function(e){
         if (e.touches && e.touches.length) beginGlide(e.touches[0].clientX);
       }, { passive: true });
@@ -6501,7 +6603,6 @@ nav > div:not(#at-lg-tab-lens),
       nav.addEventListener("touchend", finishGlide, { passive: true });
       nav.addEventListener("touchcancel", finishGlide, { passive: true });
 
-      // Mouse drag (Desktop Web Browser)
       nav.addEventListener("mousedown", function(e){
         if (e.button === 0) beginGlide(e.clientX);
       });
@@ -6515,9 +6616,19 @@ nav > div:not(#at-lg-tab-lens),
     scheduleSync(180);
   }
 
-  document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(80); scheduleSync(220); }, { passive: true, capture: true });
+  document.addEventListener("click", function(e){
+    if (e.target && e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
+    scheduleSync(0);
+    scheduleSync(120);
+  }, { passive: true, capture: true });
   document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(90); }, { passive: true, capture: true });
-  window.addEventListener("resize", function(){ if (!isDragging) { measureDock(); snapLens(activeIdx, true); } }, { passive: true });
+  window.addEventListener("resize", function(){
+    if (!isDragging){
+      measureDock();
+      snapLens(activeIdx, true);
+      if (wasOnMap) setMapFullScreen(true);
+    }
+  }, { passive: true });
 
   if (document.readyState === "loading"){
     document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(initDock); }, { once: true });
@@ -6530,7 +6641,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_LIQUID_V3_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | lens=" + (document.getElementById("at-lg-tab-lens") ? "ok" : "missing") + " | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_LIQUID_V4_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);
