@@ -450,46 +450,7 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
     </section>
 
     <!-- TAB 3: AI DIGITAL TWIN SIMULATOR -->
-    <section id="view-sim" class="view">
-      <div class="sim-head">
-        <select id="simSelect"></select>
-        <button class="btn-reset" onclick="resetSliders()">Reset</button>
-      </div>
-
-      <div class="card">
-        <div class="slider-row">
-          <div class="slider-top"><span>Rainfall Change</span><b id="rainVal">0%</b></div>
-          <input id="rainSlider" type="range" min="-50" max="50" value="0" />
-        </div>
-        <div class="slider-row">
-          <div class="slider-top"><span>Temperature Change</span><b id="tempVal">0°C</b></div>
-          <input id="tempSlider" type="range" min="-3" max="5" step="0.5" value="0" />
-        </div>
-        <div class="slider-row">
-          <div class="slider-top"><span>Pollution Load</span><b id="pollVal">0%</b></div>
-          <input id="pollSlider" type="range" min="-30" max="50" value="0" />
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="metrics-grid">
-          <div class="m-box"><small>Projected WQI</small><strong id="simWqi" style="color:var(--blue)">-</strong></div>
-          <div class="m-box"><small>Risk Level</small><strong id="simRisk">-</strong></div>
-          <div class="m-box"><small>Turbidity Index</small><strong id="simTurb">-</strong></div>
-          <div class="m-box"><small>Water Coverage</small><strong id="simWater">-</strong></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">AI Recommendation</div>
-        <div id="simAction" class="ai-rec">-</div>
-      </div>
-
-      <div class="card">
-        <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">6-Month WQI Forecast</div>
-        <div class="chart-box"><canvas id="forecastChart"></canvas></div>
-      </div>
-    </section>
+    
   </main>
 
   <nav>
@@ -6093,5 +6054,27 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_3Y_EXT_END -->
+<!-- HIDE_SLIDERS_BOX_START -->
+<script id="at-hide-sliders-box">
+(function(){
+  function hideSliders(){
+    var nodes = document.querySelectorAll("div, section, article");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.id === "at-mm3y-card" || (el.closest && el.closest("#at-mm3y-card"))) continue;
+      var t = (el.innerText || el.textContent || "");
+      if (/Rainfall\s*Change/i.test(t) && /Temperature\s*Change/i.test(t) && /Pollution\s*Load/i.test(t)) {
+        var r = el.getBoundingClientRect();
+        if (r.height > 40 && r.height < 420 && r.width > 180) {
+          el.style.display = "none";
+        }
+      }
+    }
+  }
+  hideSliders();
+  setInterval(hideSliders, 600);
+})();
+</script>
+<!-- HIDE_SLIDERS_BOX_END -->
 </body>
 </html>
