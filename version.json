@@ -1,8 +1,8 @@
 {
-    "version":  "1.94",
-    "version_code":  94,
+    "version":  "1.95",
+    "version_code":  95,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Ask AI now displays Reservoir, Rainfall \u0026 +1M/+2M/+6M/+1 Year forecasts\n• Synced protected /forecast/{district} endpoint to Cloud API",
+    "notes":  "• Verified 3Y multi-modal forecasts (+1M/+2M/+6M/+1Y), SHA-256 integrity \u0026 GitHub Actions CI",
     "force":  false,
-    "updated_at":  "2026-11-26 00:18 IST"
+    "updated_at":  "2026-11-26 00:35 IST"
 }
