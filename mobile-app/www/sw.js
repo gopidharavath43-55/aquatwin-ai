@@ -1,11 +1,13 @@
-const APP_CACHE = 'aquatwin-shell-v3';
-const TILE_CACHE = 'aquatwin-tiles-v3';
-const MAX_TILES = 350;
+const APP_CACHE = 'aquatwin-apple-shell-v5';
+const TILE_CACHE = 'aquatwin-apple-tiles-v5';
+const MAX_TILES = 600;
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(APP_CACHE).then((c) => c.addAll(['./', './index.html', './ml_data.js']).catch(() => {}))
+    caches.open(APP_CACHE).then((c) =>
+      c.addAll(['./', './index.html', './ml_data.js', './fonts/InterVariable.woff2']).catch(() => {})
+    )
   );
 });
 
@@ -22,7 +24,6 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
 
-  // Cache satellite & map tiles aggressively for instant 120fps pan/zoom
   if (url.hostname.includes('arcgisonline.com') || url.hostname.includes('openstreetmap.org') || url.hostname.includes('cartocdn.com')) {
     e.respondWith(
       caches.open(TILE_CACHE).then(async (cache) => {
@@ -45,16 +46,15 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Stale-while-revalidate for app shell & CDN JS/CSS/fonts
   if (url.origin === self.location.origin || url.hostname.includes('unpkg.com') || url.hostname.includes('jsdelivr.net') || url.hostname.includes('fonts.g')) {
     e.respondWith(
       caches.open(APP_CACHE).then(async (cache) => {
         const cached = await cache.match(req);
-        const netPromise = fetch(req).then((resp) => {
+        const net = fetch(req).then((resp) => {
           if (resp && (resp.ok || resp.type === 'opaque')) cache.put(req, resp.clone());
           return resp;
         }).catch(() => cached);
-        return cached || netPromise;
+        return cached || net;
       })
     );
   }

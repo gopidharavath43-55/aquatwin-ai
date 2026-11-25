@@ -1,8 +1,8 @@
 {
-    "version":  "1.119",
-    "version_code":  119,
+    "version":  "1.120",
+    "version_code":  120,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed District-to-AI-Twin tab highlight, full-width Liquid Glass dock \u0026 120fps right/left tab animations",
+    "notes":  "• Full Apple Liquid Glass UI overhaul: prismatic dock fix, glass logo, offline Inter font, 600-tile cache \u0026 120Hz springs",
     "force":  false,
-    "updated_at":  "2026-11-26 02:34 IST"
+    "updated_at":  "2026-11-26 02:54 IST"
 }
