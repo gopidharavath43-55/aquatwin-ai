@@ -4484,7 +4484,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.117";
+window.AQUATWIN_VERSION = "1.118";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5839,9 +5839,7 @@ nav > div:not(#at-lg-tab-lens),
 <!-- ASK_AI_3Y_EXT_END -->
 <!-- AQUATWIN_PROMOTION_120HZ_START -->
 <style id="at-promotion-120hz-css">
-* {
-  -webkit-tap-highlight-color: transparent;
-}
+* { -webkit-tap-highlight-color: transparent; }
 html, body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
@@ -5857,7 +5855,6 @@ button, a, select, input, [role="button"], .dash-item, .at-rt-row {
 button:active, [role="button"]:active, .dash-item:active, .at-rt-row:active {
   transform: scale(0.972) translate3d(0, 0, 0);
 }
-/* Apple ProMotion Floating Liquid Glass Dock (GPU-composited for locked 120fps) */
 nav,
 [class*="bottom-nav"],
 [class*="tab-bar"] {
@@ -5977,31 +5974,23 @@ nav > button:active,
   color: #ffffff;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
-/* 120fps Hardware-Composited Leaflet Tiles (no heavy CSS filter on tiles) */
-.leaflet-tile-pane {
-  filter: none !important;
-  will-change: transform;
-}
-.leaflet-zoom-anim .leaflet-zoom-animated {
-  will-change: transform;
-}
+.leaflet-tile-pane { filter: none !important; will-change: transform; }
+.leaflet-zoom-anim .leaflet-zoom-animated { will-change: transform; }
 </style>
 <script id="at-promotion-120hz-js">
 (function(){
-  if (window.__AT_PROMOTION_120HZ__) return;
-  window.__AT_PROMOTION_120HZ__ = true;
+  if (window.__AT_PROMOTION_120HZ_V2__) return;
+  window.__AT_PROMOTION_120HZ_V2__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
 
-  // Register high-speed Service Worker on Web Browser (https/http only)
   if ("serviceWorker" in navigator && /^https?:$/i.test(location.protocol)) {
     window.addEventListener("load", function(){
       navigator.serviceWorker.register("./sw.js").catch(function(){});
     }, { once: true });
   }
 
-  // Canonical 33-district map
   var DATA = [{"district":"Adilabad","reservoir_name":"Sathnala Reservoir & Swarna Project","wqi":78.4,"wqi_1m":76.2,"wqi_6m":74.8,"wqi_1y":75.5,"turb":0.96,"cov":2.35,"gw":5.25,"gw_ext":40.0,"gw_6m":6.45,"res":44.0,"res_6m":39.5},{"district":"Bhadradri Kothagudem","reservoir_name":"Kinnerasani Reservoir Project","wqi":76.1,"wqi_1m":74.5,"wqi_6m":72.0,"wqi_1y":73.1,"turb":1.04,"cov":3.8,"gw":7.3,"gw_ext":37.0,"gw_6m":8.6,"res":58.0,"res_6m":51.2},{"district":"Hanumakonda","reservoir_name":"Dharmasagar Reservoir (J. Chokka Rao Devadula Lift Irrigation Scheme)","wqi":71.5,"wqi_1m":69.8,"wqi_6m":68.4,"wqi_1y":70.1,"turb":1.12,"cov":1.95,"gw":5.98,"gw_ext":61.0,"gw_6m":7.45,"res":52.0,"res_6m":45.0},{"district":"Hyderabad","reservoir_name":"Osman Sagar & Himayat Sagar Reservoirs","wqi":57.3,"wqi_1m":54.0,"wqi_6m":54.2,"wqi_1y":55.7,"turb":1.28,"cov":0.68,"gw":11.1,"gw_ext":103.7,"gw_6m":9.93,"res":65.5,"res_6m":52.1},{"district":"Jagtial","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":81.2,"wqi_1m":79.5,"wqi_6m":77.9,"wqi_1y":78.8,"turb":0.94,"cov":3.1,"gw":4.41,"gw_ext":45.0,"gw_6m":5.7,"res":41.2,"res_6m":36.4},{"district":"Jangaon","reservoir_name":"R.S. Ghanpur & Tapaspally Reservoirs","wqi":79.0,"wqi_1m":70.2,"wqi_6m":68.7,"wqi_1y":69.2,"turb":1.02,"cov":1.45,"gw":8.12,"gw_ext":59.0,"gw_6m":9.92,"res":36.0,"res_6m":32.4},{"district":"Jayashankar Bhupalpally","reservoir_name":"Medigadda Barrage & Godavari Lift Irrigation Grid","wqi":77.8,"wqi_1m":76.0,"wqi_6m":74.2,"wqi_1y":75.0,"turb":1.01,"cov":3.65,"gw":6.2,"gw_ext":43.0,"gw_6m":7.55,"res":55.0,"res_6m":48.8},{"district":"Jogulamba Gadwal","reservoir_name":"Priyadarshini Jurala Project","wqi":73.4,"wqi_1m":71.0,"wqi_6m":69.5,"wqi_1y":71.2,"turb":1.09,"cov":2.2,"gw":8.1,"gw_ext":46.0,"gw_6m":9.65,"res":38.0,"res_6m":33.5},{"district":"Kamareddy","reservoir_name":"Nizam Sagar Reservoir","wqi":75.6,"wqi_1m":73.8,"wqi_6m":71.9,"wqi_1y":72.7,"turb":1.03,"cov":2.4,"gw":12.3,"gw_ext":51.0,"gw_6m":13.8,"res":50.4,"res_6m":43.0},{"district":"Karimnagar","reservoir_name":"Lower Manair Dam (LMD)","wqi":84.5,"wqi_1m":82.0,"wqi_6m":79.8,"wqi_1y":80.5,"turb":0.91,"cov":3.5,"gw":6.64,"gw_ext":56.6,"gw_6m":9.29,"res":61.3,"res_6m":54.0},{"district":"Khammam","reservoir_name":"Palair Reservoir & Wyra Reservoir","wqi":76.8,"wqi_1m":75.1,"wqi_6m":73.4,"wqi_1y":74.2,"turb":1.05,"cov":2.95,"gw":4.6,"gw_ext":43.0,"gw_6m":5.95,"res":48.0,"res_6m":42.5},{"district":"Kumuram Bheem Asifabad","reservoir_name":"Komaram Bheem Project Reservoir","wqi":78.9,"wqi_1m":77.2,"wqi_6m":75.6,"wqi_1y":76.4,"turb":0.97,"cov":2.75,"gw":5.85,"gw_ext":38.0,"gw_6m":7.15,"res":46.0,"res_6m":40.2},{"district":"Mahabubabad","reservoir_name":"Pakhala Lake & Bayyaram Cheruvu","wqi":75.2,"wqi_1m":73.5,"wqi_6m":71.8,"wqi_1y":72.5,"turb":1.06,"cov":2.3,"gw":7.3,"gw_ext":56.0,"gw_6m":8.85,"res":51.0,"res_6m":44.6},{"district":"Mahabubnagar","reservoir_name":"Koilsagar Lift Irrigation Project","wqi":70.4,"wqi_1m":68.5,"wqi_6m":66.9,"wqi_1y":68.1,"turb":1.14,"cov":1.55,"gw":9.6,"gw_ext":76.0,"gw_6m":11.4,"res":34.0,"res_6m":29.8},{"district":"Mancherial","reservoir_name":"Sripada Yellampally Project","wqi":82.4,"wqi_1m":80.7,"wqi_6m":79.0,"wqi_1y":79.6,"turb":0.93,"cov":3.85,"gw":5.4,"gw_ext":42.0,"gw_6m":6.75,"res":84.7,"res_6m":74.5},{"district":"Medak","reservoir_name":"Pocharam Reservoir & Manjeera Barrage","wqi":72.8,"wqi_1m":70.6,"wqi_6m":68.9,"wqi_1y":70.2,"turb":1.08,"cov":1.4,"gw":9.68,"gw_ext":70.0,"gw_6m":11.55,"res":22.0,"res_6m":20.5},{"district":"Medchal-Malkajgiri","reservoir_name":"Sripada Yellampally Water Supply Grid","wqi":64.5,"wqi_1m":62.8,"wqi_6m":61.5,"wqi_1y":63.0,"turb":1.19,"cov":1.1,"gw":11.64,"gw_ext":73.7,"gw_6m":13.4,"res":72.0,"res_6m":63.0},{"district":"Mulugu","reservoir_name":"Laknavaram Lake & Ramappa Lake","wqi":80.5,"wqi_1m":78.8,"wqi_6m":77.1,"wqi_1y":77.9,"turb":0.95,"cov":3.4,"gw":5.9,"gw_ext":36.0,"gw_6m":7.2,"res":64.0,"res_6m":56.5},{"district":"Nagarkurnool","reservoir_name":"Srisailam Hydroelectric & Reservoir Project","wqi":72.1,"wqi_1m":70.2,"wqi_6m":68.5,"wqi_1y":69.8,"turb":1.11,"cov":1.85,"gw":8.4,"gw_ext":40.0,"gw_6m":10.1,"res":29.0,"res_6m":26.5},{"district":"Nalgonda","reservoir_name":"Nagarjuna Sagar Dam & Reservoir","wqi":71.8,"wqi_1m":69.9,"wqi_6m":68.2,"wqi_1y":69.4,"turb":1.1,"cov":2.05,"gw":9.8,"gw_ext":49.0,"gw_6m":11.6,"res":25.0,"res_6m":23.0},{"district":"Narayanpet","reservoir_name":"Koilsagar Project & Priyadarshini Jurala Feed Canal","wqi":71.2,"wqi_1m":69.4,"wqi_6m":67.8,"wqi_1y":69.0,"turb":1.12,"cov":1.5,"gw":8.6,"gw_ext":39.0,"gw_6m":10.3,"res":35.0,"res_6m":31.0},{"district":"Nirmal","reservoir_name":"Kaddam Narayan Reddy Project","wqi":79.4,"wqi_1m":77.6,"wqi_6m":75.9,"wqi_1y":76.7,"turb":0.96,"cov":2.6,"gw":6.07,"gw_ext":38.0,"gw_6m":7.4,"res":37.0,"res_6m":33.0},{"district":"Nizamabad","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":78.2,"wqi_1m":76.4,"wqi_6m":74.7,"wqi_1y":75.5,"turb":0.99,"cov":2.7,"gw":8.63,"gw_ext":52.0,"gw_6m":10.25,"res":41.2,"res_6m":36.4},{"district":"Peddapalli","reservoir_name":"Sripada Yellampally Project","wqi":89.0,"wqi_1m":87.2,"wqi_6m":85.4,"wqi_1y":86.0,"turb":0.9919,"cov":2.4913,"gw":6.31,"gw_ext":48.5,"gw_6m":8.17,"res":84.7,"res_6m":74.0},{"district":"Rajanna Sircilla","reservoir_name":"Mid Manair Dam (MMR)","wqi":81.9,"wqi_1m":80.1,"wqi_6m":78.3,"wqi_1y":79.1,"turb":0.94,"cov":2.85,"gw":7.36,"gw_ext":69.0,"gw_6m":8.95,"res":82.7,"res_6m":72.5},{"district":"Ranga Reddy","reservoir_name":"Himayat Sagar Reservoir & Akkampally Balancing Reservoir","wqi":66.8,"wqi_1m":65.0,"wqi_6m":63.6,"wqi_1y":65.1,"turb":1.16,"cov":1.35,"gw":11.74,"gw_ext":68.0,"gw_6m":13.5,"res":79.7,"res_6m":69.0},{"district":"Sangareddy","reservoir_name":"Singur Dam Reservoir","wqi":69.5,"wqi_1m":67.8,"wqi_6m":66.2,"wqi_1y":67.4,"turb":1.13,"cov":1.5,"gw":11.21,"gw_ext":48.1,"gw_6m":12.9,"res":6.4,"res_6m":9.5},{"district":"Siddipet","reservoir_name":"Mallanna Sagar Reservoir","wqi":77.4,"wqi_1m":75.6,"wqi_6m":73.9,"wqi_1y":74.8,"turb":1.01,"cov":2.55,"gw":9.2,"gw_ext":69.0,"gw_6m":10.95,"res":49.0,"res_6m":43.2},{"district":"Suryapet","reservoir_name":"Musi Reservoir & Nagarjuna Sagar Left Canal Grid","wqi":73.0,"wqi_1m":71.2,"wqi_6m":69.6,"wqi_1y":70.8,"turb":1.09,"cov":1.9,"gw":8.2,"gw_ext":54.0,"gw_6m":9.85,"res":31.0,"res_6m":27.5},{"district":"Vikarabad","reservoir_name":"Kotepally Project & Singur Water Supply Grid","wqi":70.8,"wqi_1m":69.0,"wqi_6m":67.5,"wqi_1y":68.7,"turb":1.12,"cov":1.25,"gw":13.54,"gw_ext":61.0,"gw_6m":15.2,"res":18.0,"res_6m":17.5},{"district":"Wanaparthy","reservoir_name":"Sarala Sagar Project & Ramanpad Reservoir","wqi":72.5,"wqi_1m":70.7,"wqi_6m":69.1,"wqi_1y":70.3,"turb":1.1,"cov":1.75,"gw":7.9,"gw_ext":44.0,"gw_6m":9.5,"res":33.0,"res_6m":29.2},{"district":"Warangal","reservoir_name":"Pakhala Lake & Ramappa Lake Feed System","wqi":76.5,"wqi_1m":74.8,"wqi_6m":73.1,"wqi_1y":73.9,"turb":1.04,"cov":2.45,"gw":8.3,"gw_ext":58.0,"gw_6m":9.95,"res":54.0,"res_6m":47.5},{"district":"Yadadri Bhuvanagiri","reservoir_name":"Musi Reservoir & Gandhamalla Reservoir","wqi":72.2,"wqi_1m":70.4,"wqi_6m":68.8,"wqi_1y":70.0,"turb":1.11,"cov":1.7,"gw":9.1,"gw_ext":70.0,"gw_6m":10.75,"res":39.0,"res_6m":34.5}];
   function canon(s){
     return String(s || "").toLowerCase().replace(/[\u2013\u2014\-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
@@ -6030,27 +6019,41 @@ nav > button:active,
     return null;
   }
 
-  function isVisible(el){
+  function isOverlayOrModal(el){
+    if (!el || !el.closest) return false;
+    return Boolean(el.closest("#at-askai-bg, #at-hist-bg, [id*='hist' i], [id*='askai' i], [role='dialog'], .modal"));
+  }
+
+  // Strict ancestor + viewport visibility check (works for 6px range tracks AND rejects hidden modals/tabs)
+  function isActuallyVisible(el, minH){
     if (!el || !document.body.contains(el)) return false;
-    if (el.offsetParent === null && window.getComputedStyle(el).position !== "fixed") return false;
+    var cur = el;
+    while (cur && cur !== document.documentElement){
+      var st = window.getComputedStyle(cur);
+      if (st.display === "none" || st.visibility === "hidden" || st.visibility === "collapse" || parseFloat(st.opacity || "1") <= 0.05){
+        return false;
+      }
+      cur = cur.parentElement;
+    }
     var r = el.getBoundingClientRect();
-    return r.width > 16 && r.height > 8;
+    if (r.width < 12 || r.height < (minH || 1)) return false;
+    if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 40 || r.top >= window.innerHeight - 40) return false;
+    return true;
   }
 
   function hapticTap(){
     try { if (navigator.vibrate) navigator.vibrate(6); } catch(e){}
   }
 
-  // True 120Hz Critically-Damped Apple Spring Physics for Liquid Glass Dock
+  // 120Hz Critically-Damped Apple Spring Physics for Liquid Glass Dock
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
-  var isDragging = false, activeIdx = 0, hoverIdx = -1, switchTimer = null;
+  var isDragging = false, didDragMove = false, startClientX = 0;
+  var activeIdx = 0, hoverIdx = -1, switchTimer = null;
   var springX = 0, springVx = 0, springTargetX = 0;
   var springW = 72, springVw = 0, springTargetW = 72;
   var springScale = 1, springVs = 0, springTargetScale = 1;
   var animRaf = null, lastTs = 0;
-
-  var STIFFNESS = 420;
-  var DAMPING = 32;
+  var STIFFNESS = 420, DAMPING = 32;
 
   function getNav(){
     if (navEl && document.body.contains(navEl)) return navEl;
@@ -6070,6 +6073,8 @@ nav > button:active,
         if (btns[j].offsetWidth > 20) out.push(btns[j]);
       }
     }
+    // Sort left-to-right visually so index matches visual dock order even if CSS order is used
+    out.sort(function(a, b){ return a.getBoundingClientRect().left - b.getBoundingClientRect().left; });
     tabsCache = out;
     return out;
   }
@@ -6092,7 +6097,6 @@ nav > button:active,
     var dt = Math.min(0.032, Math.max(0.002, (ts - lastTs) / 1000));
     lastTs = ts;
 
-    // Integrate X, Width, and Scale with Apple spring physics (frame-rate independent 60/90/120/144Hz)
     var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
     springVx += ax * dt;
     springX += springVx * dt;
@@ -6105,7 +6109,6 @@ nav > button:active,
     springVs += as * dt;
     springScale += springVs * dt;
 
-    // Subtle liquid stretch proportional to horizontal velocity
     var stretch = Math.min(0.14, Math.abs(springVx) * 0.00018);
     var sx = springScale + stretch;
     var sy = Math.max(0.92, springScale - stretch * 0.45);
@@ -6186,7 +6189,7 @@ nav > button:active,
     }
   }
 
-  // Warm Satellite Map Layers (generous keepBuffer: 4 for instant pan/zoom, zero mid-zoom abort)
+  // Warm Satellite Map Layers
   var satEnabled = true, satLayer = null, labelLayer = null;
   function getLeafletMaps(){
     var res = [];
@@ -6226,17 +6229,39 @@ nav > button:active,
     });
   }
 
-  // Event-driven screen sync + 33-district AI Recommendations (zero background polling)
-  var syncQueued = false;
+  // Accurate active-screen detection across all 4 tabs (fixes stuck-on-Districts bug)
   function detectScreen(){
-    var range = document.querySelector('input[type="range"]');
-    if (range && isVisible(range)) return "ai twin";
-    var search = document.querySelector('input[type="search"], input[placeholder*="Search" i]');
-    if (search && (!search.closest || (!search.closest("#at-askai-bg") && !search.closest("#at-hist-bg"))) && isVisible(search)) return "districts";
-    var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
-    if (mapEl && isVisible(mapEl)){
-      var mr = mapEl.getBoundingClientRect();
-      if (mr.width >= 160 && mr.height >= 160) return "map";
+    // 1. AI Twin: visible range slider (minH = 1 for 6px tracks!) or simulator headings
+    var ranges = document.querySelectorAll('input[type="range"]');
+    for (var r = 0; r < ranges.length; r++){
+      if (!isOverlayOrModal(ranges[r]) && isActuallyVisible(ranges[r], 1)) return "ai twin";
+    }
+    var headings = document.querySelectorAll("h1, h2, h3, div, span");
+    for (var h = 0; h < headings.length; h++){
+      var node = headings[h];
+      if (node.children.length !== 0 || isOverlayOrModal(node)) continue;
+      var txt = (node.textContent || "").trim();
+      if (/^(Rainfall Change|Temperature Change|Pollution Load|3-Year AI Forecast|Groundwater Aquifer)/i.test(txt) && isActuallyVisible(node, 8)){
+        return "ai twin";
+      }
+      if (/^(AquaTwin Overview|Water Stress Distribution|Priority Watchlist)$/i.test(txt) && isActuallyVisible(node, 8)){
+        return "home";
+      }
+    }
+
+    // 2. Districts: truly visible non-modal search input inside viewport
+    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
+    for (var s = 0; s < searches.length; s++){
+      if (!isOverlayOrModal(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
+    }
+
+    // 3. Map: truly visible Leaflet container inside viewport
+    var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
+    for (var m = 0; m < maps.length; m++){
+      if (isActuallyVisible(maps[m], 140)){
+        var mr = maps[m].getBoundingClientRect();
+        if (mr.width >= 160 && mr.height >= 160) return "map";
+      }
     }
     return "home";
   }
@@ -6279,6 +6304,7 @@ nav > button:active,
     }
   }
 
+  var syncQueued = false;
   function runSync(){
     syncQueued = false;
     var screen = detectScreen();
@@ -6353,40 +6379,44 @@ nav > button:active,
       lensEl.id = "at-lg-tab-lens";
       nav.insertBefore(lensEl, nav.firstChild);
     }
-    if (nav.dataset.atPro120Bound !== "1"){
-      nav.dataset.atPro120Bound = "1";
+    if (nav.dataset.atPro120V2 !== "1"){
+      nav.dataset.atPro120V2 = "1";
       nav.addEventListener("touchstart", function(e){
         if (!e.touches || !e.touches.length) return;
         measureDock();
-        isDragging = true; hoverIdx = -1;
+        isDragging = true; didDragMove = false; hoverIdx = -1;
+        startClientX = e.touches[0].clientX;
         lensEl.classList.add("dragging");
-        pointerMove(e.touches[0].clientX, false);
       }, { passive: true });
       nav.addEventListener("touchmove", function(e){
         if (!isDragging || !e.touches || !e.touches.length) return;
-        e.preventDefault();
-        pointerMove(e.touches[0].clientX, true);
+        var cx = e.touches[0].clientX;
+        if (!didDragMove && Math.abs(cx - startClientX) > 8) didDragMove = true;
+        if (didDragMove){
+          e.preventDefault();
+          pointerMove(cx, true);
+        }
       }, { passive: false });
       function endDrag(){
         if (!isDragging) return;
         isDragging = false;
         if (switchTimer){ clearTimeout(switchTimer); switchTimer = null; }
         lensEl.classList.remove("dragging");
-        var finalIdx = hoverIdx >= 0 ? hoverIdx : activeIdx;
-        if (tabsCache[finalIdx] && finalIdx !== activeIdx){
-          activeIdx = finalIdx;
+        if (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx){
+          activeIdx = hoverIdx;
           hapticTap();
-          try { tabsCache[finalIdx].click(); } catch(e){}
+          try { tabsCache[hoverIdx].click(); } catch(e){}
         }
-        snapLens(finalIdx, false);
+        didDragMove = false;
         hoverIdx = -1;
-        scheduleSync(70);
+        scheduleSync(0);
+        scheduleSync(90);
       }
       nav.addEventListener("touchend", endDrag, { passive: true });
       nav.addEventListener("touchcancel", endDrag, { passive: true });
     }
-    snapLens(0, true);
-    scheduleSync(120);
+    runSync();
+    scheduleSync(160);
   }
 
   document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(120); }, { passive: true, capture: true });
@@ -6399,7 +6429,6 @@ nav > button:active,
     requestAnimationFrame(initDock);
   }
 
-  // Measure actual display refresh rate (60Hz / 90Hz / 120Hz) after boot
   setTimeout(function(){
     var frames = 0, t0 = performance.now();
     function probe(now){
@@ -6409,7 +6438,7 @@ nav > button:active,
       } else {
         var hz = Math.round((frames * 1000) / (now - t0));
         var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
-        console.log("AQUATWIN_120FPS_CHECK: measured_hz=" + hz + "Hz | districts=" + dCount + "/33 | js_errors=" + errCount);
+        console.log("AQUATWIN_120FPS_CHECK: measured_hz=" + hz + "Hz | screen=" + detectScreen() + " | districts=" + dCount + "/33 | js_errors=" + errCount);
       }
     }
     requestAnimationFrame(probe);

@@ -1,8 +1,8 @@
 {
-    "version":  "1.117",
-    "version_code":  117,
+    "version":  "1.118",
+    "version_code":  118,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Unlocked native Android 120Hz ProMotion spring engine, GPU WebView priority \u0026 high-speed tile caching",
+    "notes":  "• Fixed Liquid Glass dock snapping to Districts \u0026 restored Map View/Satellite toggle",
     "force":  false,
-    "updated_at":  "2026-11-26 02:22 IST"
+    "updated_at":  "2026-11-26 02:27 IST"
 }
