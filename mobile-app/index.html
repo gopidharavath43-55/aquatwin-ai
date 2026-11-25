@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.113";
+window.AQUATWIN_VERSION = "1.114";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6261,24 +6261,11 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- STRICT_33D_AI_REC_END -->
-<!-- MAP_SECTION_COMPLETE_FIX_START -->
-<style id="at-map-section-fix-css">
-body.at-map-tab-mode .at-map-hide-other {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-body.at-map-tab-mode #map,
-body.at-map-tab-mode #aquatwin-map,
-body.at-map-tab-mode .leaflet-container {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
+<!-- DISTRICT_AITWIN_TAB_SYNC_START -->
+<style id="at-tab-sync-css">
 #at-sat-toggle-btn {
   position: fixed !important;
-  top: 88px !important;
+  top: 86px !important;
   right: 12px !important;
   z-index: 2147482950 !important;
   display: none !important;
@@ -6293,8 +6280,10 @@ body.at-map-tab-mode .leaflet-container {
   font-weight: 800;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.48);
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
-body.at-map-tab-mode #at-sat-toggle-btn {
+#at-sat-toggle-btn.at-map-only-visible {
   display: inline-flex !important;
 }
 #at-sat-toggle-btn.sat-on {
@@ -6302,100 +6291,178 @@ body.at-map-tab-mode #at-sat-toggle-btn {
   border-color: #bae6fd;
   color: #ffffff;
 }
+#at-sat-toggle-btn * { pointer-events: none; }
 </style>
-<script id="at-map-section-fix-js">
+<script id="at-tab-sync-js">
 (function(){
-  if (window.__AT_MAP_SECTION_COMPLETE_FIX__) return;
-  window.__AT_MAP_SECTION_COMPLETE_FIX__ = true;
+  if (window.__AT_DISTRICT_AITWIN_TAB_SYNC__) return;
+  window.__AT_DISTRICT_AITWIN_TAB_SYNC__ = true;
 
-  var mapTabActive = false;
-  var satOn = true;
+  var satEnabled = true;
   var satLayer = null;
-  var placeLayer = null;
+  var labelLayer = null;
+  var syncing = false;
 
-  function normText(s){
+  function norm(s){
     return String(s || "").replace(/\s+/g, " ").trim().toLowerCase();
   }
 
-  function isMapNavClick(target){
-    if (!target) return false;
-    var el = target.closest ? target.closest("button, [role='tab'], [role='button'], a, div") : target;
-    if (!el) return false;
-    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
-    if (r.top < window.innerHeight * 0.65) return false;
-    return normText(el.textContent) === "map";
+  function isVisible(el){
+    if (!el || !document.body.contains(el)) return false;
+    var cur = el;
+    while (cur && cur !== document.body && cur !== document.documentElement){
+      var st = window.getComputedStyle(cur);
+      if (st.display === "none" || st.visibility === "hidden" || parseFloat(st.opacity || "1") <= 0.05){
+        return false;
+      }
+      cur = cur.parentElement;
+    }
+    var r = el.getBoundingClientRect();
+    return r.width > 18 && r.height > 10;
   }
 
-  function isOtherNavClick(target){
-    if (!target) return false;
-    var el = target.closest ? target.closest("button, [role='tab'], [role='button'], a, div") : target;
-    if (!el) return false;
-    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
-    if (r.top < window.innerHeight * 0.65) return false;
-    var t = normText(el.textContent);
-    return (t === "home" || t === "districts" || t === "ai twin");
+  function getNav(){
+    return document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
   }
 
-  function findMapContainer(){
-    var candidates = document.querySelectorAll("#map, #aquatwin-map, #telangana-map, .leaflet-container, [id*='map' i]");
-    for (var i = 0; i < candidates.length; i++){
-      var el = candidates[i];
-      if (!el || el.id === "at-sat-toggle-btn") continue;
-      if (el.closest && (el.closest("nav") || el.closest("[class*='bottom-nav']") || el.closest("[class*='tab-bar']"))) continue;
-      var r = el.getBoundingClientRect();
-      if (r.width >= 100 || el.id === "map" || el.id === "aquatwin-map") return el;
+  function getNavTabs(nav){
+    if (!nav) return [];
+    var kids = Array.prototype.slice.call(nav.children).filter(function(el){
+      return el.id !== "at-lg-tab-lens" && el.offsetWidth > 20;
+    });
+    if (kids.length >= 2) return kids;
+    return Array.prototype.slice.call(nav.querySelectorAll("button, a")).filter(function(el){
+      return el.offsetWidth > 20;
+    });
+  }
+
+  function findTabByName(tabs, targetName){
+    for (var i = 0; i < tabs.length; i++){
+      var t = norm(tabs[i].textContent);
+      if (t === targetName) return { el: tabs[i], idx: i };
+    }
+    for (var j = 0; j < tabs.length; j++){
+      var t2 = norm(tabs[j].textContent);
+      if (targetName === "ai twin" && (t2.indexOf("twin") !== -1 || t2.indexOf("ai") !== -1)) return { el: tabs[j], idx: j };
+      if (targetName === "districts" && t2.indexOf("district") !== -1) return { el: tabs[j], idx: j };
+      if (targetName === "map" && t2.indexOf("map") !== -1) return { el: tabs[j], idx: j };
+      if (targetName === "home" && t2.indexOf("home") !== -1) return { el: tabs[j], idx: j };
     }
     return null;
   }
 
-  function getLeafletInstances(){
-    var out = [];
+  function detectVisibleScreen(){
+    // 1. Check AI Twin simulator screen first (sliders / 3-Year AI Forecast / Groundwater Aquifer)
+    var sliders = document.querySelectorAll('input[type="range"]');
+    for (var s = 0; s < sliders.length; s++){
+      if (sliders[s].closest && (sliders[s].closest("#at-askai-bg") || sliders[s].closest("#at-hist-bg"))) continue;
+      if (isVisible(sliders[s])) return "ai twin";
+    }
+    var simViews = document.querySelectorAll("#view-sim, #screen-sim, [id*='sim'], [id*='twin']");
+    for (var v = 0; v < simViews.length; v++){
+      var sv = simViews[v];
+      if (sv.closest && (sv.closest("nav") || sv.closest('[class*="bottom-nav"]') || sv.closest('[class*="tab-bar"]'))) continue;
+      if (sv.querySelector && sv.querySelector("select") && isVisible(sv)) return "ai twin";
+    }
+    var headings = document.querySelectorAll("h1, h2, h3, div, span");
+    for (var h = 0; h < headings.length; h++){
+      var node = headings[h];
+      if (node.children.length !== 0) continue;
+      if (node.closest && (node.closest("#at-askai-bg") || node.closest("#at-hist-bg"))) continue;
+      var txt = (node.textContent || "").trim();
+      if (/^(Rainfall Change|Temperature Change|Pollution Load|3-Year AI Forecast|Groundwater Aquifer)/i.test(txt) && isVisible(node)){
+        return "ai twin";
+      }
+    }
+
+    // 2. Check Districts screen (search box for Telangana districts)
+    var searchInputs = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
+    for (var q = 0; q < searchInputs.length; q++){
+      var inp = searchInputs[q];
+      if (inp.closest && (inp.closest("#at-askai-bg") || inp.closest("#at-hist-bg"))) continue;
+      if (isVisible(inp)) return "districts";
+    }
+
+    // 3. Check Home screen (AquaTwin Overview / Priority Watchlist)
+    for (var k = 0; k < headings.length; k++){
+      var hn = headings[k];
+      if (hn.children.length !== 0) continue;
+      if (hn.closest && (hn.closest("#at-askai-bg") || hn.closest("#at-hist-bg"))) continue;
+      var ht = (hn.textContent || "").trim();
+      if (/^(AquaTwin Overview|Priority Watchlist)$/i.test(ht) && isVisible(hn)){
+        return "home";
+      }
+    }
+
+    // 4. Check real Map screen (Leaflet container actually visible)
+    var mapBoxes = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
+    for (var m = 0; m < mapBoxes.length; m++){
+      var mb = mapBoxes[m];
+      if (isVisible(mb)){
+        var mr = mb.getBoundingClientRect();
+        if (mr.width >= 160 && mr.height >= 160) return "map";
+      }
+    }
+    return null;
+  }
+
+  function snapLensToTab(nav, tabEl){
+    var lens = nav ? nav.querySelector("#at-lg-tab-lens") : null;
+    if (!lens || !tabEl || lens.classList.contains("dragging")) return;
+    var navR = nav.getBoundingClientRect();
+    var tabR = tabEl.getBoundingClientRect();
+    if (tabR.width < 20) return;
+    var left = tabR.left - navR.left;
+    var width = Math.max(58, tabR.width);
+    lens.style.width = width + "px";
+    lens.style.transform = "translate3d(" + left.toFixed(1) + "px, 0, 0) scale(1, 1)";
+  }
+
+  function findLeafletMaps(){
+    var found = [];
     for (var k in window){
       try {
-        var obj = window[k];
-        if (obj && typeof obj.invalidateSize === "function" && typeof obj.addLayer === "function" && typeof obj.setView === "function"){
-          out.push(obj);
+        var v = window[k];
+        if (v && typeof v.addLayer === "function" && typeof v.setView === "function" && typeof v.invalidateSize === "function"){
+          found.push(v);
         }
       } catch(e){}
     }
-    return out;
+    return found;
   }
 
-  function syncSatelliteLayers(){
+  function applySatelliteLayers(){
     if (!window.L || !window.L.tileLayer) return;
     if (!satLayer){
       satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
         maxZoom: 19,
-        updateWhenIdle: false,
-        updateWhenZooming: true,
+        updateWhenIdle: true,
         keepBuffer: 4
       });
     }
-    if (!placeLayer){
-      placeLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
+    if (!labelLayer){
+      labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
         maxZoom: 19,
         opacity: 0.95,
-        updateWhenIdle: false,
+        updateWhenIdle: true,
         keepBuffer: 4
       });
     }
-    var maps = getLeafletInstances();
-    maps.forEach(function(m){
+    findLeafletMaps().forEach(function(m){
       try {
-        if (satOn){
+        if (satEnabled){
           if (!m.hasLayer(satLayer)) satLayer.addTo(m);
-          if (!m.hasLayer(placeLayer)) placeLayer.addTo(m);
-          if (placeLayer.bringToFront) placeLayer.bringToFront();
+          if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
+          if (labelLayer.bringToFront) labelLayer.bringToFront();
         } else {
           if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
-          if (m.hasLayer(placeLayer)) m.removeLayer(placeLayer);
+          if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
         }
-        m.invalidateSize({ pan: false });
       } catch(e){}
     });
   }
 
-  function ensureSatToggleButton(){
+  function syncSatButton(isOnMap){
     var btn = document.getElementById("at-sat-toggle-btn");
     if (!btn){
       btn = document.createElement("button");
@@ -6404,98 +6471,86 @@ body.at-map-tab-mode #at-sat-toggle-btn {
       btn.addEventListener("click", function(e){
         e.preventDefault();
         e.stopPropagation();
-        satOn = !satOn;
-        btn.classList.toggle("sat-on", satOn);
-        btn.textContent = satOn ? "🗺 Map View" : "🛰 Satellite";
-        syncSatelliteLayers();
+        if (detectVisibleScreen() !== "map") return;
+        satEnabled = !satEnabled;
+        btn.classList.toggle("sat-on", satEnabled);
+        btn.textContent = satEnabled ? "🗺 Map View" : "🛰 Satellite";
+        applySatelliteLayers();
       });
       document.body.appendChild(btn);
     }
-    btn.classList.toggle("sat-on", satOn);
-    btn.textContent = satOn ? "🗺 Map View" : "🛰 Satellite";
+    btn.classList.toggle("at-map-only-visible", isOnMap);
+    btn.classList.toggle("sat-on", satEnabled);
+    btn.textContent = satEnabled ? "🗺 Map View" : "🛰 Satellite";
+    if (isOnMap) applySatelliteLayers();
   }
 
-  function hideNonMapElements(mapEl){
-    var keepSet = new Set();
-    var cur = mapEl;
-    while (cur && cur !== document.body && cur !== document.documentElement){
-      keepSet.add(cur);
-      cur = cur.parentElement;
-    }
-    var satBtn = document.getElementById("at-sat-toggle-btn");
-    if (satBtn) keepSet.add(satBtn);
+  function syncNavToActiveScreen(){
+    if (syncing) return;
+    syncing = true;
+    try {
+      var screen = detectVisibleScreen();
+      syncSatButton(screen === "map");
+      if (!screen) return;
 
-    var topLevel = document.body ? Array.from(document.body.children) : [];
-    topLevel.forEach(function(child){
-      if (!child || child.tagName === "SCRIPT" || child.tagName === "STYLE") return;
-      if (keepSet.has(child)) return;
-      if (child.contains && mapEl && child.contains(mapEl)){
-        // Hide sibling sections/cards inside this wrapper that don't contain mapEl
-        Array.from(child.children).forEach(function(sub){
-          if (!sub || sub.tagName === "SCRIPT" || sub.tagName === "STYLE") return;
-          if (keepSet.has(sub) || (sub.contains && sub.contains(mapEl))) return;
-          var r = sub.getBoundingClientRect ? sub.getBoundingClientRect() : { top: 0 };
-          if (r.top >= window.innerHeight * 0.65) return; // keep bottom nav
-          sub.classList.add("at-map-hide-other");
-        });
-        return;
+      var nav = getNav();
+      if (!nav) return;
+      var tabs = getNavTabs(nav);
+      if (!tabs.length) return;
+
+      var target = findTabByName(tabs, screen);
+      if (!target) return;
+
+      for (var i = 0; i < tabs.length; i++){
+        var tab = tabs[i];
+        var isTarget = (i === target.idx);
+        if (isTarget){
+          if (!tab.classList.contains("active")) tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+          tab.setAttribute("aria-current", "page");
+        } else {
+          tab.classList.remove("active", "selected", "current");
+          tab.removeAttribute("aria-selected");
+          tab.removeAttribute("aria-current");
+          if (tab.style && tab.style.color) tab.style.removeProperty("color");
+        }
       }
-      var r = child.getBoundingClientRect ? child.getBoundingClientRect() : { top: 0 };
-      if (r.top >= window.innerHeight * 0.65) return; // keep bottom nav
-      child.classList.add("at-map-hide-other");
+
+      snapLensToTab(nav, target.el);
+    } finally {
+      syncing = false;
+    }
+  }
+
+  function scheduleSync(){
+    requestAnimationFrame(syncNavToActiveScreen);
+    setTimeout(syncNavToActiveScreen, 40);
+    setTimeout(syncNavToActiveScreen, 160);
+    setTimeout(syncNavToActiveScreen, 380);
+  }
+
+  // Run on every user click/change (especially tapping a district in Districts)
+  document.addEventListener("click", scheduleSync, true);
+  document.addEventListener("change", scheduleSync, true);
+  window.addEventListener("resize", scheduleSync);
+
+  if (typeof MutationObserver === "function"){
+    var mo = new MutationObserver(function(){
+      if (!syncing) requestAnimationFrame(syncNavToActiveScreen);
     });
+    var startMo = function(){
+      if (document.body){
+        mo.observe(document.body, { attributes: true, subtree: true, attributeFilter: ["class", "style"] });
+      }
+      scheduleSync();
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", startMo);
+    else startMo();
+  } else {
+    setInterval(syncNavToActiveScreen, 300);
   }
-
-  function enterMapSection(){
-    mapTabActive = true;
-    document.body.classList.add("at-map-tab-mode");
-    ensureSatToggleButton();
-
-    var mapEl = findMapContainer();
-    if (mapEl){
-      hideNonMapElements(mapEl);
-      var nav = document.querySelector("nav, [class*='bottom-nav'], [class*='tab-bar']");
-      var navH = nav ? Math.max(58, Math.round(nav.getBoundingClientRect().height)) : 64;
-      var topOffset = 82;
-      mapEl.style.setProperty("position", "fixed", "important");
-      mapEl.style.setProperty("left", "0px", "important");
-      mapEl.style.setProperty("right", "0px", "important");
-      mapEl.style.setProperty("top", topOffset + "px", "important");
-      mapEl.style.setProperty("bottom", navH + "px", "important");
-      mapEl.style.setProperty("width", "100%", "important");
-      mapEl.style.setProperty("height", "calc(100vh - " + (topOffset + navH) + "px)", "important");
-      mapEl.style.setProperty("z-index", "30", "important");
-    }
-
-    syncSatelliteLayers();
-    setTimeout(syncSatelliteLayers, 120);
-    setTimeout(syncSatelliteLayers, 400);
-  }
-
-  function exitMapSection(){
-    mapTabActive = false;
-    document.body.classList.remove("at-map-tab-mode");
-    document.querySelectorAll(".at-map-hide-other").forEach(function(el){
-      el.classList.remove("at-map-hide-other");
-    });
-    var mapEl = findMapContainer();
-    if (mapEl){
-      ["position", "left", "right", "top", "bottom", "width", "height", "z-index"].forEach(function(prop){
-        mapEl.style.removeProperty(prop);
-      });
-    }
-  }
-
-  document.addEventListener("click", function(e){
-    if (isMapNavClick(e.target)){
-      setTimeout(enterMapSection, 30);
-      setTimeout(enterMapSection, 180);
-    } else if (isOtherNavClick(e.target)){
-      exitMapSection();
-    }
-  }, true);
 })();
 </script>
-<!-- MAP_SECTION_COMPLETE_FIX_END -->
+<!-- DISTRICT_AITWIN_TAB_SYNC_END -->
 </body>
 </html>
