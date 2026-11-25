@@ -1,8 +1,8 @@
 {
-  "version": "1.97",
-  "version_code": 97,
+  "version": "1.99",
+  "version_code": 99,
   "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-  "notes": "• Restored clean app UI & 3Y multi-modal forecasts (+1M/+2M/+6M/+12M)",
+  "notes": "• AquaTwin AI app update with latest 3-year multi-modal forecasts & UI sync",
   "force": false,
-  "updated_at": "2026-11-26 00:56 IST"
+  "updated_at": "2026-11-26 01:05 IST"
 }
