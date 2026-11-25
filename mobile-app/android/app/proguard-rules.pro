@@ -1,6 +1,4 @@
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
-}
+-keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }
 -keep class com.getcapacitor.** { *; }
 -dontwarn com.getcapacitor.**

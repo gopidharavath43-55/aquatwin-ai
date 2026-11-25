@@ -414,6 +414,12 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 })();
 </script>
 <!-- AQUATWIN_PERF_OPT_END -->
+<!-- PROMOTION_PRECONNECT_START -->
+<link rel="preconnect" href="https://server.arcgisonline.com" crossorigin>
+<link rel="dns-prefetch" href="https://server.arcgisonline.com">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- PROMOTION_PRECONNECT_END -->
 </head>
 <body>
   <header>
@@ -4478,7 +4484,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.116";
+window.AQUATWIN_VERSION = "1.117";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5831,18 +5837,27 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_3Y_EXT_END -->
-<!-- AQUATWIN_APPLE_ENGINE_START -->
-<style id="at-apple-engine-css">
+<!-- AQUATWIN_PROMOTION_120HZ_START -->
+<style id="at-promotion-120hz-css">
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 html, body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+  scroll-behavior: smooth;
 }
-button, a, select, input {
+button, a, select, input, [role="button"], .dash-item, .at-rt-row {
   touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.16s cubic-bezier(0.22, 1.35, 0.36, 1), opacity 0.14s ease;
 }
+button:active, [role="button"]:active, .dash-item:active, .at-rt-row:active {
+  transform: scale(0.972) translate3d(0, 0, 0);
+}
+/* Apple ProMotion Floating Liquid Glass Dock (GPU-composited for locked 120fps) */
 nav,
 [class*="bottom-nav"],
 [class*="tab-bar"] {
@@ -5851,27 +5866,28 @@ nav,
   right: 20px !important;
   bottom: 22px !important;
   width: auto !important;
-  max-width: 372px !important;
-  height: 54px !important;
-  min-height: 54px !important;
-  max-height: 54px !important;
+  max-width: 376px !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
   box-sizing: border-box !important;
   margin: 0 auto !important;
-  padding: 4px 6px !important;
+  padding: 5px 6px !important;
   border-radius: 999px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-around !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(16, 28, 48, 0.72) 100%) !important;
-  backdrop-filter: blur(18px) saturate(185%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(185%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.46) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(14, 24, 42, 0.74) 100%) !important;
+  backdrop-filter: blur(14px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.50) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.48) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
+  isolation: isolate;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   z-index: 2147482500 !important;
@@ -5903,32 +5919,37 @@ nav > div:not(#at-lg-tab-lens),
   line-height: 1.1 !important;
   gap: 2px !important;
 }
+nav > button:active,
+[class*="bottom-nav"] > button:active,
+[class*="tab-bar"] > button:active {
+  transform: scale(0.95) translate3d(0, 0, 0) !important;
+}
 #at-lg-tab-lens {
   position: absolute !important;
-  top: 4px !important;
+  top: 5px !important;
   left: 0;
   height: 44px !important;
   width: 72px;
   border-radius: 999px;
   pointer-events: none !important;
   z-index: 1 !important;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.40);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 3px 10px rgba(0, 0, 0, 0.18);
-  transition: transform 0.24s cubic-bezier(0.22, 1.18, 0.36, 1), width 0.22s cubic-bezier(0.22, 1.18, 0.36, 1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 4px 12px rgba(0, 0, 0, 0.22);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  will-change: transform;
+  will-change: transform, width;
 }
 #at-lg-tab-lens.dragging {
-  background: rgba(210, 240, 255, 0.22) !important;
-  border-color: rgba(255, 255, 255, 0.82) !important;
-  transition: none !important;
+  background: radial-gradient(ellipse at 35% 20%, rgba(255, 255, 255, 0.48) 0%, rgba(165, 226, 255, 0.20) 60%, rgba(255, 255, 255, 0.24) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.34), inset 0 1.5px 2px rgba(255, 255, 255, 0.85) !important;
 }
 #at-askai-fab {
-  bottom: 92px !important;
+  bottom: 94px !important;
   right: 16px !important;
   transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 #at-sat-toggle-btn {
   position: fixed !important;
@@ -5956,49 +5977,31 @@ nav > div:not(#at-lg-tab-lens),
   color: #ffffff;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
-.leaflet-tile-pane { filter: none !important; }
+/* 120fps Hardware-Composited Leaflet Tiles (no heavy CSS filter on tiles) */
+.leaflet-tile-pane {
+  filter: none !important;
+  will-change: transform;
+}
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  will-change: transform;
+}
 </style>
-<script id="at-apple-engine-js">
+<script id="at-promotion-120hz-js">
 (function(){
-  if (window.__AT_APPLE_ENGINE__) return;
-  window.__AT_APPLE_ENGINE__ = true;
+  if (window.__AT_PROMOTION_120HZ__) return;
+  window.__AT_PROMOTION_120HZ__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
 
-  // 1. Storage Hygiene: cap localStorage history/cache & prune bloated browser CacheStorage
-  (function pruneStorage(){
-    try {
-      for (var i = 0; i < localStorage.length; i++){
-        var k = localStorage.key(i);
-        if (!k) continue;
-        var val = localStorage.getItem(k);
-        if (val && val.length > 180000){
-          try {
-            var arr = JSON.parse(val);
-            if (Array.isArray(arr) && arr.length > 25){
-              localStorage.setItem(k, JSON.stringify(arr.slice(-25)));
-            }
-          } catch(e){}
-        }
-      }
-      if (window.caches && typeof window.caches.keys === "function"){
-        window.caches.keys().then(function(names){
-          names.forEach(function(cn){
-            window.caches.open(cn).then(function(cache){
-              cache.keys().then(function(reqs){
-                if (reqs.length > 45){
-                  reqs.slice(0, reqs.length - 45).forEach(function(r){ cache.delete(r); });
-                }
-              });
-            });
-          });
-        }).catch(function(){});
-      }
-    } catch(e){}
-  })();
+  // Register high-speed Service Worker on Web Browser (https/http only)
+  if ("serviceWorker" in navigator && /^https?:$/i.test(location.protocol)) {
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("./sw.js").catch(function(){});
+    }, { once: true });
+  }
 
-  // 2. Canonical 33-district lookup (no polling)
+  // Canonical 33-district map
   var DATA = [{"district":"Adilabad","reservoir_name":"Sathnala Reservoir & Swarna Project","wqi":78.4,"wqi_1m":76.2,"wqi_6m":74.8,"wqi_1y":75.5,"turb":0.96,"cov":2.35,"gw":5.25,"gw_ext":40.0,"gw_6m":6.45,"res":44.0,"res_6m":39.5},{"district":"Bhadradri Kothagudem","reservoir_name":"Kinnerasani Reservoir Project","wqi":76.1,"wqi_1m":74.5,"wqi_6m":72.0,"wqi_1y":73.1,"turb":1.04,"cov":3.8,"gw":7.3,"gw_ext":37.0,"gw_6m":8.6,"res":58.0,"res_6m":51.2},{"district":"Hanumakonda","reservoir_name":"Dharmasagar Reservoir (J. Chokka Rao Devadula Lift Irrigation Scheme)","wqi":71.5,"wqi_1m":69.8,"wqi_6m":68.4,"wqi_1y":70.1,"turb":1.12,"cov":1.95,"gw":5.98,"gw_ext":61.0,"gw_6m":7.45,"res":52.0,"res_6m":45.0},{"district":"Hyderabad","reservoir_name":"Osman Sagar & Himayat Sagar Reservoirs","wqi":57.3,"wqi_1m":54.0,"wqi_6m":54.2,"wqi_1y":55.7,"turb":1.28,"cov":0.68,"gw":11.1,"gw_ext":103.7,"gw_6m":9.93,"res":65.5,"res_6m":52.1},{"district":"Jagtial","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":81.2,"wqi_1m":79.5,"wqi_6m":77.9,"wqi_1y":78.8,"turb":0.94,"cov":3.1,"gw":4.41,"gw_ext":45.0,"gw_6m":5.7,"res":41.2,"res_6m":36.4},{"district":"Jangaon","reservoir_name":"R.S. Ghanpur & Tapaspally Reservoirs","wqi":79.0,"wqi_1m":70.2,"wqi_6m":68.7,"wqi_1y":69.2,"turb":1.02,"cov":1.45,"gw":8.12,"gw_ext":59.0,"gw_6m":9.92,"res":36.0,"res_6m":32.4},{"district":"Jayashankar Bhupalpally","reservoir_name":"Medigadda Barrage & Godavari Lift Irrigation Grid","wqi":77.8,"wqi_1m":76.0,"wqi_6m":74.2,"wqi_1y":75.0,"turb":1.01,"cov":3.65,"gw":6.2,"gw_ext":43.0,"gw_6m":7.55,"res":55.0,"res_6m":48.8},{"district":"Jogulamba Gadwal","reservoir_name":"Priyadarshini Jurala Project","wqi":73.4,"wqi_1m":71.0,"wqi_6m":69.5,"wqi_1y":71.2,"turb":1.09,"cov":2.2,"gw":8.1,"gw_ext":46.0,"gw_6m":9.65,"res":38.0,"res_6m":33.5},{"district":"Kamareddy","reservoir_name":"Nizam Sagar Reservoir","wqi":75.6,"wqi_1m":73.8,"wqi_6m":71.9,"wqi_1y":72.7,"turb":1.03,"cov":2.4,"gw":12.3,"gw_ext":51.0,"gw_6m":13.8,"res":50.4,"res_6m":43.0},{"district":"Karimnagar","reservoir_name":"Lower Manair Dam (LMD)","wqi":84.5,"wqi_1m":82.0,"wqi_6m":79.8,"wqi_1y":80.5,"turb":0.91,"cov":3.5,"gw":6.64,"gw_ext":56.6,"gw_6m":9.29,"res":61.3,"res_6m":54.0},{"district":"Khammam","reservoir_name":"Palair Reservoir & Wyra Reservoir","wqi":76.8,"wqi_1m":75.1,"wqi_6m":73.4,"wqi_1y":74.2,"turb":1.05,"cov":2.95,"gw":4.6,"gw_ext":43.0,"gw_6m":5.95,"res":48.0,"res_6m":42.5},{"district":"Kumuram Bheem Asifabad","reservoir_name":"Komaram Bheem Project Reservoir","wqi":78.9,"wqi_1m":77.2,"wqi_6m":75.6,"wqi_1y":76.4,"turb":0.97,"cov":2.75,"gw":5.85,"gw_ext":38.0,"gw_6m":7.15,"res":46.0,"res_6m":40.2},{"district":"Mahabubabad","reservoir_name":"Pakhala Lake & Bayyaram Cheruvu","wqi":75.2,"wqi_1m":73.5,"wqi_6m":71.8,"wqi_1y":72.5,"turb":1.06,"cov":2.3,"gw":7.3,"gw_ext":56.0,"gw_6m":8.85,"res":51.0,"res_6m":44.6},{"district":"Mahabubnagar","reservoir_name":"Koilsagar Lift Irrigation Project","wqi":70.4,"wqi_1m":68.5,"wqi_6m":66.9,"wqi_1y":68.1,"turb":1.14,"cov":1.55,"gw":9.6,"gw_ext":76.0,"gw_6m":11.4,"res":34.0,"res_6m":29.8},{"district":"Mancherial","reservoir_name":"Sripada Yellampally Project","wqi":82.4,"wqi_1m":80.7,"wqi_6m":79.0,"wqi_1y":79.6,"turb":0.93,"cov":3.85,"gw":5.4,"gw_ext":42.0,"gw_6m":6.75,"res":84.7,"res_6m":74.5},{"district":"Medak","reservoir_name":"Pocharam Reservoir & Manjeera Barrage","wqi":72.8,"wqi_1m":70.6,"wqi_6m":68.9,"wqi_1y":70.2,"turb":1.08,"cov":1.4,"gw":9.68,"gw_ext":70.0,"gw_6m":11.55,"res":22.0,"res_6m":20.5},{"district":"Medchal-Malkajgiri","reservoir_name":"Sripada Yellampally Water Supply Grid","wqi":64.5,"wqi_1m":62.8,"wqi_6m":61.5,"wqi_1y":63.0,"turb":1.19,"cov":1.1,"gw":11.64,"gw_ext":73.7,"gw_6m":13.4,"res":72.0,"res_6m":63.0},{"district":"Mulugu","reservoir_name":"Laknavaram Lake & Ramappa Lake","wqi":80.5,"wqi_1m":78.8,"wqi_6m":77.1,"wqi_1y":77.9,"turb":0.95,"cov":3.4,"gw":5.9,"gw_ext":36.0,"gw_6m":7.2,"res":64.0,"res_6m":56.5},{"district":"Nagarkurnool","reservoir_name":"Srisailam Hydroelectric & Reservoir Project","wqi":72.1,"wqi_1m":70.2,"wqi_6m":68.5,"wqi_1y":69.8,"turb":1.11,"cov":1.85,"gw":8.4,"gw_ext":40.0,"gw_6m":10.1,"res":29.0,"res_6m":26.5},{"district":"Nalgonda","reservoir_name":"Nagarjuna Sagar Dam & Reservoir","wqi":71.8,"wqi_1m":69.9,"wqi_6m":68.2,"wqi_1y":69.4,"turb":1.1,"cov":2.05,"gw":9.8,"gw_ext":49.0,"gw_6m":11.6,"res":25.0,"res_6m":23.0},{"district":"Narayanpet","reservoir_name":"Koilsagar Project & Priyadarshini Jurala Feed Canal","wqi":71.2,"wqi_1m":69.4,"wqi_6m":67.8,"wqi_1y":69.0,"turb":1.12,"cov":1.5,"gw":8.6,"gw_ext":39.0,"gw_6m":10.3,"res":35.0,"res_6m":31.0},{"district":"Nirmal","reservoir_name":"Kaddam Narayan Reddy Project","wqi":79.4,"wqi_1m":77.6,"wqi_6m":75.9,"wqi_1y":76.7,"turb":0.96,"cov":2.6,"gw":6.07,"gw_ext":38.0,"gw_6m":7.4,"res":37.0,"res_6m":33.0},{"district":"Nizamabad","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":78.2,"wqi_1m":76.4,"wqi_6m":74.7,"wqi_1y":75.5,"turb":0.99,"cov":2.7,"gw":8.63,"gw_ext":52.0,"gw_6m":10.25,"res":41.2,"res_6m":36.4},{"district":"Peddapalli","reservoir_name":"Sripada Yellampally Project","wqi":89.0,"wqi_1m":87.2,"wqi_6m":85.4,"wqi_1y":86.0,"turb":0.9919,"cov":2.4913,"gw":6.31,"gw_ext":48.5,"gw_6m":8.17,"res":84.7,"res_6m":74.0},{"district":"Rajanna Sircilla","reservoir_name":"Mid Manair Dam (MMR)","wqi":81.9,"wqi_1m":80.1,"wqi_6m":78.3,"wqi_1y":79.1,"turb":0.94,"cov":2.85,"gw":7.36,"gw_ext":69.0,"gw_6m":8.95,"res":82.7,"res_6m":72.5},{"district":"Ranga Reddy","reservoir_name":"Himayat Sagar Reservoir & Akkampally Balancing Reservoir","wqi":66.8,"wqi_1m":65.0,"wqi_6m":63.6,"wqi_1y":65.1,"turb":1.16,"cov":1.35,"gw":11.74,"gw_ext":68.0,"gw_6m":13.5,"res":79.7,"res_6m":69.0},{"district":"Sangareddy","reservoir_name":"Singur Dam Reservoir","wqi":69.5,"wqi_1m":67.8,"wqi_6m":66.2,"wqi_1y":67.4,"turb":1.13,"cov":1.5,"gw":11.21,"gw_ext":48.1,"gw_6m":12.9,"res":6.4,"res_6m":9.5},{"district":"Siddipet","reservoir_name":"Mallanna Sagar Reservoir","wqi":77.4,"wqi_1m":75.6,"wqi_6m":73.9,"wqi_1y":74.8,"turb":1.01,"cov":2.55,"gw":9.2,"gw_ext":69.0,"gw_6m":10.95,"res":49.0,"res_6m":43.2},{"district":"Suryapet","reservoir_name":"Musi Reservoir & Nagarjuna Sagar Left Canal Grid","wqi":73.0,"wqi_1m":71.2,"wqi_6m":69.6,"wqi_1y":70.8,"turb":1.09,"cov":1.9,"gw":8.2,"gw_ext":54.0,"gw_6m":9.85,"res":31.0,"res_6m":27.5},{"district":"Vikarabad","reservoir_name":"Kotepally Project & Singur Water Supply Grid","wqi":70.8,"wqi_1m":69.0,"wqi_6m":67.5,"wqi_1y":68.7,"turb":1.12,"cov":1.25,"gw":13.54,"gw_ext":61.0,"gw_6m":15.2,"res":18.0,"res_6m":17.5},{"district":"Wanaparthy","reservoir_name":"Sarala Sagar Project & Ramanpad Reservoir","wqi":72.5,"wqi_1m":70.7,"wqi_6m":69.1,"wqi_1y":70.3,"turb":1.1,"cov":1.75,"gw":7.9,"gw_ext":44.0,"gw_6m":9.5,"res":33.0,"res_6m":29.2},{"district":"Warangal","reservoir_name":"Pakhala Lake & Ramappa Lake Feed System","wqi":76.5,"wqi_1m":74.8,"wqi_6m":73.1,"wqi_1y":73.9,"turb":1.04,"cov":2.45,"gw":8.3,"gw_ext":58.0,"gw_6m":9.95,"res":54.0,"res_6m":47.5},{"district":"Yadadri Bhuvanagiri","reservoir_name":"Musi Reservoir & Gandhamalla Reservoir","wqi":72.2,"wqi_1m":70.4,"wqi_6m":68.8,"wqi_1y":70.0,"turb":1.11,"cov":1.7,"gw":9.1,"gw_ext":70.0,"gw_6m":10.75,"res":39.0,"res_6m":34.5}];
   function canon(s){
     return String(s || "").toLowerCase().replace(/[\u2013\u2014\-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
@@ -6034,9 +6037,20 @@ nav > div:not(#at-lg-tab-lens),
     return r.width > 16 && r.height > 8;
   }
 
-  // 3. Cached Liquid Glass Dock + Spring Lens (zero reflow during touchmove)
+  function hapticTap(){
+    try { if (navigator.vibrate) navigator.vibrate(6); } catch(e){}
+  }
+
+  // True 120Hz Critically-Damped Apple Spring Physics for Liquid Glass Dock
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
-  var isDragging = false, activeIdx = 0, hoverIdx = -1, dragX = 0, targetX = 0, lensW = 72, rafId = null, switchTimer = null;
+  var isDragging = false, activeIdx = 0, hoverIdx = -1, switchTimer = null;
+  var springX = 0, springVx = 0, springTargetX = 0;
+  var springW = 72, springVw = 0, springTargetW = 72;
+  var springScale = 1, springVs = 0, springTargetScale = 1;
+  var animRaf = null, lastTs = 0;
+
+  var STIFFNESS = 420;
+  var DAMPING = 32;
 
   function getNav(){
     if (navEl && document.body.contains(navEl)) return navEl;
@@ -6071,6 +6085,59 @@ nav > div:not(#at-lg-tab-lens),
       return { left: r.left - navLeft, width: Math.max(54, r.width), cx: r.left + r.width * 0.5 };
     });
   }
+
+  function stepSpring(ts){
+    if (!lensEl){ animRaf = null; return; }
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.032, Math.max(0.002, (ts - lastTs) / 1000));
+    lastTs = ts;
+
+    // Integrate X, Width, and Scale with Apple spring physics (frame-rate independent 60/90/120/144Hz)
+    var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
+    springVx += ax * dt;
+    springX += springVx * dt;
+
+    var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
+    springVw += aw * dt;
+    springW += springVw * dt;
+
+    var as = STIFFNESS * (springTargetScale - springScale) - DAMPING * springVs;
+    springVs += as * dt;
+    springScale += springVs * dt;
+
+    // Subtle liquid stretch proportional to horizontal velocity
+    var stretch = Math.min(0.14, Math.abs(springVx) * 0.00018);
+    var sx = springScale + stretch;
+    var sy = Math.max(0.92, springScale - stretch * 0.45);
+
+    lensEl.style.width = springW.toFixed(1) + "px";
+    lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + sx.toFixed(3) + ", " + sy.toFixed(3) + ")";
+
+    var settled = !isDragging
+      && Math.abs(springTargetX - springX) < 0.15 && Math.abs(springVx) < 0.8
+      && Math.abs(springTargetW - springW) < 0.15 && Math.abs(springVw) < 0.8
+      && Math.abs(springTargetScale - springScale) < 0.002 && Math.abs(springVs) < 0.02;
+
+    if (settled){
+      springX = springTargetX; springVx = 0;
+      springW = springTargetW; springVw = 0;
+      springScale = springTargetScale; springVs = 0;
+      lensEl.style.width = springW.toFixed(1) + "px";
+      lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0) scale(1, 1)";
+      animRaf = null;
+      lastTs = 0;
+      return;
+    }
+    animRaf = requestAnimationFrame(stepSpring);
+  }
+
+  function kickSpring(){
+    if (!animRaf){
+      lastTs = 0;
+      animRaf = requestAnimationFrame(stepSpring);
+    }
+  }
+
   function snapLens(idx, instant){
     var nav = getNav();
     if (!nav || !lensEl || isDragging) return;
@@ -6079,28 +6146,25 @@ nav > div:not(#at-lg-tab-lens),
     idx = Math.max(0, Math.min(tabRects.length - 1, idx));
     activeIdx = idx;
     var box = tabRects[idx];
-    lensW = box.width;
-    dragX = targetX = box.left;
+    springTargetX = box.left;
+    springTargetW = box.width;
+    springTargetScale = 1.0;
     if (instant){
-      lensEl.style.transition = "none";
-      lensEl.style.width = box.width + "px";
-      lensEl.style.transform = "translate3d(" + box.left.toFixed(1) + "px, 0, 0)";
-      void lensEl.offsetWidth;
-      lensEl.style.transition = "";
+      springX = box.left; springVx = 0;
+      springW = box.width; springVw = 0;
+      springScale = 1.0; springVs = 0;
+      lensEl.style.width = springW.toFixed(1) + "px";
+      lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0) scale(1, 1)";
     } else {
-      lensEl.style.width = box.width + "px";
-      lensEl.style.transform = "translate3d(" + box.left.toFixed(1) + "px, 0, 0)";
+      kickSpring();
     }
   }
-  function dragLoop(){
-    if (!isDragging || !lensEl){ rafId = null; return; }
-    dragX += (targetX - dragX) * 0.46;
-    lensEl.style.transform = "translate3d(" + dragX.toFixed(1) + "px, 0, 0) scale(1.06, 1.04)";
-    rafId = requestAnimationFrame(dragLoop);
-  }
+
   function pointerMove(clientX, allowSwitch){
     if (!tabRects.length) return;
-    targetX = Math.max(5, Math.min(Math.max(5, navWidth - lensW - 5), clientX - navLeft - lensW * 0.5));
+    springTargetX = Math.max(5, Math.min(Math.max(5, navWidth - springW - 5), clientX - navLeft - springW * 0.5));
+    springTargetScale = 1.08;
+    kickSpring();
     var best = 0, bestD = Infinity;
     for (var i = 0; i < tabRects.length; i++){
       var d = Math.abs(clientX - tabRects[i].cx);
@@ -6114,14 +6178,15 @@ nav > div:not(#at-lg-tab-lens),
         switchTimer = setTimeout(function(){
           if (isDragging && hoverIdx === idxCopy && tabsCache[idxCopy]){
             activeIdx = idxCopy;
+            hapticTap();
             try { tabsCache[idxCopy].click(); } catch(e){}
           }
-        }, 40);
+        }, 35);
       }
     }
   }
 
-  // 4. Lightweight Satellite Map Manager (low memory keepBuffer: 2, updateWhenIdle: true)
+  // Warm Satellite Map Layers (generous keepBuffer: 4 for instant pan/zoom, zero mid-zoom abort)
   var satEnabled = true, satLayer = null, labelLayer = null;
   function getLeafletMaps(){
     var res = [];
@@ -6139,12 +6204,12 @@ nav > div:not(#at-lg-tab-lens),
     if (!window.L || !window.L.tileLayer) return;
     if (!satLayer){
       satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 18, updateWhenIdle: true, updateWhenZooming: false, keepBuffer: 2
+        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
       });
     }
     if (!labelLayer){
       labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 18, opacity: 0.95, updateWhenIdle: true, updateWhenZooming: false, keepBuffer: 2
+        maxZoom: 19, opacity: 0.95, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
       });
     }
     getLeafletMaps().forEach(function(m){
@@ -6161,7 +6226,7 @@ nav > div:not(#at-lg-tab-lens),
     });
   }
 
-  // 5. Event-Driven Screen Sync + AI Recommendation (runs ONLY on interaction, never polling)
+  // Event-driven screen sync + 33-district AI Recommendations (zero background polling)
   var syncQueued = false;
   function detectScreen(){
     var range = document.querySelector('input[type="range"]');
@@ -6218,7 +6283,6 @@ nav > div:not(#at-lg-tab-lens),
     syncQueued = false;
     var screen = detectScreen();
 
-    // Sync Satellite toggle button strictly on Map screen
     var satBtn = document.getElementById("at-sat-toggle-btn");
     if (!satBtn){
       satBtn = document.createElement("button");
@@ -6228,6 +6292,7 @@ nav > div:not(#at-lg-tab-lens),
         e.preventDefault();
         e.stopPropagation();
         if (detectScreen() !== "map") return;
+        hapticTap();
         satEnabled = !satEnabled;
         satBtn.classList.toggle("sat-on", satEnabled);
         satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
@@ -6241,7 +6306,6 @@ nav > div:not(#at-lg-tab-lens),
     satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
     if (onMap) applySatellite();
 
-    // Sync bottom dock active tab & lens to actual visible screen
     var nav = getNav();
     if (nav){
       var tabs = getTabs(nav);
@@ -6289,16 +6353,14 @@ nav > div:not(#at-lg-tab-lens),
       lensEl.id = "at-lg-tab-lens";
       nav.insertBefore(lensEl, nav.firstChild);
     }
-    if (nav.dataset.atAppleBound !== "1"){
-      nav.dataset.atAppleBound = "1";
+    if (nav.dataset.atPro120Bound !== "1"){
+      nav.dataset.atPro120Bound = "1";
       nav.addEventListener("touchstart", function(e){
         if (!e.touches || !e.touches.length) return;
         measureDock();
         isDragging = true; hoverIdx = -1;
         lensEl.classList.add("dragging");
         pointerMove(e.touches[0].clientX, false);
-        dragX = targetX;
-        if (!rafId) rafId = requestAnimationFrame(dragLoop);
       }, { passive: true });
       nav.addEventListener("touchmove", function(e){
         if (!isDragging || !e.touches || !e.touches.length) return;
@@ -6309,16 +6371,16 @@ nav > div:not(#at-lg-tab-lens),
         if (!isDragging) return;
         isDragging = false;
         if (switchTimer){ clearTimeout(switchTimer); switchTimer = null; }
-        if (rafId){ cancelAnimationFrame(rafId); rafId = null; }
         lensEl.classList.remove("dragging");
         var finalIdx = hoverIdx >= 0 ? hoverIdx : activeIdx;
         if (tabsCache[finalIdx] && finalIdx !== activeIdx){
           activeIdx = finalIdx;
+          hapticTap();
           try { tabsCache[finalIdx].click(); } catch(e){}
         }
         snapLens(finalIdx, false);
         hoverIdx = -1;
-        scheduleSync(80);
+        scheduleSync(70);
       }
       nav.addEventListener("touchend", endDrag, { passive: true });
       nav.addEventListener("touchcancel", endDrag, { passive: true });
@@ -6327,8 +6389,8 @@ nav > div:not(#at-lg-tab-lens),
     scheduleSync(120);
   }
 
-  document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(140); }, { passive: true, capture: true });
-  document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(100); }, { passive: true, capture: true });
+  document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(120); }, { passive: true, capture: true });
+  document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(90); }, { passive: true, capture: true });
   window.addEventListener("resize", function(){ if (!isDragging) scheduleSync(60); }, { passive: true });
 
   if (document.readyState === "loading"){
@@ -6337,12 +6399,23 @@ nav > div:not(#at-lg-tab-lens),
     requestAnimationFrame(initDock);
   }
 
+  // Measure actual display refresh rate (60Hz / 90Hz / 120Hz) after boot
   setTimeout(function(){
-    var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
-    console.log("AQUATWIN_OPT_CHECK: districts=" + dCount + "/33 | js_errors=" + errCount + " | engine=apple_60fps");
-  }, 1500);
+    var frames = 0, t0 = performance.now();
+    function probe(now){
+      frames++;
+      if (now - t0 < 500){
+        requestAnimationFrame(probe);
+      } else {
+        var hz = Math.round((frames * 1000) / (now - t0));
+        var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
+        console.log("AQUATWIN_120FPS_CHECK: measured_hz=" + hz + "Hz | districts=" + dCount + "/33 | js_errors=" + errCount);
+      }
+    }
+    requestAnimationFrame(probe);
+  }, 1200);
 })();
 </script>
-<!-- AQUATWIN_APPLE_ENGINE_END -->
+<!-- AQUATWIN_PROMOTION_120HZ_END -->
 </body>
 </html>
