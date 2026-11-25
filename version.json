@@ -1,8 +1,8 @@
 {
-    "version":  "1.115",
-    "version_code":  115,
+    "version":  "1.116",
+    "version_code":  116,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Apple-smooth 60fps UI/Map optimization, R8 storage reduction \u0026 fast web caching",
+    "notes":  "• Fixed layout-thrashing \u0026 Gradle errors, unified Apple-smooth 60fps engine \u0026 reduced APK/Web storage",
     "force":  false,
-    "updated_at":  "2026-11-26 02:12 IST"
+    "updated_at":  "2026-11-26 02:19 IST"
 }
