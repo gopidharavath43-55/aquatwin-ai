@@ -6093,5 +6093,131 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_3Y_EXT_END -->
+<!-- SMART_AI_RECOMMENDATIONS_START -->
+<script id="at-smart-ai-recommendations">
+(function(){
+  if (window.__AT_SMART_REC_INSTALLED__) return;
+  window.__AT_SMART_REC_INSTALLED__ = true;
+
+  function pickDistrictRecord(districtName) {
+    var ml = window.AQUATWIN_ML_DATA || {};
+    var list = Array.isArray(ml.districts) ? ml.districts : [];
+    if (!list.length) return null;
+    if (!districtName) return list[0];
+    var target = String(districtName).trim().toLowerCase();
+    for (var i = 0; i < list.length; i++) {
+      var dName = String(list[i].district || list[i].name || "").trim().toLowerCase();
+      if (dName === target || dName.indexOf(target) !== -1 || target.indexOf(dName) !== -1) {
+        return list[i];
+      }
+    }
+    return list[0];
+  }
+
+  function detectActiveDistrict() {
+    var sel = document.querySelector("select");
+    if (sel && sel.value) return sel.value;
+    var headings = document.querySelectorAll("h1, h2, h3, h4, span, div");
+    for (var i = 0; i < headings.length; i++) {
+      var t = (headings[i].textContent || "").trim();
+      var m = t.match(/Groundwater Aquifer\s*\(([^)]+)\)/i) || t.match(/3-Year AI Forecast\s*[—\-]+\s*(.+)/i);
+      if (m && m[1]) return m[1].trim();
+    }
+    return "Karimnagar";
+  }
+
+  function buildRecommendations(rec) {
+    var dName = rec.district || detectActiveDistrict();
+    var wqiNow = Number(rec.wqi_score != null ? rec.wqi_score : (rec.water_wqi != null ? rec.water_wqi : 75));
+    var wqi1m  = Number(rec.lstm_1m_wqi != null ? rec.lstm_1m_wqi : wqiNow);
+    var wqi6m  = Number(rec.lstm_6m_wqi != null ? rec.lstm_6m_wqi : wqiNow);
+    var wqi1y  = Number(rec.lstm_1y_wqi != null ? rec.lstm_1y_wqi : wqi6m);
+
+    var turb   = Number(rec.turbidity_index != null ? rec.turbidity_index : 1.0);
+    var wCov   = Number(rec.water_coverage_pct != null ? rec.water_coverage_pct : 2.5);
+
+    var gwDepth = Number(rec.gw_depth_mbgl != null ? rec.gw_depth_mbgl : 8.0);
+    var gwExt   = Number(rec.gw_extraction_pct != null ? rec.gw_extraction_pct : 55.0);
+    var gwRech  = Number(rec.gw_recharge_mm != null ? rec.gw_recharge_mm : 15.0);
+    var gw6m    = Number(rec.gw_pred_6m != null ? rec.gw_pred_6m : gwDepth);
+
+    var resName = rec.reservoir_name || "Primary Basin Reservoir";
+    var resPct  = Number(rec.res_storage_pct != null ? rec.res_storage_pct : 50.0);
+    var res6m   = Number(rec.res_pred_6m != null ? rec.res_pred_6m : resPct);
+
+    var rain1m  = Number(rec.rain_pred_1m != null ? rec.rain_pred_1m : 25.0);
+    var rain6m  = Number(rec.rain_pred_6m != null ? rec.rain_pred_6m : 40.0);
+
+    var items = [];
+
+    // 1. Surface Water & Turbidity Action
+    if (turb >= 1.15 || wqiNow < 60) {
+      items.push("Surface Water (" + dName + "): WQI is " + wqiNow.toFixed(1) + "/100 with turbidity " + turb.toFixed(2) + " — prioritize pre-treatment coagulation, silt traps, and weekly water-quality sampling.");
+    } else {
+      items.push("Surface Water (" + dName + "): WQI is strong at " + wqiNow.toFixed(1) + "/100 (turbidity " + turb.toFixed(2) + ", coverage " + wCov.toFixed(2) + "%) — maintain routine intake screening and protect riparian buffer zones.");
+    }
+
+    // 2. Groundwater Aquifer & Extraction Action
+    if (gwExt >= 90 || gwDepth >= 11.0 || gw6m > gwDepth + 1.2) {
+      items.push("Groundwater (" + gwDepth.toFixed(2) + " mbgl -> +6M " + gw6m.toFixed(2) + " mbgl, extraction " + gwExt.toFixed(1) + "%): Encourage micro-irrigation/drip scheduling, check-dam desilting, and borewell recharge pits.");
+    } else {
+      items.push("Groundwater (" + gwDepth.toFixed(2) + " mbgl -> +6M " + gw6m.toFixed(2) + " mbgl, recharge " + gwRech.toFixed(1) + " mm): Extraction is " + gwExt.toFixed(1) + "% — sustain percolation tanks and prevent seasonal over-pumping.");
+    }
+
+    // 3. Reservoir & Rainfall Trajectory Action
+    if (resPct < 35 || res6m < 35 || rain6m < 25) {
+      items.push("Reservoir & Rainfall (" + resName + " at " + resPct.toFixed(1) + "% -> +6M " + res6m.toFixed(1) + "%, +6M rain " + rain6m.toFixed(1) + " mm): Ration canal allocations early and conserve storage for peak dry months.");
+    } else {
+      items.push("Reservoir & Rainfall (" + resName + " at " + resPct.toFixed(1) + "% -> +6M " + res6m.toFixed(1) + "%, +1M rain " + rain1m.toFixed(1) + " mm): Balance allocation across agricultural and municipal demand while tracking +1Y WQI (" + wqi1y.toFixed(1) + ").");
+    }
+
+    // 4. Multi-Horizon Forecast Watch
+    if (wqi6m < wqiNow - 4 || wqi1y < wqiNow - 4) {
+      items.push("Multi-Horizon Trend (+1M " + wqi1m.toFixed(1) + " | +6M " + wqi6m.toFixed(1) + " | +1Y " + wqi1y.toFixed(1) + "): Gradual WQI dip projected — pre-position treatment/conservation measures ahead of seasonal shift.");
+    } else {
+      items.push("Multi-Horizon Trend (+1M " + wqi1m.toFixed(1) + " | +6M " + wqi6m.toFixed(1) + " | +1Y " + wqi1y.toFixed(1) + "): Multi-horizon water quality remains steady — continue automated digital-twin monitoring.");
+    }
+
+    return items;
+  }
+
+  function enhanceRecommendationCards() {
+    var activeDist = detectActiveDistrict();
+    var recData = pickDistrictRecord(activeDist);
+    if (!recData) return;
+
+    var recs = buildRecommendations(recData);
+    var nodes = document.querySelectorAll("div, section, article");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (!el || el.dataset.atRecEnhanced === "1") continue;
+      var headerText = (el.textContent || "");
+      if (headerText.indexOf("AI Recommendation") !== -1 && headerText.length < 420) {
+        // Find child text container that holds the generic recommendation line
+        var children = el.querySelectorAll("p, div, span");
+        var target = null;
+        for (var j = 0; j < children.length; j++) {
+          var c = children[j];
+          var ct = (c.textContent || "").trim();
+          if (ct.length > 10 && ct.indexOf("AI Recommendation") === -1 && c.children.length === 0) {
+            target = c;
+            break;
+          }
+        }
+        if (target) {
+          el.dataset.atRecEnhanced = "1";
+          target.innerHTML = recs.map(function(line) {
+            return "<div style='margin:5px 0;line-height:1.45;'>• " + line.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</div>";
+          }).join("");
+        }
+      }
+    }
+  }
+
+  enhanceRecommendationCards();
+  setInterval(enhanceRecommendationCards, 700);
+})();
+</script>
+<!-- SMART_AI_RECOMMENDATIONS_END -->
 </body>
 </html>
