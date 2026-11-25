@@ -422,7 +422,6 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
   </header>
 
   <main>
-    <!-- TAB 1: DISTRICTS -->
     <section id="view-list" class="view active">
       <div class="stats">
         <div class="stat-card"><span>Avg AI WQI</span><h2 id="avgWqi" style="color:var(--blue)">-</h2></div>
@@ -444,12 +443,10 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
       <div id="districtList" class="list"></div>
     </section>
 
-    <!-- TAB 2: MAP -->
     <section id="view-map" class="view">
       <div id="map"></div>
     </section>
 
-    <!-- TAB 3: AI DIGITAL TWIN SIMULATOR -->
     <section id="view-sim" class="view">
       <div class="sim-head">
         <select id="simSelect"></select>
@@ -4481,7 +4478,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.114";
+window.AQUATWIN_VERSION = "1.115";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -4578,263 +4575,6 @@ window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/
 })();
 </script>
 <!-- APP_UPDATER_END -->
-<!-- SMOOTH_OPT_START -->
-<style id="at-smooth-opt-css">
-html, body {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-}
-main, section, [class*="scroll"], [class*="list"] {
-  -webkit-overflow-scrolling: touch;
-}
-nav,
-[class*="bottom-nav"],
-[class*="tab-bar"] {
-  position: fixed !important;
-  left: 24px !important;
-  right: 24px !important;
-  bottom: 26px !important;
-  width: auto !important;
-  max-width: 360px !important;
-  height: 52px !important;
-  min-height: 52px !important;
-  max-height: 52px !important;
-  box-sizing: border-box !important;
-  margin: 0 auto !important;
-  padding: 4px 6px !important;
-  border-radius: 999px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.04) 48%,
-    rgba(10, 22, 42, 0.24) 100%
-  ) !important;
-  backdrop-filter: blur(24px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(210%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.52) !important;
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.40),
-    inset 0 1px 0 rgba(255, 255, 255, 0.52) !important;
-  overflow: visible !important;
-  touch-action: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  transform: translateZ(0);
-  z-index: 2147482500 !important;
-}
-nav > button,
-nav > a,
-nav > div:not(#at-lg-tab-lens),
-[class*="bottom-nav"] > button,
-[class*="bottom-nav"] > a,
-[class*="tab-bar"] > button,
-[class*="tab-bar"] > a {
-  position: relative !important;
-  z-index: 2 !important;
-  flex: 1 1 0 !important;
-  height: 42px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 0 2px 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 999px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  line-height: 1.1 !important;
-  gap: 2px !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-#at-lg-tab-lens {
-  position: absolute !important;
-  top: 4px !important;
-  left: 0;
-  height: 42px !important;
-  width: 68px;
-  border-radius: 999px;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 3px 10px rgba(0, 0, 0, 0.18);
-  transition: transform 0.28s cubic-bezier(0.22, 1.2, 0.36, 1), width 0.26s cubic-bezier(0.22, 1.2, 0.36, 1);
-  will-change: transform, width;
-}
-#at-lg-tab-lens.dragging {
-  background: rgba(210, 240, 255, 0.16) !important;
-  backdrop-filter: blur(3px) brightness(1.18) saturate(170%) !important;
-  -webkit-backdrop-filter: blur(3px) brightness(1.18) saturate(170%) !important;
-  border-color: rgba(255, 255, 255, 0.78) !important;
-  transition: none !important;
-}
-#at-askai-fab {
-  bottom: 116px !important;
-  right: 16px !important;
-  transform: translateZ(0);
-}
-</style>
-<script id="at-smooth-opt-js">
-(function(){
-  if (window.__AT_SMOOTH_OPT__) return;
-  window.__AT_SMOOTH_OPT__ = true;
-
-  var errCount = 0;
-  window.addEventListener('error', function(e){
-    errCount++;
-    if (window.__AT_DEBUG_ERRS__) window.__AT_DEBUG_ERRS__.push(e && e.message ? e.message : 'Error');
-  });
-  window.__AT_DEBUG_ERRS__ = [];
-
-  var navEl = null, lensEl = null, isDragging = false, activeIdx = 0, hoverIdx = -1;
-  var dragX = 0, targetX = 0, lensW = 68, rafId = null, switchTimer = null;
-
-  function getNav(){
-    return document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
-  }
-  function getTabs(nav){
-    if (!nav) return [];
-    var items = Array.prototype.slice.call(nav.children).filter(function(el){
-      return el.id !== 'at-lg-tab-lens' && el.offsetWidth > 20;
-    });
-    return items.length >= 2 ? items : Array.prototype.slice.call(nav.querySelectorAll('button, a')).filter(function(el){ return el.offsetWidth > 20; });
-  }
-  function detectActive(tabs){
-    for (var i = 0; i < tabs.length; i++){
-      var el = tabs[i];
-      var cls = (el.className || '').toLowerCase();
-      var aria = (el.getAttribute('aria-selected') || el.getAttribute('aria-current') || '').toLowerCase();
-      if (/active|selected|current/.test(cls) || aria === 'true' || aria === 'page') return i;
-    }
-    return activeIdx < tabs.length ? activeIdx : 0;
-  }
-  function snapLens(idx, instant){
-    if (!navEl || !lensEl) return;
-    var tabs = getTabs(navEl);
-    if (!tabs.length) return;
-    idx = Math.max(0, Math.min(tabs.length - 1, idx));
-    activeIdx = idx;
-    var navR = navEl.getBoundingClientRect();
-    var tabR = tabs[idx].getBoundingClientRect();
-    var left = tabR.left - navR.left;
-    var w = Math.max(52, tabR.width);
-    lensW = w;
-    dragX = targetX = left;
-    if (instant) {
-      lensEl.style.transition = 'none';
-      lensEl.style.width = w + 'px';
-      lensEl.style.transform = 'translate3d(' + left.toFixed(1) + 'px, 0, 0)';
-      lensEl.offsetHeight;
-      lensEl.style.transition = '';
-    } else {
-      lensEl.style.width = w + 'px';
-      lensEl.style.transform = 'translate3d(' + left.toFixed(1) + 'px, 0, 0)';
-    }
-  }
-  function stepFrame(){
-    if (!isDragging || !lensEl) { rafId = null; return; }
-    dragX += (targetX - dragX) * 0.42;
-    lensEl.style.transform = 'translate3d(' + dragX.toFixed(1) + 'px, 0, 0) scale(1.08, 1.06)';
-    rafId = requestAnimationFrame(stepFrame);
-  }
-  function handleMove(clientX, allowSwitch){
-    if (!navEl || !lensEl) return;
-    var tabs = getTabs(navEl);
-    if (!tabs.length) return;
-    var navR = navEl.getBoundingClientRect();
-    targetX = Math.max(5, Math.min(Math.max(5, navR.width - lensW - 5), clientX - navR.left - lensW * 0.5));
-    var best = 0, bestD = Infinity;
-    for (var i = 0; i < tabs.length; i++){
-      var r = tabs[i].getBoundingClientRect();
-      var d = Math.abs(clientX - (r.left + r.width * 0.5));
-      if (d < bestD) { bestD = d; best = i; }
-    }
-    if (best !== hoverIdx){
-      hoverIdx = best;
-      if (allowSwitch && best !== activeIdx){
-        if (switchTimer) clearTimeout(switchTimer);
-        var idxCopy = best;
-        switchTimer = setTimeout(function(){
-          if (isDragging && hoverIdx === idxCopy){
-            activeIdx = idxCopy;
-            try { tabs[idxCopy].click(); } catch(e){}
-          }
-        }, 45);
-      }
-    }
-  }
-  function initDock(){
-    try {
-      var fab = document.getElementById('at-askai-fab');
-      if (fab) { fab.style.setProperty('bottom', '116px', 'important'); fab.style.setProperty('right', '16px', 'important'); }
-      var nav = getNav();
-      if (!nav) return;
-      navEl = nav;
-      lensEl = nav.querySelector('#at-lg-tab-lens');
-      if (!lensEl){
-        lensEl = document.createElement('div');
-        lensEl.id = 'at-lg-tab-lens';
-        nav.insertBefore(lensEl, nav.firstChild);
-      }
-      if (nav.dataset.atOptBound !== '1'){
-        nav.dataset.atOptBound = '1';
-        nav.addEventListener('touchstart', function(e){
-          if (!e.touches || !e.touches.length) return;
-          isDragging = true; hoverIdx = -1;
-          lensEl.classList.add('dragging');
-          handleMove(e.touches[0].clientX, false);
-          dragX = targetX;
-          if (!rafId) rafId = requestAnimationFrame(stepFrame);
-        }, { passive: true });
-        nav.addEventListener('touchmove', function(e){
-          if (!isDragging || !e.touches || !e.touches.length) return;
-          e.preventDefault();
-          handleMove(e.touches[0].clientX, true);
-        }, { passive: false });
-        function endDrag(){
-          if (!isDragging) return;
-          isDragging = false;
-          if (switchTimer) { clearTimeout(switchTimer); switchTimer = null; }
-          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-          lensEl.classList.remove('dragging');
-          var tabs = getTabs(navEl);
-          var finalIdx = hoverIdx >= 0 ? hoverIdx : detectActive(tabs);
-          if (tabs[finalIdx] && finalIdx !== activeIdx){
-            activeIdx = finalIdx;
-            try { tabs[finalIdx].click(); } catch(e){}
-          }
-          snapLens(finalIdx, false);
-          hoverIdx = -1;
-        }
-        nav.addEventListener('touchend', endDrag, { passive: true });
-        nav.addEventListener('touchcancel', endDrag, { passive: true });
-        nav.addEventListener('click', function(){
-          setTimeout(function(){ if (!isDragging && navEl) snapLens(detectActive(getTabs(navEl)), false); }, 50);
-        });
-      }
-      if (!isDragging) snapLens(detectActive(getTabs(navEl)), true);
-    } catch(e) {}
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(initDock, 150); });
-  else setTimeout(initDock, 150);
-  window.addEventListener('resize', function(){ if (!isDragging) initDock(); });
-
-  setTimeout(function(){
-    var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
-    console.log('AQUATWIN_OPT_CHECK: districts=' + dCount + '/33 | js_errors=' + errCount + ' | dock=' + (document.getElementById('at-lg-tab-lens') ? 'ok' : 'pending'));
-  }, 1800);
-})();
-</script>
-<!-- SMOOTH_OPT_END -->
 <!-- LENS_FIT_FIX_START -->
 <style id="at-lens-fit-css">
 #at-lg-tab-lens {
@@ -5105,8 +4845,6 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- SECURITY_HARDENING_END -->
-
-
 
 <!-- ASK_AI_STATE_GUARD_START -->
 <script id="at-ask-ai-state-guard">
@@ -6552,5 +6290,289 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- DISTRICT_AITWIN_TAB_SYNC_END -->
+<!-- APPLE_60FPS_PERF_START -->
+<style id="at-apple-60fps-css">
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+main, section, [class*="scroll"], [class*="list"], .at-rt-list {
+  -webkit-overflow-scrolling: touch;
+  contain: content;
+}
+nav,
+[class*="bottom-nav"],
+[class*="tab-bar"] {
+  position: fixed !important;
+  left: 20px !important;
+  right: 20px !important;
+  bottom: 22px !important;
+  width: auto !important;
+  max-width: 372px !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  max-height: 54px !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+  padding: 4px 6px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(16, 28, 48, 0.72) 100%) !important;
+  backdrop-filter: blur(18px) saturate(185%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(185%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  overflow: visible !important;
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  contain: layout style;
+  z-index: 2147482500 !important;
+}
+nav > button,
+nav > a,
+nav > div:not(#at-lg-tab-lens),
+[class*="bottom-nav"] > button,
+[class*="bottom-nav"] > a,
+[class*="tab-bar"] > button,
+[class*="tab-bar"] > a {
+  position: relative !important;
+  z-index: 2 !important;
+  flex: 1 1 0 !important;
+  height: 44px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 0 2px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+  gap: 2px !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+#at-lg-tab-lens {
+  position: absolute !important;
+  top: 4px !important;
+  left: 0;
+  height: 44px !important;
+  width: 72px;
+  border-radius: 999px;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 3px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 0.24s cubic-bezier(0.22, 1.18, 0.36, 1), width 0.22s cubic-bezier(0.22, 1.18, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  will-change: transform, width;
+}
+#at-lg-tab-lens.dragging {
+  background: rgba(210, 240, 255, 0.20) !important;
+  border-color: rgba(255, 255, 255, 0.80) !important;
+  transition: none !important;
+}
+#at-askai-fab {
+  bottom: 92px !important;
+  right: 16px !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+.leaflet-container {
+  transform: translate3d(0, 0, 0);
+  contain: strict;
+}
+.leaflet-tile-pane {
+  filter: none !important;
+  will-change: transform;
+}
+</style>
+<script id="at-apple-60fps-js">
+(function(){
+  if (window.__AT_APPLE_60FPS_PERF__) return;
+  window.__AT_APPLE_60FPS_PERF__ = true;
+
+  var errCount = 0;
+  window.addEventListener("error", function(){ errCount++; }, { passive: true });
+
+  var navEl = null, lensEl = null, isDragging = false, activeIdx = 0, hoverIdx = -1;
+  var dragX = 0, targetX = 0, lensW = 72, rafId = null, switchTimer = null, cachedTabs = [];
+
+  function getNav(){
+    if (navEl && document.body.contains(navEl)) return navEl;
+    navEl = document.querySelector('nav, [class*="bottom-nav"], [class*="tab-bar"]');
+    return navEl;
+  }
+
+  function getTabs(nav){
+    if (!nav) return [];
+    var items = [];
+    var ch = nav.children;
+    for (var i = 0; i < ch.length; i++){
+      if (ch[i].id !== "at-lg-tab-lens" && ch[i].offsetWidth > 20) items.push(ch[i]);
+    }
+    if (items.length < 2){
+      var btns = nav.querySelectorAll("button, a");
+      for (var j = 0; j < btns.length; j++){
+        if (btns[j].offsetWidth > 20) items.push(btns[j]);
+      }
+    }
+    cachedTabs = items;
+    return items;
+  }
+
+  function detectActive(tabs){
+    for (var i = 0; i < tabs.length; i++){
+      var el = tabs[i];
+      var cls = (el.className || "").toLowerCase();
+      var aria = (el.getAttribute("aria-selected") || el.getAttribute("aria-current") || "").toLowerCase();
+      if (/active|selected|current/.test(cls) || aria === "true" || aria === "page") return i;
+    }
+    return activeIdx < tabs.length ? activeIdx : 0;
+  }
+
+  function snapLens(idx, instant){
+    var nav = getNav();
+    if (!nav || !lensEl) return;
+    var tabs = cachedTabs.length ? cachedTabs : getTabs(nav);
+    if (!tabs.length) return;
+    idx = Math.max(0, Math.min(tabs.length - 1, idx));
+    activeIdx = idx;
+    var navR = nav.getBoundingClientRect();
+    var tabR = tabs[idx].getBoundingClientRect();
+    var left = tabR.left - navR.left;
+    var w = Math.max(54, tabR.width);
+    lensW = w;
+    dragX = targetX = left;
+    if (instant){
+      lensEl.style.transition = "none";
+      lensEl.style.width = w + "px";
+      lensEl.style.transform = "translate3d(" + left.toFixed(1) + "px, 0, 0)";
+      void lensEl.offsetWidth;
+      lensEl.style.transition = "";
+    } else {
+      lensEl.style.width = w + "px";
+      lensEl.style.transform = "translate3d(" + left.toFixed(1) + "px, 0, 0)";
+    }
+  }
+
+  function frameStep(){
+    if (!isDragging || !lensEl){ rafId = null; return; }
+    dragX += (targetX - dragX) * 0.45;
+    lensEl.style.transform = "translate3d(" + dragX.toFixed(1) + "px, 0, 0) scale(1.06, 1.04)";
+    rafId = requestAnimationFrame(frameStep);
+  }
+
+  function onPointerPos(clientX, allowSwitch){
+    var nav = getNav();
+    if (!nav || !lensEl) return;
+    var tabs = cachedTabs.length ? cachedTabs : getTabs(nav);
+    if (!tabs.length) return;
+    var navR = nav.getBoundingClientRect();
+    targetX = Math.max(5, Math.min(Math.max(5, navR.width - lensW - 5), clientX - navR.left - lensW * 0.5));
+    var best = 0, bestD = Infinity;
+    for (var i = 0; i < tabs.length; i++){
+      var r = tabs[i].getBoundingClientRect();
+      var d = Math.abs(clientX - (r.left + r.width * 0.5));
+      if (d < bestD){ bestD = d; best = i; }
+    }
+    if (best !== hoverIdx){
+      hoverIdx = best;
+      if (allowSwitch && best !== activeIdx){
+        if (switchTimer) clearTimeout(switchTimer);
+        var idxCopy = best;
+        switchTimer = setTimeout(function(){
+          if (isDragging && hoverIdx === idxCopy){
+            activeIdx = idxCopy;
+            try { tabs[idxCopy].click(); } catch(e){}
+          }
+        }, 40);
+      }
+    }
+  }
+
+  function bootDock(){
+    var nav = getNav();
+    if (!nav) return;
+    getTabs(nav);
+    lensEl = nav.querySelector("#at-lg-tab-lens");
+    if (!lensEl){
+      lensEl = document.createElement("div");
+      lensEl.id = "at-lg-tab-lens";
+      nav.insertBefore(lensEl, nav.firstChild);
+    }
+    if (nav.dataset.at60fpsBound !== "1"){
+      nav.dataset.at60fpsBound = "1";
+      nav.addEventListener("touchstart", function(e){
+        if (!e.touches || !e.touches.length) return;
+        getTabs(nav);
+        isDragging = true;
+        hoverIdx = -1;
+        lensEl.classList.add("dragging");
+        onPointerPos(e.touches[0].clientX, false);
+        dragX = targetX;
+        if (!rafId) rafId = requestAnimationFrame(frameStep);
+      }, { passive: true });
+
+      nav.addEventListener("touchmove", function(e){
+        if (!isDragging || !e.touches || !e.touches.length) return;
+        e.preventDefault();
+        onPointerPos(e.touches[0].clientX, true);
+      }, { passive: false });
+
+      function finishDrag(){
+        if (!isDragging) return;
+        isDragging = false;
+        if (switchTimer){ clearTimeout(switchTimer); switchTimer = null; }
+        if (rafId){ cancelAnimationFrame(rafId); rafId = null; }
+        lensEl.classList.remove("dragging");
+        var tabs = cachedTabs.length ? cachedTabs : getTabs(nav);
+        var finalIdx = hoverIdx >= 0 ? hoverIdx : detectActive(tabs);
+        if (tabs[finalIdx] && finalIdx !== activeIdx){
+          activeIdx = finalIdx;
+          try { tabs[finalIdx].click(); } catch(e){}
+        }
+        snapLens(finalIdx, false);
+        hoverIdx = -1;
+      }
+
+      nav.addEventListener("touchend", finishDrag, { passive: true });
+      nav.addEventListener("touchcancel", finishDrag, { passive: true });
+      nav.addEventListener("click", function(){
+        requestAnimationFrame(function(){
+          if (!isDragging) snapLens(detectActive(getTabs(nav)), false);
+        });
+      }, { passive: true });
+    }
+    if (!isDragging) snapLens(detectActive(cachedTabs), true);
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(bootDock); }, { once: true });
+  } else {
+    requestAnimationFrame(bootDock);
+  }
+  window.addEventListener("resize", function(){ if (!isDragging) requestAnimationFrame(bootDock); }, { passive: true });
+
+  setTimeout(function(){
+    var dCount = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts.length : 0;
+    console.log("AQUATWIN_OPT_CHECK: districts=" + dCount + "/33 | js_errors=" + errCount + " | 60fps_dock=" + (document.getElementById("at-lg-tab-lens") ? "ok" : "pending"));
+  }, 1500);
+})();
+</script>
+<!-- APPLE_60FPS_PERF_END -->
 </body>
 </html>

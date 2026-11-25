@@ -7,8 +7,8 @@ android {
         applicationId "com.aquatwin.ai"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 114
-        versionName "1.114"
+        versionCode 115
+        versionName "1.115"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -85,3 +85,22 @@ android {
         }
     }
 }
+
+// AQUATWIN_R8_STORAGE_OPT_START
+android {
+    defaultConfig {
+        resourceConfigurations += ["en"]
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            crunchPngs true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            crunchPngs true
+        }
+    }
+}
+// AQUATWIN_R8_STORAGE_OPT_END
