@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.124";
+window.AQUATWIN_VERSION = "1.125";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5470,7 +5470,7 @@ nav > div:not(#at-lg-tab-lens),
 
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
-  --at-map-ctrl-top: 90px;
+  --at-map-ctrl-top: 96px;
 }
 
 * {
@@ -5491,6 +5491,7 @@ html, body {
   line-height: 1.4;
 }
 
+/* Luminous Apple ambient caustic depth so every Liquid Glass element refracts rich light */
 body::before {
   content: "";
   position: fixed;
@@ -5498,9 +5499,9 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(66% 44% at 14% 10%, rgba(14, 165, 233, 0.28) 0%, rgba(14, 165, 233, 0) 68%),
-    radial-gradient(56% 40% at 88% 22%, rgba(129, 140, 248, 0.22) 0%, rgba(129, 140, 248, 0) 68%),
-    radial-gradient(62% 46% at 50% 88%, rgba(20, 184, 166, 0.20) 0%, rgba(20, 184, 166, 0) 70%),
+    radial-gradient(66% 44% at 14% 10%, rgba(14, 165, 233, 0.30) 0%, rgba(14, 165, 233, 0) 68%),
+    radial-gradient(56% 40% at 88% 22%, rgba(129, 140, 248, 0.24) 0%, rgba(129, 140, 248, 0) 68%),
+    radial-gradient(62% 46% at 50% 88%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 70%),
     linear-gradient(180deg, #040c1c 0%, #081830 50%, #040b18 100%);
   transform: translate3d(0, 0, 0);
 }
@@ -5527,12 +5528,12 @@ main,
   padding-bottom: 112px !important;
 }
 
-/* Floating Translucent Header */
+/* Translucent Refractive Liquid Glass Header */
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(8, 18, 36, 0.72) 0%, rgba(6, 14, 28, 0.42) 100%) !important;
-  backdrop-filter: blur(20px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: linear-gradient(180deg, rgba(10, 22, 44, 0.70) 0%, rgba(6, 14, 30, 0.38) 100%) !important;
+  backdrop-filter: blur(22px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(210%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
 
 /* Iridescent Apple Liquid Glass Brand Emblem */
@@ -5544,15 +5545,17 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   height: 28px;
   margin-right: 9px;
   border-radius: 9px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.30) 0%, rgba(125, 211, 252, 0.16) 52%, rgba(196, 181, 253, 0.18) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.52);
-  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.90), inset 0 -1px 3px rgba(56, 189, 248, 0.38);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.34) 0%, rgba(125, 211, 252, 0.18) 52%, rgba(196, 181, 253, 0.20) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.92), inset 0 -1px 3px rgba(56, 189, 248, 0.40);
   vertical-align: middle;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
 }
 
-/* GPU-Fast Luminous Glass Cards (NO per-card backdrop-filter = zero 1-second blank screen or scroll stall) */
+/* ============================================================================
+   WWDC 25 APPLE LIQUID GLASS CARDS & LIST ITEMS (OPTICAL RIM + ZERO GPU STALL)
+   ============================================================================ */
 .card,
 .panel,
 .stat-card,
@@ -5561,16 +5564,19 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-rt-panel,
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
-  background: linear-gradient(155deg, rgba(28, 52, 86, 0.62) 0%, rgba(12, 26, 48, 0.76) 52%, rgba(7, 17, 34, 0.86) 100%) !important;
+  position: relative;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.11) 0%, rgba(18, 38, 68, 0.62) 38%, rgba(8, 20, 40, 0.78) 100%) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.18) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.42) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.54) !important;
   border-radius: 24px !important;
   box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0.75px rgba(255, 255, 255, 0.46),
-    inset 0 -1px 2px rgba(56, 189, 248, 0.14) !important;
+    0 14px 32px rgba(0, 0, 0, 0.34),
+    inset 0 1.2px 0.8px rgba(255, 255, 255, 0.56),
+    inset 1px 0 0.8px rgba(125, 211, 252, 0.20),
+    inset -1px 0 0.8px rgba(196, 181, 253, 0.16),
+    inset 0 -1.2px 2px rgba(56, 189, 248, 0.18) !important;
 }
 
 .dash-item,
@@ -5578,22 +5584,26 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-ml-cell,
 .district-item,
 .district-card {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.085) 0%, rgba(12, 26, 48, 0.56) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.15) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.30) !important;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.10) 0%, rgba(14, 30, 56, 0.54) 100%) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
   border-radius: 18px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
-  transition: transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.34), inset 0 -1px 1px rgba(56, 189, 248, 0.12) !important;
+  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.18s ease !important;
 }
 .dash-item:active,
 .at-rt-row:active,
 .district-item:active,
 .district-card:active {
-  transform: scale(0.975) translate3d(0, 0, 0) !important;
+  transform: scale(0.972) translate3d(0, 0, 0) !important;
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.72), 0 0 16px rgba(56, 189, 248, 0.22) !important;
 }
 
+/* ============================================================================
+   EXACT WWDC 25 LIQUID GLASS BUTTONS (LIVE FINGER-TRACKING CAUSTIC GEL SHEEN)
+   ============================================================================ */
 .dash-btn,
 .dash-action,
 .quick-btn,
@@ -5610,65 +5620,120 @@ button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn),
 .at-demo-btn,
 #at-history-btn,
 #at-askai-fab {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 54%, rgba(125, 211, 252, 0.10) 100%) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.62) !important;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 140% at var(--btn-x, 35%) var(--btn-y, 16%), rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.06) 52%, rgba(125, 211, 252, 0.14) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.38) !important;
+  border-top: 1.1px solid rgba(255, 255, 255, 0.78) !important;
   border-radius: 999px !important;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.24), inset 0 1px 0.75px rgba(255, 255, 255, 0.68), inset 0 -1px 2px rgba(56, 189, 248, 0.22) !important;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.28),
+    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.86),
+    inset 0 -1.4px 2.5px rgba(56, 189, 248, 0.32),
+    inset 1px 0 1.5px rgba(196, 181, 253, 0.24) !important;
   color: #f8fafc !important;
   touch-action: manipulation;
-  transition: transform 0.18s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
-}
-button:not([data-at-tab="1"]):active,
-#at-askai-fab:active {
-  transform: scale(0.955) translate3d(0, 0, 0) !important;
+  transition: transform 0.22s cubic-bezier(0.22, 1.55, 0.36, 1), box-shadow 0.2s ease, border-color 0.18s ease !important;
 }
 
+/* Specular liquid gel highlight arc inside every glass button */
+button:not([data-at-tab="1"])::before,
+#at-history-btn::before,
+#at-askai-fab::before,
+#at-sat-toggle-btn::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 10%;
+  right: 10%;
+  height: 40%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+/* Tactile WWDC 25 gel-squish & caustic bloom on press */
+button:not([data-at-tab="1"]):active,
+.at-glass-pressed,
+#at-askai-fab:active {
+  transform: scale(0.94, 0.96) translate3d(0, 0, 0) !important;
+  border-color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow:
+    0 4px 16px rgba(56, 189, 248, 0.40),
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.98),
+    inset 0 -2px 4px rgba(167, 139, 250, 0.42) !important;
+}
+
+/* Tinted Optical Liquid Glass Floating Ask AI Button (like WWDC 25 tinted pill) */
 #at-askai-fab {
   bottom: 92px !important;
   right: 16px !important;
-  backdrop-filter: blur(14px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(200%) !important;
-  background: linear-gradient(150deg, rgba(56, 189, 248, 0.48) 0%, rgba(14, 165, 233, 0.26) 55%, rgba(255, 255, 255, 0.18) 100%) !important;
-  border: 1px solid rgba(186, 230, 253, 0.72) !important;
-  box-shadow: 0 10px 26px rgba(2, 132, 199, 0.38), inset 0 1.5px 1px rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(18px) saturate(230%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(230%) !important;
+  background:
+    radial-gradient(120% 140% at var(--btn-x, 35%) var(--btn-y, 18%), rgba(255, 255, 255, 0.36) 0%, rgba(56, 189, 248, 0.46) 45%, rgba(2, 132, 199, 0.42) 100%) !important;
+  border: 1.1px solid rgba(186, 230, 253, 0.84) !important;
+  box-shadow:
+    0 12px 28px rgba(2, 132, 199, 0.42),
+    inset 0 1.6px 1px rgba(255, 255, 255, 0.94),
+    inset 0 -1.6px 4px rgba(56, 189, 248, 0.48) !important;
   transform: translate3d(0, 0, 0);
   will-change: transform;
+}
+
+/* Apple Liquid Glass Toggle Switch Thumb Morph (video_2.mp4 00:11-00:13) */
+input[type="checkbox"],
+.switch,
+.toggle,
+[role="switch"] {
+  transition: transform 0.22s cubic-bezier(0.22, 1.5, 0.36, 1), box-shadow 0.2s ease !important;
+}
+.switch:active,
+.toggle:active,
+[role="switch"]:active {
+  transform: scale(1.06, 0.96) translate3d(0, 0, 0) !important;
 }
 
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(26, 46, 78, 0.72) 0%, rgba(12, 24, 46, 0.84) 100%) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.26) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
+  background: linear-gradient(180deg, rgba(26, 48, 82, 0.72) 0%, rgba(12, 24, 46, 0.86) 100%) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.54) !important;
   border-radius: 16px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 6px 14px rgba(0, 0, 0, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 6px 14px rgba(0, 0, 0, 0.22) !important;
   color: #f8fafc !important;
 }
 
+/* Apple Liquid Glass Range Sliders (stretched clear optical glass thumb) */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 7px !important;
   border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.48), rgba(255, 255, 255, 0.16)) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.40);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.54), rgba(255, 255, 255, 0.16)) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.42);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 28px;
+  width: 30px;
   height: 20px;
   border-radius: 999px;
-  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.76) 58%, rgba(125, 211, 252, 0.55) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.96);
+  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.72) 56%, rgba(125, 211, 252, 0.48) 100%);
+  border: 1.1px solid rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1.2px 1px rgba(255, 255, 255, 0.98);
   cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1);
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.22, 1.12);
 }
 
 /* ============================================================================
-   TRUE EDGE-TO-EDGE FULL-SCREEN MAP (ZERO TOP DARK GAP, ZERO BOTTOM GAP)
+   TRUE EDGE-TO-EDGE FULL-SCREEN MAP + REPOSITIONED RIGHT-SIDE MAP VIEW PILL
    ============================================================================ */
 body.at-on-map-screen {
   overflow: hidden !important;
@@ -5710,15 +5775,43 @@ body.at-on-map-screen .leaflet-container {
   border-radius: 0 !important;
   z-index: 15 !important;
 }
-body.at-on-map-screen .leaflet-top {
-  top: var(--at-map-ctrl-top, 90px) !important;
+body.at-on-map-screen .leaflet-top.leaflet-left {
+  top: calc(var(--at-map-ctrl-top, 96px) + 18px) !important;
+}
+/* Stack Leaflet Layers icon neatly right below the repositioned Map View pill on the right side */
+body.at-on-map-screen .leaflet-top.leaflet-right {
+  top: calc(var(--at-map-ctrl-top, 96px) + 64px) !important;
 }
 body.at-on-map-screen .leaflet-bottom {
   bottom: 92px !important;
 }
 
+/* Repositioned Map View / Satellite Liquid Glass Pill: right side, slightly lower (1000361604.jpg arrow) */
+#at-sat-toggle-btn {
+  position: fixed !important;
+  top: calc(var(--at-map-ctrl-top, 96px) + 20px) !important;
+  right: 12px !important;
+  z-index: 2147482450 !important;
+  display: none !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  backdrop-filter: blur(18px) saturate(230%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(230%) !important;
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+}
+#at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
+#at-sat-toggle-btn.sat-on {
+  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.34) 0%, rgba(14, 165, 233, 0.62) 55%, rgba(2, 132, 199, 0.50) 100%) !important;
+  border-color: rgba(186, 230, 253, 0.90) !important;
+}
+#at-sat-toggle-btn * { pointer-events: none; }
+
 /* ============================================================================
-   APPLE LIQUID GLASS FLOATING DOCK + ZERO-BUFFER 120HZ DROPLET SLIDER
+   APPLE LIQUID GLASS FLOATING DOCK + 120HZ OPTICAL DROPLET SLIDER
    ============================================================================ */
 nav,
 [class*="bottom-nav"],
@@ -5740,12 +5833,12 @@ nav,
   align-items: center !important;
   justify-content: space-between !important;
   gap: 0 !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 48%, rgba(10, 20, 36, 0.42) 100%) !important;
-  backdrop-filter: blur(24px) saturate(220%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(220%) brightness(1.08) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.64) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.44), inset 0 1.2px 0 rgba(255, 255, 255, 0.62), inset 0 -1px 1px rgba(255, 255, 255, 0.16) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 48%, rgba(10, 20, 36, 0.40) 100%) !important;
+  backdrop-filter: blur(26px) saturate(235%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(235%) brightness(1.08) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.30) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.68) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.44), inset 0 1.2px 0 rgba(255, 255, 255, 0.66), inset 0 -1px 1px rgba(255, 255, 255, 0.18) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
@@ -5839,17 +5932,17 @@ nav > div:not(#at-lg-tab-lens),
   z-index: 1 !important;
   background: radial-gradient(
     115% 135% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.24) 0%,
-    rgba(255, 255, 255, 0.04) 48%,
-    rgba(56, 189, 248, 0.08) 82%,
-    rgba(255, 255, 255, 0.16) 100%
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.05) 48%,
+    rgba(56, 189, 248, 0.09) 82%,
+    rgba(255, 255, 255, 0.18) 100%
   ) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.48) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.52) !important;
   box-shadow:
-    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.92),
-    inset 0 -1.4px 2.2px rgba(255, 255, 255, 0.28),
-    inset 1px 0 1.5px rgba(125, 211, 252, 0.28),
-    inset -1px 0 1.5px rgba(196, 181, 253, 0.28),
+    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.94),
+    inset 0 -1.4px 2.2px rgba(255, 255, 255, 0.30),
+    inset 1px 0 1.5px rgba(125, 211, 252, 0.30),
+    inset -1px 0 1.5px rgba(196, 181, 253, 0.30),
     0 5px 16px rgba(0, 0, 0, 0.26) !important;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -5864,8 +5957,8 @@ nav > div:not(#at-lg-tab-lens),
   right: 11%;
   height: 38%;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 100%);
-  opacity: 0.78;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.80;
   pointer-events: none;
 }
 #at-lg-tab-lens::after {
@@ -5876,78 +5969,54 @@ nav > div:not(#at-lg-tab-lens),
   padding: 1.1px;
   background: linear-gradient(
     112deg,
-    rgba(255, 255, 255, 0.88) 0%,
-    rgba(125, 211, 252, 0.58) 34%,
-    rgba(216, 180, 254, 0.50) 68%,
-    rgba(255, 255, 255, 0.84) 100%
+    rgba(255, 255, 255, 0.90) 0%,
+    rgba(125, 211, 252, 0.62) 34%,
+    rgba(216, 180, 254, 0.54) 68%,
+    rgba(255, 255, 255, 0.86) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.72;
+  opacity: 0.76;
   pointer-events: none;
 }
 #at-lg-tab-lens.dragging {
   background: radial-gradient(
     120% 140% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.24) 0%,
     rgba(255, 255, 255, 0.03) 54%,
-    rgba(125, 211, 252, 0.10) 86%,
-    rgba(255, 255, 255, 0.20) 100%
+    rgba(125, 211, 252, 0.12) 86%,
+    rgba(255, 255, 255, 0.22) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.1px solid rgba(255, 255, 255, 0.92) !important;
+  border: 1.1px solid rgba(255, 255, 255, 0.94) !important;
   box-shadow:
     0 10px 26px rgba(0, 0, 0, 0.34),
-    0 0 16px rgba(125, 211, 252, 0.28),
-    inset 0 2px 1.2px rgba(255, 255, 255, 0.96),
-    inset 0 -2px 4px rgba(167, 139, 250, 0.36) !important;
+    0 0 18px rgba(125, 211, 252, 0.32),
+    inset 0 2px 1.2px rgba(255, 255, 255, 0.98),
+    inset 0 -2px 4px rgba(167, 139, 250, 0.40) !important;
 }
 #at-lg-tab-lens.dragging::after { opacity: 1; }
 
-/* Ultra-light 120Hz directional nudge (GPU transform ONLY — zero opacity blink, zero layout stall) */
 @keyframes atLiquidNudgeRight {
-  0% { transform: translate3d(16px, 0, 0); }
+  0% { transform: translate3d(14px, 0, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes atLiquidNudgeLeft {
-  0% { transform: translate3d(-16px, 0, 0); }
+  0% { transform: translate3d(-14px, 0, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
-.at-anim-slide-right { animation: atLiquidNudgeRight 0.18s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
-.at-anim-slide-left  { animation: atLiquidNudgeLeft  0.18s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
+.at-anim-slide-right { animation: atLiquidNudgeRight 0.17s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
+.at-anim-slide-left  { animation: atLiquidNudgeLeft  0.17s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
 
-/* Map-only Satellite Toggle Optical Pill — sits cleanly right next to Leaflet layers icon over the live map */
-#at-sat-toggle-btn {
-  position: fixed !important;
-  top: var(--at-map-ctrl-top, 90px) !important;
-  right: 62px !important;
-  z-index: 2147482450 !important;
-  display: none !important;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  backdrop-filter: blur(16px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(210%) !important;
-  cursor: pointer;
-  transform: translate3d(0, 0, 0);
-}
-#at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
-#at-sat-toggle-btn.sat-on {
-  background: linear-gradient(150deg, rgba(14, 165, 233, 0.68), rgba(2, 132, 199, 0.48)) !important;
-  border-color: rgba(186, 230, 253, 0.88) !important;
-}
-#at-sat-toggle-btn * { pointer-events: none; }
 .leaflet-tile-pane { filter: none !important; will-change: transform; }
 .leaflet-zoom-anim .leaflet-zoom-animated { will-change: transform; }
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_APPLE_LIQUID_V4__) return;
-  window.__AT_APPLE_LIQUID_V4__ = true;
+  if (window.__AT_APPLE_LIQUID_V5__) return;
+  window.__AT_APPLE_LIQUID_V5__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -5957,6 +6026,21 @@ nav > div:not(#at-lg-tab-lens),
       navigator.serviceWorker.register("./sw.js").catch(function(){});
     }, { once: true });
   }
+
+  // Live WWDC 25 Liquid Glass specular sheen tracking on every button press
+  function updateButtonLiquidLight(el, clientX, clientY){
+    if (!el || !el.getBoundingClientRect) return;
+    var r = el.getBoundingClientRect();
+    if (r.width < 10 || r.height < 10) return;
+    var px = Math.max(8, Math.min(92, ((clientX - r.left) / r.width) * 100));
+    var py = Math.max(8, Math.min(92, ((clientY - r.top) / r.height) * 100));
+    el.style.setProperty("--btn-x", px.toFixed(1) + "%");
+    el.style.setProperty("--btn-y", py.toFixed(1) + "%");
+  }
+  document.addEventListener("pointerdown", function(e){
+    var btn = e.target && e.target.closest ? e.target.closest("button:not([data-at-tab='1']), #at-history-btn, #at-askai-fab, #at-sat-toggle-btn") : null;
+    if (btn) updateButtonLiquidLight(btn, e.clientX, e.clientY);
+  }, { passive: true });
 
   function findHeaderBar(){
     var hdr = document.querySelector("header, .topbar");
@@ -5999,15 +6083,15 @@ nav > div:not(#at-lg-tab-lens),
           badge.innerHTML =
             '<svg viewBox="0 0 24 24" width="17" height="17" fill="none">' +
               '<defs>' +
-                '<linearGradient id="atLgDropV4" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
+                '<linearGradient id="atLgDropV5" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
                   '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>' +
-                  '<stop offset="46%" stop-color="#7dd3fc" stop-opacity="0.90"/>' +
-                  '<stop offset="76%" stop-color="#c4b5fd" stop-opacity="0.86"/>' +
+                  '<stop offset="46%" stop-color="#7dd3fc" stop-opacity="0.92"/>' +
+                  '<stop offset="76%" stop-color="#c4b5fd" stop-opacity="0.88"/>' +
                   '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.96"/>' +
                 '</linearGradient>' +
               '</defs>' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV4)" stroke="rgba(255,255,255,0.92)" stroke-width="1.2"/>' +
-              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.88"/>' +
+              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV5)" stroke="rgba(255,255,255,0.94)" stroke-width="1.2"/>' +
+              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.90"/>' +
             '</svg>';
           if (el.parentNode){
             el.parentNode.style.display = "inline-flex";
@@ -6063,7 +6147,9 @@ nav > div:not(#at-lg-tab-lens),
     return Boolean(el.closest("#at-askai-bg, #at-hist-bg, [id*='hist' i], [id*='askai' i], [role='dialog'], .modal"));
   }
 
-  function isActuallyVisible(el, minH){
+  // FIX for district buffering: checks if element is in the active (non-hidden) screen,
+  // even if the user scrolled down past the top sliders!
+  function isDisplayedInActiveView(el, minH){
     if (!el || !document.body.contains(el)) return false;
     var cur = el;
     while (cur && cur !== document.documentElement){
@@ -6074,16 +6160,26 @@ nav > div:not(#at-lg-tab-lens),
       cur = cur.parentElement;
     }
     var r = el.getBoundingClientRect();
-    if (r.width < 12 || r.height < (minH || 1)) return false;
-    if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 0 || r.top >= window.innerHeight) return false;
-    return true;
+    return r.width >= 12 && r.height >= (minH || 1);
+  }
+
+  function resetScrollToTop(){
+    try {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+      var scrollers = document.querySelectorAll("main, #view-sim, #screen-sim, #view-list, #screen-districts, #view-dash, #screen-home");
+      for (var i = 0; i < scrollers.length; i++){
+        if (scrollers[i].scrollTop > 0) scrollers[i].scrollTop = 0;
+      }
+    } catch(e){}
   }
 
   function hapticTap(){
     try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
   }
 
-  // 120Hz Spring Engine (stiffness 420, damping 32) with zero-lag 1:1 drag tracking + transition lock
+  // 120Hz Spring Engine (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0;
   var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
@@ -6092,7 +6188,7 @@ nav > div:not(#at-lg-tab-lens),
   var springW = 82, springVw = 0, springTargetW = 82;
   var springScale = 1, springVs = 0, springTargetScale = 1;
   var animRaf = null, lastTs = 0, mutatingNav = false;
-  var wasOnMap = false;
+  var wasOnMap = false, cachedRecLeaf = null;
   var STIFFNESS = 420, DAMPING = 32;
 
   function getNav(){
@@ -6120,6 +6216,20 @@ nav > div:not(#at-lg-tab-lens),
     return out;
   }
 
+  function findTabIdx(screenName){
+    for (var i = 0; i < tabsCache.length; i++){
+      var t = (tabsCache[i].textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+      if (
+        t === screenName ||
+        (screenName === "ai twin" && (t.indexOf("twin") !== -1 || t.indexOf("ai") !== -1)) ||
+        (screenName === "districts" && t.indexOf("district") !== -1) ||
+        (screenName === "map" && t.indexOf("map") !== -1) ||
+        (screenName === "home" && t.indexOf("home") !== -1)
+      ) return i;
+    }
+    return -1;
+  }
+
   function measureDock(){
     var nav = getNav();
     if (!nav) return;
@@ -6140,14 +6250,12 @@ nav > div:not(#at-lg-tab-lens),
     lastTs = ts;
 
     if (isDragging){
-      // Tight 1:1 zero-buffer thumb tracking at 120Hz while sliding
       var prevX = springX;
       springX += (springTargetX - springX) * 0.68;
       springVx = (springX - prevX) / dt;
       springW += (springTargetW - springW) * 0.5;
       springScale += (springTargetScale - springScale) * 0.5;
     } else {
-      // Critically-damped Apple spring physics (stiffness 420, damping 32) on tap/release
       var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
       springVx += ax * dt;
       springX += springVx * dt;
@@ -6277,7 +6385,7 @@ nav > div:not(#at-lg-tab-lens),
       if (s && !isOverlay(s)) return s.closest('#view-list, #screen-districts, [id*="list"], [id*="district"], section, main > div');
     } else if (screen === "home"){
       var h = document.getElementById("view-dash") || document.getElementById("screen-home") || document.querySelector('[id*="dash"], [id*="home"]');
-      if (h && isActuallyVisible(h, 50)) return h;
+      if (h && isDisplayedInActiveView(h, 50)) return h;
     }
     return null;
   }
@@ -6293,7 +6401,7 @@ nav > div:not(#at-lg-tab-lens),
     panel.classList.add(cls);
     var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left"); };
     panel.addEventListener("animationend", done, { once: true });
-    setTimeout(done, 210);
+    setTimeout(done, 190);
   }
 
   // Full-Screen Map Controller + Warm Satellite Layer (keepBuffer: 5)
@@ -6339,8 +6447,8 @@ nav > div:not(#at-lg-tab-lens),
   function setMapFullScreen(active){
     if (active){
       var hdr = findHeaderBar();
-      var hdrBottom = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 82;
-      document.documentElement.style.setProperty("--at-map-ctrl-top", Math.max(84, hdrBottom + 10) + "px");
+      var hdrBottom = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 84;
+      document.documentElement.style.setProperty("--at-map-ctrl-top", Math.max(88, hdrBottom + 6) + "px");
       var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
       if (mapEl){
         var cur = mapEl.parentElement;
@@ -6364,31 +6472,45 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
+  // Fast, scroll-safe active screen detection (fixes scrolled AI Twin mis-detection & Map bounce)
   function detectScreen(){
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
-      if (!isOverlay(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
+      if (!isOverlay(searches[s]) && isDisplayedInActiveView(searches[s], 16)) return "districts";
     }
     var ranges = document.querySelectorAll('input[type="range"]');
     for (var r = 0; r < ranges.length; r++){
-      if (!isOverlay(ranges[r]) && isActuallyVisible(ranges[r], 1)) return "ai twin";
-    }
-    var headings = document.querySelectorAll("h1, h2, h3, div, span");
-    for (var h = 0; h < headings.length; h++){
-      var node = headings[h];
-      if (node.children.length !== 0 || isOverlay(node)) continue;
-      var txt = (node.textContent || "").trim();
-      if (/^(Rainfall Change|Temperature Change|Pollution Load|3-Year AI Forecast|Groundwater Aquifer)/i.test(txt) && isActuallyVisible(node, 8)) return "ai twin";
-      if (/^(AquaTwin Overview|Water Stress Distribution|Priority Watchlist)$/i.test(txt) && isActuallyVisible(node, 8)) return "home";
+      if (!isOverlay(ranges[r]) && isDisplayedInActiveView(ranges[r], 1)) return "ai twin";
     }
     var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
     for (var m = 0; m < maps.length; m++){
-      if (isActuallyVisible(maps[m], 140)){
+      if (isDisplayedInActiveView(maps[m], 140)){
         var mr = maps[m].getBoundingClientRect();
         if (mr.width >= 160 && mr.height >= 160) return "map";
       }
     }
     return "home";
+  }
+
+  // O(1) cached recommendation updater (eliminates DOM scan lag when switching districts)
+  function findRecLeaf(){
+    if (cachedRecLeaf && document.body.contains(cachedRecLeaf)) return cachedRecLeaf;
+    var cards = document.querySelectorAll("div, section");
+    for (var i = 0; i < cards.length; i++){
+      var c = cards[i];
+      if (!c || c.children.length > 6 || c.querySelector("input[type='range']")) continue;
+      if ((c.textContent || "").indexOf("AI Recommendation") === -1) continue;
+      var leaves = c.querySelectorAll("p, span, div");
+      for (var j = leaves.length - 1; j >= 0; j--){
+        var leaf = leaves[j];
+        var lt = (leaf.textContent || "").trim();
+        if (leaf.children.length === 0 && lt.length > 8 && lt.indexOf("AI Recommendation") === -1){
+          cachedRecLeaf = leaf;
+          return leaf;
+        }
+      }
+    }
+    return null;
   }
 
   function updateAiRecommendation(){
@@ -6410,23 +6532,8 @@ nav > div:not(#at-lg-tab-lens),
       : ("GW " + d.gw.toFixed(2) + "m -> +6M " + d.gw_6m.toFixed(2) + "m (ext " + d.gw_ext.toFixed(1) + "%) - maintain recharge tanks & balanced pumping.");
     var msg = d.district + " (" + d.reservoir_name + "): " + waterPart + " " + gwPart + " Res " + d.res.toFixed(1) + "% -> +6M " + d.res_6m.toFixed(1) + "% | +1M/+6M/+1Y WQI: " + d.wqi_1m.toFixed(1) + " / " + d.wqi_6m.toFixed(1) + " / " + d.wqi_1y.toFixed(1) + ".";
 
-    var cards = document.querySelectorAll("div, section");
-    for (var i = 0; i < cards.length; i++){
-      var c = cards[i];
-      if (!c || c.children.length > 6 || c.querySelector("input[type='range']")) continue;
-      if ((c.textContent || "").indexOf("AI Recommendation") === -1) continue;
-      var r = c.getBoundingClientRect();
-      if (r.height <= 0 || r.height > 230) continue;
-      var leaves = c.querySelectorAll("p, span, div");
-      for (var j = leaves.length - 1; j >= 0; j--){
-        var leaf = leaves[j];
-        var lt = (leaf.textContent || "").trim();
-        if (leaf.children.length === 0 && lt.length > 8 && lt.indexOf("AI Recommendation") === -1){
-          if (leaf.textContent !== msg) leaf.textContent = msg;
-          return;
-        }
-      }
-    }
+    var leaf = findRecLeaf();
+    if (leaf && leaf.textContent !== msg) leaf.textContent = msg;
   }
 
   var syncQueued = false;
@@ -6463,21 +6570,8 @@ nav > div:not(#at-lg-tab-lens),
     var nav = getNav();
     if (nav){
       var tabs = tabsCache.length ? tabsCache : getTabs(nav);
-      var targetIdx = -1;
-      for (var i = 0; i < tabs.length; i++){
-        var t = (tabs[i].textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-        if (
-          t === screen ||
-          (screen === "ai twin" && (t.indexOf("twin") !== -1 || t.indexOf("ai") !== -1)) ||
-          (screen === "districts" && t.indexOf("district") !== -1) ||
-          (screen === "map" && t.indexOf("map") !== -1) ||
-          (screen === "home" && t.indexOf("home") !== -1)
-        ){
-          targetIdx = i;
-          break;
-        }
-      }
-      // Prevent mid-transition lens bounce-back while tab content finishes swapping
+      var targetIdx = findTabIdx(screen);
+
       if (performance.now() < navLockUntil && lockedIdx >= 0 && targetIdx !== lockedIdx){
         targetIdx = lockedIdx;
       } else if (targetIdx === lockedIdx){
@@ -6526,8 +6620,8 @@ nav > div:not(#at-lg-tab-lens),
     measureDock();
     var tabs = tabsCache;
 
-    if (typeof MutationObserver === "function" && nav.dataset.atV4Obs !== "1"){
-      nav.dataset.atV4Obs = "1";
+    if (typeof MutationObserver === "function" && nav.dataset.atV5Obs !== "1"){
+      nav.dataset.atV5Obs = "1";
       var tabObs = new MutationObserver(function(){
         if (!mutatingNav && !isDragging) scheduleSync(0);
       });
@@ -6536,19 +6630,19 @@ nav > div:not(#at-lg-tab-lens),
       });
     }
 
-    if (nav.dataset.atV4Bound !== "1"){
-      nav.dataset.atV4Bound = "1";
+    if (nav.dataset.atV5Bound !== "1"){
+      nav.dataset.atV5Bound = "1";
 
-      // Lock immediately on direct single-tap so the lens glides once without fighting
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
         if (!tab) return;
         var idx = tabsCache.indexOf(tab);
         if (idx >= 0){
           lockedIdx = idx;
-          navLockUntil = performance.now() + 280;
+          navLockUntil = performance.now() + 300;
           applyTabVisualState(idx);
           snapLens(idx, false);
+          if (idx !== findTabIdx("map")) resetScrollToTop();
         }
       }, true);
 
@@ -6581,14 +6675,15 @@ nav > div:not(#at-lg-tab-lens),
         hoverIdx = -1;
         if (targetToClick >= 0){
           lockedIdx = targetToClick;
-          navLockUntil = performance.now() + 280;
+          navLockUntil = performance.now() + 300;
           activeIdx = targetToClick;
           applyTabVisualState(targetToClick);
           snapLens(targetToClick, false);
           hapticTap();
+          if (targetToClick !== findTabIdx("map")) resetScrollToTop();
           try { tabsCache[targetToClick].click(); } catch(e){}
           scheduleSync(60);
-          scheduleSync(220);
+          scheduleSync(200);
         } else {
           snapLens(activeIdx, false);
         }
@@ -6616,12 +6711,31 @@ nav > div:not(#at-lg-tab-lens),
     scheduleSync(180);
   }
 
+  // Instant zero-buffer District -> AI Twin handoff (prevents black frame & Map pill flash)
   document.addEventListener("click", function(e){
     if (e.target && e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
+    var distItem = e.target && e.target.closest ? e.target.closest(".district-item, .district-card, .dash-item, .at-rt-row") : null;
+    if (distItem && !isOverlay(distItem)){
+      var aiIdx = findTabIdx("ai twin");
+      if (aiIdx >= 0){
+        lockedIdx = aiIdx;
+        navLockUntil = performance.now() + 360;
+        applyTabVisualState(aiIdx);
+        snapLens(aiIdx, false);
+        resetScrollToTop();
+        requestAnimationFrame(function(){
+          resetScrollToTop();
+          updateAiRecommendation();
+        });
+      }
+      scheduleSync(40);
+      return;
+    }
     scheduleSync(0);
     scheduleSync(120);
   }, { passive: true, capture: true });
-  document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(90); }, { passive: true, capture: true });
+
+  document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(80); }, { passive: true, capture: true });
   window.addEventListener("resize", function(){
     if (!isDragging){
       measureDock();
@@ -6641,7 +6755,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_LIQUID_V4_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_LIQUID_V5_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);

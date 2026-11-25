@@ -1,6 +1,6 @@
-const APP_CACHE = 'aquatwin-apple-shell-v5';
-const TILE_CACHE = 'aquatwin-apple-tiles-v5';
-const MAX_TILES = 600;
+const APP_CACHE = 'aquatwin-apple-v6';
+const TILE_CACHE = 'aquatwin-tiles-v6';
+const MAX_TILES = 800;
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

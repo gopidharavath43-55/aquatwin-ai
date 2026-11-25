@@ -1,8 +1,8 @@
 {
-    "version":  "1.124",
-    "version_code":  124,
+    "version":  "1.125",
+    "version_code":  125,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed 120Hz slider buffering/blank flash \u0026 restored true edge-to-edge full-screen Satellite Map",
+    "notes":  "• Fixed district-switch buffering \u0026 black flash, moved Map View right/down, upgraded WWDC 25 Liquid Glass buttons \u0026 800-tile cache",
     "force":  false,
-    "updated_at":  "2026-11-26 03:35 IST"
+    "updated_at":  "2026-11-26 03:54 IST"
 }
