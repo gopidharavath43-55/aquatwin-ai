@@ -1,53 +1,80 @@
 $ErrorActionPreference = "Stop"
 cd C:\Users\gopid\aquatwin-ai\mobile-app
 
-$jdk21 = (Get-ChildItem "C:\Program Files\Microsoft","C:\Program Files\Eclipse Adoptium" -Directory -Filter "jdk-21*" -ErrorAction SilentlyContinue | Sort-Object Name -Descending | Select-Object -First 1).FullName
-if (-not $jdk21) { throw "Java 21 not found. Install Microsoft OpenJDK 21 first." }
+# Locate Java 21 (Microsoft OpenJDK or Android Studio JBR)
+$jdk21 = (Get-ChildItem "C:\Program Files\Microsoft" -Directory -Filter "jdk-21*" -ErrorAction SilentlyContinue | Sort-Object Name -Descending | Select-Object -First 1).FullName
+if (-not $jdk21 -and (Test-Path "C:\Program Files\Android\Android Studio\jbr")) {
+  $jdk21 = "C:\Program Files\Android\Android Studio\jbr"
+}
+if (-not $jdk21) { throw "Java 21 not found. Install Microsoft OpenJDK 21 or Android Studio." }
+
+$sdkDir = "$env:LOCALAPPDATA\Android\Sdk"
+if (-not (Test-Path $sdkDir)) { throw "Android SDK not found at $sdkDir." }
 
 $env:JAVA_HOME = $jdk21
-$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:ANDROID_HOME = $sdkDir
+$env:ANDROID_SDK_ROOT = $sdkDir
 $env:PATH = "$env:JAVA_HOME\bin;$env:ANDROID_HOME\platform-tools;$env:PATH"
 
-$adb = "$env:ANDROID_HOME\platform-tools\adb.exe"
-$adbOut = (& $adb devices | Out-String)
-if ($adbOut -match "\tunauthorized") {
-    throw "Tap 'Allow' on the USB Debugging popup on your Vivo phone, then run this again."
-}
-if ($adbOut -notmatch "\tdevice") {
-    throw "Vivo phone not detected over USB. Plug in USB cable and enable USB Debugging."
-}
+# Keep local.properties pointing to Android SDK
+[System.IO.File]::WriteAllText(
+  (Join-Path (Resolve-Path "android").Path "local.properties"),
+  "sdk.dir=$($sdkDir -replace '\\','/')`r`n",
+  [System.Text.UTF8Encoding]::new($false)
+)
 
-# Increment versionCode & versionName cleanly
+# Lock package ID & auto-increment versionCode / versionName
 $gp = (Resolve-Path "android\app\build.gradle").Path
-$g = Get-Content $gp -Raw
-$g = [regex]::Replace($g, 'applicationId\s+"[^"]+"', 'applicationId "com.aquatwin.ai"')
-$m = [regex]::Match($g, 'versionCode\s+(\d+)')
+$g  = [System.IO.File]::ReadAllText($gp)
+$g  = [regex]::Replace($g, 'applicationId\s+"[^"]+"', 'applicationId "com.aquatwin.ai"')
+
+$m       = [regex]::Match($g, 'versionCode\s+(\d+)')
 $nextVer = if ($m.Success) { [int]$m.Groups[1].Value + 1 } else { 2 }
+$verStr  = "1.$nextVer"
+
 $g = [regex]::Replace($g, 'versionCode\s+\d+', "versionCode $nextVer")
-$g = [regex]::Replace($g, 'versionName\s+"[^"]+"', "versionName `"1.$nextVer`"")
+$g = [regex]::Replace($g, 'versionName\s+"[^"]+"', "versionName `"$verStr`"")
 [System.IO.File]::WriteAllText($gp, $g, [System.Text.UTF8Encoding]::new($false))
 
-# Stamp new version into index.html so the app runs the on-open update banner
-$hp = (Resolve-Path "index.html").Path
-$h = [System.IO.File]::ReadAllText($hp)
-$h = [regex]::Replace($h, 'window\.AQUATWIN_VERSION\s*=\s*"[^"]*"', "window.AQUATWIN_VERSION = `"1.$nextVer`"")
-[System.IO.File]::WriteAllText($hp, $h, [System.Text.UTF8Encoding]::new($false))
-Copy-Item index.html www\index.html -Force
+# Stamp matching version into index.html & sync www\index.html
+$htmlPath = (Resolve-Path "index.html").Path
+$html     = [System.IO.File]::ReadAllText($htmlPath)
+$html     = [regex]::Replace($html, 'window\.AQUATWIN_VERSION\s*=\s*"[^"]+"', "window.AQUATWIN_VERSION = `"$verStr`"")
+[System.IO.File]::WriteAllText($htmlPath, $html, [System.Text.UTF8Encoding]::new($false))
 
-Write-Host "Updating AquaTwin AI to v1.$nextVer..." -ForegroundColor Cyan
-npx cap sync android | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "Sync failed." }
+if (-not (Test-Path "www")) { New-Item -ItemType Directory -Path "www" | Out-Null }
+Copy-Item $htmlPath "www\index.html" -Force
 
-cd android
-.\gradlew.bat assembleDebug
-if ($LASTEXITCODE -ne 0) { throw "Build failed." }
+npx cap sync android
+if ($LASTEXITCODE -ne 0) { throw "Capacitor sync failed." }
 
-$buildFile = (Resolve-Path "app\build\outputs\apk\debug\app-debug.apk").Path
-& $adb install -r -d $buildFile
-if ($LASTEXITCODE -ne 0) { throw "Could not push update to Vivo phone. Enable 'Install via USB' in Vivo Developer Options." }
+# Build signed release APK
+Push-Location "android"
+try {
+  if (-not (Test-Path "keystore.properties")) {
+    throw "keystore.properties not found in mobile-app\android. Run keystore setup first."
+  }
+  Write-Host "Building signed Release APK v$verStr (code $nextVer)..." -ForegroundColor Cyan
+  .\gradlew.bat assembleRelease "-Dorg.gradle.java.home=$jdk21"
+  if ($LASTEXITCODE -ne 0) { throw "Gradle assembleRelease failed." }
+  $apk = (Resolve-Path "app\build\outputs\apk\release\app-release.apk").Path
+} finally {
+  Pop-Location
+}
 
-# Clean up any leftover renamed files and restart AquaTwin AI directly on your phone
-Get-ChildItem "app\build\outputs\apk\debug" -Filter "AquaTwin*.apk" -ErrorAction SilentlyContinue | Remove-Item -Force
-& $adb shell am force-stop com.aquatwin.ai | Out-Null
-& $adb shell monkey -p com.aquatwin.ai -c android.intent.category.LAUNCHER 1 | Out-Null
-Write-Host "AquaTwin AI v1.$nextVer updated and opened on your phone!" -ForegroundColor Green
+# Auto-install on USB-connected phone (handles one-time debug->release signature switch)
+$adb = "$env:ANDROID_HOME\platform-tools\adb.exe"
+if (Test-Path $adb) {
+  $connected = (& $adb devices | Select-String "\tdevice$")
+  if ($connected) {
+    Write-Host "Installing signed AquaTwin AI v$verStr on connected phone..." -ForegroundColor Cyan
+    & $adb install -r $apk
+    if ($LASTEXITCODE -ne 0) {
+      Write-Host "Switching from old debug signature to release signature (one-time clean install)..." -ForegroundColor Yellow
+      & $adb uninstall com.aquatwin.ai | Out-Null
+      & $adb install $apk
+    }
+    & $adb shell monkey -p com.aquatwin.ai -c android.intent.category.LAUNCHER 1 | Out-Null
+    Write-Host "UPDATED & OPENED signed AquaTwin AI v$verStr on phone!" -ForegroundColor Green
+  }
+}

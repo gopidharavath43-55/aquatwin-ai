@@ -1,5 +1,5 @@
 param(
-  [string]$Notes = "• All 33 Telangana districts with full official names`n• Smooth Satellite Map & Apple Liquid Glass Dock`n• Live Ask AI water quality, Sentinel-2 & groundwater telemetry"
+  [string]$Notes = "• Signed release build with security hardening, 33 Telangana districts & AI telemetry"
 )
 $ErrorActionPreference = "Stop"
 cd C:\Users\gopid\aquatwin-ai\mobile-app
@@ -12,9 +12,11 @@ $apkUrl = "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/dow
 $relDir = "..\release"
 if (!(Test-Path $relDir)) { New-Item -ItemType Directory -Path $relDir | Out-Null }
 
-$srcApk = (Resolve-Path "android\app\build\outputs\apk\debug\app-debug.apk").Path
+$srcApk = "android\app\build\outputs\apk\release\app-release.apk"
+if (-not (Test-Path $srcApk)) { throw "Signed app-release.apk not found. Run update-app.ps1 first." }
+
 $dstApk = Join-Path (Resolve-Path $relDir).Path "AquaTwin-AI.apk"
-Copy-Item $srcApk $dstApk -Force
+Copy-Item (Resolve-Path $srcApk).Path $dstApk -Force
 
 $verObj = [ordered]@{
   version      = $ver
@@ -27,6 +29,6 @@ $verObj = [ordered]@{
 $verPath = Join-Path (Resolve-Path "..").Path "version.json"
 [System.IO.File]::WriteAllText($verPath, ($verObj | ConvertTo-Json -Depth 4), [System.Text.UTF8Encoding]::new($false))
 
-Write-Host "`n=== RELEASE READY: v$ver (code $code) ===" -ForegroundColor Green
+Write-Host "`n=== SIGNED RELEASE READY: v$ver (code $code) ===" -ForegroundColor Green
 Write-Host "APK     : $dstApk" -ForegroundColor Cyan
 Write-Host "Manifest: $verPath" -ForegroundColor Cyan
