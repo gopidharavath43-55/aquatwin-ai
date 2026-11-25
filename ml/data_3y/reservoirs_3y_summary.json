@@ -7,27 +7,27 @@
   "metrics": {
     "1M": {
       "rows": 1155,
-      "r2": 0.2687,
-      "mae": 13.15,
-      "rmse": 16.65
+      "r2": 0.305,
+      "mae": 12.95,
+      "rmse": 16.22
     },
     "2M": {
       "rows": 1122,
-      "r2": -0.2807,
-      "mae": 18.76,
-      "rmse": 22.03
+      "r2": -0.2595,
+      "mae": 18.66,
+      "rmse": 21.84
     },
     "6M": {
       "rows": 990,
-      "r2": -2.021,
-      "mae": 30.14,
+      "r2": -2.0225,
+      "mae": 30.13,
       "rmse": 32.98
     },
     "1Y": {
       "rows": 792,
-      "r2": -3.4084,
-      "mae": 36.14,
-      "rmse": 39.21
+      "r2": -3.4385,
+      "mae": 36.24,
+      "rmse": 39.34
     }
   },
   "districts": [
@@ -39,12 +39,12 @@
       "res_capacity_tmc": 2.73,
       "res_storage_tmc": 1.2,
       "res_storage_pct": 44.0,
-      "res_yoy_chg_pct": -34.51,
+      "res_yoy_chg_pct": -34.57,
       "res_status": "Moderate",
-      "res_pred_1m": 66.41,
-      "res_pred_2m": 68.67,
-      "res_pred_6m": 47.35,
-      "res_pred_1y": 53.57
+      "res_pred_1m": 65.01,
+      "res_pred_2m": 68.61,
+      "res_pred_6m": 48.95,
+      "res_pred_1y": 54.56
     },
     {
       "district": "Bhadradri Kothagudem",
@@ -54,12 +54,12 @@
       "res_capacity_tmc": 8.4,
       "res_storage_tmc": 4.87,
       "res_storage_pct": 58.0,
-      "res_yoy_chg_pct": -37.34,
+      "res_yoy_chg_pct": -37.26,
       "res_status": "Moderate",
-      "res_pred_1m": 68.77,
-      "res_pred_2m": 75.22,
-      "res_pred_6m": 56.56,
-      "res_pred_1y": 70.24
+      "res_pred_1m": 67.13,
+      "res_pred_2m": 75.71,
+      "res_pred_6m": 55.97,
+      "res_pred_1y": 71.46
     },
     {
       "district": "Hanumakonda",
@@ -69,12 +69,12 @@
       "res_capacity_tmc": 1.5,
       "res_storage_tmc": 0.78,
       "res_storage_pct": 52.0,
-      "res_yoy_chg_pct": -38.95,
+      "res_yoy_chg_pct": -38.82,
       "res_status": "Moderate",
-      "res_pred_1m": 68.7,
-      "res_pred_2m": 72.71,
-      "res_pred_6m": 56.49,
-      "res_pred_1y": 65.8
+      "res_pred_1m": 66.9,
+      "res_pred_2m": 72.7,
+      "res_pred_6m": 56.11,
+      "res_pred_1y": 66.92
     },
     {
       "district": "Hyderabad",
@@ -86,10 +86,10 @@
       "res_storage_pct": 65.5,
       "res_yoy_chg_pct": -33.7,
       "res_status": "Normal",
-      "res_pred_1m": 72.84,
-      "res_pred_2m": 75.81,
-      "res_pred_6m": 58.56,
-      "res_pred_1y": 75.37
+      "res_pred_1m": 69.22,
+      "res_pred_2m": 75.74,
+      "res_pred_6m": 57.8,
+      "res_pred_1y": 77.04
     },
     {
       "district": "Jagtial",
@@ -99,12 +99,12 @@
       "res_capacity_tmc": 80.5,
       "res_storage_tmc": 33.17,
       "res_storage_pct": 41.2,
-      "res_yoy_chg_pct": -36.5,
+      "res_yoy_chg_pct": -36.71,
       "res_status": "Moderate",
-      "res_pred_1m": 62.23,
-      "res_pred_2m": 68.11,
-      "res_pred_6m": 47.57,
-      "res_pred_1y": 52.19
+      "res_pred_1m": 62.54,
+      "res_pred_2m": 68.05,
+      "res_pred_6m": 47.93,
+      "res_pred_1y": 53.47
     },
     {
       "district": "Jangaon",
@@ -114,12 +114,12 @@
       "res_capacity_tmc": 1.87,
       "res_storage_tmc": 0.67,
       "res_storage_pct": 36.0,
-      "res_yoy_chg_pct": -37.63,
+      "res_yoy_chg_pct": -37.81,
       "res_status": "Low",
-      "res_pred_1m": 62.55,
-      "res_pred_2m": 62.01,
-      "res_pred_6m": 42.99,
-      "res_pred_1y": 49.82
+      "res_pred_1m": 60.86,
+      "res_pred_2m": 62.05,
+      "res_pred_6m": 45.04,
+      "res_pred_1y": 50.13
     },
     {
       "district": "Jayashankar Bhupalpally",
@@ -129,12 +129,12 @@
       "res_capacity_tmc": 19.5,
       "res_storage_tmc": 10.73,
       "res_storage_pct": 55.0,
-      "res_yoy_chg_pct": -42.87,
+      "res_yoy_chg_pct": -42.82,
       "res_status": "Moderate",
-      "res_pred_1m": 70.25,
-      "res_pred_2m": 77.78,
-      "res_pred_6m": 58.02,
-      "res_pred_1y": 69.3
+      "res_pred_1m": 68.3,
+      "res_pred_2m": 75.82,
+      "res_pred_6m": 57.56,
+      "res_pred_1y": 70.45
     },
     {
       "district": "Jogulamba Gadwal",
@@ -144,12 +144,12 @@
       "res_capacity_tmc": 9.66,
       "res_storage_tmc": 3.67,
       "res_storage_pct": 38.0,
-      "res_yoy_chg_pct": -39.49,
+      "res_yoy_chg_pct": -39.85,
       "res_status": "Low",
-      "res_pred_1m": 66.3,
-      "res_pred_2m": 67.01,
-      "res_pred_6m": 48.87,
-      "res_pred_1y": 50.97
+      "res_pred_1m": 64.42,
+      "res_pred_2m": 65.22,
+      "res_pred_6m": 48.21,
+      "res_pred_1y": 53.31
     },
     {
       "district": "Kamareddy",
@@ -159,12 +159,12 @@
       "res_capacity_tmc": 17.8,
       "res_storage_tmc": 8.97,
       "res_storage_pct": 50.4,
-      "res_yoy_chg_pct": -36.05,
+      "res_yoy_chg_pct": -36.12,
       "res_status": "Moderate",
-      "res_pred_1m": 66.82,
-      "res_pred_2m": 72.25,
-      "res_pred_6m": 51.94,
-      "res_pred_1y": 65.85
+      "res_pred_1m": 66.73,
+      "res_pred_2m": 73.56,
+      "res_pred_6m": 52.17,
+      "res_pred_1y": 63.31
     },
     {
       "district": "Karimnagar",
@@ -174,12 +174,12 @@
       "res_capacity_tmc": 24.07,
       "res_storage_tmc": 14.75,
       "res_storage_pct": 61.3,
-      "res_yoy_chg_pct": -35.76,
+      "res_yoy_chg_pct": -35.75,
       "res_status": "Moderate",
-      "res_pred_1m": 69.51,
-      "res_pred_2m": 74.96,
-      "res_pred_6m": 55.94,
-      "res_pred_1y": 70.86
+      "res_pred_1m": 69.19,
+      "res_pred_2m": 75.08,
+      "res_pred_6m": 55.93,
+      "res_pred_1y": 72.03
     },
     {
       "district": "Khammam",
@@ -189,12 +189,12 @@
       "res_capacity_tmc": 4.9,
       "res_storage_tmc": 2.35,
       "res_storage_pct": 48.0,
-      "res_yoy_chg_pct": -44.08,
+      "res_yoy_chg_pct": -44.27,
       "res_status": "Moderate",
-      "res_pred_1m": 66.53,
-      "res_pred_2m": 72.11,
-      "res_pred_6m": 52.81,
-      "res_pred_1y": 62.08
+      "res_pred_1m": 66.23,
+      "res_pred_2m": 72.85,
+      "res_pred_6m": 54.04,
+      "res_pred_1y": 60.96
     },
     {
       "district": "Kumuram Bheem Asifabad",
@@ -204,12 +204,12 @@
       "res_capacity_tmc": 10.39,
       "res_storage_tmc": 4.78,
       "res_storage_pct": 46.0,
-      "res_yoy_chg_pct": -36.88,
+      "res_yoy_chg_pct": -36.82,
       "res_status": "Moderate",
-      "res_pred_1m": 66.24,
-      "res_pred_2m": 73.4,
-      "res_pred_6m": 54.39,
-      "res_pred_1y": 54.9
+      "res_pred_1m": 66.27,
+      "res_pred_2m": 72.24,
+      "res_pred_6m": 55.13,
+      "res_pred_1y": 56.64
     },
     {
       "district": "Mahabubabad",
@@ -219,12 +219,12 @@
       "res_capacity_tmc": 3.3,
       "res_storage_tmc": 1.68,
       "res_storage_pct": 51.0,
-      "res_yoy_chg_pct": -38.72,
+      "res_yoy_chg_pct": -38.68,
       "res_status": "Moderate",
-      "res_pred_1m": 68.44,
-      "res_pred_2m": 72.42,
-      "res_pred_6m": 52.24,
-      "res_pred_1y": 68.05
+      "res_pred_1m": 67.16,
+      "res_pred_2m": 73.12,
+      "res_pred_6m": 51.39,
+      "res_pred_1y": 69.2
     },
     {
       "district": "Mahabubnagar",
@@ -234,12 +234,12 @@
       "res_capacity_tmc": 3.9,
       "res_storage_tmc": 1.33,
       "res_storage_pct": 34.0,
-      "res_yoy_chg_pct": -41.38,
+      "res_yoy_chg_pct": -41.51,
       "res_status": "Low",
-      "res_pred_1m": 63.41,
-      "res_pred_2m": 64.78,
-      "res_pred_6m": 45.28,
-      "res_pred_1y": 48.9
+      "res_pred_1m": 62.77,
+      "res_pred_2m": 63.49,
+      "res_pred_6m": 46.83,
+      "res_pred_1y": 50.97
     },
     {
       "district": "Mancherial",
@@ -251,10 +251,10 @@
       "res_storage_pct": 84.7,
       "res_yoy_chg_pct": -14.5,
       "res_status": "Normal",
-      "res_pred_1m": 82.7,
-      "res_pred_2m": 87.83,
-      "res_pred_6m": 67.19,
-      "res_pred_1y": 91.44
+      "res_pred_1m": 81.68,
+      "res_pred_2m": 87.76,
+      "res_pred_6m": 66.31,
+      "res_pred_1y": 91.71
     },
     {
       "district": "Medak",
@@ -264,12 +264,12 @@
       "res_capacity_tmc": 3.32,
       "res_storage_tmc": 0.73,
       "res_storage_pct": 22.0,
-      "res_yoy_chg_pct": -48.48,
+      "res_yoy_chg_pct": -48.43,
       "res_status": "Low",
-      "res_pred_1m": 62.69,
-      "res_pred_2m": 61.92,
-      "res_pred_6m": 41.44,
-      "res_pred_1y": 46.08
+      "res_pred_1m": 61.91,
+      "res_pred_2m": 62.12,
+      "res_pred_6m": 42.39,
+      "res_pred_1y": 47.39
     },
     {
       "district": "Medchal-Malkajgiri",
@@ -279,12 +279,12 @@
       "res_capacity_tmc": 20.18,
       "res_storage_tmc": 14.53,
       "res_storage_pct": 72.0,
-      "res_yoy_chg_pct": -25.65,
+      "res_yoy_chg_pct": -25.73,
       "res_status": "Normal",
-      "res_pred_1m": 70.42,
-      "res_pred_2m": 75.2,
-      "res_pred_6m": 61.95,
-      "res_pred_1y": 81.47
+      "res_pred_1m": 70.62,
+      "res_pred_2m": 76.03,
+      "res_pred_6m": 61.23,
+      "res_pred_1y": 82.25
     },
     {
       "district": "Mulugu",
@@ -294,12 +294,12 @@
       "res_capacity_tmc": 5.04,
       "res_storage_tmc": 3.23,
       "res_storage_pct": 64.0,
-      "res_yoy_chg_pct": -33.15,
+      "res_yoy_chg_pct": -33.07,
       "res_status": "Moderate",
-      "res_pred_1m": 73.13,
-      "res_pred_2m": 78.59,
-      "res_pred_6m": 58.37,
-      "res_pred_1y": 74.6
+      "res_pred_1m": 71.41,
+      "res_pred_2m": 77.53,
+      "res_pred_6m": 57.36,
+      "res_pred_1y": 75.12
     },
     {
       "district": "Nagarkurnool",
@@ -309,12 +309,12 @@
       "res_capacity_tmc": 215.81,
       "res_storage_tmc": 62.58,
       "res_storage_pct": 29.0,
-      "res_yoy_chg_pct": -43.5,
+      "res_yoy_chg_pct": -43.59,
       "res_status": "Low",
-      "res_pred_1m": 60.68,
-      "res_pred_2m": 61.19,
-      "res_pred_6m": 41.02,
-      "res_pred_1y": 47.22
+      "res_pred_1m": 59.13,
+      "res_pred_2m": 60.6,
+      "res_pred_6m": 40.78,
+      "res_pred_1y": 49.03
     },
     {
       "district": "Nalgonda",
@@ -324,12 +324,12 @@
       "res_capacity_tmc": 312.04,
       "res_storage_tmc": 78.01,
       "res_storage_pct": 25.0,
-      "res_yoy_chg_pct": -47.42,
+      "res_yoy_chg_pct": -47.36,
       "res_status": "Low",
-      "res_pred_1m": 61.39,
-      "res_pred_2m": 61.49,
-      "res_pred_6m": 43.1,
-      "res_pred_1y": 47.4
+      "res_pred_1m": 59.74,
+      "res_pred_2m": 61.15,
+      "res_pred_6m": 42.15,
+      "res_pred_1y": 48.65
     },
     {
       "district": "Narayanpet",
@@ -339,12 +339,12 @@
       "res_capacity_tmc": 9.66,
       "res_storage_tmc": 3.38,
       "res_storage_pct": 35.0,
-      "res_yoy_chg_pct": -38.68,
+      "res_yoy_chg_pct": -38.7,
       "res_status": "Low",
-      "res_pred_1m": 61.65,
-      "res_pred_2m": 62.82,
-      "res_pred_6m": 42.14,
-      "res_pred_1y": 48.09
+      "res_pred_1m": 60.65,
+      "res_pred_2m": 62.91,
+      "res_pred_6m": 42.51,
+      "res_pred_1y": 50.88
     },
     {
       "district": "Nirmal",
@@ -354,12 +354,12 @@
       "res_capacity_tmc": 4.7,
       "res_storage_tmc": 1.74,
       "res_storage_pct": 37.0,
-      "res_yoy_chg_pct": -37.14,
+      "res_yoy_chg_pct": -37.04,
       "res_status": "Low",
-      "res_pred_1m": 63.7,
-      "res_pred_2m": 66.95,
-      "res_pred_6m": 43.91,
-      "res_pred_1y": 51.8
+      "res_pred_1m": 62.93,
+      "res_pred_2m": 65.21,
+      "res_pred_6m": 43.96,
+      "res_pred_1y": 53.1
     },
     {
       "district": "Nizamabad",
@@ -369,12 +369,12 @@
       "res_capacity_tmc": 80.5,
       "res_storage_tmc": 33.17,
       "res_storage_pct": 41.2,
-      "res_yoy_chg_pct": -36.74,
+      "res_yoy_chg_pct": -36.75,
       "res_status": "Moderate",
-      "res_pred_1m": 61.99,
-      "res_pred_2m": 67.44,
-      "res_pred_6m": 46.37,
-      "res_pred_1y": 52.28
+      "res_pred_1m": 62.01,
+      "res_pred_2m": 67.99,
+      "res_pred_6m": 46.39,
+      "res_pred_1y": 54.22
     },
     {
       "district": "Peddapalli",
@@ -384,12 +384,12 @@
       "res_capacity_tmc": 20.18,
       "res_storage_tmc": 17.09,
       "res_storage_pct": 84.7,
-      "res_yoy_chg_pct": -13.18,
+      "res_yoy_chg_pct": -13.32,
       "res_status": "Normal",
-      "res_pred_1m": 81.83,
-      "res_pred_2m": 87.14,
-      "res_pred_6m": 68.25,
-      "res_pred_1y": 93.05
+      "res_pred_1m": 81.94,
+      "res_pred_2m": 87.69,
+      "res_pred_6m": 68.22,
+      "res_pred_1y": 92.21
     },
     {
       "district": "Rajanna Sircilla",
@@ -401,10 +401,10 @@
       "res_storage_pct": 82.7,
       "res_yoy_chg_pct": -16.5,
       "res_status": "Normal",
-      "res_pred_1m": 82.28,
-      "res_pred_2m": 86.3,
-      "res_pred_6m": 66.94,
-      "res_pred_1y": 93.03
+      "res_pred_1m": 81.94,
+      "res_pred_2m": 88.43,
+      "res_pred_6m": 65.9,
+      "res_pred_1y": 92.44
     },
     {
       "district": "Ranga Reddy",
@@ -416,10 +416,10 @@
       "res_storage_pct": 79.7,
       "res_yoy_chg_pct": -19.5,
       "res_status": "Normal",
-      "res_pred_1m": 79.83,
-      "res_pred_2m": 84.79,
-      "res_pred_6m": 61.63,
-      "res_pred_1y": 90.02
+      "res_pred_1m": 80.64,
+      "res_pred_2m": 84.41,
+      "res_pred_6m": 60.38,
+      "res_pred_1y": 90.59
     },
     {
       "district": "Sangareddy",
@@ -429,12 +429,12 @@
       "res_capacity_tmc": 29.91,
       "res_storage_tmc": 1.91,
       "res_storage_pct": 6.4,
-      "res_yoy_chg_pct": -66.91,
+      "res_yoy_chg_pct": -67.11,
       "res_status": "Critical",
-      "res_pred_1m": 61.72,
-      "res_pred_2m": 61.46,
-      "res_pred_6m": 43.83,
-      "res_pred_1y": 50.15
+      "res_pred_1m": 61.19,
+      "res_pred_2m": 61.89,
+      "res_pred_6m": 44.69,
+      "res_pred_1y": 51.59
     },
     {
       "district": "Siddipet",
@@ -444,12 +444,12 @@
       "res_capacity_tmc": 50.0,
       "res_storage_tmc": 24.5,
       "res_storage_pct": 49.0,
-      "res_yoy_chg_pct": -38.01,
+      "res_yoy_chg_pct": -38.22,
       "res_status": "Moderate",
-      "res_pred_1m": 66.1,
-      "res_pred_2m": 73.21,
-      "res_pred_6m": 52.28,
-      "res_pred_1y": 60.68
+      "res_pred_1m": 65.89,
+      "res_pred_2m": 73.9,
+      "res_pred_6m": 53.59,
+      "res_pred_1y": 61.92
     },
     {
       "district": "Suryapet",
@@ -459,12 +459,12 @@
       "res_capacity_tmc": 3.8,
       "res_storage_tmc": 1.18,
       "res_storage_pct": 31.0,
-      "res_yoy_chg_pct": -41.34,
+      "res_yoy_chg_pct": -41.44,
       "res_status": "Low",
-      "res_pred_1m": 62.16,
-      "res_pred_2m": 61.65,
-      "res_pred_6m": 42.19,
-      "res_pred_1y": 46.92
+      "res_pred_1m": 61.44,
+      "res_pred_2m": 62.76,
+      "res_pred_6m": 43.09,
+      "res_pred_1y": 49.38
     },
     {
       "district": "Vikarabad",
@@ -474,12 +474,12 @@
       "res_capacity_tmc": 15.7,
       "res_storage_tmc": 2.83,
       "res_storage_pct": 18.0,
-      "res_yoy_chg_pct": -57.61,
+      "res_yoy_chg_pct": -57.85,
       "res_status": "Critical",
-      "res_pred_1m": 61.66,
-      "res_pred_2m": 63.38,
-      "res_pred_6m": 46.3,
-      "res_pred_1y": 47.56
+      "res_pred_1m": 60.81,
+      "res_pred_2m": 62.91,
+      "res_pred_6m": 46.08,
+      "res_pred_1y": 49.76
     },
     {
       "district": "Wanaparthy",
@@ -489,12 +489,12 @@
       "res_capacity_tmc": 4.1,
       "res_storage_tmc": 1.35,
       "res_storage_pct": 33.0,
-      "res_yoy_chg_pct": -38.53,
+      "res_yoy_chg_pct": -38.52,
       "res_status": "Low",
-      "res_pred_1m": 62.3,
-      "res_pred_2m": 61.54,
-      "res_pred_6m": 41.31,
-      "res_pred_1y": 46.79
+      "res_pred_1m": 61.91,
+      "res_pred_2m": 61.78,
+      "res_pred_6m": 41.99,
+      "res_pred_1y": 49.1
     },
     {
       "district": "Warangal",
@@ -504,12 +504,12 @@
       "res_capacity_tmc": 5.04,
       "res_storage_tmc": 2.72,
       "res_storage_pct": 54.0,
-      "res_yoy_chg_pct": -41.02,
+      "res_yoy_chg_pct": -41.15,
       "res_status": "Moderate",
-      "res_pred_1m": 71.65,
-      "res_pred_2m": 75.25,
-      "res_pred_6m": 54.95,
-      "res_pred_1y": 68.86
+      "res_pred_1m": 69.49,
+      "res_pred_2m": 74.18,
+      "res_pred_6m": 54.96,
+      "res_pred_1y": 68.69
     },
     {
       "district": "Yadadri Bhuvanagiri",
@@ -519,12 +519,12 @@
       "res_capacity_tmc": 3.8,
       "res_storage_tmc": 1.48,
       "res_storage_pct": 39.0,
-      "res_yoy_chg_pct": -43.54,
+      "res_yoy_chg_pct": -43.59,
       "res_status": "Low",
-      "res_pred_1m": 63.59,
-      "res_pred_2m": 68.61,
-      "res_pred_6m": 50.08,
-      "res_pred_1y": 52.56
+      "res_pred_1m": 63.79,
+      "res_pred_2m": 67.55,
+      "res_pred_6m": 51.28,
+      "res_pred_1y": 53.71
     }
   ]
 }
