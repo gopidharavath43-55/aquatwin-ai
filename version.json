@@ -1,8 +1,8 @@
 {
-    "version":  "1.92",
-    "version_code":  92,
+    "version":  "1.93",
+    "version_code":  93,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Styled Demo toggle pill with Demo label, liquid slider, and OFF/ON state indicator",
+    "notes":  "• Trained 3-year datasets (Water, Groundwater, Reservoirs, Rainfall)\n• Added +1M, +2M, +6M \u0026 +1 Year multi-modal AI forecasts\n• Enforced SHA-256 integrity, X-App-Client guard, runtime lock \u0026 R8/CSP hardening",
     "force":  false,
-    "updated_at":  "2026-11-24 21:16 IST"
+    "updated_at":  "2026-11-26 00:16 IST"
 }
