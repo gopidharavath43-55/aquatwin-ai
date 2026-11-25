@@ -1,8 +1,8 @@
 {
-    "version":  "1.121",
-    "version_code":  121,
+    "version":  "1.122",
+    "version_code":  122,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Apple Liquid Glass Step 1/4: exact optical droplet dock, specular light refraction \u0026 zero-prompt updater",
+    "notes":  "• Fixed Districts-to-AI-Twin false highlight, mid-swipe black flashes, overlapping screens \u0026 drag lens clarity",
     "force":  false,
-    "updated_at":  "2026-11-26 03:01 IST"
+    "updated_at":  "2026-11-26 03:07 IST"
 }

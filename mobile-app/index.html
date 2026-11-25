@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.121";
+window.AQUATWIN_VERSION = "1.122";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6132,7 +6132,7 @@ nav > div:not(#at-lg-tab-lens),
   function pointerMove(clientX, allowSwitch){
     if (!tabRects.length) return;
     springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), clientX - navLeft - springW * 0.5));
-    springTargetScale = 1.09;
+    springTargetScale = 1.07;
     kickSpring();
     var best = 0, bestD = Infinity;
     for (var i = 0; i < tabRects.length; i++){
@@ -6143,17 +6143,7 @@ nav > div:not(#at-lg-tab-lens),
       hoverIdx = best;
       clearHover();
       if (tabsCache[best]) tabsCache[best].classList.add("at-lg-hover");
-      if (allowSwitch && best !== activeIdx){
-        if (switchTimer) clearTimeout(switchTimer);
-        var idxCopy = best;
-        switchTimer = setTimeout(function(){
-          if (isDragging && hoverIdx === idxCopy && tabsCache[idxCopy]){
-            activeIdx = idxCopy;
-            hapticTap();
-            try { tabsCache[idxCopy].click(); } catch(e){}
-          }
-        }, 32);
-      }
+      hapticTap();
     }
   }
 
@@ -6175,15 +6165,19 @@ nav > div:not(#at-lg-tab-lens),
 
   function animateScreenTransition(screen, fromIdx, toIdx){
     if (fromIdx < 0 || fromIdx === toIdx) return;
+    // Clear any in-flight animation classes on all panels first so two screens never overlap
+    document.querySelectorAll(".at-anim-slide-right, .at-anim-slide-left, .at-anim-map-fade").forEach(function(el){
+      el.classList.remove("at-anim-slide-right", "at-anim-slide-left", "at-anim-map-fade");
+    });
+    if (screen === "map") return;
     var panel = findActiveScreenPanel(screen);
     if (!panel) return;
-    panel.classList.remove("at-anim-slide-right", "at-anim-slide-left", "at-anim-map-fade");
     void panel.offsetWidth;
-    var cls = (screen === "map") ? "at-anim-map-fade" : (toIdx > fromIdx ? "at-anim-slide-right" : "at-anim-slide-left");
+    var cls = (toIdx > fromIdx ? "at-anim-slide-right" : "at-anim-slide-left");
     panel.classList.add(cls);
     var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left", "at-anim-map-fade"); };
     panel.addEventListener("animationend", done, { once: true });
-    setTimeout(done, 320);
+    setTimeout(done, 280);
   }
 
   // Warm Generous Satellite Tile Layer (keepBuffer: 5 for instant 120fps pan/zoom)
@@ -6225,13 +6219,15 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   function detectScreen(){
+    // 1. Check Districts search input FIRST (Districts also has an "All" <select> filter)
+    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
+    for (var s = 0; s < searches.length; s++){
+      if (!isOverlay(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
+    }
+    // 2. Check AI Twin ONLY by actual simulator sliders or AI Twin headings (never generic <select>)
     var ranges = document.querySelectorAll('input[type="range"]');
     for (var r = 0; r < ranges.length; r++){
       if (!isOverlay(ranges[r]) && isActuallyVisible(ranges[r], 1)) return "ai twin";
-    }
-    var sels = document.querySelectorAll("select");
-    for (var si = 0; si < sels.length; si++){
-      if (!isOverlay(sels[si]) && isActuallyVisible(sels[si], 14)) return "ai twin";
     }
     var headings = document.querySelectorAll("h1, h2, h3, div, span");
     for (var h = 0; h < headings.length; h++){
@@ -6241,6 +6237,16 @@ nav > div:not(#at-lg-tab-lens),
       if (/^(Rainfall Change|Temperature Change|Pollution Load|3-Year AI Forecast|Groundwater Aquifer)/i.test(txt) && isActuallyVisible(node, 8)) return "ai twin";
       if (/^(AquaTwin Overview|Water Stress Distribution|Priority Watchlist)$/i.test(txt) && isActuallyVisible(node, 8)) return "home";
     }
+    // 3. Check Map container
+    var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
+    for (var m = 0; m < maps.length; m++){
+      if (isActuallyVisible(maps[m], 140)){
+        var mr = maps[m].getBoundingClientRect();
+        if (mr.width >= 160 && mr.height >= 160) return "map";
+      }
+    }
+    return "home";
+  }
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
       if (!isOverlay(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
@@ -6709,5 +6715,38 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- APPLE_STEP1_EXACT_DOCK_END -->
+<!-- APPLE_SWIPE_GLITCH_FIX_START -->
+<style id="at-apple-swipe-glitch-fix-css">
+/* Crystal-clear optical bubble while swiping — zero milky washout over icons/labels */
+#at-lg-tab-lens.dragging {
+  background: radial-gradient(
+    120% 135% at var(--lg-hx, 50%) 16%,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.02) 56%,
+    rgba(125, 211, 252, 0.08) 88%,
+    rgba(255, 255, 255, 0.14) 100%
+  ) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.34),
+    0 0 14px rgba(125, 211, 252, 0.24),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.92),
+    inset 0 -1.5px 3px rgba(167, 139, 250, 0.30) !important;
+}
+/* Crisp, subtle 120Hz directional slide without opacity-black-flash dip */
+@keyframes atLiquidSlideFromRight {
+  0% { opacity: 0.92; transform: translate3d(22px, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes atLiquidSlideFromLeft {
+  0% { opacity: 0.92; transform: translate3d(-22px, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.at-anim-slide-right { animation: atLiquidSlideFromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
+.at-anim-slide-left  { animation: atLiquidSlideFromLeft  0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
+</style>
+<!-- APPLE_SWIPE_GLITCH_FIX_END -->
 </body>
 </html>
