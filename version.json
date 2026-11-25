@@ -1,8 +1,8 @@
 {
-    "version":  "1.128",
-    "version_code":  128,
+    "version":  "1.129",
+    "version_code":  129,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Full-app Liquid Glass edge refraction matching Map header/dock \u0026 steady Demo header during scroll",
+    "notes":  "• Switched full-app background \u0026 UI to warm liquid glass matching Map edge glow",
     "force":  false,
-    "updated_at":  "2026-11-26 04:58 IST"
+    "updated_at":  "2026-11-26 05:03 IST"
 }
