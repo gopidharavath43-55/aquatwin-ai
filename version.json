@@ -1,8 +1,8 @@
 {
-    "version":  "1.120",
-    "version_code":  120,
+    "version":  "1.121",
+    "version_code":  121,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Full Apple Liquid Glass UI overhaul: prismatic dock fix, glass logo, offline Inter font, 600-tile cache \u0026 120Hz springs",
+    "notes":  "• Apple Liquid Glass Step 1/4: exact optical droplet dock, specular light refraction \u0026 zero-prompt updater",
     "force":  false,
-    "updated_at":  "2026-11-26 02:54 IST"
+    "updated_at":  "2026-11-26 03:01 IST"
 }

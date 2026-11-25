@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.120";
+window.AQUATWIN_VERSION = "1.121";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6471,5 +6471,243 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- AQUATWIN_APPLE_LIQUID_OS_END -->
+<!-- APPLE_STEP1_EXACT_DOCK_START -->
+<style id="at-apple-step1-dock-css">
+/* Exact Apple iOS 26/27 Liquid Glass Floating Capsule Dock */
+nav,
+[class*="bottom-nav"],
+[class*="tab-bar"],
+.at-tabbar-fixed {
+  position: fixed !important;
+  left: 16px !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  width: calc(100% - 32px) !important;
+  max-width: 410px !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  max-height: 58px !important;
+  margin: 0 auto !important;
+  padding: 5px 6px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0 !important;
+  /* Crystal-clear dark optical glass — never muddy or milky */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(8, 16, 30, 0.36) 100%
+  ) !important;
+  backdrop-filter: blur(32px) saturate(240%) brightness(1.06) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(240%) brightness(1.06) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.24) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.42),
+    0 2px 8px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.14) !important;
+  overflow: visible !important;
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  isolation: isolate;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  z-index: 2147482500 !important;
+}
+
+/* Balanced Apple tab items with clean vertical clearance above the lens rim */
+nav > button,
+nav > a,
+nav > div:not(#at-lg-tab-lens),
+[class*="bottom-nav"] > button,
+[class*="bottom-nav"] > a,
+[class*="tab-bar"] > button,
+[class*="tab-bar"] > a,
+.at-tabbar-fixed > button,
+.at-tabbar-fixed > a,
+.at-tabbar-fixed > div:not(#at-lg-tab-lens) {
+  position: relative !important;
+  z-index: 2 !important;
+  flex: 1 1 25% !important;
+  width: 25% !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  margin: 0 !important;
+  padding: 5px 2px 6px 2px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: rgba(248, 250, 252, 0.72) !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em !important;
+  gap: 3px !important;
+  transition: color 0.16s ease, transform 0.22s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
+}
+
+[data-at-tab="1"] svg {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  flex-shrink: 0 !important;
+  stroke-width: 1.85 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  color: inherit !important;
+  stroke: currentColor;
+  transition: transform 0.22s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+[data-at-tab="1"] span,
+[data-at-tab="1"] small {
+  font-size: 9.5px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+[data-at-tab="1"]:not([data-at-active="1"]) {
+  color: rgba(248, 250, 252, 0.68) !important;
+}
+[data-at-tab="1"][data-at-active="1"] {
+  color: #38bdf8 !important;
+  font-weight: 600 !important;
+}
+[data-at-tab="1"][data-at-active="1"] svg {
+  transform: translateY(-0.5px);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
+}
+[data-at-tab="1"].at-lg-hover {
+  color: #ffffff !important;
+  transform: scale(1.07) translate3d(0, -1px, 0) !important;
+}
+
+/* Exact Apple Optical Liquid Glass Droplet Lens (Crystal Clear Center + Specular Caustic Rim) */
+#at-lg-tab-lens {
+  position: absolute !important;
+  top: 5px !important;
+  left: 0;
+  height: 46px !important;
+  border-radius: 999px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  /* Pure transparent glass refraction — zero cloudy fill */
+  background: radial-gradient(
+    115% 130% at var(--lg-hx, 50%) 14%,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.04) 48%,
+    rgba(56, 189, 248, 0.06) 82%,
+    rgba(255, 255, 255, 0.14) 100%
+  ) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow:
+    inset 0 1.25px 0.75px rgba(255, 255, 255, 0.88),
+    inset 0 -1.25px 2px rgba(255, 255, 255, 0.24),
+    inset 1px 0 1px rgba(125, 211, 252, 0.22),
+    inset -1px 0 1px rgba(196, 181, 253, 0.22),
+    0 4px 14px rgba(0, 0, 0, 0.24) !important;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform, width;
+  overflow: hidden;
+}
+
+/* Top caustic specular arc */
+#at-lg-tab-lens::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 12%;
+  right: 12%;
+  height: 36%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+/* Micro prismatic chromatic edge dispersion */
+#at-lg-tab-lens::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  padding: 1px;
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(125, 211, 252, 0.52) 32%,
+    rgba(216, 180, 254, 0.44) 66%,
+    rgba(255, 255, 255, 0.78) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* Magnified Optical Liquid Bubble while finger slides across tabs at 120Hz */
+#at-lg-tab-lens.dragging {
+  background: radial-gradient(
+    120% 140% at var(--lg-hx, 50%) 18%,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.05) 52%,
+    rgba(125, 211, 252, 0.12) 85%,
+    rgba(255, 255, 255, 0.24) 100%
+  ) !important;
+  backdrop-filter: blur(2px) brightness(1.18) contrast(1.06) saturate(185%) !important;
+  -webkit-backdrop-filter: blur(2px) brightness(1.18) contrast(1.06) saturate(185%) !important;
+  border-color: rgba(255, 255, 255, 0.90) !important;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.38),
+    0 0 18px rgba(125, 211, 252, 0.28),
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.96),
+    inset 0 -2px 4px rgba(167, 139, 250, 0.36) !important;
+}
+#at-lg-tab-lens.dragging::after { opacity: 1; }
+
+#at-askai-fab {
+  bottom: 88px !important;
+  right: 16px !important;
+}
+</style>
+<script id="at-apple-step1-dock-js">
+(function(){
+  if (window.__AT_APPLE_STEP1_CAUSTIC__) return;
+  window.__AT_APPLE_STEP1_CAUSTIC__ = true;
+
+  // Dynamic specular highlight angle follows your thumb across the Liquid Glass lens at 120Hz
+  function updateLightAngle(clientX){
+    var lens = document.getElementById("at-lg-tab-lens");
+    if (!lens) return;
+    var r = lens.getBoundingClientRect();
+    if (r.width < 20) return;
+    var pct = Math.max(15, Math.min(85, ((clientX - r.left) / r.width) * 100));
+    lens.style.setProperty("--lg-hx", pct.toFixed(1) + "%");
+  }
+
+  document.addEventListener("touchmove", function(e){
+    if (e.touches && e.touches.length) updateLightAngle(e.touches[0].clientX);
+  }, { passive: true });
+  document.addEventListener("pointermove", function(e){
+    if (e.buttons) updateLightAngle(e.clientX);
+  }, { passive: true });
+})();
+</script>
+<!-- APPLE_STEP1_EXACT_DOCK_END -->
 </body>
 </html>

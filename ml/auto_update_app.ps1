@@ -6,6 +6,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$env:CI = "1"
+$env:npm_config_yes = "true"
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $root = Split-Path -Parent $scriptDir
 if (-not $root -or -not (Test-Path $root)) {
@@ -97,7 +99,7 @@ if (-not $SkipApkBuild) {
             }
         }
 
-        npx cap sync android
+        npx --yes cap sync android
         if ($LASTEXITCODE -ne 0) { throw "Capacitor sync failed with exit code $LASTEXITCODE." }
 
         $apkPath = $null
@@ -173,7 +175,7 @@ if (-not $SkipVercel -and (Test-Path (Join-Path $root "mobile-app\www"))) {
     Push-Location (Join-Path $root "mobile-app\www")
     try {
         Write-Host "[INFO] Updating Web Browser deployment on Vercel..." -ForegroundColor Cyan
-        npx vercel --prod --yes
+        npx --yes vercel --prod --yes
         if ($LASTEXITCODE -ne 0) { throw "Vercel deployment failed with exit code $LASTEXITCODE." }
         Write-Host "[PASS] Web Browser updated on Vercel!" -ForegroundColor Green
     } finally {
