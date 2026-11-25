@@ -1,8 +1,8 @@
 {
-    "version":  "1.118",
-    "version_code":  118,
+    "version":  "1.119",
+    "version_code":  119,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed Liquid Glass dock snapping to Districts \u0026 restored Map View/Satellite toggle",
+    "notes":  "• Fixed District-to-AI-Twin tab highlight, full-width Liquid Glass dock \u0026 120fps right/left tab animations",
     "force":  false,
-    "updated_at":  "2026-11-26 02:27 IST"
+    "updated_at":  "2026-11-26 02:34 IST"
 }
