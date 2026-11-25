@@ -291,3 +291,47 @@ def simulate_digital_twin(request: Request, req: SimulationRequest):
         },
         "forecast_6m": forecast_6m,
     }
+
+# AQUATWIN_CLOUD_3Y_FORECAST
+import hmac as _cloud_hmac
+import json as _cloud_json
+import os as _cloud_os
+import re as _cloud_re
+
+_CLOUD_DISTRICT_RE = _cloud_re.compile(r"^[A-Za-z0-9\s\-]{2,40}$")
+_CLOUD_TOKEN = _cloud_os.environ.get("AQUATWIN_CLIENT_TOKEN", "aquatwin-v1")
+
+@app.get("/forecast/{district}")
+def cloud_multimodal_forecast(district: str, request: Request):
+    supplied = request.headers.get("X-App-Client", "")
+    if not _cloud_hmac.compare_digest(supplied, _CLOUD_TOKEN):
+        raise HTTPException(status_code=403, detail="Valid X-App-Client header required.")
+    clean = district.strip()
+    if not _CLOUD_DISTRICT_RE.match(clean):
+        raise HTTPException(status_code=400, detail="Invalid district name.")
+
+    pred_file = BASE_DIR.parent / "ml" / "ml_predictions.json"
+    if not pred_file.exists():
+        raise HTTPException(status_code=503, detail="Forecast bundle not available.")
+
+    bundle = _cloud_json.loads(pred_file.read_text(encoding="utf-8"))
+    key = clean.lower()
+    for item in bundle.get("districts", []):
+        if str(item.get("district", "")).lower() == key:
+            return {
+                "ok": True,
+                "district": item["district"],
+                "model_version": bundle.get("model_version", "AquaTwin-3Y-MultiModal-v2"),
+                "trained_window": bundle.get("trained_window", "36 months"),
+                "reservoir_name": item.get("reservoir_name"),
+                "river_basin": item.get("river_basin"),
+                "hydro_stress_index": item.get("hydro_stress_index"),
+                "horizons": {
+                    "now": {"wqi": item.get("wqi_score"), "gw_depth_mbgl": item.get("gw_depth_mbgl"), "res_storage_pct": item.get("res_storage_pct"), "rainfall_mm": item.get("rainfall_mm")},
+                    "+1M": {"wqi": item.get("lstm_1m_wqi"), "gw_depth_mbgl": item.get("gw_pred_1m"), "res_storage_pct": item.get("res_pred_1m"), "rainfall_mm": item.get("rain_pred_1m")},
+                    "+2M": {"wqi": item.get("lstm_2m_wqi"), "gw_depth_mbgl": item.get("gw_pred_2m"), "res_storage_pct": item.get("res_pred_2m"), "rainfall_mm": item.get("rain_pred_2m")},
+                    "+6M": {"wqi": item.get("lstm_6m_wqi"), "gw_depth_mbgl": item.get("gw_pred_6m"), "res_storage_pct": item.get("res_pred_6m"), "rainfall_mm": item.get("rain_pred_6m")},
+                    "+1Y": {"wqi": item.get("lstm_1y_wqi"), "gw_depth_mbgl": item.get("gw_pred_1y"), "res_storage_pct": item.get("res_pred_1y"), "rainfall_mm": item.get("rain_pred_1y")},
+                },
+            }
+    raise HTTPException(status_code=404, detail="District not found.")

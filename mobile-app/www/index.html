@@ -5984,5 +5984,114 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- RUNTIME_INTEGRITY_LOCK_END -->
+<!-- ASK_AI_3Y_EXT_START -->
+<style id="at-ask3y-css">
+.at-ask3y-box {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border-radius: 11px;
+  background: rgba(6, 24, 46, 0.78);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  font-size: 11.5px;
+  line-height: 1.48;
+  color: #e2e8f0;
+}
+.at-ask3y-hdr {
+  color: #7dd3fc;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  margin-bottom: 3px;
+}
+.at-ask3y-sep {
+  margin: 7px 0;
+  border: 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+</style>
+<script id="at-ask3y-js">
+(function(){
+  if (window.__AT_ASK3Y_BOUND__) return;
+  window.__AT_ASK3Y_BOUND__ = true;
+
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function norm(s){
+    return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function num(v, fb){
+    var n = Number(v);
+    return isFinite(n) ? n : fb;
+  }
+
+  function findDistrictFromText(txt){
+    var list = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts))
+      ? window.AQUATWIN_ML_DATA.districts : [];
+    if (!list.length) return null;
+    var firstLine = String(txt || "").split(/\r?\n/)[0] || "";
+    var headPart = firstLine.split(/\u2014|--| - /)[0] || firstLine;
+    var k = norm(headPart);
+    var exact = list.find(function(d){ return norm(d.district) === k; });
+    if (exact) return exact;
+    var padded = " " + norm(firstLine) + " ";
+    return list.find(function(d){ return padded.indexOf(" " + norm(d.district) + " ") !== -1; }) || null;
+  }
+
+  function enhanceAskAiCards(){
+    var cards = document.querySelectorAll("div");
+    for (var i = 0; i < cards.length; i++) {
+      var el = cards[i];
+      if (el.dataset.atAsk3yDone === "1") continue;
+      if (el.querySelector && el.querySelector(".at-ask3y-box")) {
+        el.dataset.atAsk3yDone = "1";
+        continue;
+      }
+      var txt = (el.innerText || el.textContent || "");
+      if (txt.indexOf("GROUNDWATER AQUIFER") === -1) continue;
+      // Ensure we target the inner reply bubble, not an outer modal wrapper
+      if (el.querySelectorAll("div").length > 8) continue;
+
+      var d = findDistrictFromText(txt);
+      if (!d) continue;
+      el.dataset.atAsk3yDone = "1";
+
+      var box = document.createElement("div");
+      box.className = "at-ask3y-box";
+      box.innerHTML =
+        '<div class="at-ask3y-hdr">[4] RESERVOIR &amp; RAINFALL (3Y TRAINED)</div>' +
+        '<div>&bull; Reservoir: <b>' + esc(d.reservoir_name || "Basin Dam") + '</b> (' + esc(d.river_basin || "Telangana") + ') &mdash; <b>' + num(d.res_storage_pct, 45).toFixed(1) + '%</b> (' + esc(d.res_status || "Moderate") + ')</div>' +
+        '<div>&bull; Rainfall: <b>' + num(d.rainfall_mm, 20).toFixed(1) + ' mm</b> | 6M Cum: ' + num(d.rain_6m_cum_mm, 0).toFixed(0) + ' mm | SPI: ' + num(d.spi_6m_proxy, 0).toFixed(2) + ' (' + esc(d.rain_status || "Normal") + ')</div>' +
+        '<hr class="at-ask3y-sep">' +
+        '<div class="at-ask3y-hdr">[5] MULTI-MODAL FORECAST (+1M / +2M / +6M / +1 YEAR)</div>' +
+        '<div>&bull; Water WQI: +1M <b>' + num(d.lstm_1m_wqi, 70).toFixed(1) + '</b> | +2M <b>' + num(d.lstm_2m_wqi, 70).toFixed(1) + '</b> | +6M <b>' + num(d.lstm_6m_wqi, 70).toFixed(1) + '</b> | +1Y <b>' + num(d.lstm_1y_wqi, 70).toFixed(1) + '</b></div>' +
+        '<div>&bull; GW (mbgl): +1M <b>' + num(d.gw_pred_1m, 8).toFixed(2) + '</b> | +2M <b>' + num(d.gw_pred_2m, 8).toFixed(2) + '</b> | +6M <b>' + num(d.gw_pred_6m, 8).toFixed(2) + '</b> | +1Y <b>' + num(d.gw_pred_1y, 8).toFixed(2) + '</b></div>' +
+        '<div>&bull; Reservoir: +1M <b>' + num(d.res_pred_1m, 45).toFixed(1) + '%</b> | +2M <b>' + num(d.res_pred_2m, 45).toFixed(1) + '%</b> | +6M <b>' + num(d.res_pred_6m, 45).toFixed(1) + '%</b> | +1Y <b>' + num(d.res_pred_1y, 45).toFixed(1) + '%</b></div>' +
+        '<div>&bull; Rainfall : +1M <b>' + num(d.rain_pred_1m, 20).toFixed(1) + '</b> | +2M <b>' + num(d.rain_pred_2m, 20).toFixed(1) + '</b> | +6M <b>' + num(d.rain_pred_6m, 20).toFixed(1) + '</b> | +1Y <b>' + num(d.rain_pred_1y, 20).toFixed(1) + ' mm</b></div>';
+
+      var gBtn = Array.from(el.querySelectorAll("a, button")).find(function(b){
+        return /Search Google Live/i.test(b.textContent || "");
+      });
+      if (gBtn && gBtn.parentNode === el) {
+        el.insertBefore(box, gBtn);
+      } else {
+        el.appendChild(box);
+      }
+    }
+  }
+
+  var obs = new MutationObserver(enhanceAskAiCards);
+  obs.observe(document.documentElement || document.body, { childList: true, subtree: true });
+  document.addEventListener("click", function(){ setTimeout(enhanceAskAiCards, 300); }, true);
+})();
+</script>
+<!-- ASK_AI_3Y_EXT_END -->
 </body>
 </html>
