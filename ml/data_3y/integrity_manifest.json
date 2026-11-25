@@ -1,6 +1,6 @@
 {
   "algorithm": "SHA-256",
-  "generated_utc": "2026-11-25T20:14:12Z",
+  "generated_utc": "2026-11-25T20:16:31Z",
   "protected_files": 40,
   "files": {
     "ml/data_3y/water_3y.csv": {
@@ -24,12 +24,12 @@
       "bytes": 585301
     },
     "ml/ml_predictions.json": {
-      "sha256": "09bdaef34c7768b2255811b5c7362aaad18595daab411de80edd57370fa98fa4",
-      "bytes": 57195
+      "sha256": "937448943f9d0dbadfbc9c08d43ab2feb0b9558003af14eb91c073f41d18bfef",
+      "bytes": 66498
     },
     "mobile-app/www/ml_data.js": {
-      "sha256": "b0b26f46d4598e4fbb6e3bed6172da25c609c839abc8a6232e7e3615be47fd3f",
-      "bytes": 43488
+      "sha256": "006a133191321b2002bff5019cdc5a4ac78b4b691db47b030d7ec2f623ccd8c2",
+      "bytes": 49788
     },
     "ml/models_3y/fused_xgb_gw_1m.json": {
       "sha256": "1dc3eb5228843a276faf9860acac97e30c4ec742afbc7c326e58bc2bc09dadd4",
