@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.122";
+window.AQUATWIN_VERSION = "1.123";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5469,12 +5469,9 @@ nav > div:not(#at-lg-tab-lens),
 }
 
 :root {
-  --at-font: 'AppleLiquidSans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-  --at-glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.105) 0%, rgba(160, 212, 255, 0.045) 48%, rgba(10, 24, 44, 0.34) 100%);
-  --at-glass-pill: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 52%, rgba(125, 211, 252, 0.08) 100%);
-  --at-rim: 1px solid rgba(255, 255, 255, 0.22);
-  --at-rim-top: 1px solid rgba(255, 255, 255, 0.46);
-  --at-specular: inset 0 1px 0.5px rgba(255, 255, 255, 0.52), inset 1px 0 0.5px rgba(255, 255, 255, 0.16), inset 0 -1px 2px rgba(56, 189, 248, 0.16);
+  --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
+  --at-glass-card: linear-gradient(155deg, rgba(255, 255, 255, 0.125) 0%, rgba(165, 220, 255, 0.05) 45%, rgba(8, 22, 42, 0.28) 100%);
+  --at-glass-pill: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 54%, rgba(125, 211, 252, 0.10) 100%);
 }
 
 * {
@@ -5490,11 +5487,12 @@ html, body {
   overscroll-behavior-y: contain;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  letter-spacing: -0.012em;
+  letter-spacing: 0.004em !important;
+  word-spacing: 0.04em !important;
+  line-height: 1.4;
 }
 
-/* Deep luminous fluid backdrop so Liquid Glass genuinely refracts light as you scroll */
+/* Deep luminous fluid ocean caustic backdrop so every Liquid Glass surface refracts vibrant light */
 body::before {
   content: "";
   position: fixed;
@@ -5502,31 +5500,50 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(62% 42% at 16% 12%, rgba(14, 165, 233, 0.24) 0%, rgba(14, 165, 233, 0) 68%),
-    radial-gradient(56% 40% at 86% 24%, rgba(99, 102, 241, 0.20) 0%, rgba(99, 102, 241, 0) 68%),
-    radial-gradient(58% 45% at 50% 88%, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0) 70%),
-    linear-gradient(180deg, #040b18 0%, #071326 48%, #040a16 100%);
+    radial-gradient(68% 46% at 14% 10%, rgba(14, 165, 233, 0.30) 0%, rgba(14, 165, 233, 0) 68%),
+    radial-gradient(58% 42% at 88% 22%, rgba(129, 140, 248, 0.24) 0%, rgba(129, 140, 248, 0) 68%),
+    radial-gradient(64% 48% at 50% 88%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 70%),
+    linear-gradient(180deg, #040c1c 0%, #081830 50%, #040b18 100%);
   transform: translate3d(0, 0, 0);
 }
 
-/* Apple SF-Pro Numeric & Display Typography */
-h1, h2, h3, [class*="title"], [class*="score"], b, strong {
-  letter-spacing: -0.024em !important;
+/* Crisp Apple Typography Scale & Proper Spacing (fixes squished words & numbers) */
+h1, h2 {
+  letter-spacing: -0.014em !important;
+  word-spacing: 0.02em !important;
+  font-weight: 700 !important;
   font-variant-numeric: tabular-nums !important;
 }
-[class*="val"], [class*="pct"], [class*="metric"], td, .at-rt-pct {
+h3, h4, .at-rt-title {
+  letter-spacing: -0.005em !important;
+  word-spacing: 0.03em !important;
+  font-weight: 600 !important;
+}
+p, small, span, div, td, th {
+  letter-spacing: 0.004em;
+  word-spacing: 0.04em;
+}
+[class*="val"], [class*="pct"], [class*="score"], [class*="metric"], td, .at-rt-pct, b, strong {
   font-variant-numeric: tabular-nums !important;
 }
 
-/* Translucent Sticky Liquid Glass Top Header */
+/* Give all scrollable screens generous bottom clearance so cards never hide behind the floating dock */
+main,
+#view-dash, #view-list, #view-sim,
+#screen-home, #screen-districts, #screen-sim,
+.page, .view, .screen {
+  padding-bottom: 112px !important;
+}
+
+/* Translucent Liquid Glass Header */
 header, .topbar, [class*="header"] {
-  background: linear-gradient(180deg, rgba(10, 20, 38, 0.72) 0%, rgba(6, 14, 28, 0.44) 100%) !important;
-  backdrop-filter: blur(26px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(26px) saturate(210%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: linear-gradient(180deg, rgba(12, 24, 46, 0.64) 0%, rgba(6, 15, 30, 0.36) 100%) !important;
+  backdrop-filter: blur(28px) saturate(230%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(230%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
 
-/* Iridescent Apple Liquid Glass Water-Droplet Brand Emblem */
+/* Iridescent Apple Liquid Glass Brand Emblem */
 #at-apple-glass-logo {
   display: inline-flex;
   align-items: center;
@@ -5535,18 +5552,18 @@ header, .topbar, [class*="header"] {
   height: 28px;
   margin-right: 9px;
   border-radius: 9px;
-  background: linear-gradient(150deg, rgba(255,255,255,0.26) 0%, rgba(125,211,252,0.14) 55%, rgba(167,139,250,0.16) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.30) 0%, rgba(125, 211, 252, 0.16) 52%, rgba(196, 181, 253, 0.18) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.52);
   box-shadow:
-    0 4px 14px rgba(14, 165, 233, 0.28),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -1px 3px rgba(56, 189, 248, 0.35);
+    0 4px 14px rgba(14, 165, 233, 0.32),
+    inset 0 1px 1px rgba(255, 255, 255, 0.90),
+    inset 0 -1px 3px rgba(56, 189, 248, 0.38);
   vertical-align: middle;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
 }
 
-/* Transform All App Cards & Widgets into Apple Concentric Liquid Glass */
+/* Ultra-Clear Apple Concentric Liquid Glass Cards (24px radius + refractive specular rims) */
 .card,
 .panel,
 .stat-card,
@@ -5555,78 +5572,87 @@ header, .topbar, [class*="header"] {
 .at-rt-panel,
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
-  background: var(--at-glass-bg) !important;
-  backdrop-filter: blur(24px) saturate(205%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(205%) !important;
-  border: var(--at-rim) !important;
-  border-top: var(--at-rim-top) !important;
+  background: var(--at-glass-card) !important;
+  backdrop-filter: blur(26px) saturate(225%) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(225%) brightness(1.05) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.48) !important;
   border-radius: 24px !important;
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.32),
-    var(--at-specular) !important;
+    0 14px 36px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0.75px rgba(255, 255, 255, 0.54),
+    inset 1px 0 0.5px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px rgba(56, 189, 248, 0.18) !important;
 }
 
-/* Inner List Items & Sub-Tiles */
+/* Crisp Glass List Items & Sub-Cells */
 .dash-item,
 .at-rt-row,
 .at-ml-cell,
 .district-item,
 .district-card {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.085) 0%, rgba(255, 255, 255, 0.025) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.095) 0%, rgba(255, 255, 255, 0.025) 100%) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.32) !important;
   border-radius: 18px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26) !important;
-  transition: transform 0.22s cubic-bezier(0.22, 1.4, 0.36, 1), background 0.18s ease !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+  transition: transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1), background 0.16s ease !important;
 }
 .dash-item:active,
 .at-rt-row:active,
 .district-item:active,
 .district-card:active {
-  transform: scale(0.976) translate3d(0, 0, 0) !important;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(56, 189, 248, 0.12) 100%) !important;
+  transform: scale(0.975) translate3d(0, 0, 0) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.18) 0%, rgba(56, 189, 248, 0.14) 100%) !important;
 }
 
-/* Optical Liquid Glass Buttons, Pills, Selects & Inputs */
-button:not([data-at-tab="1"]),
-[role="button"]:not([data-at-tab="1"]),
+/* Dashboard Action Tiles (Live Water Map / AI Twin Simulator) stay sleek 22px rounded tiles, NOT stretched ovals */
+.dash-btn,
+.dash-action,
+.quick-btn,
+.action-card,
+[class*="quick-action"],
+[class*="dash-btn"] {
+  border-radius: 22px !important;
+  padding: 14px 16px !important;
+  text-align: left !important;
+}
+
+/* Optical Liquid Glass Pill Buttons & Badges (excluding nav tabs and large multi-line tile buttons) */
+button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn),
 .dash-badge,
 .at-demo-btn,
 #at-history-btn,
 #at-askai-fab {
   background: var(--at-glass-pill) !important;
-  backdrop-filter: blur(18px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(210%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.62) !important;
+  backdrop-filter: blur(20px) saturate(225%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(225%) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.30) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.64) !important;
   border-radius: 999px !important;
   box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.68),
+    0 6px 18px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0.75px rgba(255, 255, 255, 0.72),
     inset 0 -1px 2px rgba(56, 189, 248, 0.24) !important;
   color: #f8fafc !important;
   touch-action: manipulation;
-  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.2s ease, background 0.2s ease !important;
+  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.18s ease !important;
 }
 button:not([data-at-tab="1"]):active,
-[role="button"]:not([data-at-tab="1"]):active,
 #at-askai-fab:active {
   transform: scale(0.955) translate3d(0, 0, 0) !important;
-  box-shadow:
-    0 3px 12px rgba(56, 189, 248, 0.34),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.90) !important;
 }
 
 /* Floating Ask AI Optical Glass Lens Button */
 #at-askai-fab {
-  bottom: 88px !important;
-  right: 14px !important;
-  background: linear-gradient(155deg, rgba(56, 189, 248, 0.42) 0%, rgba(14, 165, 233, 0.24) 55%, rgba(255, 255, 255, 0.14) 100%) !important;
-  border: 1px solid rgba(186, 230, 253, 0.68) !important;
+  bottom: 92px !important;
+  right: 16px !important;
+  background: linear-gradient(150deg, rgba(56, 189, 248, 0.44) 0%, rgba(14, 165, 233, 0.22) 55%, rgba(255, 255, 255, 0.16) 100%) !important;
+  border: 1px solid rgba(186, 230, 253, 0.72) !important;
   box-shadow:
     0 10px 26px rgba(2, 132, 199, 0.38),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 4px rgba(56, 189, 248, 0.35) !important;
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.88),
+    inset 0 -1.5px 4px rgba(56, 189, 248, 0.38) !important;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
@@ -5634,24 +5660,24 @@ button:not([data-at-tab="1"]):active,
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(15, 28, 48, 0.56) 100%) !important;
-  backdrop-filter: blur(18px) saturate(195%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(195%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.24) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.46) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(12, 26, 48, 0.50) 100%) !important;
+  backdrop-filter: blur(20px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(210%) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.50) !important;
   border-radius: 16px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 16px rgba(0, 0, 0, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 6px 16px rgba(0, 0, 0, 0.22) !important;
   color: #f8fafc !important;
 }
 
-/* Apple iOS 26/27 Liquid Glass Sliders */
+/* Apple Liquid Glass Range Sliders */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 7px !important;
   border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.42), rgba(255, 255, 255, 0.16)) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.42);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.48), rgba(255, 255, 255, 0.16)) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.40);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -5659,9 +5685,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 28px;
   height: 20px;
   border-radius: 999px;
-  background: radial-gradient(ellipse at 35% 25%, rgba(255, 255, 255, 0.92) 0%, rgba(210, 242, 255, 0.72) 60%, rgba(125, 211, 252, 0.55) 100%);
-  border: 1.2px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.76) 58%, rgba(125, 211, 252, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.96);
   cursor: pointer;
   transition: transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1);
 }
@@ -5670,7 +5696,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* ============================================================================
-   EXACT APPLE LIQUID GLASS FLOATING DOCK (Fixes oversized pill & Home overlap)
+   EXACT APPLE LIQUID GLASS FLOATING CAPSULE DOCK + 120HZ SLIDING DROPLET LENS
    ============================================================================ */
 nav,
 [class*="bottom-nav"],
@@ -5679,14 +5705,14 @@ nav,
   position: fixed !important;
   left: 14px !important;
   right: 14px !important;
-  bottom: 14px !important;
+  bottom: 18px !important;
   width: calc(100% - 28px) !important;
-  max-width: 440px !important;
-  height: 56px !important;
-  min-height: 56px !important;
-  max-height: 56px !important;
+  max-width: 420px !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
   margin: 0 auto !important;
-  padding: 4px !important;
+  padding: 5px 6px !important;
   border-radius: 999px !important;
   display: flex !important;
   align-items: center !important;
@@ -5695,17 +5721,18 @@ nav,
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.13) 0%,
-    rgba(255, 255, 255, 0.04) 48%,
-    rgba(8, 18, 34, 0.44) 100%
+    rgba(255, 255, 255, 0.03) 48%,
+    rgba(10, 20, 36, 0.34) 100%
   ) !important;
-  backdrop-filter: blur(28px) saturate(230%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(230%) brightness(1.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.24) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.56) !important;
+  backdrop-filter: blur(34px) saturate(250%) brightness(1.10) !important;
+  -webkit-backdrop-filter: blur(34px) saturate(250%) brightness(1.10) !important;
+  border: 0.75px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.64) !important;
   box-shadow:
-    0 14px 36px rgba(0, 0, 0, 0.44),
-    inset 0 1px 0 rgba(255, 255, 255, 0.52),
-    inset 0 -1px 1px rgba(125, 211, 252, 0.18) !important;
+    0 16px 42px rgba(0, 0, 0, 0.44),
+    0 2px 10px rgba(0, 0, 0, 0.22),
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.62),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.16) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
@@ -5730,11 +5757,11 @@ nav > div:not(#at-lg-tab-lens),
   z-index: 2 !important;
   flex: 1 1 25% !important;
   width: 25% !important;
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
   margin: 0 !important;
-  padding: 3px 2px 5px 2px !important;
+  padding: 5px 2px 6px 2px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -5743,13 +5770,14 @@ nav > div:not(#at-lg-tab-lens),
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: rgba(241, 245, 249, 0.78) !important;
-  font-size: 9.5px !important;
-  font-weight: 600 !important;
+  color: rgba(248, 250, 252, 0.78) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
   line-height: 1.05 !important;
-  letter-spacing: -0.01em !important;
-  gap: 2px !important;
-  transition: color 0.18s ease, transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0.02em !important;
+  gap: 3px !important;
+  transition: color 0.16s ease, transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
 }
 
 [data-at-tab="1"] svg {
@@ -5758,58 +5786,61 @@ nav > div:not(#at-lg-tab-lens),
   min-width: 19px !important;
   min-height: 19px !important;
   flex-shrink: 0 !important;
-  stroke-width: 1.9 !important;
+  stroke-width: 1.85 !important;
   stroke-linecap: round !important;
   stroke-linejoin: round !important;
   color: inherit !important;
   stroke: currentColor;
+  transition: transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1);
 }
 [data-at-tab="1"] span,
 [data-at-tab="1"] small {
-  font-size: 9.5px !important;
+  font-size: 10px !important;
   line-height: 1.05 !important;
   margin: 0 !important;
   padding: 0 !important;
   color: inherit !important;
 }
-
 [data-at-tab="1"]:not([data-at-active="1"]) {
-  color: rgba(241, 245, 249, 0.74) !important;
-  background: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+  color: rgba(248, 250, 252, 0.74) !important;
 }
 [data-at-tab="1"][data-at-active="1"] {
   color: #38bdf8 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+  font-weight: 600 !important;
+}
+[data-at-tab="1"][data-at-active="1"] svg {
+  transform: translateY(-0.5px);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.48));
 }
 [data-at-tab="1"].at-lg-hover {
   color: #ffffff !important;
-  transform: scale(1.06) translate3d(0, -1px, 0) !important;
+  transform: scale(1.08) translate3d(0, -1px, 0) !important;
 }
 
-/* Optically Clear Prismatic Liquid Glass Droplet Lens (matching video_1.mp4) */
+/* Optical Crystal-Clear Apple Liquid Glass Droplet Slider */
 #at-lg-tab-lens {
   position: absolute !important;
-  top: 4px !important;
+  top: 5px !important;
   left: 0;
-  height: 46px !important;
-  width: 78px;
-  border-radius: 999px;
+  height: 48px !important;
+  width: 82px;
+  border-radius: 999px !important;
   pointer-events: none !important;
   z-index: 1 !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(255, 255, 255, 0.04) 52%,
-    rgba(125, 211, 252, 0.09) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.44);
+  background: radial-gradient(
+    115% 135% at var(--lg-hx, 50%) 14%,
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(255, 255, 255, 0.05) 48%,
+    rgba(56, 189, 248, 0.08) 82%,
+    rgba(255, 255, 255, 0.16) 100%
+  ) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.48) !important;
   box-shadow:
-    inset 0 1.2px 0.5px rgba(255, 255, 255, 0.78),
-    inset 0 -1px 2px rgba(56, 189, 248, 0.28),
-    0 4px 14px rgba(0, 0, 0, 0.24);
+    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.92),
+    inset 0 -1.4px 2.2px rgba(255, 255, 255, 0.28),
+    inset 1px 0 1.5px rgba(125, 211, 252, 0.28),
+    inset -1px 0 1.5px rgba(196, 181, 253, 0.28),
+    0 5px 16px rgba(0, 0, 0, 0.26) !important;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform, width;
@@ -5819,61 +5850,65 @@ nav > div:not(#at-lg-tab-lens),
   content: "";
   position: absolute;
   top: 1px;
-  left: 10%;
-  right: 10%;
+  left: 11%;
+  right: 11%;
   height: 38%;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.78;
   pointer-events: none;
 }
-/* Subtle Apple prismatic chromatic refraction edge */
 #at-lg-tab-lens::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  padding: 1px;
-  background: linear-gradient(115deg, rgba(255,255,255,0.65), rgba(125,211,252,0.45), rgba(216,180,254,0.35), rgba(255,255,255,0.55));
+  padding: 1.1px;
+  background: linear-gradient(
+    112deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(125, 211, 252, 0.58) 34%,
+    rgba(216, 180, 254, 0.50) 68%,
+    rgba(255, 255, 255, 0.84) 100%
+  );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.55;
+  opacity: 0.72;
   pointer-events: none;
 }
+
+/* Crystal-clear magnified liquid bubble while sliding left/right — zero milky washout */
 #at-lg-tab-lens.dragging {
   background: radial-gradient(
-    ellipse at 36% 20%,
-    rgba(255, 255, 255, 0.34) 0%,
-    rgba(186, 230, 253, 0.14) 55%,
-    rgba(216, 180, 254, 0.12) 100%
+    120% 140% at var(--lg-hx, 50%) 16%,
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.03) 54%,
+    rgba(125, 211, 252, 0.11) 86%,
+    rgba(255, 255, 255, 0.22) 100%
   ) !important;
-  backdrop-filter: blur(4px) brightness(1.18) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(4px) brightness(1.18) saturate(190%) !important;
-  border-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.1px solid rgba(255, 255, 255, 0.92) !important;
   box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.38),
-    0 0 20px rgba(125, 211, 252, 0.32),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.92),
-    inset 0 -1.5px 5px rgba(167, 139, 250, 0.35) !important;
+    0 12px 28px rgba(0, 0, 0, 0.36),
+    0 0 18px rgba(125, 211, 252, 0.30),
+    inset 0 2px 1.2px rgba(255, 255, 255, 0.96),
+    inset 0 -2px 4px rgba(167, 139, 250, 0.38) !important;
 }
-#at-lg-tab-lens.dragging::after { opacity: 0.95; }
+#at-lg-tab-lens.dragging::after { opacity: 1; }
 
-/* 120Hz Directional Right <-> Left Screen Transitions */
+/* Smooth 120Hz Directional Right <-> Left Tab Transitions (no black flashes) */
 @keyframes atLiquidSlideFromRight {
-  0% { opacity: 0.58; transform: translate3d(32px, 0, 0) scale(0.988); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  0% { opacity: 0.92; transform: translate3d(24px, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 @keyframes atLiquidSlideFromLeft {
-  0% { opacity: 0.58; transform: translate3d(-32px, 0, 0) scale(0.988); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  0% { opacity: 0.92; transform: translate3d(-24px, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
-@keyframes atLiquidFadeMap {
-  0% { opacity: 0.76; }
-  100% { opacity: 1; }
-}
-.at-anim-slide-right { animation: atLiquidSlideFromRight 0.26s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
-.at-anim-slide-left  { animation: atLiquidSlideFromLeft  0.26s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
-.at-anim-map-fade    { animation: atLiquidFadeMap 0.2s ease-out both; }
+.at-anim-slide-right { animation: atLiquidSlideFromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform, opacity; }
+.at-anim-slide-left  { animation: atLiquidSlideFromLeft  0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform, opacity; }
 
 /* Map-only Satellite Toggle Optical Pill */
 #at-sat-toggle-btn {
@@ -5891,8 +5926,8 @@ nav > div:not(#at-lg-tab-lens),
 }
 #at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
 #at-sat-toggle-btn.sat-on {
-  background: linear-gradient(150deg, rgba(14, 165, 233, 0.56), rgba(2, 132, 199, 0.42)) !important;
-  border-color: rgba(186, 230, 253, 0.82) !important;
+  background: linear-gradient(150deg, rgba(14, 165, 233, 0.62), rgba(2, 132, 199, 0.44)) !important;
+  border-color: rgba(186, 230, 253, 0.86) !important;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
 .leaflet-tile-pane { filter: none !important; will-change: transform; }
@@ -5900,8 +5935,8 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_APPLE_LIQUID_OS__) return;
-  window.__AT_APPLE_LIQUID_OS__ = true;
+  if (window.__AT_APPLE_LIQUID_V3__) return;
+  window.__AT_APPLE_LIQUID_V3__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -5912,7 +5947,6 @@ nav > div:not(#at-lg-tab-lens),
     }, { once: true });
   }
 
-  // Inject Iridescent Apple Liquid Glass Droplet Emblem beside "AquaTwin AI" brand title
   function mountGlassBrandLogo(){
     if (document.getElementById("at-apple-glass-logo")) return;
     var nodes = document.querySelectorAll("h1, h2, div, span");
@@ -5929,15 +5963,15 @@ nav > div:not(#at-lg-tab-lens),
           badge.innerHTML =
             '<svg viewBox="0 0 24 24" width="17" height="17" fill="none">' +
               '<defs>' +
-                '<linearGradient id="atLgDrop" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
-                  '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>' +
-                  '<stop offset="48%" stop-color="#7dd3fc" stop-opacity="0.88"/>' +
-                  '<stop offset="78%" stop-color="#c4b5fd" stop-opacity="0.85"/>' +
-                  '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.95"/>' +
+                '<linearGradient id="atLgDropV3" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
+                  '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>' +
+                  '<stop offset="46%" stop-color="#7dd3fc" stop-opacity="0.90"/>' +
+                  '<stop offset="76%" stop-color="#c4b5fd" stop-opacity="0.86"/>' +
+                  '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.96"/>' +
                 '</linearGradient>' +
               '</defs>' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDrop)" stroke="rgba(255,255,255,0.9)" stroke-width="1.2"/>' +
-              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>' +
+              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV3)" stroke="rgba(255,255,255,0.92)" stroke-width="1.2"/>' +
+              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.88"/>' +
             '</svg>';
           if (el.parentNode){
             el.parentNode.style.display = "inline-flex";
@@ -5950,7 +5984,17 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
-  // Canonical 33-district map
+  // Keep Live Water Map & AI Twin Simulator as sleek 22px rounded tiles (never 999px pills)
+  function tagDashboardActionTiles(){
+    var btns = document.querySelectorAll("button");
+    for (var i = 0; i < btns.length; i++){
+      var t = (btns[i].textContent || "").trim();
+      if (/Live Water Map|AI Twin Simulator/i.test(t)){
+        btns[i].classList.add("dash-btn");
+      }
+    }
+  }
+
   var DATA = [{"district":"Adilabad","reservoir_name":"Sathnala Reservoir & Swarna Project","wqi":78.4,"wqi_1m":76.2,"wqi_6m":74.8,"wqi_1y":75.5,"turb":0.96,"cov":2.35,"gw":5.25,"gw_ext":40.0,"gw_6m":6.45,"res":44.0,"res_6m":39.5},{"district":"Bhadradri Kothagudem","reservoir_name":"Kinnerasani Reservoir Project","wqi":76.1,"wqi_1m":74.5,"wqi_6m":72.0,"wqi_1y":73.1,"turb":1.04,"cov":3.8,"gw":7.3,"gw_ext":37.0,"gw_6m":8.6,"res":58.0,"res_6m":51.2},{"district":"Hanumakonda","reservoir_name":"Dharmasagar Reservoir (J. Chokka Rao Devadula Lift Irrigation Scheme)","wqi":71.5,"wqi_1m":69.8,"wqi_6m":68.4,"wqi_1y":70.1,"turb":1.12,"cov":1.95,"gw":5.98,"gw_ext":61.0,"gw_6m":7.45,"res":52.0,"res_6m":45.0},{"district":"Hyderabad","reservoir_name":"Osman Sagar & Himayat Sagar Reservoirs","wqi":57.3,"wqi_1m":54.0,"wqi_6m":54.2,"wqi_1y":55.7,"turb":1.28,"cov":0.68,"gw":11.1,"gw_ext":103.7,"gw_6m":9.93,"res":65.5,"res_6m":52.1},{"district":"Jagtial","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":81.2,"wqi_1m":79.5,"wqi_6m":77.9,"wqi_1y":78.8,"turb":0.94,"cov":3.1,"gw":4.41,"gw_ext":45.0,"gw_6m":5.7,"res":41.2,"res_6m":36.4},{"district":"Jangaon","reservoir_name":"R.S. Ghanpur & Tapaspally Reservoirs","wqi":79.0,"wqi_1m":70.2,"wqi_6m":68.7,"wqi_1y":69.2,"turb":1.02,"cov":1.45,"gw":8.12,"gw_ext":59.0,"gw_6m":9.92,"res":36.0,"res_6m":32.4},{"district":"Jayashankar Bhupalpally","reservoir_name":"Medigadda Barrage & Godavari Lift Irrigation Grid","wqi":77.8,"wqi_1m":76.0,"wqi_6m":74.2,"wqi_1y":75.0,"turb":1.01,"cov":3.65,"gw":6.2,"gw_ext":43.0,"gw_6m":7.55,"res":55.0,"res_6m":48.8},{"district":"Jogulamba Gadwal","reservoir_name":"Priyadarshini Jurala Project","wqi":73.4,"wqi_1m":71.0,"wqi_6m":69.5,"wqi_1y":71.2,"turb":1.09,"cov":2.2,"gw":8.1,"gw_ext":46.0,"gw_6m":9.65,"res":38.0,"res_6m":33.5},{"district":"Kamareddy","reservoir_name":"Nizam Sagar Reservoir","wqi":75.6,"wqi_1m":73.8,"wqi_6m":71.9,"wqi_1y":72.7,"turb":1.03,"cov":2.4,"gw":12.3,"gw_ext":51.0,"gw_6m":13.8,"res":50.4,"res_6m":43.0},{"district":"Karimnagar","reservoir_name":"Lower Manair Dam (LMD)","wqi":84.5,"wqi_1m":82.0,"wqi_6m":79.8,"wqi_1y":80.5,"turb":0.91,"cov":3.5,"gw":6.64,"gw_ext":56.6,"gw_6m":9.29,"res":61.3,"res_6m":54.0},{"district":"Khammam","reservoir_name":"Palair Reservoir & Wyra Reservoir","wqi":76.8,"wqi_1m":75.1,"wqi_6m":73.4,"wqi_1y":74.2,"turb":1.05,"cov":2.95,"gw":4.6,"gw_ext":43.0,"gw_6m":5.95,"res":48.0,"res_6m":42.5},{"district":"Kumuram Bheem Asifabad","reservoir_name":"Komaram Bheem Project Reservoir","wqi":78.9,"wqi_1m":77.2,"wqi_6m":75.6,"wqi_1y":76.4,"turb":0.97,"cov":2.75,"gw":5.85,"gw_ext":38.0,"gw_6m":7.15,"res":46.0,"res_6m":40.2},{"district":"Mahabubabad","reservoir_name":"Pakhala Lake & Bayyaram Cheruvu","wqi":75.2,"wqi_1m":73.5,"wqi_6m":71.8,"wqi_1y":72.5,"turb":1.06,"cov":2.3,"gw":7.3,"gw_ext":56.0,"gw_6m":8.85,"res":51.0,"res_6m":44.6},{"district":"Mahabubnagar","reservoir_name":"Koilsagar Lift Irrigation Project","wqi":70.4,"wqi_1m":68.5,"wqi_6m":66.9,"wqi_1y":68.1,"turb":1.14,"cov":1.55,"gw":9.6,"gw_ext":76.0,"gw_6m":11.4,"res":34.0,"res_6m":29.8},{"district":"Mancherial","reservoir_name":"Sripada Yellampally Project","wqi":82.4,"wqi_1m":80.7,"wqi_6m":79.0,"wqi_1y":79.6,"turb":0.93,"cov":3.85,"gw":5.4,"gw_ext":42.0,"gw_6m":6.75,"res":84.7,"res_6m":74.5},{"district":"Medak","reservoir_name":"Pocharam Reservoir & Manjeera Barrage","wqi":72.8,"wqi_1m":70.6,"wqi_6m":68.9,"wqi_1y":70.2,"turb":1.08,"cov":1.4,"gw":9.68,"gw_ext":70.0,"gw_6m":11.55,"res":22.0,"res_6m":20.5},{"district":"Medchal-Malkajgiri","reservoir_name":"Sripada Yellampally Water Supply Grid","wqi":64.5,"wqi_1m":62.8,"wqi_6m":61.5,"wqi_1y":63.0,"turb":1.19,"cov":1.1,"gw":11.64,"gw_ext":73.7,"gw_6m":13.4,"res":72.0,"res_6m":63.0},{"district":"Mulugu","reservoir_name":"Laknavaram Lake & Ramappa Lake","wqi":80.5,"wqi_1m":78.8,"wqi_6m":77.1,"wqi_1y":77.9,"turb":0.95,"cov":3.4,"gw":5.9,"gw_ext":36.0,"gw_6m":7.2,"res":64.0,"res_6m":56.5},{"district":"Nagarkurnool","reservoir_name":"Srisailam Hydroelectric & Reservoir Project","wqi":72.1,"wqi_1m":70.2,"wqi_6m":68.5,"wqi_1y":69.8,"turb":1.11,"cov":1.85,"gw":8.4,"gw_ext":40.0,"gw_6m":10.1,"res":29.0,"res_6m":26.5},{"district":"Nalgonda","reservoir_name":"Nagarjuna Sagar Dam & Reservoir","wqi":71.8,"wqi_1m":69.9,"wqi_6m":68.2,"wqi_1y":69.4,"turb":1.1,"cov":2.05,"gw":9.8,"gw_ext":49.0,"gw_6m":11.6,"res":25.0,"res_6m":23.0},{"district":"Narayanpet","reservoir_name":"Koilsagar Project & Priyadarshini Jurala Feed Canal","wqi":71.2,"wqi_1m":69.4,"wqi_6m":67.8,"wqi_1y":69.0,"turb":1.12,"cov":1.5,"gw":8.6,"gw_ext":39.0,"gw_6m":10.3,"res":35.0,"res_6m":31.0},{"district":"Nirmal","reservoir_name":"Kaddam Narayan Reddy Project","wqi":79.4,"wqi_1m":77.6,"wqi_6m":75.9,"wqi_1y":76.7,"turb":0.96,"cov":2.6,"gw":6.07,"gw_ext":38.0,"gw_6m":7.4,"res":37.0,"res_6m":33.0},{"district":"Nizamabad","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":78.2,"wqi_1m":76.4,"wqi_6m":74.7,"wqi_1y":75.5,"turb":0.99,"cov":2.7,"gw":8.63,"gw_ext":52.0,"gw_6m":10.25,"res":41.2,"res_6m":36.4},{"district":"Peddapalli","reservoir_name":"Sripada Yellampally Project","wqi":89.0,"wqi_1m":87.2,"wqi_6m":85.4,"wqi_1y":86.0,"turb":0.9919,"cov":2.4913,"gw":6.31,"gw_ext":48.5,"gw_6m":8.17,"res":84.7,"res_6m":74.0},{"district":"Rajanna Sircilla","reservoir_name":"Mid Manair Dam (MMR)","wqi":81.9,"wqi_1m":80.1,"wqi_6m":78.3,"wqi_1y":79.1,"turb":0.94,"cov":2.85,"gw":7.36,"gw_ext":69.0,"gw_6m":8.95,"res":82.7,"res_6m":72.5},{"district":"Ranga Reddy","reservoir_name":"Himayat Sagar Reservoir & Akkampally Balancing Reservoir","wqi":66.8,"wqi_1m":65.0,"wqi_6m":63.6,"wqi_1y":65.1,"turb":1.16,"cov":1.35,"gw":11.74,"gw_ext":68.0,"gw_6m":13.5,"res":79.7,"res_6m":69.0},{"district":"Sangareddy","reservoir_name":"Singur Dam Reservoir","wqi":69.5,"wqi_1m":67.8,"wqi_6m":66.2,"wqi_1y":67.4,"turb":1.13,"cov":1.5,"gw":11.21,"gw_ext":48.1,"gw_6m":12.9,"res":6.4,"res_6m":9.5},{"district":"Siddipet","reservoir_name":"Mallanna Sagar Reservoir","wqi":77.4,"wqi_1m":75.6,"wqi_6m":73.9,"wqi_1y":74.8,"turb":1.01,"cov":2.55,"gw":9.2,"gw_ext":69.0,"gw_6m":10.95,"res":49.0,"res_6m":43.2},{"district":"Suryapet","reservoir_name":"Musi Reservoir & Nagarjuna Sagar Left Canal Grid","wqi":73.0,"wqi_1m":71.2,"wqi_6m":69.6,"wqi_1y":70.8,"turb":1.09,"cov":1.9,"gw":8.2,"gw_ext":54.0,"gw_6m":9.85,"res":31.0,"res_6m":27.5},{"district":"Vikarabad","reservoir_name":"Kotepally Project & Singur Water Supply Grid","wqi":70.8,"wqi_1m":69.0,"wqi_6m":67.5,"wqi_1y":68.7,"turb":1.12,"cov":1.25,"gw":13.54,"gw_ext":61.0,"gw_6m":15.2,"res":18.0,"res_6m":17.5},{"district":"Wanaparthy","reservoir_name":"Sarala Sagar Project & Ramanpad Reservoir","wqi":72.5,"wqi_1m":70.7,"wqi_6m":69.1,"wqi_1y":70.3,"turb":1.1,"cov":1.75,"gw":7.9,"gw_ext":44.0,"gw_6m":9.5,"res":33.0,"res_6m":29.2},{"district":"Warangal","reservoir_name":"Pakhala Lake & Ramappa Lake Feed System","wqi":76.5,"wqi_1m":74.8,"wqi_6m":73.1,"wqi_1y":73.9,"turb":1.04,"cov":2.45,"gw":8.3,"gw_ext":58.0,"gw_6m":9.95,"res":54.0,"res_6m":47.5},{"district":"Yadadri Bhuvanagiri","reservoir_name":"Musi Reservoir & Gandhamalla Reservoir","wqi":72.2,"wqi_1m":70.4,"wqi_6m":68.8,"wqi_1y":70.0,"turb":1.11,"cov":1.7,"gw":9.1,"gw_ext":70.0,"gw_6m":10.75,"res":39.0,"res_6m":34.5}];
   function canon(s){
     return String(s || "").toLowerCase().replace(/[\u2013\u2014\-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
@@ -6004,12 +6048,12 @@ nav > div:not(#at-lg-tab-lens),
     try { if (navigator.vibrate) navigator.vibrate(6); } catch(e){}
   }
 
-  // 120Hz Critically-Damped Apple Spring Physics Engine (stiffness 420, damping 32)
+  // 120Hz Critically-Damped Apple Spring Engine (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0;
-  var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1, switchTimer = null;
+  var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
   var springX = 0, springVx = 0, springTargetX = 0;
-  var springW = 78, springVw = 0, springTargetW = 78;
+  var springW = 82, springVw = 0, springTargetW = 82;
   var springScale = 1, springVs = 0, springTargetScale = 1;
   var animRaf = null, lastTs = 0, mutatingNav = false;
   var STIFFNESS = 420, DAMPING = 32;
@@ -6046,10 +6090,9 @@ nav > div:not(#at-lg-tab-lens),
     var nr = nav.getBoundingClientRect();
     navLeft = nr.left;
     navWidth = nr.width;
-    // Symmetrical 2px horizontal inset so the optical lens frames each tab cleanly
     tabRects = tabs.map(function(t){
       var r = t.getBoundingClientRect();
-      return { left: (r.left - navLeft) + 2, width: Math.max(56, r.width - 4), cx: r.left + r.width * 0.5 };
+      return { left: (r.left - navLeft) + 2, width: Math.max(58, r.width - 4), cx: r.left + r.width * 0.5 };
     });
   }
 
@@ -6071,9 +6114,10 @@ nav > div:not(#at-lg-tab-lens),
     springVs += as * dt;
     springScale += springVs * dt;
 
-    var stretch = Math.min(0.20, Math.abs(springVx) * 0.00024);
+    // Velocity-based liquid stretch like real water/glass droplet
+    var stretch = Math.min(0.22, Math.abs(springVx) * 0.00025);
     var sx = springScale + stretch;
-    var sy = Math.max(0.91, springScale - stretch * 0.42);
+    var sy = Math.max(0.90, springScale - stretch * 0.42);
 
     lensEl.style.width = springW.toFixed(1) + "px";
     lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + sx.toFixed(3) + ", " + sy.toFixed(3) + ")";
@@ -6129,10 +6173,19 @@ nav > div:not(#at-lg-tab-lens),
     for (var i = 0; i < tabsCache.length; i++) tabsCache[i].classList.remove("at-lg-hover");
   }
 
-  function pointerMove(clientX, allowSwitch){
+  function updateCausticLight(clientX){
+    if (!lensEl) return;
+    var r = lensEl.getBoundingClientRect();
+    if (r.width < 20) return;
+    var pct = Math.max(12, Math.min(88, ((clientX - r.left) / r.width) * 100));
+    lensEl.style.setProperty("--lg-hx", pct.toFixed(1) + "%");
+  }
+
+  function pointerGlide(clientX){
     if (!tabRects.length) return;
     springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), clientX - navLeft - springW * 0.5));
-    springTargetScale = 1.07;
+    springTargetScale = 1.10;
+    updateCausticLight(clientX);
     kickSpring();
     var best = 0, bestD = Infinity;
     for (var i = 0; i < tabRects.length; i++){
@@ -6157,17 +6210,14 @@ nav > div:not(#at-lg-tab-lens),
     } else if (screen === "home"){
       var h = document.getElementById("view-dash") || document.getElementById("screen-home") || document.querySelector('[id*="dash"], [id*="home"]');
       if (h && isActuallyVisible(h, 50)) return h;
-    } else if (screen === "map"){
-      return document.querySelector("#map, #aquatwin-map, .leaflet-container");
     }
     return null;
   }
 
   function animateScreenTransition(screen, fromIdx, toIdx){
     if (fromIdx < 0 || fromIdx === toIdx) return;
-    // Clear any in-flight animation classes on all panels first so two screens never overlap
-    document.querySelectorAll(".at-anim-slide-right, .at-anim-slide-left, .at-anim-map-fade").forEach(function(el){
-      el.classList.remove("at-anim-slide-right", "at-anim-slide-left", "at-anim-map-fade");
+    document.querySelectorAll(".at-anim-slide-right, .at-anim-slide-left").forEach(function(el){
+      el.classList.remove("at-anim-slide-right", "at-anim-slide-left");
     });
     if (screen === "map") return;
     var panel = findActiveScreenPanel(screen);
@@ -6175,12 +6225,12 @@ nav > div:not(#at-lg-tab-lens),
     void panel.offsetWidth;
     var cls = (toIdx > fromIdx ? "at-anim-slide-right" : "at-anim-slide-left");
     panel.classList.add(cls);
-    var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left", "at-anim-map-fade"); };
+    var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left"); };
     panel.addEventListener("animationend", done, { once: true });
-    setTimeout(done, 280);
+    setTimeout(done, 260);
   }
 
-  // Warm Generous Satellite Tile Layer (keepBuffer: 5 for instant 120fps pan/zoom)
+  // Warm Satellite Map Layers (keepBuffer: 5, Satellite ON by default on Map)
   var satEnabled = true, satLayer = null, labelLayer = null;
   function getLeafletMaps(){
     var res = [];
@@ -6218,13 +6268,12 @@ nav > div:not(#at-lg-tab-lens),
     });
   }
 
+  // Clean screen detector: Districts search checked FIRST, never confused by "All" dropdown
   function detectScreen(){
-    // 1. Check Districts search input FIRST (Districts also has an "All" <select> filter)
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
       if (!isOverlay(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
     }
-    // 2. Check AI Twin ONLY by actual simulator sliders or AI Twin headings (never generic <select>)
     var ranges = document.querySelectorAll('input[type="range"]');
     for (var r = 0; r < ranges.length; r++){
       if (!isOverlay(ranges[r]) && isActuallyVisible(ranges[r], 1)) return "ai twin";
@@ -6236,20 +6285,6 @@ nav > div:not(#at-lg-tab-lens),
       var txt = (node.textContent || "").trim();
       if (/^(Rainfall Change|Temperature Change|Pollution Load|3-Year AI Forecast|Groundwater Aquifer)/i.test(txt) && isActuallyVisible(node, 8)) return "ai twin";
       if (/^(AquaTwin Overview|Water Stress Distribution|Priority Watchlist)$/i.test(txt) && isActuallyVisible(node, 8)) return "home";
-    }
-    // 3. Check Map container
-    var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
-    for (var m = 0; m < maps.length; m++){
-      if (isActuallyVisible(maps[m], 140)){
-        var mr = maps[m].getBoundingClientRect();
-        if (mr.width >= 160 && mr.height >= 160) return "map";
-      }
-    }
-    return "home";
-  }
-    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
-    for (var s = 0; s < searches.length; s++){
-      if (!isOverlay(searches[s]) && isActuallyVisible(searches[s], 16)) return "districts";
     }
     var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
     for (var m = 0; m < maps.length; m++){
@@ -6303,6 +6338,7 @@ nav > div:not(#at-lg-tab-lens),
   function runSync(allowAnim){
     syncQueued = false;
     mountGlassBrandLogo();
+    tagDashboardActionTiles();
     var screen = detectScreen();
 
     var satBtn = document.getElementById("at-sat-toggle-btn");
@@ -6388,6 +6424,7 @@ nav > div:not(#at-lg-tab-lens),
 
   function initDock(){
     mountGlassBrandLogo();
+    tagDashboardActionTiles();
     var nav = getNav();
     if (!nav) return;
 
@@ -6402,9 +6439,8 @@ nav > div:not(#at-lg-tab-lens),
 
     var tabs = getTabs(nav);
 
-    // Targeted observer ONLY on the 4 dock buttons (zero polling, zero scroll overhead)
-    if (typeof MutationObserver === "function" && nav.dataset.atAppleObs !== "1"){
-      nav.dataset.atAppleObs = "1";
+    if (typeof MutationObserver === "function" && nav.dataset.atV3Obs !== "1"){
+      nav.dataset.atV3Obs = "1";
       var tabObs = new MutationObserver(function(){
         if (!mutatingNav && !isDragging) scheduleSync(0);
       });
@@ -6413,49 +6449,73 @@ nav > div:not(#at-lg-tab-lens),
       });
     }
 
-    if (nav.dataset.atAppleLiquidBound !== "1"){
-      nav.dataset.atAppleLiquidBound = "1";
-      nav.addEventListener("touchstart", function(e){
-        if (!e.touches || !e.touches.length) return;
+    if (nav.dataset.atV3Bound !== "1"){
+      nav.dataset.atV3Bound = "1";
+
+      function beginGlide(clientX){
         measureDock();
-        isDragging = true; didDragMove = false; hoverIdx = -1;
-        startClientX = e.touches[0].clientX;
-        lensEl.classList.add("dragging");
-      }, { passive: true });
-      nav.addEventListener("touchmove", function(e){
-        if (!isDragging || !e.touches || !e.touches.length) return;
-        var cx = e.touches[0].clientX;
-        if (!didDragMove && Math.abs(cx - startClientX) > 6) didDragMove = true;
-        if (didDragMove){
-          e.preventDefault();
-          pointerMove(cx, true);
-        }
-      }, { passive: false });
-      function endDrag(){
-        if (!isDragging) return;
-        isDragging = false;
-        if (switchTimer){ clearTimeout(switchTimer); switchTimer = null; }
-        clearHover();
-        lensEl.classList.remove("dragging");
-        if (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx){
-          activeIdx = hoverIdx;
-          hapticTap();
-          try { tabsCache[hoverIdx].click(); } catch(e){}
-        }
+        isDragging = true;
         didDragMove = false;
         hoverIdx = -1;
-        scheduleSync(0);
-        scheduleSync(90);
+        startClientX = clientX;
+        lensEl.classList.add("dragging");
+        updateCausticLight(clientX);
       }
-      nav.addEventListener("touchend", endDrag, { passive: true });
-      nav.addEventListener("touchcancel", endDrag, { passive: true });
+
+      function moveGlide(clientX, evt){
+        if (!isDragging) return;
+        if (!didDragMove && Math.abs(clientX - startClientX) > 6) didDragMove = true;
+        if (didDragMove){
+          if (evt && evt.cancelable) evt.preventDefault();
+          pointerGlide(clientX);
+        }
+      }
+
+      function finishGlide(){
+        if (!isDragging) return;
+        isDragging = false;
+        clearHover();
+        lensEl.classList.remove("dragging");
+        var targetToClick = (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx) ? hoverIdx : -1;
+        didDragMove = false;
+        hoverIdx = -1;
+        if (targetToClick >= 0){
+          activeIdx = targetToClick;
+          hapticTap();
+          try { tabsCache[targetToClick].click(); } catch(e){}
+          snapLens(targetToClick, false);
+        } else {
+          snapLens(activeIdx, false);
+        }
+        scheduleSync(40);
+        scheduleSync(160);
+      }
+
+      // Touch drag (Android / iOS)
+      nav.addEventListener("touchstart", function(e){
+        if (e.touches && e.touches.length) beginGlide(e.touches[0].clientX);
+      }, { passive: true });
+      nav.addEventListener("touchmove", function(e){
+        if (e.touches && e.touches.length) moveGlide(e.touches[0].clientX, e);
+      }, { passive: false });
+      nav.addEventListener("touchend", finishGlide, { passive: true });
+      nav.addEventListener("touchcancel", finishGlide, { passive: true });
+
+      // Mouse drag (Desktop Web Browser)
+      nav.addEventListener("mousedown", function(e){
+        if (e.button === 0) beginGlide(e.clientX);
+      });
+      window.addEventListener("mousemove", function(e){
+        if (isDragging) moveGlide(e.clientX, e);
+      });
+      window.addEventListener("mouseup", finishGlide);
     }
 
     runSync(false);
     scheduleSync(180);
   }
 
-  document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(80); scheduleSync(240); }, { passive: true, capture: true });
+  document.addEventListener("click", function(){ scheduleSync(0); scheduleSync(80); scheduleSync(220); }, { passive: true, capture: true });
   document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(90); }, { passive: true, capture: true });
   window.addEventListener("resize", function(){ if (!isDragging) { measureDock(); snapLens(activeIdx, true); } }, { passive: true });
 
@@ -6470,283 +6530,12 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_APPLE_LIQUID_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_LIQUID_V3_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | lens=" + (document.getElementById("at-lg-tab-lens") ? "ok" : "missing") + " | screen=" + detectScreen() + " | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);
 })();
 </script>
 <!-- AQUATWIN_APPLE_LIQUID_OS_END -->
-<!-- APPLE_STEP1_EXACT_DOCK_START -->
-<style id="at-apple-step1-dock-css">
-/* Exact Apple iOS 26/27 Liquid Glass Floating Capsule Dock */
-nav,
-[class*="bottom-nav"],
-[class*="tab-bar"],
-.at-tabbar-fixed {
-  position: fixed !important;
-  left: 16px !important;
-  right: 16px !important;
-  bottom: 16px !important;
-  width: calc(100% - 32px) !important;
-  max-width: 410px !important;
-  height: 58px !important;
-  min-height: 58px !important;
-  max-height: 58px !important;
-  margin: 0 auto !important;
-  padding: 5px 6px !important;
-  border-radius: 999px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 0 !important;
-  /* Crystal-clear dark optical glass — never muddy or milky */
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.11) 0%,
-    rgba(255, 255, 255, 0.03) 45%,
-    rgba(8, 16, 30, 0.36) 100%
-  ) !important;
-  backdrop-filter: blur(32px) saturate(240%) brightness(1.06) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(240%) brightness(1.06) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.24) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
-  box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.42),
-    0 2px 8px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.58),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.14) !important;
-  overflow: visible !important;
-  touch-action: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  isolation: isolate;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  z-index: 2147482500 !important;
-}
-
-/* Balanced Apple tab items with clean vertical clearance above the lens rim */
-nav > button,
-nav > a,
-nav > div:not(#at-lg-tab-lens),
-[class*="bottom-nav"] > button,
-[class*="bottom-nav"] > a,
-[class*="tab-bar"] > button,
-[class*="tab-bar"] > a,
-.at-tabbar-fixed > button,
-.at-tabbar-fixed > a,
-.at-tabbar-fixed > div:not(#at-lg-tab-lens) {
-  position: relative !important;
-  z-index: 2 !important;
-  flex: 1 1 25% !important;
-  width: 25% !important;
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  margin: 0 !important;
-  padding: 5px 2px 6px 2px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 999px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: rgba(248, 250, 252, 0.72) !important;
-  font-size: 9.5px !important;
-  font-weight: 500 !important;
-  line-height: 1 !important;
-  letter-spacing: -0.01em !important;
-  gap: 3px !important;
-  transition: color 0.16s ease, transform 0.22s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
-}
-
-[data-at-tab="1"] svg {
-  width: 18px !important;
-  height: 18px !important;
-  min-width: 18px !important;
-  min-height: 18px !important;
-  flex-shrink: 0 !important;
-  stroke-width: 1.85 !important;
-  stroke-linecap: round !important;
-  stroke-linejoin: round !important;
-  color: inherit !important;
-  stroke: currentColor;
-  transition: transform 0.22s cubic-bezier(0.22, 1.4, 0.36, 1);
-}
-[data-at-tab="1"] span,
-[data-at-tab="1"] small {
-  font-size: 9.5px !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  color: inherit !important;
-}
-
-[data-at-tab="1"]:not([data-at-active="1"]) {
-  color: rgba(248, 250, 252, 0.68) !important;
-}
-[data-at-tab="1"][data-at-active="1"] {
-  color: #38bdf8 !important;
-  font-weight: 600 !important;
-}
-[data-at-tab="1"][data-at-active="1"] svg {
-  transform: translateY(-0.5px);
-  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
-}
-[data-at-tab="1"].at-lg-hover {
-  color: #ffffff !important;
-  transform: scale(1.07) translate3d(0, -1px, 0) !important;
-}
-
-/* Exact Apple Optical Liquid Glass Droplet Lens (Crystal Clear Center + Specular Caustic Rim) */
-#at-lg-tab-lens {
-  position: absolute !important;
-  top: 5px !important;
-  left: 0;
-  height: 46px !important;
-  border-radius: 999px !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  /* Pure transparent glass refraction — zero cloudy fill */
-  background: radial-gradient(
-    115% 130% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.22) 0%,
-    rgba(255, 255, 255, 0.04) 48%,
-    rgba(56, 189, 248, 0.06) 82%,
-    rgba(255, 255, 255, 0.14) 100%
-  ) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.42) !important;
-  box-shadow:
-    inset 0 1.25px 0.75px rgba(255, 255, 255, 0.88),
-    inset 0 -1.25px 2px rgba(255, 255, 255, 0.24),
-    inset 1px 0 1px rgba(125, 211, 252, 0.22),
-    inset -1px 0 1px rgba(196, 181, 253, 0.22),
-    0 4px 14px rgba(0, 0, 0, 0.24) !important;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  will-change: transform, width;
-  overflow: hidden;
-}
-
-/* Top caustic specular arc */
-#at-lg-tab-lens::before {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 12%;
-  right: 12%;
-  height: 36%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0) 100%);
-  opacity: 0.72;
-  pointer-events: none;
-}
-
-/* Micro prismatic chromatic edge dispersion */
-#at-lg-tab-lens::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  padding: 1px;
-  background: linear-gradient(
-    110deg,
-    rgba(255, 255, 255, 0.82) 0%,
-    rgba(125, 211, 252, 0.52) 32%,
-    rgba(216, 180, 254, 0.44) 66%,
-    rgba(255, 255, 255, 0.78) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-/* Magnified Optical Liquid Bubble while finger slides across tabs at 120Hz */
-#at-lg-tab-lens.dragging {
-  background: radial-gradient(
-    120% 140% at var(--lg-hx, 50%) 18%,
-    rgba(255, 255, 255, 0.32) 0%,
-    rgba(255, 255, 255, 0.05) 52%,
-    rgba(125, 211, 252, 0.12) 85%,
-    rgba(255, 255, 255, 0.24) 100%
-  ) !important;
-  backdrop-filter: blur(2px) brightness(1.18) contrast(1.06) saturate(185%) !important;
-  -webkit-backdrop-filter: blur(2px) brightness(1.18) contrast(1.06) saturate(185%) !important;
-  border-color: rgba(255, 255, 255, 0.90) !important;
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.38),
-    0 0 18px rgba(125, 211, 252, 0.28),
-    inset 0 2px 1.5px rgba(255, 255, 255, 0.96),
-    inset 0 -2px 4px rgba(167, 139, 250, 0.36) !important;
-}
-#at-lg-tab-lens.dragging::after { opacity: 1; }
-
-#at-askai-fab {
-  bottom: 88px !important;
-  right: 16px !important;
-}
-</style>
-<script id="at-apple-step1-dock-js">
-(function(){
-  if (window.__AT_APPLE_STEP1_CAUSTIC__) return;
-  window.__AT_APPLE_STEP1_CAUSTIC__ = true;
-
-  // Dynamic specular highlight angle follows your thumb across the Liquid Glass lens at 120Hz
-  function updateLightAngle(clientX){
-    var lens = document.getElementById("at-lg-tab-lens");
-    if (!lens) return;
-    var r = lens.getBoundingClientRect();
-    if (r.width < 20) return;
-    var pct = Math.max(15, Math.min(85, ((clientX - r.left) / r.width) * 100));
-    lens.style.setProperty("--lg-hx", pct.toFixed(1) + "%");
-  }
-
-  document.addEventListener("touchmove", function(e){
-    if (e.touches && e.touches.length) updateLightAngle(e.touches[0].clientX);
-  }, { passive: true });
-  document.addEventListener("pointermove", function(e){
-    if (e.buttons) updateLightAngle(e.clientX);
-  }, { passive: true });
-})();
-</script>
-<!-- APPLE_STEP1_EXACT_DOCK_END -->
-<!-- APPLE_SWIPE_GLITCH_FIX_START -->
-<style id="at-apple-swipe-glitch-fix-css">
-/* Crystal-clear optical bubble while swiping — zero milky washout over icons/labels */
-#at-lg-tab-lens.dragging {
-  background: radial-gradient(
-    120% 135% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(255, 255, 255, 0.02) 56%,
-    rgba(125, 211, 252, 0.08) 88%,
-    rgba(255, 255, 255, 0.14) 100%
-  ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.86) !important;
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.34),
-    0 0 14px rgba(125, 211, 252, 0.24),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.92),
-    inset 0 -1.5px 3px rgba(167, 139, 250, 0.30) !important;
-}
-/* Crisp, subtle 120Hz directional slide without opacity-black-flash dip */
-@keyframes atLiquidSlideFromRight {
-  0% { opacity: 0.92; transform: translate3d(22px, 0, 0); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-@keyframes atLiquidSlideFromLeft {
-  0% { opacity: 0.92; transform: translate3d(-22px, 0, 0); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-.at-anim-slide-right { animation: atLiquidSlideFromRight 0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
-.at-anim-slide-left  { animation: atLiquidSlideFromLeft  0.22s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
-</style>
-<!-- APPLE_SWIPE_GLITCH_FIX_END -->
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
-    "version":  "1.122",
-    "version_code":  122,
+    "version":  "1.123",
+    "version_code":  123,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed Districts-to-AI-Twin false highlight, mid-swipe black flashes, overlapping screens \u0026 drag lens clarity",
+    "notes":  "• Restored 120Hz optical Liquid Glass droplet slider, fixed squished text/tile shapes \u0026 Satellite toggle",
     "force":  false,
-    "updated_at":  "2026-11-26 03:07 IST"
+    "updated_at":  "2026-11-26 03:20 IST"
 }
