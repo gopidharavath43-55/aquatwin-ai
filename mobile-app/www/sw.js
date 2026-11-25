@@ -1,6 +1,6 @@
-const APP_CACHE = 'aquatwin-apple-liquid-v7';
-const TILE_CACHE = 'aquatwin-tiles-v7';
-const MAX_TILES = 1000;
+const APP_CACHE = 'aquatwin-white-liquid-v8';
+const TILE_CACHE = 'aquatwin-tiles-v8';
+const MAX_TILES = 1200;
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.126";
+window.AQUATWIN_VERSION = "1.127";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5471,10 +5471,12 @@ nav > div:not(#at-lg-tab-lens),
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
   --at-map-ctrl-top: 96px;
-  /* Exact Apple Liquid Glass Optical Spec (from Figma reference: 4,5,6 + -1,-3,4 + 0,8,13 + blur 8px) */
-  --lg-inner-rim: inset 4px 5px 6px rgba(255, 255, 255, 0.32), inset -1px -3px 4px rgba(255, 255, 255, 0.34);
-  --lg-drop: 0 8px 14px rgba(0, 12, 36, 0.28);
-  --lg-blur: blur(8px) saturate(190%);
+  /* White Apple Liquid Glass Optical Spec */
+  --wlg-card: linear-gradient(155deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.11) 52%, rgba(224, 242, 254, 0.16) 100%);
+  --wlg-sub: linear-gradient(155deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%);
+  --wlg-pill: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.16) 54%, rgba(224, 242, 254, 0.22) 100%);
+  --wlg-rim: inset 3px 4px 6px rgba(255, 255, 255, 0.44), inset -1px -2px 4px rgba(255, 255, 255, 0.36);
+  --wlg-shadow: 0 10px 26px rgba(2, 16, 48, 0.24);
 }
 
 * {
@@ -5484,7 +5486,7 @@ nav > div:not(#at-lg-tab-lens),
 }
 
 html, body {
-  background-color: #02205c !important;
+  background-color: #051c48 !important;
   color: #ffffff;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
@@ -5495,9 +5497,7 @@ html, body {
   line-height: 1.4;
 }
 
-/* ============================================================================
-   EXACT APPLE BLUE LIQUID WAVE WALLPAPER (matching video_2.mp4 00:02 & 00:37)
-   ============================================================================ */
+/* Luminous white-frost & sapphire liquid light backdrop across Home, Districts, Map & AI Twin */
 body::before {
   content: "";
   position: fixed;
@@ -5505,14 +5505,13 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(85% 58% at 15% 12%, rgba(56, 189, 248, 0.85) 0%, rgba(14, 165, 233, 0.36) 42%, rgba(0, 82, 204, 0) 74%),
-    radial-gradient(72% 52% at 88% 24%, rgba(96, 165, 250, 0.72) 0%, rgba(37, 99, 235, 0.30) 48%, rgba(2, 24, 72, 0) 76%),
-    radial-gradient(90% 62% at 50% 82%, rgba(0, 122, 255, 0.78) 0%, rgba(3, 54, 156, 0.44) 52%, rgba(2, 18, 56, 0.92) 100%),
-    linear-gradient(155deg, #0066e6 0%, #0044b3 36%, #002a7a 70%, #021744 100%);
+    radial-gradient(76% 52% at 18% 12%, rgba(255, 255, 255, 0.22) 0%, rgba(186, 230, 253, 0.18) 38%, rgba(14, 165, 233, 0) 72%),
+    radial-gradient(68% 48% at 86% 24%, rgba(240, 249, 255, 0.20) 0%, rgba(125, 211, 252, 0.16) 42%, rgba(29, 78, 216, 0) 74%),
+    radial-gradient(84% 58% at 50% 86%, rgba(224, 242, 254, 0.18) 0%, rgba(2, 132, 199, 0.24) 48%, rgba(4, 24, 66, 0.86) 100%),
+    linear-gradient(160deg, #0b3982 0%, #07265c 52%, #041638 100%);
   transform: translate3d(0, 0, 0);
 }
 
-/* Flowing Apple Liquid Blue Silk Ribbon Highlight + Micro Glass Grain */
 body::after {
   content: "";
   position: fixed;
@@ -5520,38 +5519,37 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='w1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23bae6fd' stop-opacity='0.42'/%3E%3Cstop offset='48%25' stop-color='%2338bdf8' stop-opacity='0.18'/%3E%3Cstop offset='100%25' stop-color='%23003eb3' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='w2' x1='1' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.34'/%3E%3Cstop offset='50%25' stop-color='%2360a5fa' stop-opacity='0.14'/%3E%3Cstop offset='100%25' stop-color='%23001a4d' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-80 260 C 180 60, 460 120, 880 340 L 880 640 C 520 420, 220 440, -80 620 Z' fill='url(%23w1)'/%3E%3Cpath d='M-60 880 C 240 680, 560 760, 860 980 L 860 1440 L -60 1440 Z' fill='url(%23w2)'/%3E%3Cpath d='M-40 310 C 210 120, 500 180, 840 390' fill='none' stroke='%23e0f2fe' stroke-opacity='0.48' stroke-width='3'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='wgl1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.28'/%3E%3Cstop offset='50%25' stop-color='%23e0f2fe' stop-opacity='0.12'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-80 280 C 180 90, 480 150, 880 350 L 880 620 C 520 430, 220 450, -80 610 Z' fill='url(%23wgl1)'/%3E%3Cpath d='M-60 890 C 240 700, 560 770, 860 980 L 860 1420 L -60 1420 Z' fill='url(%23wgl1)'/%3E%3C/svg%3E");
   background-size: cover;
   background-position: center;
-  opacity: 0.95;
+  opacity: 0.9;
   transform: translate3d(0, 0, 0);
 }
 
-/* Crisp Apple Glass Typography + Entrance Animations */
+h1, h2, h3, h4, .at-rt-title {
+  color: #ffffff !important;
+  font-variant-numeric: tabular-nums !important;
+}
 h1, h2 {
-  letter-spacing: -0.016em !important;
+  letter-spacing: -0.014em !important;
   word-spacing: 0.02em !important;
   font-weight: 700 !important;
-  color: #ffffff !important;
-  text-shadow: 0 2px 10px rgba(0, 24, 72, 0.28);
-  font-variant-numeric: tabular-nums !important;
 }
 h3, h4, .at-rt-title {
   letter-spacing: -0.004em !important;
   word-spacing: 0.03em !important;
   font-weight: 600 !important;
-  color: #ffffff !important;
 }
 [class*="val"], [class*="pct"], [class*="score"], [class*="metric"], td, .at-rt-pct, b, strong {
   font-variant-numeric: tabular-nums !important;
 }
 
-@keyframes atAppleTextReveal {
-  0% { opacity: 0.4; transform: translate3d(0, 6px, 0); }
+@keyframes atWhiteLiquidTextIn {
+  0% { opacity: 0.45; transform: translate3d(0, 5px, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 .at-text-pop {
-  animation: atAppleTextReveal 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: atWhiteLiquidTextIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 main,
@@ -5561,16 +5559,16 @@ main,
   padding-bottom: 116px !important;
 }
 
-/* Pure Liquid Glass Top Header */
+/* White Frosted Liquid Glass Header */
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(12, 62, 148, 0.28) 100%) !important;
-  backdrop-filter: blur(14px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(200%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.28) !important;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18), 0 6px 18px rgba(0, 14, 48, 0.22) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(224, 242, 254, 0.12) 100%) !important;
+  backdrop-filter: blur(18px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(210%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.34) !important;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.24), 0 6px 18px rgba(2, 16, 48, 0.20) !important;
 }
 
-/* Iridescent Apple Liquid Glass Brand Emblem */
+/* White Liquid Glass Brand Logo Badge */
 #at-apple-glass-logo {
   display: inline-flex;
   align-items: center;
@@ -5579,16 +5577,16 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   height: 30px;
   margin-right: 9px;
   border-radius: 10px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.36) 0%, rgba(186, 230, 253, 0.18) 55%, rgba(255, 255, 255, 0.14) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.62);
-  box-shadow: var(--lg-inner-rim), 0 4px 12px rgba(0, 24, 80, 0.28);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.18) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: var(--wlg-rim), 0 4px 12px rgba(2, 16, 48, 0.22);
   vertical-align: middle;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
 }
 
 /* ============================================================================
-   PURE APPLE LIQUID GLASS CARDS (EXACT FIGMA RECIPE: 4,5,6 + -1,-3,4 + BLUR 8PX)
+   WHITE LIQUID GLASS CARDS & CONTROLS ACROSS ALL TABS (HOME, DISTRICTS, AI TWIN)
    ============================================================================ */
 .card,
 .panel,
@@ -5599,30 +5597,30 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
   position: relative;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.20) 0%, rgba(190, 230, 255, 0.10) 48%, rgba(4, 34, 92, 0.26) 100%) !important;
-  backdrop-filter: var(--lg-blur) !important;
-  -webkit-backdrop-filter: var(--lg-blur) !important;
-  border: 1px solid rgba(255, 255, 255, 0.36) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.68) !important;
+  background: var(--wlg-card) !important;
+  backdrop-filter: blur(8px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.76) !important;
   border-radius: 26px !important;
-  box-shadow: var(--lg-drop), var(--lg-inner-rim) !important;
+  box-shadow: var(--wlg-shadow), var(--wlg-rim) !important;
 }
 
-/* FIX #3: Real-Time District Health List Rows — Full Name & % Visible, Zero Clipping */
+/* Full District Names in Real-Time District Health List (Zero Clipping) */
 .at-rt-list,
 [id*="rt-list"],
 [class*="rt-list"] {
   display: flex !important;
   flex-direction: column !important;
   gap: 8px !important;
-  max-height: 310px !important;
+  max-height: 340px !important;
   overflow-y: auto !important;
   padding: 6px 2px !important;
   -webkit-overflow-scrolling: touch !important;
 }
 .at-rt-row {
   flex: 0 0 auto !important;
-  min-height: 44px !important;
+  min-height: 46px !important;
   height: auto !important;
   padding: 10px 14px !important;
   margin: 0 !important;
@@ -5632,11 +5630,11 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   gap: 10px !important;
   line-height: 1.35 !important;
   overflow: visible !important;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
-  border-radius: 16px !important;
-  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.24), inset -1px -2px 3px rgba(255, 255, 255, 0.22), 0 4px 10px rgba(0, 14, 48, 0.18) !important;
+  background: var(--wlg-sub) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.34) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.66) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 4px 12px rgba(2, 16, 48, 0.16) !important;
 }
 .at-rt-row > *,
 .at-rt-row span,
@@ -5644,13 +5642,19 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   font-size: 13px !important;
   line-height: 1.35 !important;
   overflow: visible !important;
-  white-space: nowrap !important;
 }
-.at-rt-row > *:first-child {
+.at-rt-row > *:first-child,
+.at-rt-dname {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
   white-space: normal !important;
-  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
   color: #ffffff !important;
   font-weight: 600 !important;
+}
+.at-rt-pct {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
 }
 
 .dash-item,
@@ -5658,11 +5662,11 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .district-item,
 .district-card {
   position: relative;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
+  background: var(--wlg-sub) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.34) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.66) !important;
   border-radius: 20px !important;
-  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.26), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 6px 12px rgba(0, 14, 48, 0.20) !important;
+  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
   transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1) !important;
 }
 .dash-item:active,
@@ -5672,18 +5676,16 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   transform: scale(0.972) translate3d(0, 0, 0) !important;
 }
 
-/* ============================================================================
-   FIX #1: EXACT APPLE iOS 26/27 LIQUID GLASS DEMO TOGGLE (NO ON/OFF TEXT!)
-   ============================================================================ */
+/* White Liquid Glass Demo Switch (No ON/OFF text) */
 .at-demo-apple-wrap {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
   padding: 5px 8px 5px 12px !important;
   border-radius: 999px !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.44) !important;
-  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 4px rgba(255, 255, 255, 0.28), 0 6px 14px rgba(0, 14, 48, 0.22) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.56) !important;
+  box-shadow: var(--wlg-rim), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
   cursor: pointer !important;
   user-select: none !important;
 }
@@ -5699,16 +5701,16 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   width: 50px !important;
   height: 28px !important;
   border-radius: 999px !important;
-  background: rgba(255, 255, 255, 0.22) !important;
-  border: 1px solid rgba(255, 255, 255, 0.42) !important;
-  box-shadow: inset 0 2px 5px rgba(0, 14, 44, 0.32) !important;
+  background: rgba(255, 255, 255, 0.26) !important;
+  border: 1px solid rgba(255, 255, 255, 0.54) !important;
+  box-shadow: inset 0 2px 5px rgba(2, 16, 48, 0.24) !important;
   transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease !important;
   overflow: visible !important;
 }
 .at-apple-switch-track.is-on {
   background: linear-gradient(180deg, #34d369 0%, #28b856 100%) !important;
-  border-color: rgba(187, 247, 208, 0.80) !important;
-  box-shadow: inset 0 1px 4px rgba(0, 80, 28, 0.26), 0 0 14px rgba(52, 199, 89, 0.48) !important;
+  border-color: rgba(220, 252, 231, 0.90) !important;
+  box-shadow: inset 0 1px 4px rgba(0, 80, 28, 0.24), 0 0 14px rgba(52, 199, 89, 0.45) !important;
 }
 .at-apple-switch-knob {
   position: absolute !important;
@@ -5717,21 +5719,20 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   width: 24px !important;
   height: 22px !important;
   border-radius: 999px !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(235, 246, 255, 0.88) 100%) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.98) !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28), inset 2px 2px 3px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24), inset 2px 2px 3px rgba(255, 255, 255, 0.96) !important;
   transform: translate3d(0, 0, 0) scale(1, 1);
-  transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1), background 0.16s ease, box-shadow 0.16s ease !important;
+  transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1), background 0.16s ease !important;
   will-change: transform;
 }
 .at-apple-switch-track.is-on .at-apple-switch-knob {
   transform: translate3d(20px, 0, 0) scale(1, 1);
 }
-/* Exact Apple iOS 26/27 stretched clear-glass droplet morph while pressing/toggling (video_3.mp4 00:11-00:12) */
 .at-demo-apple-wrap:active .at-apple-switch-knob,
 .at-apple-switch-track.is-morphing .at-apple-switch-knob {
-  background: radial-gradient(120% 130% at 35% 22%, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.36) 100%) !important;
-  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.88), inset -1px -2px 4px rgba(255, 255, 255, 0.65), 0 4px 14px rgba(0, 0, 0, 0.26) !important;
+  background: radial-gradient(120% 130% at 35% 22%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.10) 55%, rgba(255, 255, 255, 0.40) 100%) !important;
+  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.92), inset -1px -2px 4px rgba(255, 255, 255, 0.72), 0 4px 14px rgba(0, 0, 0, 0.24) !important;
   transform: translate3d(4px, 0, 0) scale(1.36, 1.10) !important;
 }
 .at-demo-apple-wrap:active .at-apple-switch-track.is-on .at-apple-switch-knob,
@@ -5739,9 +5740,7 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   transform: translate3d(16px, 0, 0) scale(1.36, 1.10) !important;
 }
 
-/* ============================================================================
-   PURE LIQUID GLASS BUTTONS & PILLS (EXACT FIGMA + WWDC 25 CAUSTIC GEL)
-   ============================================================================ */
+/* White Liquid Glass Buttons & Pills */
 .dash-btn,
 .dash-action,
 .quick-btn,
@@ -5759,47 +5758,46 @@ button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):n
 #at-askai-fab {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.10) 52%, rgba(56, 189, 248, 0.16) 100%) !important;
-  backdrop-filter: var(--lg-blur) !important;
-  -webkit-backdrop-filter: var(--lg-blur) !important;
-  border: 1px solid rgba(255, 255, 255, 0.46) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.84) !important;
+  background: var(--wlg-pill) !important;
+  backdrop-filter: blur(8px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.88) !important;
   border-radius: 999px !important;
-  box-shadow: var(--lg-drop), var(--lg-inner-rim) !important;
+  box-shadow: var(--wlg-shadow), var(--wlg-rim) !important;
   color: #ffffff !important;
-  text-shadow: 0 1px 6px rgba(0, 20, 64, 0.28);
+  text-shadow: 0 1px 6px rgba(2, 16, 48, 0.25);
   touch-action: manipulation;
-  transition: transform 0.22s cubic-bezier(0.22, 1.55, 0.36, 1), box-shadow 0.2s ease, border-color 0.18s ease !important;
+  transition: transform 0.22s cubic-bezier(0.22, 1.55, 0.36, 1), box-shadow 0.2s ease !important;
 }
 
 button:not([data-at-tab="1"]):not(.at-demo-apple-wrap):active,
 #at-askai-fab:active {
   transform: scale(0.94, 0.96) translate3d(0, 0, 0) !important;
-  border-color: rgba(255, 255, 255, 0.96) !important;
-  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.45), inset 4px 5px 6px rgba(255, 255, 255, 0.62), inset -1px -3px 4px rgba(255, 255, 255, 0.56) !important;
+  border-color: #ffffff !important;
 }
 
 #at-askai-fab {
   bottom: 92px !important;
   right: 16px !important;
-  background: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.42) 0%, rgba(56, 189, 248, 0.46) 52%, rgba(0, 122, 255, 0.48) 100%) !important;
-  border: 1.1px solid rgba(224, 242, 254, 0.88) !important;
-  box-shadow: 0 10px 24px rgba(0, 82, 204, 0.42), var(--lg-inner-rim) !important;
+  background: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.24) 55%, rgba(186, 230, 253, 0.28) 100%) !important;
+  border: 1.1px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 10px 24px rgba(2, 16, 48, 0.30), var(--wlg-rim) !important;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 
+/* White Liquid Glass Inputs & Dropdowns (Districts Search & AI Twin Select) */
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(8, 42, 108, 0.36) 100%) !important;
-  backdrop-filter: var(--lg-blur) !important;
-  -webkit-backdrop-filter: var(--lg-blur) !important;
-  border: 1px solid rgba(255, 255, 255, 0.42) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.72) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
+  backdrop-filter: blur(8px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.44) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.78) !important;
   border-radius: 18px !important;
-  box-shadow: var(--lg-inner-rim), 0 6px 14px rgba(0, 14, 48, 0.20) !important;
+  box-shadow: var(--wlg-rim), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
   color: #ffffff !important;
 }
 select option {
@@ -5807,13 +5805,14 @@ select option {
   color: #ffffff !important;
 }
 
+/* White Liquid Glass Sliders */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 7px !important;
   border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(125, 211, 252, 0.72), rgba(255, 255, 255, 0.22)) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 18, 56, 0.40);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.24)) !important;
+  box-shadow: inset 0 1px 2px rgba(2, 16, 48, 0.30);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -5821,22 +5820,14 @@ input[type="range"]::-webkit-slider-thumb {
   width: 30px;
   height: 20px;
   border-radius: 999px;
-  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.76) 56%, rgba(125, 211, 252, 0.54) 100%);
-  border: 1.1px solid rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 12px rgba(0, 18, 56, 0.36), inset 2px 3px 4px rgba(255, 255, 255, 0.96);
+  background: radial-gradient(ellipse at 35% 22%, #ffffff 0%, rgba(255, 255, 255, 0.82) 60%, rgba(224, 242, 254, 0.62) 100%);
+  border: 1.1px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(2, 16, 48, 0.30), var(--wlg-rim);
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1);
-}
-input[type="range"]:active::-webkit-slider-thumb {
-  transform: scale(1.24, 1.12);
 }
 
-/* ============================================================================
-   FIX #2: FULL-SCREEN MAP + SATELLITE BUTTON AT EXACT SECOND-ARROW UPPER RIGHT
-   ============================================================================ */
-body.at-on-map-screen {
-  overflow: hidden !important;
-}
+/* Full-Screen Map + Satellite Pill at Upper-Right Arrow Spot */
+body.at-on-map-screen { overflow: hidden !important; }
 body.at-on-map-screen .at-top-header-bar {
   position: fixed !important;
   top: 0 !important;
@@ -5875,9 +5866,8 @@ body.at-on-map-screen .leaflet-container {
   z-index: 15 !important;
 }
 body.at-on-map-screen .leaflet-top.leaflet-left {
-  top: calc(var(--at-map-ctrl-top, 96px) + 52px) !important;
+  top: var(--at-map-ctrl-top, 96px) !important;
 }
-/* Hide redundant dark square Leaflet layers icon so Satellite/Map View pill owns that exact upper-right spot */
 body.at-on-map-screen .leaflet-control-layers {
   display: none !important;
 }
@@ -5885,33 +5875,31 @@ body.at-on-map-screen .leaflet-bottom {
   bottom: 92px !important;
 }
 
-/* Map View / Satellite Liquid Glass Pill placed at exact second-arrow spot (aligned with +/- zoom controls) */
+/* Placed in the upper-right slot directly beneath the header bar */
 #at-sat-toggle-btn {
   position: fixed !important;
-  top: calc(var(--at-map-ctrl-top, 96px) + 54px) !important;
+  top: var(--at-map-ctrl-top, 96px) !important;
   right: 12px !important;
   z-index: 2147482450 !important;
   display: none !important;
   align-items: center;
   gap: 6px;
-  padding: 9px 15px !important;
-  font-size: 12.5px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
-  backdrop-filter: blur(10px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(210%) !important;
+  backdrop-filter: blur(8px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
   cursor: pointer;
   transform: translate3d(0, 0, 0);
 }
 #at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
 #at-sat-toggle-btn.sat-on {
-  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.38) 0%, rgba(14, 165, 233, 0.62) 55%, rgba(0, 122, 255, 0.56) 100%) !important;
-  border-color: rgba(224, 242, 254, 0.92) !important;
+  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.24) 55%, rgba(224, 242, 254, 0.32) 100%) !important;
+  border-color: #ffffff !important;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
 
-/* ============================================================================
-   PURE APPLE LIQUID GLASS FLOATING DOCK + 120HZ OPTICAL DROPLET SLIDER
-   ============================================================================ */
+/* White Liquid Glass Floating Dock + 120Hz Optical Droplet Slider */
 nav,
 [class*="bottom-nav"],
 [class*="tab-bar"],
@@ -5932,12 +5920,12 @@ nav,
   align-items: center !important;
   justify-content: space-between !important;
   gap: 0 !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(186, 230, 253, 0.08) 48%, rgba(4, 34, 92, 0.32) 100%) !important;
-  backdrop-filter: blur(16px) saturate(225%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(225%) brightness(1.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.42) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.78) !important;
-  box-shadow: 0 14px 34px rgba(0, 14, 48, 0.40), var(--lg-inner-rim) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.10) 52%, rgba(224, 242, 254, 0.16) 100%) !important;
+  backdrop-filter: blur(18px) saturate(220%) brightness(1.06) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(220%) brightness(1.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.84) !important;
+  box-shadow: 0 14px 34px rgba(2, 16, 48, 0.34), var(--wlg-rim) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
@@ -6009,10 +5997,10 @@ nav > div:not(#at-lg-tab-lens),
 [data-at-tab="1"][data-at-active="1"] {
   color: #ffffff !important;
   font-weight: 700 !important;
-  text-shadow: 0 0 12px rgba(186, 230, 253, 0.85);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.85);
 }
 [data-at-tab="1"][data-at-active="1"] svg {
-  filter: drop-shadow(0 0 8px rgba(186, 230, 253, 0.85));
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.85));
 }
 [data-at-tab="1"].at-lg-hover {
   color: #ffffff !important;
@@ -6030,13 +6018,13 @@ nav > div:not(#at-lg-tab-lens),
   z-index: 1 !important;
   background: radial-gradient(
     115% 135% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.34) 0%,
-    rgba(255, 255, 255, 0.08) 48%,
-    rgba(56, 189, 248, 0.16) 82%,
-    rgba(255, 255, 255, 0.24) 100%
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(224, 242, 254, 0.18) 84%,
+    rgba(255, 255, 255, 0.28) 100%
   ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.66) !important;
-  box-shadow: var(--lg-inner-rim), 0 5px 16px rgba(0, 14, 48, 0.26) !important;
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  box-shadow: var(--wlg-rim), 0 5px 16px rgba(2, 16, 48, 0.24) !important;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform, width;
@@ -6045,13 +6033,13 @@ nav > div:not(#at-lg-tab-lens),
 #at-lg-tab-lens.dragging {
   background: radial-gradient(
     120% 140% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(255, 255, 255, 0.04) 54%,
-    rgba(125, 211, 252, 0.14) 86%,
-    rgba(255, 255, 255, 0.24) 100%
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.06) 54%,
+    rgba(224, 242, 254, 0.16) 86%,
+    rgba(255, 255, 255, 0.28) 100%
   ) !important;
-  border: 1.2px solid rgba(255, 255, 255, 0.96) !important;
-  box-shadow: 0 10px 26px rgba(0, 18, 64, 0.34), inset 4px 5px 6px rgba(255, 255, 255, 0.56), inset -1px -3px 4px rgba(255, 255, 255, 0.52) !important;
+  border: 1.2px solid #ffffff !important;
+  box-shadow: 0 10px 26px rgba(2, 16, 48, 0.30), inset 4px 5px 6px rgba(255, 255, 255, 0.62), inset -1px -3px 4px rgba(255, 255, 255, 0.56) !important;
 }
 
 @keyframes atLiquidNudgeRight {
@@ -6070,8 +6058,8 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_APPLE_LIQUID_V6__) return;
-  window.__AT_APPLE_LIQUID_V6__ = true;
+  if (window.__AT_WHITE_LIQUID_V8__) return;
+  window.__AT_WHITE_LIQUID_V8__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -6086,7 +6074,6 @@ nav > div:not(#at-lg-tab-lens),
     try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
   }
 
-  // Live finger-tracking Liquid Glass sheen on every button press
   function updateButtonLiquidLight(el, clientX, clientY){
     if (!el || !el.getBoundingClientRect) return;
     var r = el.getBoundingClientRect();
@@ -6101,14 +6088,96 @@ nav > div:not(#at-lg-tab-lens),
     if (btn) updateButtonLiquidLight(btn, e.clientX, e.clientY);
   }, { passive: true });
 
-  // FIX #1: Remove ON/OFF text from Demo toggle & render exact Apple iOS 26/27 Liquid Glass switch
+  // Clean stray "ON" / "OFF" text next to Demo switch & drive real-time district streaming
+  var demoActive = false;
+  var demoCycleIdx = 0;
+  var demoTimer = null;
+
+  function stripStrayOnOffNear(container){
+    if (!container || !container.parentNode) return;
+    var sibs = Array.prototype.slice.call(container.parentNode.children);
+    sibs.forEach(function(s){
+      if (s === container) return;
+      if (s.children.length === 0 && /^(ON|OFF|LIVE)$/i.test((s.textContent || "").trim())){
+        s.style.display = "none";
+      }
+    });
+  }
+
+  function getScored33(){
+    var src = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts : [];
+    return src.map(function(d, i){
+      var base = Number(d.xgb_wqi != null ? d.xgb_wqi : (d.wqi_score != null ? d.wqi_score : 74));
+      var drift = demoActive ? Math.sin(Date.now() / 1600 + i) * 1.4 : 0;
+      var pct = Math.max(15, Math.min(99, base + drift));
+      return {
+        district: d.district || ("District " + (i + 1)),
+        pct: pct,
+        water: Number(d.water_coverage_pct != null ? d.water_coverage_pct : 1.8),
+        gw: Number(d.gw_extraction_pct != null ? d.gw_extraction_pct : 50),
+        m1: Number(d.lstm_1m_wqi != null ? d.lstm_1m_wqi : base)
+      };
+    });
+  }
+
+  function renderRealTimeList(items, curIdx){
+    var listEl = document.querySelector(".at-rt-list, [id*='rt-list'], [class*='rt-list']");
+    if (!listEl || !items.length) return;
+    listEl.innerHTML = items.map(function(it, idx){
+      var isCur = demoActive && (idx === (curIdx % items.length));
+      var col = it.pct >= 70 ? "#6ee7b7" : (it.pct >= 55 ? "#fde68a" : "#fca5a5");
+      return (
+        '<div class="at-rt-row' + (isCur ? ' active' : '') + '">' +
+          '<span class="at-rt-dname">' + (idx + 1) + '. ' + it.district + '</span>' +
+          '<span class="at-rt-pct" style="color:' + col + '">' + it.pct.toFixed(1) + '%</span>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  function stepDemoTick(){
+    var items = getScored33();
+    if (!items.length) return;
+    if (demoActive){
+      demoCycleIdx = (demoCycleIdx + 1) % items.length;
+    }
+    var cur = items[demoCycleIdx % items.length];
+    var avg = items.reduce(function(a, b){ return a + b.pct; }, 0) / items.length;
+
+    // Update top Health Ring & sub-label
+    var all = document.querySelectorAll("div, span, p, b, strong");
+    for (var i = 0; i < all.length; i++){
+      var el = all[i];
+      if (el.children.length === 0 && /^\d+(\.\d+)?%$/.test((el.textContent || "").trim())){
+        var pr = el.getBoundingClientRect();
+        if (pr.top > 50 && pr.top < 360){
+          el.textContent = (demoActive ? cur.pct : avg).toFixed(1) + "%";
+        }
+      }
+    }
+
+    // Update live status lines if present
+    for (var j = 0; j < all.length; j++){
+      var n = all[j];
+      if (n.children.length !== 0) continue;
+      var t = (n.textContent || "").trim();
+      if (/Live Telemetry:|Playing Live:|Demo OFF/i.test(t)){
+        if (demoActive){
+          n.textContent = "Live Telemetry: " + cur.district + " • " + cur.pct.toFixed(1) + "% Health";
+        }
+      }
+    }
+
+    renderRealTimeList(items, demoCycleIdx);
+  }
+
   function upgradeDemoToggleToApple(){
     var demoBtn = document.getElementById("at-demo-btn") || document.querySelector(".at-demo-btn");
     if (!demoBtn){
       var btns = document.querySelectorAll("button, div");
       for (var i = 0; i < btns.length; i++){
         var txt = (btns[i].textContent || "").replace(/\s+/g, " ").trim();
-        if (/^Demo\s*(ON|OFF|LIVE)$/i.test(txt) && btns[i].children.length <= 4){
+        if (/^Demo\b/i.test(txt) && btns[i].children.length <= 4 && btns[i].offsetHeight <= 48){
           demoBtn = btns[i];
           break;
         }
@@ -6116,49 +6185,53 @@ nav > div:not(#at-lg-tab-lens),
     }
     if (!demoBtn) return;
 
-    var rawTxt = (demoBtn.textContent || "").toUpperCase();
-    var isOn = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
+    stripStrayOnOffNear(demoBtn);
 
-    if (demoBtn.dataset.atAppleSwitch !== "1"){
-      demoBtn.dataset.atAppleSwitch = "1";
+    if (demoBtn.dataset.atWhiteDemo !== "1"){
+      demoBtn.dataset.atWhiteDemo = "1";
+      var rawTxt = (demoBtn.textContent || "").toUpperCase();
+      demoActive = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
+
       demoBtn.classList.add("at-demo-apple-wrap");
       demoBtn.innerHTML =
         '<span class="at-demo-apple-label">Demo</span>' +
-        '<span class="at-apple-switch-track' + (isOn ? ' is-on' : '') + '">' +
+        '<span class="at-apple-switch-track' + (demoActive ? ' is-on' : '') + '">' +
           '<span class="at-apple-switch-knob"></span>' +
         '</span>';
 
-      demoBtn.addEventListener("click", function(){
+      demoBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
         hapticTap();
+        demoActive = !demoActive;
         var tr = demoBtn.querySelector(".at-apple-switch-track");
         if (tr){
+          tr.classList.toggle("is-on", demoActive);
           tr.classList.add("is-morphing");
-          setTimeout(function(){ tr.classList.remove("is-morphing"); }, 180);
+          setTimeout(function(){ tr.classList.remove("is-morphing"); }, 220);
         }
-        setTimeout(syncDemoSwitchVisual, 35);
-        setTimeout(syncDemoSwitchVisual, 140);
-      }, { passive: true });
-    } else {
-      syncDemoSwitchVisual();
-    }
-  }
+        if (demoActive){
+          if (!demoTimer) demoTimer = setInterval(stepDemoTick, 1600);
+          stepDemoTick();
+        } else {
+          if (demoTimer){ clearInterval(demoTimer); demoTimer = null; }
+          stepDemoTick();
+        }
+      }, false);
 
-  function syncDemoSwitchVisual(){
-    var demoBtn = document.querySelector("[data-at-apple-switch='1']");
-    if (!demoBtn) return;
-    // If legacy script overwrote innerHTML with "Demo: LIVE" / "Demo: OFF", restore clean Apple switch immediately!
-    var track = demoBtn.querySelector(".at-apple-switch-track");
-    var rawTxt = (demoBtn.textContent || "").toUpperCase();
-    var isOn = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
-    if (!track){
-      demoBtn.innerHTML =
-        '<span class="at-demo-apple-label">Demo</span>' +
-        '<span class="at-apple-switch-track' + (isOn ? ' is-on' : '') + '">' +
-          '<span class="at-apple-switch-knob"></span>' +
-        '</span>';
-      return;
+      renderRealTimeList(getScored33(), 0);
+    } else {
+      var trNow = demoBtn.querySelector(".at-apple-switch-track");
+      if (!trNow){
+        demoBtn.innerHTML =
+          '<span class="at-demo-apple-label">Demo</span>' +
+          '<span class="at-apple-switch-track' + (demoActive ? ' is-on' : '') + '">' +
+            '<span class="at-apple-switch-knob"></span>' +
+          '</span>';
+      } else {
+        trNow.classList.toggle("is-on", demoActive);
+      }
     }
-    track.classList.toggle("is-on", isOn);
   }
 
   function findHeaderBar(){
@@ -6199,15 +6272,8 @@ nav > div:not(#at-lg-tab-lens),
           badge.setAttribute("aria-hidden", "true");
           badge.innerHTML =
             '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
-              '<defs>' +
-                '<linearGradient id="atLgDropV6" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
-                  '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>' +
-                  '<stop offset="48%" stop-color="#bae6fd" stop-opacity="0.94"/>' +
-                  '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.96"/>' +
-                '</linearGradient>' +
-              '</defs>' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV6)" stroke="#ffffff" stroke-width="1.2"/>' +
-              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity="0.94"/>' +
+              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="rgba(255,255,255,0.86)" stroke="#ffffff" stroke-width="1.2"/>' +
+              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>' +
             '</svg>';
           if (el.parentNode){
             el.parentNode.style.display = "inline-flex";
@@ -6287,7 +6353,6 @@ nav > div:not(#at-lg-tab-lens),
     } catch(e){}
   }
 
-  // 120Hz Spring Physics Engine (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0;
   var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
@@ -6512,7 +6577,6 @@ nav > div:not(#at-lg-tab-lens),
     setTimeout(done, 190);
   }
 
-  // Full-Screen Map Controller + Warm Satellite Layer (keepBuffer: 5)
   var satEnabled = true, satLayer = null, labelLayer = null;
   function getLeafletMaps(){
     var res = [];
@@ -6580,7 +6644,6 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
-  // FIX #4: Bulletproof scroll-safe screen detection (AI Twin recognized even when scrolled to bottom)
   function detectScreen(){
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
@@ -6738,8 +6801,8 @@ nav > div:not(#at-lg-tab-lens),
     measureDock();
     var tabs = tabsCache;
 
-    if (typeof MutationObserver === "function" && nav.dataset.atV6Obs !== "1"){
-      nav.dataset.atV6Obs = "1";
+    if (typeof MutationObserver === "function" && nav.dataset.atV8Obs !== "1"){
+      nav.dataset.atV8Obs = "1";
       var tabObs = new MutationObserver(function(){
         if (!mutatingNav && !isDragging) scheduleSync(0);
       });
@@ -6748,8 +6811,8 @@ nav > div:not(#at-lg-tab-lens),
       });
     }
 
-    if (nav.dataset.atV6Bound !== "1"){
-      nav.dataset.atV6Bound = "1";
+    if (nav.dataset.atV8Bound !== "1"){
+      nav.dataset.atV8Bound = "1";
 
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
@@ -6829,7 +6892,6 @@ nav > div:not(#at-lg-tab-lens),
     scheduleSync(180);
   }
 
-  // FIX #4: Instant zero-buffer District -> AI Twin handoff for ANY district row in Districts or Home
   document.addEventListener("click", function(e){
     if (!e.target) return;
     if (e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
@@ -6840,8 +6902,7 @@ nav > div:not(#at-lg-tab-lens),
     if (!inNav && !inHdr && !isInput && !isOverlay(e.target)){
       var curScreen = detectScreen();
       var clickedCard = e.target.closest && e.target.closest(".district-item, .district-card, .dash-item, .at-rt-row, [onclick]");
-      var looksLikeDistrictTap = (curScreen === "districts") || Boolean(clickedCard);
-      if (looksLikeDistrictTap){
+      if (curScreen === "districts" || clickedCard){
         var aiIdx = findTabIdx("ai twin");
         if (aiIdx >= 0){
           lockedIdx = aiIdx;
@@ -6883,7 +6944,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_APPLE_V6_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_WHITE_LIQUID_V8_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);
