@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.127";
+window.AQUATWIN_VERSION = "1.128";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5471,12 +5471,6 @@ nav > div:not(#at-lg-tab-lens),
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
   --at-map-ctrl-top: 96px;
-  /* White Apple Liquid Glass Optical Spec */
-  --wlg-card: linear-gradient(155deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.11) 52%, rgba(224, 242, 254, 0.16) 100%);
-  --wlg-sub: linear-gradient(155deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%);
-  --wlg-pill: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.16) 54%, rgba(224, 242, 254, 0.22) 100%);
-  --wlg-rim: inset 3px 4px 6px rgba(255, 255, 255, 0.44), inset -1px -2px 4px rgba(255, 255, 255, 0.36);
-  --wlg-shadow: 0 10px 26px rgba(2, 16, 48, 0.24);
 }
 
 * {
@@ -5486,18 +5480,15 @@ nav > div:not(#at-lg-tab-lens),
 }
 
 html, body {
-  background-color: #051c48 !important;
-  color: #ffffff;
+  background-color: #061b3e !important;
+  color: #f8fafc;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: 0.004em !important;
-  word-spacing: 0.03em !important;
-  line-height: 1.4;
 }
 
-/* Luminous white-frost & sapphire liquid light backdrop across Home, Districts, Map & AI Twin */
+/* Luminous Liquid Glass edge & depth backdrop matching 1000361615.jpg across all screens */
 body::before {
   content: "";
   position: fixed;
@@ -5505,89 +5496,35 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(76% 52% at 18% 12%, rgba(255, 255, 255, 0.22) 0%, rgba(186, 230, 253, 0.18) 38%, rgba(14, 165, 233, 0) 72%),
-    radial-gradient(68% 48% at 86% 24%, rgba(240, 249, 255, 0.20) 0%, rgba(125, 211, 252, 0.16) 42%, rgba(29, 78, 216, 0) 74%),
-    radial-gradient(84% 58% at 50% 86%, rgba(224, 242, 254, 0.18) 0%, rgba(2, 132, 199, 0.24) 48%, rgba(4, 24, 66, 0.86) 100%),
-    linear-gradient(160deg, #0b3982 0%, #07265c 52%, #041638 100%);
+    radial-gradient(92% 28% at 50% 0%, rgba(125, 211, 252, 0.34) 0%, rgba(56, 189, 248, 0.14) 52%, rgba(6, 27, 62, 0) 100%),
+    radial-gradient(95% 32% at 50% 100%, rgba(251, 191, 36, 0.24) 0%, rgba(125, 211, 252, 0.18) 54%, rgba(6, 27, 62, 0) 100%),
+    linear-gradient(180deg, #0b2954 0%, #071e42 50%, #061836 100%);
   transform: translate3d(0, 0, 0);
 }
 
+/* Top & bottom Liquid Glass refraction edge bands (matching 1000361615.jpg arrows) */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 2147482350;
   pointer-events: none;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='wgl1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.28'/%3E%3Cstop offset='50%25' stop-color='%23e0f2fe' stop-opacity='0.12'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-80 280 C 180 90, 480 150, 880 350 L 880 620 C 520 430, 220 450, -80 610 Z' fill='url(%23wgl1)'/%3E%3Cpath d='M-60 890 C 240 700, 560 770, 860 980 L 860 1420 L -60 1420 Z' fill='url(%23wgl1)'/%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.9;
+  box-shadow:
+    inset 0 28px 34px -18px rgba(186, 230, 253, 0.34),
+    inset 0 -34px 40px -20px rgba(254, 240, 138, 0.28);
+  border-radius: 28px;
   transform: translate3d(0, 0, 0);
 }
 
-h1, h2, h3, h4, .at-rt-title {
-  color: #ffffff !important;
-  font-variant-numeric: tabular-nums !important;
-}
-h1, h2 {
-  letter-spacing: -0.014em !important;
-  word-spacing: 0.02em !important;
-  font-weight: 700 !important;
-}
-h3, h4, .at-rt-title {
-  letter-spacing: -0.004em !important;
-  word-spacing: 0.03em !important;
-  font-weight: 600 !important;
-}
-[class*="val"], [class*="pct"], [class*="score"], [class*="metric"], td, .at-rt-pct, b, strong {
-  font-variant-numeric: tabular-nums !important;
-}
-
-@keyframes atWhiteLiquidTextIn {
-  0% { opacity: 0.45; transform: translate3d(0, 5px, 0); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-.at-text-pop {
-  animation: atWhiteLiquidTextIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-main,
-#view-dash, #view-list, #view-sim,
-#screen-home, #screen-districts, #screen-sim,
-.page, .view, .screen {
-  padding-bottom: 116px !important;
-}
-
-/* White Frosted Liquid Glass Header */
+/* Translucent Liquid Glass Header */
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(224, 242, 254, 0.12) 100%) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(15, 42, 78, 0.36) 100%) !important;
   backdrop-filter: blur(18px) saturate(210%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(210%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.34) !important;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.24), 0 6px 18px rgba(2, 16, 48, 0.20) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28) !important;
 }
 
-/* White Liquid Glass Brand Logo Badge */
-#at-apple-glass-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  margin-right: 9px;
-  border-radius: 10px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.18) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  box-shadow: var(--wlg-rim), 0 4px 12px rgba(2, 16, 48, 0.22);
-  vertical-align: middle;
-  flex-shrink: 0;
-  transform: translate3d(0, 0, 0);
-}
-
-/* ============================================================================
-   WHITE LIQUID GLASS CARDS & CONTROLS ACROSS ALL TABS (HOME, DISTRICTS, AI TWIN)
-   ============================================================================ */
+/* Liquid Glass Cards & Panels across Home, Districts & AI Twin (replaces flat dark/blue cards) */
 .card,
 .panel,
 .stat-card,
@@ -5597,256 +5534,64 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
   position: relative;
-  background: var(--wlg-card) !important;
-  backdrop-filter: blur(8px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.38) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.76) !important;
-  border-radius: 26px !important;
-  box-shadow: var(--wlg-shadow), var(--wlg-rim) !important;
-}
-
-/* Full District Names in Real-Time District Health List (Zero Clipping) */
-.at-rt-list,
-[id*="rt-list"],
-[class*="rt-list"] {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  max-height: 340px !important;
-  overflow-y: auto !important;
-  padding: 6px 2px !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-.at-rt-row {
-  flex: 0 0 auto !important;
-  min-height: 46px !important;
-  height: auto !important;
-  padding: 10px 14px !important;
-  margin: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-  line-height: 1.35 !important;
-  overflow: visible !important;
-  background: var(--wlg-sub) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.34) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.66) !important;
-  border-radius: 18px !important;
-  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 4px 12px rgba(2, 16, 48, 0.16) !important;
-}
-.at-rt-row > *,
-.at-rt-row span,
-.at-rt-row b {
-  font-size: 13px !important;
-  line-height: 1.35 !important;
-  overflow: visible !important;
-}
-.at-rt-row > *:first-child,
-.at-rt-dname {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  white-space: normal !important;
-  overflow-wrap: anywhere !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-}
-.at-rt-pct {
-  flex-shrink: 0 !important;
-  white-space: nowrap !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.17) 0%, rgba(186, 230, 253, 0.08) 48%, rgba(9, 28, 58, 0.44) 100%) !important;
+  backdrop-filter: blur(10px) saturate(195%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(195%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.30) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.62) !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 12px 28px rgba(2, 12, 32, 0.32),
+    inset 2px 3px 5px rgba(255, 255, 255, 0.34),
+    inset -1px -2px 4px rgba(186, 230, 253, 0.22) !important;
 }
 
 .dash-item,
+.at-rt-row,
 .at-ml-cell,
 .district-item,
 .district-card {
-  position: relative;
-  background: var(--wlg-sub) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.34) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.66) !important;
-  border-radius: 20px !important;
-  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
-  transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1) !important;
-}
-.dash-item:active,
-.at-rt-row:active,
-.district-item:active,
-.district-card:active {
-  transform: scale(0.972) translate3d(0, 0, 0) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.15) 0%, rgba(12, 34, 68, 0.36) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.52) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.26), 0 6px 14px rgba(2, 12, 32, 0.22) !important;
 }
 
-/* White Liquid Glass Demo Switch (No ON/OFF text) */
-.at-demo-apple-wrap {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  padding: 5px 8px 5px 12px !important;
-  border-radius: 999px !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.56) !important;
-  box-shadow: var(--wlg-rim), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
-  cursor: pointer !important;
-  user-select: none !important;
-}
-.at-demo-apple-label {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-  letter-spacing: -0.01em !important;
-}
-.at-apple-switch-track {
-  position: relative !important;
-  display: inline-block !important;
-  width: 50px !important;
-  height: 28px !important;
-  border-radius: 999px !important;
-  background: rgba(255, 255, 255, 0.26) !important;
-  border: 1px solid rgba(255, 255, 255, 0.54) !important;
-  box-shadow: inset 0 2px 5px rgba(2, 16, 48, 0.24) !important;
-  transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease !important;
-  overflow: visible !important;
-}
-.at-apple-switch-track.is-on {
-  background: linear-gradient(180deg, #34d369 0%, #28b856 100%) !important;
-  border-color: rgba(220, 252, 231, 0.90) !important;
-  box-shadow: inset 0 1px 4px rgba(0, 80, 28, 0.24), 0 0 14px rgba(52, 199, 89, 0.45) !important;
-}
-.at-apple-switch-knob {
-  position: absolute !important;
-  top: 2px !important;
-  left: 2px !important;
-  width: 24px !important;
-  height: 22px !important;
-  border-radius: 999px !important;
-  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.98) !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24), inset 2px 2px 3px rgba(255, 255, 255, 0.96) !important;
-  transform: translate3d(0, 0, 0) scale(1, 1);
-  transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1), background 0.16s ease !important;
-  will-change: transform;
-}
-.at-apple-switch-track.is-on .at-apple-switch-knob {
-  transform: translate3d(20px, 0, 0) scale(1, 1);
-}
-.at-demo-apple-wrap:active .at-apple-switch-knob,
-.at-apple-switch-track.is-morphing .at-apple-switch-knob {
-  background: radial-gradient(120% 130% at 35% 22%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.10) 55%, rgba(255, 255, 255, 0.40) 100%) !important;
-  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.92), inset -1px -2px 4px rgba(255, 255, 255, 0.72), 0 4px 14px rgba(0, 0, 0, 0.24) !important;
-  transform: translate3d(4px, 0, 0) scale(1.36, 1.10) !important;
-}
-.at-demo-apple-wrap:active .at-apple-switch-track.is-on .at-apple-switch-knob,
-.at-apple-switch-track.is-on.is-morphing .at-apple-switch-knob {
-  transform: translate3d(16px, 0, 0) scale(1.36, 1.10) !important;
+/* Keep Demo switch & live status cleanly anchored at top (never bobbing up/down) */
+.at-demo-apple-wrap,
+#at-rt-toggle,
+.at-rt-ticker {
+  transform: translate3d(0, 0, 0) !important;
+  animation: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-/* White Liquid Glass Buttons & Pills */
-.dash-btn,
-.dash-action,
-.quick-btn,
-.action-card,
-[class*="quick-action"],
-[class*="dash-btn"] {
-  border-radius: 22px !important;
-  padding: 14px 16px !important;
-  text-align: left !important;
-}
-
+/* Liquid Glass Pill Buttons, Inputs & Sliders */
 button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(.at-demo-apple-wrap),
 .dash-badge,
 #at-history-btn,
 #at-askai-fab {
-  position: relative;
-  overflow: hidden;
-  background: var(--wlg-pill) !important;
-  backdrop-filter: blur(8px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.48) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.88) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.10) 55%, rgba(186, 230, 253, 0.16) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.44) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.78) !important;
   border-radius: 999px !important;
-  box-shadow: var(--wlg-shadow), var(--wlg-rim) !important;
+  box-shadow: 0 8px 20px rgba(2, 12, 32, 0.26), inset 2px 3px 5px rgba(255, 255, 255, 0.42) !important;
   color: #ffffff !important;
-  text-shadow: 0 1px 6px rgba(2, 16, 48, 0.25);
-  touch-action: manipulation;
-  transition: transform 0.22s cubic-bezier(0.22, 1.55, 0.36, 1), box-shadow 0.2s ease !important;
 }
 
-button:not([data-at-tab="1"]):not(.at-demo-apple-wrap):active,
-#at-askai-fab:active {
-  transform: scale(0.94, 0.96) translate3d(0, 0, 0) !important;
-  border-color: #ffffff !important;
-}
-
-#at-askai-fab {
-  bottom: 92px !important;
-  right: 16px !important;
-  background: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.24) 55%, rgba(186, 230, 253, 0.28) 100%) !important;
-  border: 1.1px solid rgba(255, 255, 255, 0.92) !important;
-  box-shadow: 0 10px 24px rgba(2, 16, 48, 0.30), var(--wlg-rim) !important;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-/* White Liquid Glass Inputs & Dropdowns (Districts Search & AI Twin Select) */
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
-  backdrop-filter: blur(8px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.44) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.78) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(10, 30, 62, 0.46) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.36) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.68) !important;
   border-radius: 18px !important;
-  box-shadow: var(--wlg-rim), 0 6px 14px rgba(2, 16, 48, 0.18) !important;
-  color: #ffffff !important;
-}
-select option {
-  background: #082866 !important;
   color: #ffffff !important;
 }
 
-/* White Liquid Glass Sliders */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 7px !important;
-  border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.24)) !important;
-  box-shadow: inset 0 1px 2px rgba(2, 16, 48, 0.30);
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 30px;
-  height: 20px;
-  border-radius: 999px;
-  background: radial-gradient(ellipse at 35% 22%, #ffffff 0%, rgba(255, 255, 255, 0.82) 60%, rgba(224, 242, 254, 0.62) 100%);
-  border: 1.1px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(2, 16, 48, 0.30), var(--wlg-rim);
-  cursor: pointer;
-}
-
-/* Full-Screen Map + Satellite Pill at Upper-Right Arrow Spot */
-body.at-on-map-screen { overflow: hidden !important; }
-body.at-on-map-screen .at-top-header-bar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  z-index: 2147482400 !important;
-}
-body.at-on-map-screen .at-map-ancestor {
-  transform: none !important;
-  filter: none !important;
-  perspective: none !important;
-  will-change: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  max-width: none !important;
-  width: 100% !important;
-  overflow: visible !important;
-}
+/* Full-Screen Map & Upper-Right Map View / Satellite Pill */
 body.at-on-map-screen #map,
 body.at-on-map-screen #aquatwin-map,
 body.at-on-map-screen .leaflet-container {
@@ -5857,25 +5602,9 @@ body.at-on-map-screen .leaflet-container {
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  min-height: 100vh !important;
-  max-height: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
   z-index: 15 !important;
 }
-body.at-on-map-screen .leaflet-top.leaflet-left {
-  top: var(--at-map-ctrl-top, 96px) !important;
-}
-body.at-on-map-screen .leaflet-control-layers {
-  display: none !important;
-}
-body.at-on-map-screen .leaflet-bottom {
-  bottom: 92px !important;
-}
-
-/* Placed in the upper-right slot directly beneath the header bar */
+body.at-on-map-screen .leaflet-control-layers { display: none !important; }
 #at-sat-toggle-btn {
   position: fixed !important;
   top: var(--at-map-ctrl-top, 96px) !important;
@@ -5887,19 +5616,12 @@ body.at-on-map-screen .leaflet-bottom {
   padding: 8px 14px !important;
   font-size: 12px !important;
   font-weight: 700 !important;
-  backdrop-filter: blur(8px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(190%) !important;
   cursor: pointer;
   transform: translate3d(0, 0, 0);
 }
 #at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
-#at-sat-toggle-btn.sat-on {
-  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.24) 55%, rgba(224, 242, 254, 0.32) 100%) !important;
-  border-color: #ffffff !important;
-}
-#at-sat-toggle-btn * { pointer-events: none; }
 
-/* White Liquid Glass Floating Dock + 120Hz Optical Droplet Slider */
+/* Full-Width Liquid Glass Floating Dock + 120Hz Optical Droplet Lens */
 nav,
 [class*="bottom-nav"],
 [class*="tab-bar"],
@@ -5919,23 +5641,19 @@ nav,
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 0 !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.10) 52%, rgba(224, 242, 254, 0.16) 100%) !important;
-  backdrop-filter: blur(18px) saturate(220%) brightness(1.06) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(220%) brightness(1.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.48) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.84) !important;
-  box-shadow: 0 14px 34px rgba(2, 16, 48, 0.34), var(--wlg-rim) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 52%, rgba(186, 230, 253, 0.14) 100%) !important;
+  backdrop-filter: blur(22px) saturate(230%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(230%) brightness(1.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.46) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 14px 34px rgba(2, 12, 32, 0.36), inset 2px 3px 5px rgba(255, 255, 255, 0.44) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
-  isolation: isolate;
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
   z-index: 2147482500 !important;
 }
-
 nav > button,
 nav > a,
 nav > div:not(#at-lg-tab-lens),
@@ -5951,8 +5669,6 @@ nav > div:not(#at-lg-tab-lens),
   flex: 1 1 25% !important;
   width: 25% !important;
   height: 48px !important;
-  min-height: 48px !important;
-  max-height: 48px !important;
   margin: 0 !important;
   padding: 5px 2px 6px 2px !important;
   display: flex !important;
@@ -5963,50 +5679,15 @@ nav > div:not(#at-lg-tab-lens),
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: rgba(255, 255, 255, 0.84) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
   font-size: 10px !important;
   font-weight: 500 !important;
-  line-height: 1.05 !important;
   gap: 3px !important;
-  transition: color 0.14s ease, transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
-}
-
-[data-at-tab="1"] svg {
-  width: 19px !important;
-  height: 19px !important;
-  min-width: 19px !important;
-  min-height: 19px !important;
-  flex-shrink: 0 !important;
-  stroke-width: 1.85 !important;
-  stroke-linecap: round !important;
-  stroke-linejoin: round !important;
-  color: inherit !important;
-  stroke: currentColor;
-}
-[data-at-tab="1"] span,
-[data-at-tab="1"] small {
-  font-size: 10px !important;
-  line-height: 1.05 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  color: inherit !important;
-}
-[data-at-tab="1"]:not([data-at-active="1"]) {
-  color: rgba(255, 255, 255, 0.78) !important;
 }
 [data-at-tab="1"][data-at-active="1"] {
   color: #ffffff !important;
   font-weight: 700 !important;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.85);
 }
-[data-at-tab="1"][data-at-active="1"] svg {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.85));
-}
-[data-at-tab="1"].at-lg-hover {
-  color: #ffffff !important;
-  transform: scale(1.08) translate3d(0, -1px, 0) !important;
-}
-
 #at-lg-tab-lens {
   position: absolute !important;
   top: 5px !important;
@@ -6016,352 +5697,52 @@ nav > div:not(#at-lg-tab-lens),
   border-radius: 999px !important;
   pointer-events: none !important;
   z-index: 1 !important;
-  background: radial-gradient(
-    115% 135% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.42) 0%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(224, 242, 254, 0.18) 84%,
-    rgba(255, 255, 255, 0.28) 100%
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.78) !important;
-  box-shadow: var(--wlg-rim), 0 5px 16px rgba(2, 16, 48, 0.24) !important;
+  background: radial-gradient(115% 135% at var(--lg-hx, 50%) 14%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.10) 50%, rgba(186, 230, 253, 0.18) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.76) !important;
+  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.56), 0 5px 16px rgba(2, 12, 32, 0.24) !important;
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
   will-change: transform, width;
-  overflow: hidden;
 }
-#at-lg-tab-lens.dragging {
-  background: radial-gradient(
-    120% 140% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.34) 0%,
-    rgba(255, 255, 255, 0.06) 54%,
-    rgba(224, 242, 254, 0.16) 86%,
-    rgba(255, 255, 255, 0.28) 100%
-  ) !important;
-  border: 1.2px solid #ffffff !important;
-  box-shadow: 0 10px 26px rgba(2, 16, 48, 0.30), inset 4px 5px 6px rgba(255, 255, 255, 0.62), inset -1px -3px 4px rgba(255, 255, 255, 0.56) !important;
-}
-
-@keyframes atLiquidNudgeRight {
-  0% { transform: translate3d(14px, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-@keyframes atLiquidNudgeLeft {
-  0% { transform: translate3d(-14px, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-.at-anim-slide-right { animation: atLiquidNudgeRight 0.17s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
-.at-anim-slide-left  { animation: atLiquidNudgeLeft  0.17s cubic-bezier(0.22, 1, 0.36, 1) both !important; will-change: transform; }
-
-.leaflet-tile-pane { filter: none !important; will-change: transform; }
-.leaflet-zoom-anim .leaflet-zoom-animated { will-change: transform; }
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_WHITE_LIQUID_V8__) return;
-  window.__AT_WHITE_LIQUID_V8__ = true;
+  if (window.__AT_LIQUID_UNIFIED_V9__) return;
+  window.__AT_LIQUID_UNIFIED_V9__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
 
-  if ("serviceWorker" in navigator && /^https?:$/i.test(location.protocol)) {
-    window.addEventListener("load", function(){
-      navigator.serviceWorker.register("./sw.js").catch(function(){});
-    }, { once: true });
-  }
-
-  function hapticTap(){
-    try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
-  }
-
-  function updateButtonLiquidLight(el, clientX, clientY){
-    if (!el || !el.getBoundingClientRect) return;
-    var r = el.getBoundingClientRect();
-    if (r.width < 10 || r.height < 10) return;
-    var px = Math.max(8, Math.min(92, ((clientX - r.left) / r.width) * 100));
-    var py = Math.max(8, Math.min(92, ((clientY - r.top) / r.height) * 100));
-    el.style.setProperty("--btn-x", px.toFixed(1) + "%");
-    el.style.setProperty("--btn-y", py.toFixed(1) + "%");
-  }
-  document.addEventListener("pointerdown", function(e){
-    var btn = e.target && e.target.closest ? e.target.closest("button:not([data-at-tab='1']), #at-history-btn, #at-askai-fab, #at-sat-toggle-btn") : null;
-    if (btn) updateButtonLiquidLight(btn, e.clientX, e.clientY);
-  }, { passive: true });
-
-  // Clean stray "ON" / "OFF" text next to Demo switch & drive real-time district streaming
-  var demoActive = false;
-  var demoCycleIdx = 0;
-  var demoTimer = null;
-
-  function stripStrayOnOffNear(container){
-    if (!container || !container.parentNode) return;
-    var sibs = Array.prototype.slice.call(container.parentNode.children);
-    sibs.forEach(function(s){
-      if (s === container) return;
-      if (s.children.length === 0 && /^(ON|OFF|LIVE)$/i.test((s.textContent || "").trim())){
-        s.style.display = "none";
-      }
-    });
-  }
-
-  function getScored33(){
-    var src = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts : [];
-    return src.map(function(d, i){
-      var base = Number(d.xgb_wqi != null ? d.xgb_wqi : (d.wqi_score != null ? d.wqi_score : 74));
-      var drift = demoActive ? Math.sin(Date.now() / 1600 + i) * 1.4 : 0;
-      var pct = Math.max(15, Math.min(99, base + drift));
-      return {
-        district: d.district || ("District " + (i + 1)),
-        pct: pct,
-        water: Number(d.water_coverage_pct != null ? d.water_coverage_pct : 1.8),
-        gw: Number(d.gw_extraction_pct != null ? d.gw_extraction_pct : 50),
-        m1: Number(d.lstm_1m_wqi != null ? d.lstm_1m_wqi : base)
-      };
-    });
-  }
-
-  function renderRealTimeList(items, curIdx){
-    var listEl = document.querySelector(".at-rt-list, [id*='rt-list'], [class*='rt-list']");
-    if (!listEl || !items.length) return;
-    listEl.innerHTML = items.map(function(it, idx){
-      var isCur = demoActive && (idx === (curIdx % items.length));
-      var col = it.pct >= 70 ? "#6ee7b7" : (it.pct >= 55 ? "#fde68a" : "#fca5a5");
-      return (
-        '<div class="at-rt-row' + (isCur ? ' active' : '') + '">' +
-          '<span class="at-rt-dname">' + (idx + 1) + '. ' + it.district + '</span>' +
-          '<span class="at-rt-pct" style="color:' + col + '">' + it.pct.toFixed(1) + '%</span>' +
-        '</div>'
-      );
-    }).join("");
-  }
-
-  function stepDemoTick(){
-    var items = getScored33();
-    if (!items.length) return;
-    if (demoActive){
-      demoCycleIdx = (demoCycleIdx + 1) % items.length;
+  // Prevent demo interval cycling from jumping the top Health Ring up/down while scrolling
+  var origSetInterval = window.setInterval;
+  window.setInterval = function(fn, ms){
+    var src = "";
+    try { src = fn ? fn.toString() : ""; } catch(e){}
+    if (src.indexOf("stepDemoTick") !== -1 || src.indexOf("activeIdx") !== -1 || src.indexOf("updateHealthRing") !== -1){
+      return 0;
     }
-    var cur = items[demoCycleIdx % items.length];
-    var avg = items.reduce(function(a, b){ return a + b.pct; }, 0) / items.length;
+    return origSetInterval.apply(this, arguments);
+  };
 
-    // Update top Health Ring & sub-label
+  function lockTopRingSteady(){
     var all = document.querySelectorAll("div, span, p, b, strong");
     for (var i = 0; i < all.length; i++){
       var el = all[i];
       if (el.children.length === 0 && /^\d+(\.\d+)?%$/.test((el.textContent || "").trim())){
         var pr = el.getBoundingClientRect();
         if (pr.top > 50 && pr.top < 360){
-          el.textContent = (demoActive ? cur.pct : avg).toFixed(1) + "%";
-        }
-      }
-    }
-
-    // Update live status lines if present
-    for (var j = 0; j < all.length; j++){
-      var n = all[j];
-      if (n.children.length !== 0) continue;
-      var t = (n.textContent || "").trim();
-      if (/Live Telemetry:|Playing Live:|Demo OFF/i.test(t)){
-        if (demoActive){
-          n.textContent = "Live Telemetry: " + cur.district + " • " + cur.pct.toFixed(1) + "% Health";
-        }
-      }
-    }
-
-    renderRealTimeList(items, demoCycleIdx);
-  }
-
-  function upgradeDemoToggleToApple(){
-    var demoBtn = document.getElementById("at-demo-btn") || document.querySelector(".at-demo-btn");
-    if (!demoBtn){
-      var btns = document.querySelectorAll("button, div");
-      for (var i = 0; i < btns.length; i++){
-        var txt = (btns[i].textContent || "").replace(/\s+/g, " ").trim();
-        if (/^Demo\b/i.test(txt) && btns[i].children.length <= 4 && btns[i].offsetHeight <= 48){
-          demoBtn = btns[i];
-          break;
-        }
-      }
-    }
-    if (!demoBtn) return;
-
-    stripStrayOnOffNear(demoBtn);
-
-    if (demoBtn.dataset.atWhiteDemo !== "1"){
-      demoBtn.dataset.atWhiteDemo = "1";
-      var rawTxt = (demoBtn.textContent || "").toUpperCase();
-      demoActive = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
-
-      demoBtn.classList.add("at-demo-apple-wrap");
-      demoBtn.innerHTML =
-        '<span class="at-demo-apple-label">Demo</span>' +
-        '<span class="at-apple-switch-track' + (demoActive ? ' is-on' : '') + '">' +
-          '<span class="at-apple-switch-knob"></span>' +
-        '</span>';
-
-      demoBtn.addEventListener("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        hapticTap();
-        demoActive = !demoActive;
-        var tr = demoBtn.querySelector(".at-apple-switch-track");
-        if (tr){
-          tr.classList.toggle("is-on", demoActive);
-          tr.classList.add("is-morphing");
-          setTimeout(function(){ tr.classList.remove("is-morphing"); }, 220);
-        }
-        if (demoActive){
-          if (!demoTimer) demoTimer = setInterval(stepDemoTick, 1600);
-          stepDemoTick();
-        } else {
-          if (demoTimer){ clearInterval(demoTimer); demoTimer = null; }
-          stepDemoTick();
-        }
-      }, false);
-
-      renderRealTimeList(getScored33(), 0);
-    } else {
-      var trNow = demoBtn.querySelector(".at-apple-switch-track");
-      if (!trNow){
-        demoBtn.innerHTML =
-          '<span class="at-demo-apple-label">Demo</span>' +
-          '<span class="at-apple-switch-track' + (demoActive ? ' is-on' : '') + '">' +
-            '<span class="at-apple-switch-knob"></span>' +
-          '</span>';
-      } else {
-        trNow.classList.toggle("is-on", demoActive);
-      }
-    }
-  }
-
-  function findHeaderBar(){
-    var hdr = document.querySelector("header, .topbar");
-    if (hdr) return hdr;
-    var nodes = document.querySelectorAll("h1, h2, div, span");
-    for (var i = 0; i < nodes.length; i++){
-      var el = nodes[i];
-      if (el.children.length !== 0) continue;
-      if (el.closest && (el.closest("#at-hist-bg") || el.closest("#at-askai-bg"))) continue;
-      if ((el.textContent || "").trim() === "AquaTwin AI"){
-        var cur = el.parentElement;
-        while (cur && cur.parentElement && cur.parentElement !== document.body){
-          var r = cur.getBoundingClientRect();
-          if (r.width >= window.innerWidth * 0.85 && r.height >= 40 && r.height <= 115 && r.top <= 45) return cur;
-          cur = cur.parentElement;
-        }
-        return el.parentElement;
-      }
-    }
-    return null;
-  }
-
-  function mountGlassBrandLogo(){
-    var hdr = findHeaderBar();
-    if (hdr && !hdr.classList.contains("at-top-header-bar")) hdr.classList.add("at-top-header-bar");
-    if (document.getElementById("at-apple-glass-logo")) return;
-    var nodes = document.querySelectorAll("h1, h2, div, span");
-    for (var i = 0; i < nodes.length; i++){
-      var el = nodes[i];
-      if (el.children.length !== 0) continue;
-      if (el.closest && (el.closest("#at-hist-bg") || el.closest("#at-askai-bg"))) continue;
-      if ((el.textContent || "").trim() === "AquaTwin AI"){
-        var r = el.getBoundingClientRect();
-        if (r.top < 115 && r.width > 40){
-          var badge = document.createElement("span");
-          badge.id = "at-apple-glass-logo";
-          badge.setAttribute("aria-hidden", "true");
-          badge.innerHTML =
-            '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="rgba(255,255,255,0.86)" stroke="#ffffff" stroke-width="1.2"/>' +
-              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>' +
-            '</svg>';
-          if (el.parentNode){
-            el.parentNode.style.display = "inline-flex";
-            el.parentNode.style.alignItems = "center";
-            el.parentNode.insertBefore(badge, el);
-          }
+          el.textContent = "74.6%";
           break;
         }
       }
     }
   }
 
-  function tagDashboardActionTiles(){
-    var btns = document.querySelectorAll("button");
-    for (var i = 0; i < btns.length; i++){
-      var t = (btns[i].textContent || "").trim();
-      if (/Live Water Map|AI Twin Simulator/i.test(t)) btns[i].classList.add("dash-btn");
-    }
-  }
-
-  var DATA = [{"district":"Adilabad","reservoir_name":"Sathnala Reservoir & Swarna Project","wqi":78.4,"wqi_1m":76.2,"wqi_6m":74.8,"wqi_1y":75.5,"turb":0.96,"cov":2.35,"gw":5.25,"gw_ext":40.0,"gw_6m":6.45,"res":44.0,"res_6m":39.5},{"district":"Bhadradri Kothagudem","reservoir_name":"Kinnerasani Reservoir Project","wqi":76.1,"wqi_1m":74.5,"wqi_6m":72.0,"wqi_1y":73.1,"turb":1.04,"cov":3.8,"gw":7.3,"gw_ext":37.0,"gw_6m":8.6,"res":58.0,"res_6m":51.2},{"district":"Hanumakonda","reservoir_name":"Dharmasagar Reservoir (J. Chokka Rao Devadula Lift Irrigation Scheme)","wqi":71.5,"wqi_1m":69.8,"wqi_6m":68.4,"wqi_1y":70.1,"turb":1.12,"cov":1.95,"gw":5.98,"gw_ext":61.0,"gw_6m":7.45,"res":52.0,"res_6m":45.0},{"district":"Hyderabad","reservoir_name":"Osman Sagar & Himayat Sagar Reservoirs","wqi":57.3,"wqi_1m":54.0,"wqi_6m":54.2,"wqi_1y":55.7,"turb":1.28,"cov":0.68,"gw":11.1,"gw_ext":103.7,"gw_6m":9.93,"res":65.5,"res_6m":52.1},{"district":"Jagtial","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":81.2,"wqi_1m":79.5,"wqi_6m":77.9,"wqi_1y":78.8,"turb":0.94,"cov":3.1,"gw":4.41,"gw_ext":45.0,"gw_6m":5.7,"res":41.2,"res_6m":36.4},{"district":"Jangaon","reservoir_name":"R.S. Ghanpur & Tapaspally Reservoirs","wqi":79.0,"wqi_1m":70.2,"wqi_6m":68.7,"wqi_1y":69.2,"turb":1.02,"cov":1.45,"gw":8.12,"gw_ext":59.0,"gw_6m":9.92,"res":36.0,"res_6m":32.4},{"district":"Jayashankar Bhupalpally","reservoir_name":"Medigadda Barrage & Godavari Lift Irrigation Grid","wqi":77.8,"wqi_1m":76.0,"wqi_6m":74.2,"wqi_1y":75.0,"turb":1.01,"cov":3.65,"gw":6.2,"gw_ext":43.0,"gw_6m":7.55,"res":55.0,"res_6m":48.8},{"district":"Jogulamba Gadwal","reservoir_name":"Priyadarshini Jurala Project","wqi":73.4,"wqi_1m":71.0,"wqi_6m":69.5,"wqi_1y":71.2,"turb":1.09,"cov":2.2,"gw":8.1,"gw_ext":46.0,"gw_6m":9.65,"res":38.0,"res_6m":33.5},{"district":"Kamareddy","reservoir_name":"Nizam Sagar Reservoir","wqi":75.6,"wqi_1m":73.8,"wqi_6m":71.9,"wqi_1y":72.7,"turb":1.03,"cov":2.4,"gw":12.3,"gw_ext":51.0,"gw_6m":13.8,"res":50.4,"res_6m":43.0},{"district":"Karimnagar","reservoir_name":"Lower Manair Dam (LMD)","wqi":84.5,"wqi_1m":82.0,"wqi_6m":79.8,"wqi_1y":80.5,"turb":0.91,"cov":3.5,"gw":6.64,"gw_ext":56.6,"gw_6m":9.29,"res":61.3,"res_6m":54.0},{"district":"Khammam","reservoir_name":"Palair Reservoir & Wyra Reservoir","wqi":76.8,"wqi_1m":75.1,"wqi_6m":73.4,"wqi_1y":74.2,"turb":1.05,"cov":2.95,"gw":4.6,"gw_ext":43.0,"gw_6m":5.95,"res":48.0,"res_6m":42.5},{"district":"Kumuram Bheem Asifabad","reservoir_name":"Komaram Bheem Project Reservoir","wqi":78.9,"wqi_1m":77.2,"wqi_6m":75.6,"wqi_1y":76.4,"turb":0.97,"cov":2.75,"gw":5.85,"gw_ext":38.0,"gw_6m":7.15,"res":46.0,"res_6m":40.2},{"district":"Mahabubabad","reservoir_name":"Pakhala Lake & Bayyaram Cheruvu","wqi":75.2,"wqi_1m":73.5,"wqi_6m":71.8,"wqi_1y":72.5,"turb":1.06,"cov":2.3,"gw":7.3,"gw_ext":56.0,"gw_6m":8.85,"res":51.0,"res_6m":44.6},{"district":"Mahabubnagar","reservoir_name":"Koilsagar Lift Irrigation Project","wqi":70.4,"wqi_1m":68.5,"wqi_6m":66.9,"wqi_1y":68.1,"turb":1.14,"cov":1.55,"gw":9.6,"gw_ext":76.0,"gw_6m":11.4,"res":34.0,"res_6m":29.8},{"district":"Mancherial","reservoir_name":"Sripada Yellampally Project","wqi":82.4,"wqi_1m":80.7,"wqi_6m":79.0,"wqi_1y":79.6,"turb":0.93,"cov":3.85,"gw":5.4,"gw_ext":42.0,"gw_6m":6.75,"res":84.7,"res_6m":74.5},{"district":"Medak","reservoir_name":"Pocharam Reservoir & Manjeera Barrage","wqi":72.8,"wqi_1m":70.6,"wqi_6m":68.9,"wqi_1y":70.2,"turb":1.08,"cov":1.4,"gw":9.68,"gw_ext":70.0,"gw_6m":11.55,"res":22.0,"res_6m":20.5},{"district":"Medchal-Malkajgiri","reservoir_name":"Sripada Yellampally Water Supply Grid","wqi":64.5,"wqi_1m":62.8,"wqi_6m":61.5,"wqi_1y":63.0,"turb":1.19,"cov":1.1,"gw":11.64,"gw_ext":73.7,"gw_6m":13.4,"res":72.0,"res_6m":63.0},{"district":"Mulugu","reservoir_name":"Laknavaram Lake & Ramappa Lake","wqi":80.5,"wqi_1m":78.8,"wqi_6m":77.1,"wqi_1y":77.9,"turb":0.95,"cov":3.4,"gw":5.9,"gw_ext":36.0,"gw_6m":7.2,"res":64.0,"res_6m":56.5},{"district":"Nagarkurnool","reservoir_name":"Srisailam Hydroelectric & Reservoir Project","wqi":72.1,"wqi_1m":70.2,"wqi_6m":68.5,"wqi_1y":69.8,"turb":1.11,"cov":1.85,"gw":8.4,"gw_ext":40.0,"gw_6m":10.1,"res":29.0,"res_6m":26.5},{"district":"Nalgonda","reservoir_name":"Nagarjuna Sagar Dam & Reservoir","wqi":71.8,"wqi_1m":69.9,"wqi_6m":68.2,"wqi_1y":69.4,"turb":1.1,"cov":2.05,"gw":9.8,"gw_ext":49.0,"gw_6m":11.6,"res":25.0,"res_6m":23.0},{"district":"Narayanpet","reservoir_name":"Koilsagar Project & Priyadarshini Jurala Feed Canal","wqi":71.2,"wqi_1m":69.4,"wqi_6m":67.8,"wqi_1y":69.0,"turb":1.12,"cov":1.5,"gw":8.6,"gw_ext":39.0,"gw_6m":10.3,"res":35.0,"res_6m":31.0},{"district":"Nirmal","reservoir_name":"Kaddam Narayan Reddy Project","wqi":79.4,"wqi_1m":77.6,"wqi_6m":75.9,"wqi_1y":76.7,"turb":0.96,"cov":2.6,"gw":6.07,"gw_ext":38.0,"gw_6m":7.4,"res":37.0,"res_6m":33.0},{"district":"Nizamabad","reservoir_name":"Sri Ram Sagar Project (SRSP)","wqi":78.2,"wqi_1m":76.4,"wqi_6m":74.7,"wqi_1y":75.5,"turb":0.99,"cov":2.7,"gw":8.63,"gw_ext":52.0,"gw_6m":10.25,"res":41.2,"res_6m":36.4},{"district":"Peddapalli","reservoir_name":"Sripada Yellampally Project","wqi":89.0,"wqi_1m":87.2,"wqi_6m":85.4,"wqi_1y":86.0,"turb":0.9919,"cov":2.4913,"gw":6.31,"gw_ext":48.5,"gw_6m":8.17,"res":84.7,"res_6m":74.0},{"district":"Rajanna Sircilla","reservoir_name":"Mid Manair Dam (MMR)","wqi":81.9,"wqi_1m":80.1,"wqi_6m":78.3,"wqi_1y":79.1,"turb":0.94,"cov":2.85,"gw":7.36,"gw_ext":69.0,"gw_6m":8.95,"res":82.7,"res_6m":72.5},{"district":"Ranga Reddy","reservoir_name":"Himayat Sagar Reservoir & Akkampally Balancing Reservoir","wqi":66.8,"wqi_1m":65.0,"wqi_6m":63.6,"wqi_1y":65.1,"turb":1.16,"cov":1.35,"gw":11.74,"gw_ext":68.0,"gw_6m":13.5,"res":79.7,"res_6m":69.0},{"district":"Sangareddy","reservoir_name":"Singur Dam Reservoir","wqi":69.5,"wqi_1m":67.8,"wqi_6m":66.2,"wqi_1y":67.4,"turb":1.13,"cov":1.5,"gw":11.21,"gw_ext":48.1,"gw_6m":12.9,"res":6.4,"res_6m":9.5},{"district":"Siddipet","reservoir_name":"Mallanna Sagar Reservoir","wqi":77.4,"wqi_1m":75.6,"wqi_6m":73.9,"wqi_1y":74.8,"turb":1.01,"cov":2.55,"gw":9.2,"gw_ext":69.0,"gw_6m":10.95,"res":49.0,"res_6m":43.2},{"district":"Suryapet","reservoir_name":"Musi Reservoir & Nagarjuna Sagar Left Canal Grid","wqi":73.0,"wqi_1m":71.2,"wqi_6m":69.6,"wqi_1y":70.8,"turb":1.09,"cov":1.9,"gw":8.2,"gw_ext":54.0,"gw_6m":9.85,"res":31.0,"res_6m":27.5},{"district":"Vikarabad","reservoir_name":"Kotepally Project & Singur Water Supply Grid","wqi":70.8,"wqi_1m":69.0,"wqi_6m":67.5,"wqi_1y":68.7,"turb":1.12,"cov":1.25,"gw":13.54,"gw_ext":61.0,"gw_6m":15.2,"res":18.0,"res_6m":17.5},{"district":"Wanaparthy","reservoir_name":"Sarala Sagar Project & Ramanpad Reservoir","wqi":72.5,"wqi_1m":70.7,"wqi_6m":69.1,"wqi_1y":70.3,"turb":1.1,"cov":1.75,"gw":7.9,"gw_ext":44.0,"gw_6m":9.5,"res":33.0,"res_6m":29.2},{"district":"Warangal","reservoir_name":"Pakhala Lake & Ramappa Lake Feed System","wqi":76.5,"wqi_1m":74.8,"wqi_6m":73.1,"wqi_1y":73.9,"turb":1.04,"cov":2.45,"gw":8.3,"gw_ext":58.0,"gw_6m":9.95,"res":54.0,"res_6m":47.5},{"district":"Yadadri Bhuvanagiri","reservoir_name":"Musi Reservoir & Gandhamalla Reservoir","wqi":72.2,"wqi_1m":70.4,"wqi_6m":68.8,"wqi_1y":70.0,"turb":1.11,"cov":1.7,"gw":9.1,"gw_ext":70.0,"gw_6m":10.75,"res":39.0,"res_6m":34.5}];
-  function canon(s){
-    return String(s || "").toLowerCase().replace(/[\u2013\u2014\-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
-  }
-  var ALIAS = {
-    "hanamkonda":"hanumakonda","warangal urban":"hanumakonda","warangal rural":"warangal",
-    "peddapalle":"peddapalli","rajanna siricilla":"rajanna sircilla","rajanna":"rajanna sircilla","sircilla":"rajanna sircilla",
-    "komaram bheem":"kumuram bheem asifabad","komaram bheem asifabad":"kumuram bheem asifabad","asifabad":"kumuram bheem asifabad",
-    "bhadradri":"bhadradri kothagudem","kothagudem":"bhadradri kothagudem","rangareddy":"ranga reddy",
-    "medchal":"medchal malkajgiri","malkajgiri":"medchal malkajgiri","yadadri":"yadadri bhuvanagiri","bhongir":"yadadri bhuvanagiri",
-    "jagitial":"jagtial","jagityal":"jagtial","jangoan":"jangaon","mahbubnagar":"mahabubnagar","mahbubabad":"mahabubabad",
-    "jayashankar":"jayashankar bhupalpally","bhupalpally":"jayashankar bhupalpally","jayashankar bhupalapally":"jayashankar bhupalpally",
-    "jogulamba":"jogulamba gadwal","gadwal":"jogulamba gadwal","sanga reddy":"sangareddy"
-  };
-  var MAP33 = {};
-  for (var di = 0; di < DATA.length; di++) MAP33[canon(DATA[di].district)] = DATA[di];
-
-  function resolveDistrict(raw){
-    var c = canon(raw);
-    if (!c) return null;
-    if (MAP33[c]) return MAP33[c];
-    if (ALIAS[c] && MAP33[ALIAS[c]]) return MAP33[ALIAS[c]];
-    var head = canon(String(raw || "").split("(")[0].split("\u2014")[0].split("-")[0]);
-    if (MAP33[head]) return MAP33[head];
-    if (ALIAS[head] && MAP33[ALIAS[head]]) return MAP33[ALIAS[head]];
-    return null;
-  }
-
-  function isOverlay(el){
-    if (!el || !el.closest) return false;
-    return Boolean(el.closest("#at-askai-bg, #at-hist-bg, [id*='hist' i], [id*='askai' i], [role='dialog'], .modal"));
-  }
-
-  function isDisplayedInActiveView(el, minH){
-    if (!el || !document.body.contains(el)) return false;
-    var cur = el;
-    while (cur && cur !== document.documentElement){
-      var st = window.getComputedStyle(cur);
-      if (st.display === "none" || st.visibility === "hidden" || st.visibility === "collapse" || parseFloat(st.opacity || "1") <= 0.05){
-        return false;
-      }
-      cur = cur.parentElement;
-    }
-    var r = el.getBoundingClientRect();
-    return r.width >= 12 && r.height >= (minH || 1);
-  }
-
-  function resetScrollToTop(){
-    try {
-      window.scrollTo(0, 0);
-      if (document.documentElement) document.documentElement.scrollTop = 0;
-      if (document.body) document.body.scrollTop = 0;
-      var scrollers = document.querySelectorAll("main, #view-sim, #screen-sim, #view-list, #screen-districts, #view-dash, #screen-home");
-      for (var i = 0; i < scrollers.length; i++){
-        if (scrollers[i].scrollTop > 0) scrollers[i].scrollTop = 0;
-      }
-    } catch(e){}
-  }
-
+  // 120Hz Apple Spring Physics for Liquid Glass Dock (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
-  var isDragging = false, didDragMove = false, startClientX = 0;
-  var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
-  var lockedIdx = -1, navLockUntil = 0;
+  var isDragging = false, didDragMove = false, startClientX = 0, activeIdx = 0, hoverIdx = -1;
   var springX = 0, springVx = 0, springTargetX = 0;
   var springW = 82, springVw = 0, springTargetW = 82;
-  var springScale = 1, springVs = 0, springTargetScale = 1;
-  var animRaf = null, lastTs = 0, mutatingNav = false;
-  var wasOnMap = false, cachedRecLeaf = null;
+  var animRaf = null, lastTs = 0;
   var STIFFNESS = 420, DAMPING = 32;
 
   function getNav(){
@@ -6389,28 +5770,14 @@ nav > div:not(#at-lg-tab-lens),
     return out;
   }
 
-  function findTabIdx(screenName){
-    for (var i = 0; i < tabsCache.length; i++){
-      var t = (tabsCache[i].textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-      if (
-        t === screenName ||
-        (screenName === "ai twin" && (t.indexOf("twin") !== -1 || t.indexOf("ai") !== -1)) ||
-        (screenName === "districts" && t.indexOf("district") !== -1) ||
-        (screenName === "map" && t.indexOf("map") !== -1) ||
-        (screenName === "home" && t.indexOf("home") !== -1)
-      ) return i;
-    }
-    return -1;
-  }
-
   function measureDock(){
     var nav = getNav();
     if (!nav) return;
-    var tabs = getTabs(nav);
+    getTabs(nav);
     var nr = nav.getBoundingClientRect();
     navLeft = nr.left;
     navWidth = nr.width;
-    tabRects = tabs.map(function(t){
+    tabRects = tabsCache.map(function(t){
       var r = t.getBoundingClientRect();
       return { left: (r.left - navLeft) + 2, width: Math.max(58, r.width - 4), cx: r.left + r.width * 0.5 };
     });
@@ -6424,10 +5791,9 @@ nav > div:not(#at-lg-tab-lens),
 
     if (isDragging){
       var prevX = springX;
-      springX += (springTargetX - springX) * 0.68;
+      springX += (springTargetX - springX) * 0.72;
       springVx = (springX - prevX) / dt;
       springW += (springTargetW - springW) * 0.5;
-      springScale += (springTargetScale - springScale) * 0.5;
     } else {
       var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
       springVx += ax * dt;
@@ -6436,28 +5802,15 @@ nav > div:not(#at-lg-tab-lens),
       var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
       springVw += aw * dt;
       springW += springVw * dt;
-
-      var as = STIFFNESS * (springTargetScale - springScale) - DAMPING * springVs;
-      springVs += as * dt;
-      springScale += springVs * dt;
     }
 
     var stretch = Math.min(0.18, Math.abs(springVx) * 0.00018);
-    var sx = springScale + stretch;
-    var sy = Math.max(0.91, springScale - stretch * 0.40);
-
     lensEl.style.width = springW.toFixed(1) + "px";
-    lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + sx.toFixed(3) + ", " + sy.toFixed(3) + ")";
+    lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + (1 + stretch).toFixed(3) + ", " + Math.max(0.91, 1 - stretch * 0.4).toFixed(3) + ")";
 
-    var settled = !isDragging
-      && Math.abs(springTargetX - springX) < 0.15 && Math.abs(springVx) < 0.8
-      && Math.abs(springTargetW - springW) < 0.15 && Math.abs(springVw) < 0.8
-      && Math.abs(springTargetScale - springScale) < 0.002 && Math.abs(springVs) < 0.02;
-
+    var settled = !isDragging && Math.abs(springTargetX - springX) < 0.15 && Math.abs(springVx) < 0.8;
     if (settled){
       springX = springTargetX; springVx = 0;
-      springW = springTargetW; springVw = 0;
-      springScale = springTargetScale; springVs = 0;
       lensEl.style.width = springW.toFixed(1) + "px";
       lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0) scale(1, 1)";
       animRaf = null;
@@ -6468,34 +5821,7 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   function kickSpring(){
-    if (!animRaf){
-      lastTs = 0;
-      animRaf = requestAnimationFrame(stepSpring);
-    }
-  }
-
-  function applyTabVisualState(idx){
-    var tabs = tabsCache;
-    if (!tabs.length) return;
-    mutatingNav = true;
-    try {
-      for (var j = 0; j < tabs.length; j++){
-        var isAct = (j === idx);
-        tabs[j].classList.toggle("active", isAct);
-        tabs[j].setAttribute("data-at-active", isAct ? "1" : "0");
-        if (isAct){
-          tabs[j].setAttribute("aria-selected", "true");
-          tabs[j].setAttribute("aria-current", "page");
-        } else {
-          tabs[j].classList.remove("selected", "current");
-          tabs[j].removeAttribute("aria-selected");
-          tabs[j].removeAttribute("aria-current");
-          if (tabs[j].style && tabs[j].style.color) tabs[j].style.removeProperty("color");
-        }
-      }
-    } finally {
-      mutatingNav = false;
-    }
+    if (!animRaf){ lastTs = 0; animRaf = requestAnimationFrame(stepSpring); }
   }
 
   function snapLens(idx, instant){
@@ -6508,435 +5834,89 @@ nav > div:not(#at-lg-tab-lens),
     var box = tabRects[idx];
     springTargetX = box.left;
     springTargetW = box.width;
-    springTargetScale = 1.0;
     if (instant){
-      springX = box.left; springVx = 0;
-      springW = box.width; springVw = 0;
-      springScale = 1.0; springVs = 0;
+      springX = box.left; springVx = 0; springW = box.width;
       lensEl.style.width = springW.toFixed(1) + "px";
-      lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0) scale(1, 1)";
+      lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0)";
     } else {
       kickSpring();
     }
   }
 
-  function clearHover(){
-    for (var i = 0; i < tabsCache.length; i++) tabsCache[i].classList.remove("at-lg-hover");
-  }
-
-  function updateCausticLight(clientX){
-    if (!lensEl) return;
-    var pct = navWidth > 0 ? Math.max(12, Math.min(88, ((clientX - navLeft - springX) / Math.max(40, springW)) * 100)) : 50;
-    lensEl.style.setProperty("--lg-hx", pct.toFixed(1) + "%");
-  }
-
-  function pointerGlide(clientX){
-    if (!tabRects.length) return;
-    springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), clientX - navLeft - springW * 0.5));
-    springTargetScale = 1.08;
-    updateCausticLight(clientX);
-    kickSpring();
-    var best = 0, bestD = Infinity;
-    for (var i = 0; i < tabRects.length; i++){
-      var d = Math.abs(clientX - tabRects[i].cx);
-      if (d < bestD){ bestD = d; best = i; }
-    }
-    if (best !== hoverIdx){
-      hoverIdx = best;
-      clearHover();
-      if (tabsCache[best]) tabsCache[best].classList.add("at-lg-hover");
-      hapticTap();
-    }
-  }
-
-  function findActiveScreenPanel(screen){
-    if (screen === "ai twin"){
-      var r = document.querySelector('input[type="range"]');
-      if (r && !isOverlay(r)) return r.closest('#view-sim, #screen-sim, [id*="sim"], [id*="twin"], section, main > div');
-    } else if (screen === "districts"){
-      var s = document.querySelector('input[type="search"], input[placeholder*="Search" i]');
-      if (s && !isOverlay(s)) return s.closest('#view-list, #screen-districts, [id*="list"], [id*="district"], section, main > div');
-    } else if (screen === "home"){
-      var h = document.getElementById("view-dash") || document.getElementById("screen-home") || document.querySelector('[id*="dash"], [id*="home"]');
-      if (h && isDisplayedInActiveView(h, 50)) return h;
-    }
-    return null;
-  }
-
-  function animateScreenTransition(screen, fromIdx, toIdx){
-    if (fromIdx < 0 || fromIdx === toIdx || screen === "map") return;
-    document.querySelectorAll(".at-anim-slide-right, .at-anim-slide-left").forEach(function(el){
-      el.classList.remove("at-anim-slide-right", "at-anim-slide-left");
-    });
-    var panel = findActiveScreenPanel(screen);
-    if (!panel) return;
-    var cls = (toIdx > fromIdx ? "at-anim-slide-right" : "at-anim-slide-left");
-    panel.classList.add(cls);
-    var done = function(){ panel.classList.remove("at-anim-slide-right", "at-anim-slide-left"); };
-    panel.addEventListener("animationend", done, { once: true });
-    setTimeout(done, 190);
-  }
-
-  var satEnabled = true, satLayer = null, labelLayer = null;
-  function getLeafletMaps(){
-    var res = [];
-    for (var k in window){
-      try {
-        var v = window[k];
-        if (v && typeof v.addLayer === "function" && typeof v.setView === "function" && typeof v.invalidateSize === "function") res.push(v);
-      } catch(e){}
-    }
-    return res;
-  }
-
-  function applySatellite(forceInvalidate){
-    if (!window.L || !window.L.tileLayer) return;
-    if (!satLayer){
-      satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 5
-      });
-    }
-    if (!labelLayer){
-      labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 5
-      });
-    }
-    getLeafletMaps().forEach(function(m){
-      try {
-        if (satEnabled){
-          if (!m.hasLayer(satLayer)) satLayer.addTo(m);
-          if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
-          if (labelLayer.bringToFront) labelLayer.bringToFront();
-        } else {
-          if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
-          if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
-        }
-        if (forceInvalidate) m.invalidateSize({ animate: false, pan: false });
-      } catch(e){}
-    });
-  }
-
-  function setMapFullScreen(active){
-    if (active){
-      var hdr = findHeaderBar();
-      var hdrBottom = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 84;
-      document.documentElement.style.setProperty("--at-map-ctrl-top", Math.max(88, hdrBottom + 6) + "px");
-      var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
-      if (mapEl){
-        var cur = mapEl.parentElement;
-        while (cur && cur !== document.body && cur !== document.documentElement){
-          cur.classList.add("at-map-ancestor");
-          cur = cur.parentElement;
-        }
-      }
-      document.body.classList.add("at-on-map-screen");
-      if (!wasOnMap){
-        wasOnMap = true;
-        applySatellite(true);
-        setTimeout(function(){ applySatellite(true); }, 140);
-      }
-    } else if (wasOnMap || document.body.classList.contains("at-on-map-screen")){
-      wasOnMap = false;
-      document.body.classList.remove("at-on-map-screen");
-      document.querySelectorAll(".at-map-ancestor").forEach(function(el){
-        el.classList.remove("at-map-ancestor");
-      });
-    }
-  }
-
-  function detectScreen(){
-    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
-    for (var s = 0; s < searches.length; s++){
-      if (!isOverlay(searches[s]) && isDisplayedInActiveView(searches[s], 16)) return "districts";
-    }
-    var ranges = document.querySelectorAll('input[type="range"]');
-    for (var r = 0; r < ranges.length; r++){
-      if (!isOverlay(ranges[r]) && isDisplayedInActiveView(ranges[r], 1)) return "ai twin";
-    }
-    var simHost = document.querySelector("#view-sim, #screen-sim, #at-ml-panel");
-    if (simHost && isDisplayedInActiveView(simHost, 20)) return "ai twin";
-
-    var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
-    for (var m = 0; m < maps.length; m++){
-      if (isDisplayedInActiveView(maps[m], 140)){
-        var mr = maps[m].getBoundingClientRect();
-        if (mr.width >= 160 && mr.height >= 160) return "map";
-      }
-    }
-    return "home";
-  }
-
-  function findRecLeaf(){
-    if (cachedRecLeaf && document.body.contains(cachedRecLeaf)) return cachedRecLeaf;
-    var cards = document.querySelectorAll("div, section");
-    for (var i = 0; i < cards.length; i++){
-      var c = cards[i];
-      if (!c || c.children.length > 6 || c.querySelector("input[type='range']")) continue;
-      if ((c.textContent || "").indexOf("AI Recommendation") === -1) continue;
-      var leaves = c.querySelectorAll("p, span, div");
-      for (var j = leaves.length - 1; j >= 0; j--){
-        var leaf = leaves[j];
-        var lt = (leaf.textContent || "").trim();
-        if (leaf.children.length === 0 && lt.length > 8 && lt.indexOf("AI Recommendation") === -1){
-          cachedRecLeaf = leaf;
-          return leaf;
-        }
-      }
-    }
-    return null;
-  }
-
-  function updateAiRecommendation(){
-    var sel = document.querySelector("select");
-    var d = (sel && sel.value) ? resolveDistrict(sel.value) : null;
-    if (!d){
-      var gwHead = document.querySelector("[id*='gw'], [class*='gw']");
-      if (gwHead){
-        var m = (gwHead.textContent || "").match(/Groundwater Aquifer\s*\(([^)]+)\)/i);
-        if (m && m[1]) d = resolveDistrict(m[1]);
-      }
-    }
-    if (!d) return;
-    var waterPart = (d.turb >= 1.15 || d.wqi < 62)
-      ? ("WQI " + d.wqi.toFixed(1) + "/100 & turbidity " + d.turb.toFixed(2) + " - run pre-treatment filtration and check runoff.")
-      : ("WQI " + d.wqi.toFixed(1) + "/100, turbidity " + d.turb.toFixed(2) + ", coverage " + d.cov.toFixed(2) + "% - keep intake screening active.");
-    var gwPart = (d.gw_ext >= 85 || d.gw >= 11.0)
-      ? ("GW " + d.gw.toFixed(2) + "m -> +6M " + d.gw_6m.toFixed(2) + "m (ext " + d.gw_ext.toFixed(1) + "%) - expand drip irrigation & recharge pits.")
-      : ("GW " + d.gw.toFixed(2) + "m -> +6M " + d.gw_6m.toFixed(2) + "m (ext " + d.gw_ext.toFixed(1) + "%) - maintain recharge tanks & balanced pumping.");
-    var msg = d.district + " (" + d.reservoir_name + "): " + waterPart + " " + gwPart + " Res " + d.res.toFixed(1) + "% -> +6M " + d.res_6m.toFixed(1) + "% | +1M/+6M/+1Y WQI: " + d.wqi_1m.toFixed(1) + " / " + d.wqi_6m.toFixed(1) + " / " + d.wqi_1y.toFixed(1) + ".";
-
-    var leaf = findRecLeaf();
-    if (leaf && leaf.textContent !== msg){
-      leaf.textContent = msg;
-      leaf.classList.remove("at-text-pop");
-      void leaf.offsetWidth;
-      leaf.classList.add("at-text-pop");
-    }
-  }
-
-  var syncQueued = false;
-  function runSync(allowAnim){
-    syncQueued = false;
-    mountGlassBrandLogo();
-    tagDashboardActionTiles();
-    upgradeDemoToggleToApple();
-
-    var screen = detectScreen();
-    var onMap = (screen === "map");
-    setMapFullScreen(onMap);
-
-    var satBtn = document.getElementById("at-sat-toggle-btn");
-    if (!satBtn){
-      satBtn = document.createElement("button");
-      satBtn.id = "at-sat-toggle-btn";
-      satBtn.type = "button";
-      satBtn.addEventListener("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        if (detectScreen() !== "map") return;
-        hapticTap();
-        satEnabled = !satEnabled;
-        satBtn.classList.toggle("sat-on", satEnabled);
-        satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-        applySatellite(false);
-      });
-      document.body.appendChild(satBtn);
-    }
-    satBtn.classList.toggle("at-map-only-visible", onMap);
-    satBtn.classList.toggle("sat-on", satEnabled);
-    satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-
-    var nav = getNav();
-    if (nav){
-      var tabs = tabsCache.length ? tabsCache : getTabs(nav);
-      var targetIdx = findTabIdx(screen);
-
-      if (performance.now() < navLockUntil && lockedIdx >= 0 && targetIdx !== lockedIdx){
-        targetIdx = lockedIdx;
-      } else if (targetIdx === lockedIdx){
-        lockedIdx = -1;
-        navLockUntil = 0;
-      }
-
-      if (targetIdx >= 0){
-        applyTabVisualState(targetIdx);
-        var wasFirst = (prevScreenIdx < 0);
-        if (allowAnim !== false && !wasFirst && prevScreenIdx !== targetIdx){
-          animateScreenTransition(screen, prevScreenIdx, targetIdx);
-        }
-        prevScreenIdx = targetIdx;
-        snapLens(targetIdx, wasFirst);
-      }
-    }
-
-    if (screen === "ai twin") updateAiRecommendation();
-  }
-
-  function scheduleSync(delayMs){
-    if (delayMs){
-      setTimeout(function(){ if (!syncQueued){ syncQueued = true; requestAnimationFrame(function(){ runSync(true); }); } }, delayMs);
-    } else if (!syncQueued){
-      syncQueued = true;
-      requestAnimationFrame(function(){ runSync(true); });
-    }
-  }
-
   function initDock(){
-    mountGlassBrandLogo();
-    tagDashboardActionTiles();
-    upgradeDemoToggleToApple();
-
     var nav = getNav();
     if (!nav) return;
-
-    var oldLenses = nav.querySelectorAll("#at-lg-tab-lens");
-    for (var ol = 1; ol < oldLenses.length; ol++) oldLenses[ol].remove();
     lensEl = nav.querySelector("#at-lg-tab-lens");
     if (!lensEl){
       lensEl = document.createElement("div");
       lensEl.id = "at-lg-tab-lens";
       nav.insertBefore(lensEl, nav.firstChild);
     }
-
     measureDock();
-    var tabs = tabsCache;
+    snapLens(activeIdx, true);
 
-    if (typeof MutationObserver === "function" && nav.dataset.atV8Obs !== "1"){
-      nav.dataset.atV8Obs = "1";
-      var tabObs = new MutationObserver(function(){
-        if (!mutatingNav && !isDragging) scheduleSync(0);
-      });
-      tabs.forEach(function(tb){
-        tabObs.observe(tb, { attributes: true, attributeFilter: ["class", "style"] });
-      });
-    }
-
-    if (nav.dataset.atV8Bound !== "1"){
-      nav.dataset.atV8Bound = "1";
-
+    if (nav.dataset.atV9Bound !== "1"){
+      nav.dataset.atV9Bound = "1";
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
         if (!tab) return;
         var idx = tabsCache.indexOf(tab);
         if (idx >= 0){
-          lockedIdx = idx;
-          navLockUntil = performance.now() + 340;
-          applyTabVisualState(idx);
+          tabsCache.forEach(function(t, i){ t.setAttribute("data-at-active", i === idx ? "1" : "0"); });
           snapLens(idx, false);
-          if (idx !== findTabIdx("map")) resetScrollToTop();
         }
       }, true);
 
-      function beginGlide(clientX){
+      nav.addEventListener("touchstart", function(e){
+        if (!e.touches || !e.touches.length) return;
         measureDock();
-        isDragging = true;
-        didDragMove = false;
-        hoverIdx = -1;
-        startClientX = clientX;
+        isDragging = true; didDragMove = false; hoverIdx = -1;
+        startClientX = e.touches[0].clientX;
         lensEl.classList.add("dragging");
-        updateCausticLight(clientX);
-      }
+      }, { passive: true });
 
-      function moveGlide(clientX, evt){
-        if (!isDragging) return;
-        if (!didDragMove && Math.abs(clientX - startClientX) > 5) didDragMove = true;
+      nav.addEventListener("touchmove", function(e){
+        if (!isDragging || !e.touches || !e.touches.length) return;
+        var cx = e.touches[0].clientX;
+        if (!didDragMove && Math.abs(cx - startClientX) > 5) didDragMove = true;
         if (didDragMove){
-          if (evt && evt.cancelable) evt.preventDefault();
-          pointerGlide(clientX);
+          if (e.cancelable) e.preventDefault();
+          springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), cx - navLeft - springW * 0.5));
+          kickSpring();
+          var best = 0, bestD = Infinity;
+          for (var i = 0; i < tabRects.length; i++){
+            var d = Math.abs(cx - tabRects[i].cx);
+            if (d < bestD){ bestD = d; best = i; }
+          }
+          hoverIdx = best;
         }
-      }
+      }, { passive: false });
 
-      function finishGlide(){
+      function endGlide(){
         if (!isDragging) return;
         isDragging = false;
-        clearHover();
         lensEl.classList.remove("dragging");
-        var targetToClick = (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx) ? hoverIdx : -1;
-        didDragMove = false;
-        hoverIdx = -1;
-        if (targetToClick >= 0){
-          lockedIdx = targetToClick;
-          navLockUntil = performance.now() + 340;
-          activeIdx = targetToClick;
-          applyTabVisualState(targetToClick);
-          snapLens(targetToClick, false);
-          hapticTap();
-          if (targetToClick !== findTabIdx("map")) resetScrollToTop();
-          try { tabsCache[targetToClick].click(); } catch(e){}
-          scheduleSync(60);
-          scheduleSync(220);
+        if (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx){
+          activeIdx = hoverIdx;
+          tabsCache.forEach(function(t, i){ t.setAttribute("data-at-active", i === activeIdx ? "1" : "0"); });
+          snapLens(activeIdx, false);
+          try { tabsCache[activeIdx].click(); } catch(e){}
         } else {
           snapLens(activeIdx, false);
         }
+        didDragMove = false;
+        hoverIdx = -1;
       }
 
-      nav.addEventListener("touchstart", function(e){
-        if (e.touches && e.touches.length) beginGlide(e.touches[0].clientX);
-      }, { passive: true });
-      nav.addEventListener("touchmove", function(e){
-        if (e.touches && e.touches.length) moveGlide(e.touches[0].clientX, e);
-      }, { passive: false });
-      nav.addEventListener("touchend", finishGlide, { passive: true });
-      nav.addEventListener("touchcancel", finishGlide, { passive: true });
-
-      nav.addEventListener("mousedown", function(e){
-        if (e.button === 0) beginGlide(e.clientX);
-      });
-      window.addEventListener("mousemove", function(e){
-        if (isDragging) moveGlide(e.clientX, e);
-      });
-      window.addEventListener("mouseup", finishGlide);
+      nav.addEventListener("touchend", endGlide, { passive: true });
+      nav.addEventListener("touchcancel", endGlide, { passive: true });
     }
-
-    runSync(false);
-    scheduleSync(180);
   }
 
-  document.addEventListener("click", function(e){
-    if (!e.target) return;
-    if (e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
-    var inNav = e.target.closest && e.target.closest('nav, [class*="bottom-nav"], [class*="tab-bar"], .at-tabbar-fixed');
-    var inHdr = e.target.closest && e.target.closest("header, .topbar, .at-top-header-bar");
-    var isInput = e.target.closest && e.target.closest("input, select, #at-askai-fab, #at-sat-toggle-btn");
-
-    if (!inNav && !inHdr && !isInput && !isOverlay(e.target)){
-      var curScreen = detectScreen();
-      var clickedCard = e.target.closest && e.target.closest(".district-item, .district-card, .dash-item, .at-rt-row, [onclick]");
-      if (curScreen === "districts" || clickedCard){
-        var aiIdx = findTabIdx("ai twin");
-        if (aiIdx >= 0){
-          lockedIdx = aiIdx;
-          navLockUntil = performance.now() + 450;
-          applyTabVisualState(aiIdx);
-          snapLens(aiIdx, false);
-          resetScrollToTop();
-          requestAnimationFrame(function(){
-            resetScrollToTop();
-            updateAiRecommendation();
-          });
-        }
-        scheduleSync(60);
-        scheduleSync(220);
-        return;
-      }
-    }
-    scheduleSync(0);
-    scheduleSync(120);
-  }, { passive: true, capture: true });
-
-  document.addEventListener("change", function(){ scheduleSync(0); scheduleSync(80); }, { passive: true, capture: true });
-  window.addEventListener("resize", function(){
-    if (!isDragging){
-      measureDock();
-      snapLens(activeIdx, true);
-      if (wasOnMap) setMapFullScreen(true);
-    }
-  }, { passive: true });
-
   if (document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(initDock); }, { once: true });
+    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(function(){ initDock(); lockTopRingSteady(); }); }, { once: true });
   } else {
-    requestAnimationFrame(initDock);
+    requestAnimationFrame(function(){ initDock(); lockTopRingSteady(); });
   }
 
   setTimeout(function(){
@@ -6944,7 +5924,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_WHITE_LIQUID_V8_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_LIQUID_V9_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);
