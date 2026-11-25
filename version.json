@@ -1,8 +1,8 @@
 {
-    "version":  "1.125",
-    "version_code":  125,
+    "version":  "1.126",
+    "version_code":  126,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed district-switch buffering \u0026 black flash, moved Map View right/down, upgraded WWDC 25 Liquid Glass buttons \u0026 800-tile cache",
+    "notes":  "• Apple Blue Liquid Glass overhaul: Demo liquid toggle (no ON/OFF), upper-right Map View, full district names, zero-buffer AI Twin switch \u0026 1000-tile cache",
     "force":  false,
-    "updated_at":  "2026-11-26 03:54 IST"
+    "updated_at":  "2026-11-26 04:29 IST"
 }

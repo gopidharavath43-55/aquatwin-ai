@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.125";
+window.AQUATWIN_VERSION = "1.126";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5471,6 +5471,10 @@ nav > div:not(#at-lg-tab-lens),
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
   --at-map-ctrl-top: 96px;
+  /* Exact Apple Liquid Glass Optical Spec (from Figma reference: 4,5,6 + -1,-3,4 + 0,8,13 + blur 8px) */
+  --lg-inner-rim: inset 4px 5px 6px rgba(255, 255, 255, 0.32), inset -1px -3px 4px rgba(255, 255, 255, 0.34);
+  --lg-drop: 0 8px 14px rgba(0, 12, 36, 0.28);
+  --lg-blur: blur(8px) saturate(190%);
 }
 
 * {
@@ -5480,8 +5484,8 @@ nav > div:not(#at-lg-tab-lens),
 }
 
 html, body {
-  background-color: #030916 !important;
-  color: #f8fafc;
+  background-color: #02205c !important;
+  color: #ffffff;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
   -webkit-font-smoothing: antialiased;
@@ -5491,49 +5495,79 @@ html, body {
   line-height: 1.4;
 }
 
-/* Luminous Apple ambient caustic depth so every Liquid Glass element refracts rich light */
+/* ============================================================================
+   EXACT APPLE BLUE LIQUID WAVE WALLPAPER (matching video_2.mp4 00:02 & 00:37)
+   ============================================================================ */
 body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(85% 58% at 15% 12%, rgba(56, 189, 248, 0.85) 0%, rgba(14, 165, 233, 0.36) 42%, rgba(0, 82, 204, 0) 74%),
+    radial-gradient(72% 52% at 88% 24%, rgba(96, 165, 250, 0.72) 0%, rgba(37, 99, 235, 0.30) 48%, rgba(2, 24, 72, 0) 76%),
+    radial-gradient(90% 62% at 50% 82%, rgba(0, 122, 255, 0.78) 0%, rgba(3, 54, 156, 0.44) 52%, rgba(2, 18, 56, 0.92) 100%),
+    linear-gradient(155deg, #0066e6 0%, #0044b3 36%, #002a7a 70%, #021744 100%);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Flowing Apple Liquid Blue Silk Ribbon Highlight + Micro Glass Grain */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(66% 44% at 14% 10%, rgba(14, 165, 233, 0.30) 0%, rgba(14, 165, 233, 0) 68%),
-    radial-gradient(56% 40% at 88% 22%, rgba(129, 140, 248, 0.24) 0%, rgba(129, 140, 248, 0) 68%),
-    radial-gradient(62% 46% at 50% 88%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 70%),
-    linear-gradient(180deg, #040c1c 0%, #081830 50%, #040b18 100%);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='w1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23bae6fd' stop-opacity='0.42'/%3E%3Cstop offset='48%25' stop-color='%2338bdf8' stop-opacity='0.18'/%3E%3Cstop offset='100%25' stop-color='%23003eb3' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='w2' x1='1' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.34'/%3E%3Cstop offset='50%25' stop-color='%2360a5fa' stop-opacity='0.14'/%3E%3Cstop offset='100%25' stop-color='%23001a4d' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-80 260 C 180 60, 460 120, 880 340 L 880 640 C 520 420, 220 440, -80 620 Z' fill='url(%23w1)'/%3E%3Cpath d='M-60 880 C 240 680, 560 760, 860 980 L 860 1440 L -60 1440 Z' fill='url(%23w2)'/%3E%3Cpath d='M-40 310 C 210 120, 500 180, 840 390' fill='none' stroke='%23e0f2fe' stroke-opacity='0.48' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.95;
   transform: translate3d(0, 0, 0);
 }
 
+/* Crisp Apple Glass Typography + Entrance Animations */
 h1, h2 {
-  letter-spacing: -0.014em !important;
+  letter-spacing: -0.016em !important;
   word-spacing: 0.02em !important;
   font-weight: 700 !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 24, 72, 0.28);
   font-variant-numeric: tabular-nums !important;
 }
 h3, h4, .at-rt-title {
   letter-spacing: -0.004em !important;
   word-spacing: 0.03em !important;
   font-weight: 600 !important;
+  color: #ffffff !important;
 }
 [class*="val"], [class*="pct"], [class*="score"], [class*="metric"], td, .at-rt-pct, b, strong {
   font-variant-numeric: tabular-nums !important;
+}
+
+@keyframes atAppleTextReveal {
+  0% { opacity: 0.4; transform: translate3d(0, 6px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.at-text-pop {
+  animation: atAppleTextReveal 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 main,
 #view-dash, #view-list, #view-sim,
 #screen-home, #screen-districts, #screen-sim,
 .page, .view, .screen {
-  padding-bottom: 112px !important;
+  padding-bottom: 116px !important;
 }
 
-/* Translucent Refractive Liquid Glass Header */
+/* Pure Liquid Glass Top Header */
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(10, 22, 44, 0.70) 0%, rgba(6, 14, 30, 0.38) 100%) !important;
-  backdrop-filter: blur(22px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(210%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(12, 62, 148, 0.28) 100%) !important;
+  backdrop-filter: blur(14px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(200%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18), 0 6px 18px rgba(0, 14, 48, 0.22) !important;
 }
 
 /* Iridescent Apple Liquid Glass Brand Emblem */
@@ -5541,20 +5575,20 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   margin-right: 9px;
-  border-radius: 9px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.34) 0%, rgba(125, 211, 252, 0.18) 52%, rgba(196, 181, 253, 0.20) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.56);
-  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.92), inset 0 -1px 3px rgba(56, 189, 248, 0.40);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.36) 0%, rgba(186, 230, 253, 0.18) 55%, rgba(255, 255, 255, 0.14) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: var(--lg-inner-rim), 0 4px 12px rgba(0, 24, 80, 0.28);
   vertical-align: middle;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
 }
 
 /* ============================================================================
-   WWDC 25 APPLE LIQUID GLASS CARDS & LIST ITEMS (OPTICAL RIM + ZERO GPU STALL)
+   PURE APPLE LIQUID GLASS CARDS (EXACT FIGMA RECIPE: 4,5,6 + -1,-3,4 + BLUR 8PX)
    ============================================================================ */
 .card,
 .panel,
@@ -5565,44 +5599,148 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
   position: relative;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.11) 0%, rgba(18, 38, 68, 0.62) 38%, rgba(8, 20, 40, 0.78) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.22) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.54) !important;
-  border-radius: 24px !important;
-  box-shadow:
-    0 14px 32px rgba(0, 0, 0, 0.34),
-    inset 0 1.2px 0.8px rgba(255, 255, 255, 0.56),
-    inset 1px 0 0.8px rgba(125, 211, 252, 0.20),
-    inset -1px 0 0.8px rgba(196, 181, 253, 0.16),
-    inset 0 -1.2px 2px rgba(56, 189, 248, 0.18) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.20) 0%, rgba(190, 230, 255, 0.10) 48%, rgba(4, 34, 92, 0.26) 100%) !important;
+  backdrop-filter: var(--lg-blur) !important;
+  -webkit-backdrop-filter: var(--lg-blur) !important;
+  border: 1px solid rgba(255, 255, 255, 0.36) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.68) !important;
+  border-radius: 26px !important;
+  box-shadow: var(--lg-drop), var(--lg-inner-rim) !important;
+}
+
+/* FIX #3: Real-Time District Health List Rows — Full Name & % Visible, Zero Clipping */
+.at-rt-list,
+[id*="rt-list"],
+[class*="rt-list"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  max-height: 310px !important;
+  overflow-y: auto !important;
+  padding: 6px 2px !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.at-rt-row {
+  flex: 0 0 auto !important;
+  min-height: 44px !important;
+  height: auto !important;
+  padding: 10px 14px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  line-height: 1.35 !important;
+  overflow: visible !important;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.30) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
+  border-radius: 16px !important;
+  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.24), inset -1px -2px 3px rgba(255, 255, 255, 0.22), 0 4px 10px rgba(0, 14, 48, 0.18) !important;
+}
+.at-rt-row > *,
+.at-rt-row span,
+.at-rt-row b {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+}
+.at-rt-row > *:first-child {
+  white-space: normal !important;
+  word-break: break-word !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
 }
 
 .dash-item,
-.at-rt-row,
 .at-ml-cell,
 .district-item,
 .district-card {
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.10) 0%, rgba(14, 30, 56, 0.54) 100%) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.18) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
-  border-radius: 18px !important;
-  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.34), inset 0 -1px 1px rgba(56, 189, 248, 0.12) !important;
-  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.18s ease !important;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.30) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.56) !important;
+  border-radius: 20px !important;
+  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.26), inset -1px -2px 3px rgba(255, 255, 255, 0.24), 0 6px 12px rgba(0, 14, 48, 0.20) !important;
+  transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1) !important;
 }
 .dash-item:active,
 .at-rt-row:active,
 .district-item:active,
 .district-card:active {
   transform: scale(0.972) translate3d(0, 0, 0) !important;
-  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.72), 0 0 16px rgba(56, 189, 248, 0.22) !important;
 }
 
 /* ============================================================================
-   EXACT WWDC 25 LIQUID GLASS BUTTONS (LIVE FINGER-TRACKING CAUSTIC GEL SHEEN)
+   FIX #1: EXACT APPLE iOS 26/27 LIQUID GLASS DEMO TOGGLE (NO ON/OFF TEXT!)
+   ============================================================================ */
+.at-demo-apple-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 5px 8px 5px 12px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.44) !important;
+  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.30), inset -1px -2px 4px rgba(255, 255, 255, 0.28), 0 6px 14px rgba(0, 14, 48, 0.22) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+.at-demo-apple-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.01em !important;
+}
+.at-apple-switch-track {
+  position: relative !important;
+  display: inline-block !important;
+  width: 50px !important;
+  height: 28px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: inset 0 2px 5px rgba(0, 14, 44, 0.32) !important;
+  transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease !important;
+  overflow: visible !important;
+}
+.at-apple-switch-track.is-on {
+  background: linear-gradient(180deg, #34d369 0%, #28b856 100%) !important;
+  border-color: rgba(187, 247, 208, 0.80) !important;
+  box-shadow: inset 0 1px 4px rgba(0, 80, 28, 0.26), 0 0 14px rgba(52, 199, 89, 0.48) !important;
+}
+.at-apple-switch-knob {
+  position: absolute !important;
+  top: 2px !important;
+  left: 2px !important;
+  width: 24px !important;
+  height: 22px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(235, 246, 255, 0.88) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28), inset 2px 2px 3px rgba(255, 255, 255, 0.95) !important;
+  transform: translate3d(0, 0, 0) scale(1, 1);
+  transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1), background 0.16s ease, box-shadow 0.16s ease !important;
+  will-change: transform;
+}
+.at-apple-switch-track.is-on .at-apple-switch-knob {
+  transform: translate3d(20px, 0, 0) scale(1, 1);
+}
+/* Exact Apple iOS 26/27 stretched clear-glass droplet morph while pressing/toggling (video_3.mp4 00:11-00:12) */
+.at-demo-apple-wrap:active .at-apple-switch-knob,
+.at-apple-switch-track.is-morphing .at-apple-switch-knob {
+  background: radial-gradient(120% 130% at 35% 22%, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.36) 100%) !important;
+  box-shadow: inset 3px 4px 5px rgba(255, 255, 255, 0.88), inset -1px -2px 4px rgba(255, 255, 255, 0.65), 0 4px 14px rgba(0, 0, 0, 0.26) !important;
+  transform: translate3d(4px, 0, 0) scale(1.36, 1.10) !important;
+}
+.at-demo-apple-wrap:active .at-apple-switch-track.is-on .at-apple-switch-knob,
+.at-apple-switch-track.is-on.is-morphing .at-apple-switch-knob {
+  transform: translate3d(16px, 0, 0) scale(1.36, 1.10) !important;
+}
+
+/* ============================================================================
+   PURE LIQUID GLASS BUTTONS & PILLS (EXACT FIGMA + WWDC 25 CAUSTIC GEL)
    ============================================================================ */
 .dash-btn,
 .dash-action,
@@ -5615,106 +5753,67 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   text-align: left !important;
 }
 
-button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn),
+button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(.at-demo-apple-wrap),
 .dash-badge,
-.at-demo-btn,
 #at-history-btn,
 #at-askai-fab {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(120% 140% at var(--btn-x, 35%) var(--btn-y, 16%), rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.06) 52%, rgba(125, 211, 252, 0.14) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.38) !important;
-  border-top: 1.1px solid rgba(255, 255, 255, 0.78) !important;
+    radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.10) 52%, rgba(56, 189, 248, 0.16) 100%) !important;
+  backdrop-filter: var(--lg-blur) !important;
+  -webkit-backdrop-filter: var(--lg-blur) !important;
+  border: 1px solid rgba(255, 255, 255, 0.46) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.84) !important;
   border-radius: 999px !important;
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.28),
-    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.86),
-    inset 0 -1.4px 2.5px rgba(56, 189, 248, 0.32),
-    inset 1px 0 1.5px rgba(196, 181, 253, 0.24) !important;
-  color: #f8fafc !important;
+  box-shadow: var(--lg-drop), var(--lg-inner-rim) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 6px rgba(0, 20, 64, 0.28);
   touch-action: manipulation;
   transition: transform 0.22s cubic-bezier(0.22, 1.55, 0.36, 1), box-shadow 0.2s ease, border-color 0.18s ease !important;
 }
 
-/* Specular liquid gel highlight arc inside every glass button */
-button:not([data-at-tab="1"])::before,
-#at-history-btn::before,
-#at-askai-fab::before,
-#at-sat-toggle-btn::before {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 10%;
-  right: 10%;
-  height: 40%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 100%);
-  pointer-events: none;
-  opacity: 0.72;
-}
-
-/* Tactile WWDC 25 gel-squish & caustic bloom on press */
-button:not([data-at-tab="1"]):active,
-.at-glass-pressed,
+button:not([data-at-tab="1"]):not(.at-demo-apple-wrap):active,
 #at-askai-fab:active {
   transform: scale(0.94, 0.96) translate3d(0, 0, 0) !important;
-  border-color: rgba(255, 255, 255, 0.92) !important;
-  box-shadow:
-    0 4px 16px rgba(56, 189, 248, 0.40),
-    inset 0 2px 1.5px rgba(255, 255, 255, 0.98),
-    inset 0 -2px 4px rgba(167, 139, 250, 0.42) !important;
+  border-color: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.45), inset 4px 5px 6px rgba(255, 255, 255, 0.62), inset -1px -3px 4px rgba(255, 255, 255, 0.56) !important;
 }
 
-/* Tinted Optical Liquid Glass Floating Ask AI Button (like WWDC 25 tinted pill) */
 #at-askai-fab {
   bottom: 92px !important;
   right: 16px !important;
-  backdrop-filter: blur(18px) saturate(230%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(230%) !important;
-  background:
-    radial-gradient(120% 140% at var(--btn-x, 35%) var(--btn-y, 18%), rgba(255, 255, 255, 0.36) 0%, rgba(56, 189, 248, 0.46) 45%, rgba(2, 132, 199, 0.42) 100%) !important;
-  border: 1.1px solid rgba(186, 230, 253, 0.84) !important;
-  box-shadow:
-    0 12px 28px rgba(2, 132, 199, 0.42),
-    inset 0 1.6px 1px rgba(255, 255, 255, 0.94),
-    inset 0 -1.6px 4px rgba(56, 189, 248, 0.48) !important;
+  background: radial-gradient(125% 145% at var(--btn-x, 32%) var(--btn-y, 16%), rgba(255, 255, 255, 0.42) 0%, rgba(56, 189, 248, 0.46) 52%, rgba(0, 122, 255, 0.48) 100%) !important;
+  border: 1.1px solid rgba(224, 242, 254, 0.88) !important;
+  box-shadow: 0 10px 24px rgba(0, 82, 204, 0.42), var(--lg-inner-rim) !important;
   transform: translate3d(0, 0, 0);
   will-change: transform;
-}
-
-/* Apple Liquid Glass Toggle Switch Thumb Morph (video_2.mp4 00:11-00:13) */
-input[type="checkbox"],
-.switch,
-.toggle,
-[role="switch"] {
-  transition: transform 0.22s cubic-bezier(0.22, 1.5, 0.36, 1), box-shadow 0.2s ease !important;
-}
-.switch:active,
-.toggle:active,
-[role="switch"]:active {
-  transform: scale(1.06, 0.96) translate3d(0, 0, 0) !important;
 }
 
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(26, 48, 82, 0.72) 0%, rgba(12, 24, 46, 0.86) 100%) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.54) !important;
-  border-radius: 16px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 6px 14px rgba(0, 0, 0, 0.22) !important;
-  color: #f8fafc !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(8, 42, 108, 0.36) 100%) !important;
+  backdrop-filter: var(--lg-blur) !important;
+  -webkit-backdrop-filter: var(--lg-blur) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.72) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--lg-inner-rim), 0 6px 14px rgba(0, 14, 48, 0.20) !important;
+  color: #ffffff !important;
+}
+select option {
+  background: #082866 !important;
+  color: #ffffff !important;
 }
 
-/* Apple Liquid Glass Range Sliders (stretched clear optical glass thumb) */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 7px !important;
   border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.54), rgba(255, 255, 255, 0.16)) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.42);
+  background: linear-gradient(90deg, rgba(125, 211, 252, 0.72), rgba(255, 255, 255, 0.22)) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 18, 56, 0.40);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -5722,18 +5821,18 @@ input[type="range"]::-webkit-slider-thumb {
   width: 30px;
   height: 20px;
   border-radius: 999px;
-  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.72) 56%, rgba(125, 211, 252, 0.48) 100%);
-  border: 1.1px solid rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42), inset 0 1.2px 1px rgba(255, 255, 255, 0.98);
+  background: radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.96) 0%, rgba(210, 242, 255, 0.76) 56%, rgba(125, 211, 252, 0.54) 100%);
+  border: 1.1px solid rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 12px rgba(0, 18, 56, 0.36), inset 2px 3px 4px rgba(255, 255, 255, 0.96);
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.22, 1.5, 0.36, 1);
 }
 input[type="range"]:active::-webkit-slider-thumb {
-  transform: scale(1.22, 1.12);
+  transform: scale(1.24, 1.12);
 }
 
 /* ============================================================================
-   TRUE EDGE-TO-EDGE FULL-SCREEN MAP + REPOSITIONED RIGHT-SIDE MAP VIEW PILL
+   FIX #2: FULL-SCREEN MAP + SATELLITE BUTTON AT EXACT SECOND-ARROW UPPER RIGHT
    ============================================================================ */
 body.at-on-map-screen {
   overflow: hidden !important;
@@ -5776,42 +5875,42 @@ body.at-on-map-screen .leaflet-container {
   z-index: 15 !important;
 }
 body.at-on-map-screen .leaflet-top.leaflet-left {
-  top: calc(var(--at-map-ctrl-top, 96px) + 18px) !important;
+  top: calc(var(--at-map-ctrl-top, 96px) + 52px) !important;
 }
-/* Stack Leaflet Layers icon neatly right below the repositioned Map View pill on the right side */
-body.at-on-map-screen .leaflet-top.leaflet-right {
-  top: calc(var(--at-map-ctrl-top, 96px) + 64px) !important;
+/* Hide redundant dark square Leaflet layers icon so Satellite/Map View pill owns that exact upper-right spot */
+body.at-on-map-screen .leaflet-control-layers {
+  display: none !important;
 }
 body.at-on-map-screen .leaflet-bottom {
   bottom: 92px !important;
 }
 
-/* Repositioned Map View / Satellite Liquid Glass Pill: right side, slightly lower (1000361604.jpg arrow) */
+/* Map View / Satellite Liquid Glass Pill placed at exact second-arrow spot (aligned with +/- zoom controls) */
 #at-sat-toggle-btn {
   position: fixed !important;
-  top: calc(var(--at-map-ctrl-top, 96px) + 20px) !important;
+  top: calc(var(--at-map-ctrl-top, 96px) + 54px) !important;
   right: 12px !important;
   z-index: 2147482450 !important;
   display: none !important;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px !important;
-  font-size: 12px !important;
+  padding: 9px 15px !important;
+  font-size: 12.5px !important;
   font-weight: 700 !important;
-  backdrop-filter: blur(18px) saturate(230%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(230%) !important;
+  backdrop-filter: blur(10px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(210%) !important;
   cursor: pointer;
   transform: translate3d(0, 0, 0);
 }
 #at-sat-toggle-btn.at-map-only-visible { display: inline-flex !important; }
 #at-sat-toggle-btn.sat-on {
-  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.34) 0%, rgba(14, 165, 233, 0.62) 55%, rgba(2, 132, 199, 0.50) 100%) !important;
-  border-color: rgba(186, 230, 253, 0.90) !important;
+  background: radial-gradient(120% 140% at 35% 18%, rgba(255, 255, 255, 0.38) 0%, rgba(14, 165, 233, 0.62) 55%, rgba(0, 122, 255, 0.56) 100%) !important;
+  border-color: rgba(224, 242, 254, 0.92) !important;
 }
 #at-sat-toggle-btn * { pointer-events: none; }
 
 /* ============================================================================
-   APPLE LIQUID GLASS FLOATING DOCK + 120HZ OPTICAL DROPLET SLIDER
+   PURE APPLE LIQUID GLASS FLOATING DOCK + 120HZ OPTICAL DROPLET SLIDER
    ============================================================================ */
 nav,
 [class*="bottom-nav"],
@@ -5833,12 +5932,12 @@ nav,
   align-items: center !important;
   justify-content: space-between !important;
   gap: 0 !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 48%, rgba(10, 20, 36, 0.40) 100%) !important;
-  backdrop-filter: blur(26px) saturate(235%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(26px) saturate(235%) brightness(1.08) !important;
-  border: 0.75px solid rgba(255, 255, 255, 0.30) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.68) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.44), inset 0 1.2px 0 rgba(255, 255, 255, 0.66), inset 0 -1px 1px rgba(255, 255, 255, 0.18) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(186, 230, 253, 0.08) 48%, rgba(4, 34, 92, 0.32) 100%) !important;
+  backdrop-filter: blur(16px) saturate(225%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(225%) brightness(1.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.78) !important;
+  box-shadow: 0 14px 34px rgba(0, 14, 48, 0.40), var(--lg-inner-rim) !important;
   overflow: visible !important;
   touch-action: none !important;
   user-select: none !important;
@@ -5876,12 +5975,10 @@ nav > div:not(#at-lg-tab-lens),
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: rgba(248, 250, 252, 0.78) !important;
+  color: rgba(255, 255, 255, 0.84) !important;
   font-size: 10px !important;
   font-weight: 500 !important;
   line-height: 1.05 !important;
-  letter-spacing: 0 !important;
-  word-spacing: 0.02em !important;
   gap: 3px !important;
   transition: color 0.14s ease, transform 0.18s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
 }
@@ -5907,14 +6004,15 @@ nav > div:not(#at-lg-tab-lens),
   color: inherit !important;
 }
 [data-at-tab="1"]:not([data-at-active="1"]) {
-  color: rgba(248, 250, 252, 0.74) !important;
+  color: rgba(255, 255, 255, 0.78) !important;
 }
 [data-at-tab="1"][data-at-active="1"] {
-  color: #38bdf8 !important;
-  font-weight: 600 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 12px rgba(186, 230, 253, 0.85);
 }
 [data-at-tab="1"][data-at-active="1"] svg {
-  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.48));
+  filter: drop-shadow(0 0 8px rgba(186, 230, 253, 0.85));
 }
 [data-at-tab="1"].at-lg-hover {
   color: #ffffff !important;
@@ -5932,72 +6030,29 @@ nav > div:not(#at-lg-tab-lens),
   z-index: 1 !important;
   background: radial-gradient(
     115% 135% at var(--lg-hx, 50%) 14%,
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(255, 255, 255, 0.05) 48%,
-    rgba(56, 189, 248, 0.09) 82%,
-    rgba(255, 255, 255, 0.18) 100%
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.08) 48%,
+    rgba(56, 189, 248, 0.16) 82%,
+    rgba(255, 255, 255, 0.24) 100%
   ) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.52) !important;
-  box-shadow:
-    inset 0 1.4px 0.8px rgba(255, 255, 255, 0.94),
-    inset 0 -1.4px 2.2px rgba(255, 255, 255, 0.30),
-    inset 1px 0 1.5px rgba(125, 211, 252, 0.30),
-    inset -1px 0 1.5px rgba(196, 181, 253, 0.30),
-    0 5px 16px rgba(0, 0, 0, 0.26) !important;
+  border: 1px solid rgba(255, 255, 255, 0.66) !important;
+  box-shadow: var(--lg-inner-rim), 0 5px 16px rgba(0, 14, 48, 0.26) !important;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform, width;
   overflow: hidden;
 }
-#at-lg-tab-lens::before {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 11%;
-  right: 11%;
-  height: 38%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66) 0%, rgba(255, 255, 255, 0) 100%);
-  opacity: 0.80;
-  pointer-events: none;
-}
-#at-lg-tab-lens::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  padding: 1.1px;
-  background: linear-gradient(
-    112deg,
-    rgba(255, 255, 255, 0.90) 0%,
-    rgba(125, 211, 252, 0.62) 34%,
-    rgba(216, 180, 254, 0.54) 68%,
-    rgba(255, 255, 255, 0.86) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.76;
-  pointer-events: none;
-}
 #at-lg-tab-lens.dragging {
   background: radial-gradient(
     120% 140% at var(--lg-hx, 50%) 16%,
-    rgba(255, 255, 255, 0.24) 0%,
-    rgba(255, 255, 255, 0.03) 54%,
-    rgba(125, 211, 252, 0.12) 86%,
-    rgba(255, 255, 255, 0.22) 100%
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.04) 54%,
+    rgba(125, 211, 252, 0.14) 86%,
+    rgba(255, 255, 255, 0.24) 100%
   ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1.1px solid rgba(255, 255, 255, 0.94) !important;
-  box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.34),
-    0 0 18px rgba(125, 211, 252, 0.32),
-    inset 0 2px 1.2px rgba(255, 255, 255, 0.98),
-    inset 0 -2px 4px rgba(167, 139, 250, 0.40) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 10px 26px rgba(0, 18, 64, 0.34), inset 4px 5px 6px rgba(255, 255, 255, 0.56), inset -1px -3px 4px rgba(255, 255, 255, 0.52) !important;
 }
-#at-lg-tab-lens.dragging::after { opacity: 1; }
 
 @keyframes atLiquidNudgeRight {
   0% { transform: translate3d(14px, 0, 0); }
@@ -6015,8 +6070,8 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_APPLE_LIQUID_V5__) return;
-  window.__AT_APPLE_LIQUID_V5__ = true;
+  if (window.__AT_APPLE_LIQUID_V6__) return;
+  window.__AT_APPLE_LIQUID_V6__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -6027,7 +6082,11 @@ nav > div:not(#at-lg-tab-lens),
     }, { once: true });
   }
 
-  // Live WWDC 25 Liquid Glass specular sheen tracking on every button press
+  function hapticTap(){
+    try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
+  }
+
+  // Live finger-tracking Liquid Glass sheen on every button press
   function updateButtonLiquidLight(el, clientX, clientY){
     if (!el || !el.getBoundingClientRect) return;
     var r = el.getBoundingClientRect();
@@ -6041,6 +6100,66 @@ nav > div:not(#at-lg-tab-lens),
     var btn = e.target && e.target.closest ? e.target.closest("button:not([data-at-tab='1']), #at-history-btn, #at-askai-fab, #at-sat-toggle-btn") : null;
     if (btn) updateButtonLiquidLight(btn, e.clientX, e.clientY);
   }, { passive: true });
+
+  // FIX #1: Remove ON/OFF text from Demo toggle & render exact Apple iOS 26/27 Liquid Glass switch
+  function upgradeDemoToggleToApple(){
+    var demoBtn = document.getElementById("at-demo-btn") || document.querySelector(".at-demo-btn");
+    if (!demoBtn){
+      var btns = document.querySelectorAll("button, div");
+      for (var i = 0; i < btns.length; i++){
+        var txt = (btns[i].textContent || "").replace(/\s+/g, " ").trim();
+        if (/^Demo\s*(ON|OFF|LIVE)$/i.test(txt) && btns[i].children.length <= 4){
+          demoBtn = btns[i];
+          break;
+        }
+      }
+    }
+    if (!demoBtn) return;
+
+    var rawTxt = (demoBtn.textContent || "").toUpperCase();
+    var isOn = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
+
+    if (demoBtn.dataset.atAppleSwitch !== "1"){
+      demoBtn.dataset.atAppleSwitch = "1";
+      demoBtn.classList.add("at-demo-apple-wrap");
+      demoBtn.innerHTML =
+        '<span class="at-demo-apple-label">Demo</span>' +
+        '<span class="at-apple-switch-track' + (isOn ? ' is-on' : '') + '">' +
+          '<span class="at-apple-switch-knob"></span>' +
+        '</span>';
+
+      demoBtn.addEventListener("click", function(){
+        hapticTap();
+        var tr = demoBtn.querySelector(".at-apple-switch-track");
+        if (tr){
+          tr.classList.add("is-morphing");
+          setTimeout(function(){ tr.classList.remove("is-morphing"); }, 180);
+        }
+        setTimeout(syncDemoSwitchVisual, 35);
+        setTimeout(syncDemoSwitchVisual, 140);
+      }, { passive: true });
+    } else {
+      syncDemoSwitchVisual();
+    }
+  }
+
+  function syncDemoSwitchVisual(){
+    var demoBtn = document.querySelector("[data-at-apple-switch='1']");
+    if (!demoBtn) return;
+    // If legacy script overwrote innerHTML with "Demo: LIVE" / "Demo: OFF", restore clean Apple switch immediately!
+    var track = demoBtn.querySelector(".at-apple-switch-track");
+    var rawTxt = (demoBtn.textContent || "").toUpperCase();
+    var isOn = demoBtn.classList.contains("on") || demoBtn.classList.contains("active") || /\b(ON|LIVE)\b/.test(rawTxt);
+    if (!track){
+      demoBtn.innerHTML =
+        '<span class="at-demo-apple-label">Demo</span>' +
+        '<span class="at-apple-switch-track' + (isOn ? ' is-on' : '') + '">' +
+          '<span class="at-apple-switch-knob"></span>' +
+        '</span>';
+      return;
+    }
+    track.classList.toggle("is-on", isOn);
+  }
 
   function findHeaderBar(){
     var hdr = document.querySelector("header, .topbar");
@@ -6065,9 +6184,7 @@ nav > div:not(#at-lg-tab-lens),
 
   function mountGlassBrandLogo(){
     var hdr = findHeaderBar();
-    if (hdr && !hdr.classList.contains("at-top-header-bar")) {
-      hdr.classList.add("at-top-header-bar");
-    }
+    if (hdr && !hdr.classList.contains("at-top-header-bar")) hdr.classList.add("at-top-header-bar");
     if (document.getElementById("at-apple-glass-logo")) return;
     var nodes = document.querySelectorAll("h1, h2, div, span");
     for (var i = 0; i < nodes.length; i++){
@@ -6081,17 +6198,16 @@ nav > div:not(#at-lg-tab-lens),
           badge.id = "at-apple-glass-logo";
           badge.setAttribute("aria-hidden", "true");
           badge.innerHTML =
-            '<svg viewBox="0 0 24 24" width="17" height="17" fill="none">' +
+            '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
               '<defs>' +
-                '<linearGradient id="atLgDropV5" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
+                '<linearGradient id="atLgDropV6" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">' +
                   '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>' +
-                  '<stop offset="46%" stop-color="#7dd3fc" stop-opacity="0.92"/>' +
-                  '<stop offset="76%" stop-color="#c4b5fd" stop-opacity="0.88"/>' +
+                  '<stop offset="48%" stop-color="#bae6fd" stop-opacity="0.94"/>' +
                   '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.96"/>' +
                 '</linearGradient>' +
               '</defs>' +
-              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV5)" stroke="rgba(255,255,255,0.94)" stroke-width="1.2"/>' +
-              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.90"/>' +
+              '<path d="M12 2.4C12 2.4 5.5 10.1 5.5 14.6C5.5 18.2 8.4 21.1 12 21.1C15.6 21.1 18.5 18.2 18.5 14.6C18.5 10.1 12 2.4 12 2.4Z" fill="url(#atLgDropV6)" stroke="#ffffff" stroke-width="1.2"/>' +
+              '<path d="M9.1 13.6C9.1 11.9 10.2 9.8 11.4 8.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity="0.94"/>' +
             '</svg>';
           if (el.parentNode){
             el.parentNode.style.display = "inline-flex";
@@ -6108,9 +6224,7 @@ nav > div:not(#at-lg-tab-lens),
     var btns = document.querySelectorAll("button");
     for (var i = 0; i < btns.length; i++){
       var t = (btns[i].textContent || "").trim();
-      if (/Live Water Map|AI Twin Simulator/i.test(t)){
-        btns[i].classList.add("dash-btn");
-      }
+      if (/Live Water Map|AI Twin Simulator/i.test(t)) btns[i].classList.add("dash-btn");
     }
   }
 
@@ -6147,8 +6261,6 @@ nav > div:not(#at-lg-tab-lens),
     return Boolean(el.closest("#at-askai-bg, #at-hist-bg, [id*='hist' i], [id*='askai' i], [role='dialog'], .modal"));
   }
 
-  // FIX for district buffering: checks if element is in the active (non-hidden) screen,
-  // even if the user scrolled down past the top sliders!
   function isDisplayedInActiveView(el, minH){
     if (!el || !document.body.contains(el)) return false;
     var cur = el;
@@ -6175,11 +6287,7 @@ nav > div:not(#at-lg-tab-lens),
     } catch(e){}
   }
 
-  function hapticTap(){
-    try { if (navigator.vibrate) navigator.vibrate(5); } catch(e){}
-  }
-
-  // 120Hz Spring Engine (stiffness 420, damping 32)
+  // 120Hz Spring Physics Engine (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0;
   var activeIdx = 0, prevScreenIdx = -1, hoverIdx = -1;
@@ -6472,7 +6580,7 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
-  // Fast, scroll-safe active screen detection (fixes scrolled AI Twin mis-detection & Map bounce)
+  // FIX #4: Bulletproof scroll-safe screen detection (AI Twin recognized even when scrolled to bottom)
   function detectScreen(){
     var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
     for (var s = 0; s < searches.length; s++){
@@ -6482,6 +6590,9 @@ nav > div:not(#at-lg-tab-lens),
     for (var r = 0; r < ranges.length; r++){
       if (!isOverlay(ranges[r]) && isDisplayedInActiveView(ranges[r], 1)) return "ai twin";
     }
+    var simHost = document.querySelector("#view-sim, #screen-sim, #at-ml-panel");
+    if (simHost && isDisplayedInActiveView(simHost, 20)) return "ai twin";
+
     var maps = document.querySelectorAll("#map, #aquatwin-map, .leaflet-container");
     for (var m = 0; m < maps.length; m++){
       if (isDisplayedInActiveView(maps[m], 140)){
@@ -6492,7 +6603,6 @@ nav > div:not(#at-lg-tab-lens),
     return "home";
   }
 
-  // O(1) cached recommendation updater (eliminates DOM scan lag when switching districts)
   function findRecLeaf(){
     if (cachedRecLeaf && document.body.contains(cachedRecLeaf)) return cachedRecLeaf;
     var cards = document.querySelectorAll("div, section");
@@ -6533,7 +6643,12 @@ nav > div:not(#at-lg-tab-lens),
     var msg = d.district + " (" + d.reservoir_name + "): " + waterPart + " " + gwPart + " Res " + d.res.toFixed(1) + "% -> +6M " + d.res_6m.toFixed(1) + "% | +1M/+6M/+1Y WQI: " + d.wqi_1m.toFixed(1) + " / " + d.wqi_6m.toFixed(1) + " / " + d.wqi_1y.toFixed(1) + ".";
 
     var leaf = findRecLeaf();
-    if (leaf && leaf.textContent !== msg) leaf.textContent = msg;
+    if (leaf && leaf.textContent !== msg){
+      leaf.textContent = msg;
+      leaf.classList.remove("at-text-pop");
+      void leaf.offsetWidth;
+      leaf.classList.add("at-text-pop");
+    }
   }
 
   var syncQueued = false;
@@ -6541,9 +6656,10 @@ nav > div:not(#at-lg-tab-lens),
     syncQueued = false;
     mountGlassBrandLogo();
     tagDashboardActionTiles();
+    upgradeDemoToggleToApple();
+
     var screen = detectScreen();
     var onMap = (screen === "map");
-
     setMapFullScreen(onMap);
 
     var satBtn = document.getElementById("at-sat-toggle-btn");
@@ -6605,6 +6721,8 @@ nav > div:not(#at-lg-tab-lens),
   function initDock(){
     mountGlassBrandLogo();
     tagDashboardActionTiles();
+    upgradeDemoToggleToApple();
+
     var nav = getNav();
     if (!nav) return;
 
@@ -6620,8 +6738,8 @@ nav > div:not(#at-lg-tab-lens),
     measureDock();
     var tabs = tabsCache;
 
-    if (typeof MutationObserver === "function" && nav.dataset.atV5Obs !== "1"){
-      nav.dataset.atV5Obs = "1";
+    if (typeof MutationObserver === "function" && nav.dataset.atV6Obs !== "1"){
+      nav.dataset.atV6Obs = "1";
       var tabObs = new MutationObserver(function(){
         if (!mutatingNav && !isDragging) scheduleSync(0);
       });
@@ -6630,8 +6748,8 @@ nav > div:not(#at-lg-tab-lens),
       });
     }
 
-    if (nav.dataset.atV5Bound !== "1"){
-      nav.dataset.atV5Bound = "1";
+    if (nav.dataset.atV6Bound !== "1"){
+      nav.dataset.atV6Bound = "1";
 
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
@@ -6639,7 +6757,7 @@ nav > div:not(#at-lg-tab-lens),
         var idx = tabsCache.indexOf(tab);
         if (idx >= 0){
           lockedIdx = idx;
-          navLockUntil = performance.now() + 300;
+          navLockUntil = performance.now() + 340;
           applyTabVisualState(idx);
           snapLens(idx, false);
           if (idx !== findTabIdx("map")) resetScrollToTop();
@@ -6675,7 +6793,7 @@ nav > div:not(#at-lg-tab-lens),
         hoverIdx = -1;
         if (targetToClick >= 0){
           lockedIdx = targetToClick;
-          navLockUntil = performance.now() + 300;
+          navLockUntil = performance.now() + 340;
           activeIdx = targetToClick;
           applyTabVisualState(targetToClick);
           snapLens(targetToClick, false);
@@ -6683,7 +6801,7 @@ nav > div:not(#at-lg-tab-lens),
           if (targetToClick !== findTabIdx("map")) resetScrollToTop();
           try { tabsCache[targetToClick].click(); } catch(e){}
           scheduleSync(60);
-          scheduleSync(200);
+          scheduleSync(220);
         } else {
           snapLens(activeIdx, false);
         }
@@ -6711,25 +6829,35 @@ nav > div:not(#at-lg-tab-lens),
     scheduleSync(180);
   }
 
-  // Instant zero-buffer District -> AI Twin handoff (prevents black frame & Map pill flash)
+  // FIX #4: Instant zero-buffer District -> AI Twin handoff for ANY district row in Districts or Home
   document.addEventListener("click", function(e){
-    if (e.target && e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
-    var distItem = e.target && e.target.closest ? e.target.closest(".district-item, .district-card, .dash-item, .at-rt-row") : null;
-    if (distItem && !isOverlay(distItem)){
-      var aiIdx = findTabIdx("ai twin");
-      if (aiIdx >= 0){
-        lockedIdx = aiIdx;
-        navLockUntil = performance.now() + 360;
-        applyTabVisualState(aiIdx);
-        snapLens(aiIdx, false);
-        resetScrollToTop();
-        requestAnimationFrame(function(){
+    if (!e.target) return;
+    if (e.target.closest && e.target.closest("#map, #aquatwin-map, .leaflet-container")) return;
+    var inNav = e.target.closest && e.target.closest('nav, [class*="bottom-nav"], [class*="tab-bar"], .at-tabbar-fixed');
+    var inHdr = e.target.closest && e.target.closest("header, .topbar, .at-top-header-bar");
+    var isInput = e.target.closest && e.target.closest("input, select, #at-askai-fab, #at-sat-toggle-btn");
+
+    if (!inNav && !inHdr && !isInput && !isOverlay(e.target)){
+      var curScreen = detectScreen();
+      var clickedCard = e.target.closest && e.target.closest(".district-item, .district-card, .dash-item, .at-rt-row, [onclick]");
+      var looksLikeDistrictTap = (curScreen === "districts") || Boolean(clickedCard);
+      if (looksLikeDistrictTap){
+        var aiIdx = findTabIdx("ai twin");
+        if (aiIdx >= 0){
+          lockedIdx = aiIdx;
+          navLockUntil = performance.now() + 450;
+          applyTabVisualState(aiIdx);
+          snapLens(aiIdx, false);
           resetScrollToTop();
-          updateAiRecommendation();
-        });
+          requestAnimationFrame(function(){
+            resetScrollToTop();
+            updateAiRecommendation();
+          });
+        }
+        scheduleSync(60);
+        scheduleSync(220);
+        return;
       }
-      scheduleSync(40);
-      return;
     }
     scheduleSync(0);
     scheduleSync(120);
@@ -6755,7 +6883,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_LIQUID_V5_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
+      else console.log("AQUATWIN_APPLE_V6_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | screen=" + detectScreen() + " | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);
