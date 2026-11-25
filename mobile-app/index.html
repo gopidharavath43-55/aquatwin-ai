@@ -4105,7 +4105,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.129";
+window.AQUATWIN_VERSION = "1.130";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5470,7 +5470,7 @@ nav > div:not(#at-lg-tab-lens),
 
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
-  --at-map-ctrl-top: 96px;
+  --at-map-ctrl-top: 92px;
 }
 
 * {
@@ -5488,7 +5488,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Warm amber/emerald/sky liquid glass backdrop matching 1000361615_2.jpg across all screens */
+/* Warm luminous liquid glass backdrop across all screens */
 body::before {
   content: "";
   position: fixed;
@@ -5503,7 +5503,6 @@ body::before {
   transform: translate3d(0, 0, 0);
 }
 
-/* Top & bottom luminous glass edge refraction matching 1000361615_2.jpg arrows */
 body::after {
   content: "";
   position: fixed;
@@ -5517,7 +5516,6 @@ body::after {
   transform: translate3d(0, 0, 0);
 }
 
-/* Luminous Liquid Glass Header */
 header, .topbar, [class*="header"], .at-top-header-bar {
   background: linear-gradient(180deg, rgba(254, 249, 195, 0.20) 0%, rgba(20, 56, 62, 0.42) 100%) !important;
   backdrop-filter: blur(18px) saturate(210%) !important;
@@ -5525,7 +5523,6 @@ header, .topbar, [class*="header"], .at-top-header-bar {
   border-bottom: 1px solid rgba(254, 240, 138, 0.34) !important;
 }
 
-/* Translucent Liquid Glass Cards & List Rows (replaces flat dark blue in 1000361618_2.jpg) */
 .card,
 .panel,
 .stat-card,
@@ -5547,25 +5544,62 @@ header, .topbar, [class*="header"], .at-top-header-bar {
     inset -1px -2px 4px rgba(254, 240, 138, 0.22) !important;
 }
 
-.dash-item,
-.at-rt-row,
-.at-ml-cell,
-.district-item,
-.district-card {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(16, 42, 48, 0.32) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.26) !important;
-  border-top: 1px solid rgba(254, 249, 195, 0.52) !important;
-  border-radius: 18px !important;
-  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.26), 0 6px 14px rgba(4, 16, 22, 0.22) !important;
+/* Remove any ON/OFF text tags inside or next to Demo control */
+.at-demo-onoff-hidden,
+[data-at-demo-root="1"] .at-onoff-txt {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
-.at-demo-apple-wrap,
-#at-rt-toggle,
-.at-rt-ticker {
+.at-demo-apple-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 5px 8px 5px 12px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.50) !important;
+  box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.36), 0 6px 14px rgba(4, 16, 22, 0.22) !important;
+  cursor: pointer !important;
+  user-select: none !important;
   transform: translate3d(0, 0, 0) !important;
-  animation: none !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+}
+.at-demo-apple-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+}
+.at-apple-switch-track {
+  position: relative !important;
+  display: inline-block !important;
+  width: 48px !important;
+  height: 26px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.24) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  transition: background 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.at-apple-switch-track.is-on {
+  background: linear-gradient(180deg, #34d369 0%, #28b856 100%) !important;
+  border-color: rgba(220, 252, 231, 0.88) !important;
+}
+.at-apple-switch-knob {
+  position: absolute !important;
+  top: 2px !important;
+  left: 2px !important;
+  width: 22px !important;
+  height: 20px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28) !important;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.28s cubic-bezier(0.22, 1.4, 0.36, 1) !important;
+}
+.at-apple-switch-track.is-on .at-apple-switch-knob {
+  transform: translate3d(20px, 0, 0);
 }
 
 button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(.at-demo-apple-wrap),
@@ -5580,16 +5614,31 @@ button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):n
   color: #ffffff !important;
 }
 
-select,
-input[type="text"],
-input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(12, 34, 42, 0.42) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.34) !important;
-  border-top: 1.2px solid rgba(254, 249, 195, 0.64) !important;
-  border-radius: 18px !important;
-  color: #ffffff !important;
+/* True edge-to-edge full-screen Map (eliminates top dark/green band in 1000361620.jpg) */
+body.at-on-map-screen {
+  overflow: hidden !important;
 }
-
+body.at-on-map-screen .at-top-header-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 2147482400 !important;
+}
+body.at-on-map-screen .at-map-ancestor {
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+  will-change: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
 body.at-on-map-screen #map,
 body.at-on-map-screen #aquatwin-map,
 body.at-on-map-screen .leaflet-container {
@@ -5600,12 +5649,27 @@ body.at-on-map-screen .leaflet-container {
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
   z-index: 15 !important;
 }
-body.at-on-map-screen .leaflet-control-layers { display: none !important; }
+body.at-on-map-screen .leaflet-top.leaflet-left {
+  top: calc(var(--at-map-ctrl-top, 92px) + 46px) !important;
+}
+body.at-on-map-screen .leaflet-control-layers {
+  display: none !important;
+}
+body.at-on-map-screen .leaflet-bottom {
+  bottom: 92px !important;
+}
+
 #at-sat-toggle-btn {
   position: fixed !important;
-  top: var(--at-map-ctrl-top, 96px) !important;
+  top: var(--at-map-ctrl-top, 92px) !important;
   right: 12px !important;
   z-index: 2147482450 !important;
   display: none !important;
@@ -5704,34 +5768,167 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_WARM_LIQUID_V10__) return;
-  window.__AT_WARM_LIQUID_V10__ = true;
+  if (window.__AT_FIX_ONOFF_MAPFS_V11__) return;
+  window.__AT_FIX_ONOFF_MAPFS_V11__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
 
-  var origSetInterval = window.setInterval;
-  window.setInterval = function(fn, ms){
-    var src = "";
-    try { src = fn ? fn.toString() : ""; } catch(e){}
-    if (src.indexOf("stepDemoTick") !== -1 || src.indexOf("activeIdx") !== -1 || src.indexOf("updateHealthRing") !== -1){
-      return 0;
-    }
-    return origSetInterval.apply(this, arguments);
-  };
+  var demoOn = false;
+  var satEnabled = true;
+  var satLayer = null;
+  var labelLayer = null;
 
-  function lockTopRingSteady(){
-    var all = document.querySelectorAll("div, span, p, b, strong");
-    for (var i = 0; i < all.length; i++){
-      var el = all[i];
-      if (el.children.length === 0 && /^\d+(\.\d+)?%$/.test((el.textContent || "").trim())){
-        var pr = el.getBoundingClientRect();
-        if (pr.top > 50 && pr.top < 360){
-          el.textContent = "74.6%";
+  // Scrub standalone "ON" or "OFF" text nodes inside/beside the Demo control
+  function hideOnOffTextNodes(rootNode){
+    if (!rootNode) return;
+    var walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT, null, false);
+    var toHide = [];
+    var n;
+    while ((n = walker.nextNode())){
+      var val = (n.nodeValue || "").trim();
+      if (/^(ON|OFF|LIVE|PAUSED)$/i.test(val)){
+        var par = n.parentElement;
+        if (par && par.classList && !par.classList.contains("at-demo-apple-label")){
+          toHide.push(par);
+        } else if (par){
+          n.nodeValue = "";
+        }
+      }
+    }
+    toHide.forEach(function(el){ el.classList.add("at-demo-onoff-hidden"); });
+  }
+
+  function syncDemoSwitch(){
+    var ctrl = document.querySelector("[data-at-demo-root='1']");
+    if (!ctrl){
+      var cand = document.querySelectorAll("button, div, span");
+      for (var i = 0; i < cand.length; i++){
+        var el = cand[i];
+        if (!el || el.children.length > 5) continue;
+        var r = el.getBoundingClientRect();
+        if (r.height > 0 && r.height <= 46 && /\bDemo\b/i.test(el.textContent || "")){
+          ctrl = el;
           break;
         }
       }
     }
+    if (!ctrl) return;
+
+    ctrl.setAttribute("data-at-demo-root", "1");
+    ctrl.classList.add("at-demo-apple-wrap");
+
+    var track = ctrl.querySelector(".at-apple-switch-track");
+    if (!track){
+      var txt = (ctrl.textContent || "").toUpperCase();
+      demoOn = ctrl.classList.contains("on") || ctrl.classList.contains("active") || /\bON\b|\bLIVE\b/.test(txt);
+      ctrl.innerHTML =
+        '<span class="at-demo-apple-label">Demo</span>' +
+        '<span class="at-apple-switch-track' + (demoOn ? ' is-on' : '') + '">' +
+          '<span class="at-apple-switch-knob"></span>' +
+        '</span>';
+      track = ctrl.querySelector(".at-apple-switch-track");
+
+      ctrl.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        demoOn = !demoOn;
+        if (track) track.classList.toggle("is-on", demoOn);
+        hideOnOffTextNodes(ctrl);
+        if (ctrl.parentElement) hideOnOffTextNodes(ctrl.parentElement);
+      }, true);
+    } else {
+      track.classList.toggle("is-on", demoOn);
+    }
+
+    hideOnOffTextNodes(ctrl);
+    if (ctrl.parentElement) hideOnOffTextNodes(ctrl.parentElement);
+  }
+
+  function findLeafletMaps(){
+    var found = [];
+    for (var k in window){
+      try {
+        var v = window[k];
+        if (v && typeof v.addLayer === "function" && typeof v.setView === "function" && typeof v.invalidateSize === "function"){
+          found.push(v);
+        }
+      } catch(e){}
+    }
+    return found;
+  }
+
+  function applySatelliteAndFullScreen(){
+    var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
+    var isMapOpen = false;
+    if (mapEl){
+      var st = window.getComputedStyle(mapEl);
+      var r = mapEl.getBoundingClientRect();
+      isMapOpen = (st.display !== "none" && st.visibility !== "hidden" && r.width > 120 && r.height > 120);
+    }
+
+    document.body.classList.toggle("at-on-map-screen", isMapOpen);
+
+    if (isMapOpen && mapEl){
+      var hdr = document.querySelector("header, .topbar, .at-top-header-bar");
+      var hBot = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 84;
+      document.documentElement.style.setProperty("--at-map-ctrl-top", Math.max(88, hBot + 6) + "px");
+
+      var anc = mapEl.parentElement;
+      while (anc && anc !== document.body && anc !== document.documentElement){
+        anc.classList.add("at-map-ancestor");
+        anc = anc.parentElement;
+      }
+
+      if (window.L && window.L.tileLayer){
+        if (!satLayer){
+          satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+            maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+          });
+        }
+        if (!labelLayer){
+          labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
+            maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+          });
+        }
+        findLeafletMaps().forEach(function(m){
+          try {
+            if (satEnabled){
+              if (!m.hasLayer(satLayer)) satLayer.addTo(m);
+              if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
+              if (labelLayer.bringToFront) labelLayer.bringToFront();
+            } else {
+              if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
+              if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
+            }
+            m.invalidateSize({ animate: false, pan: false });
+          } catch(e){}
+        });
+      }
+    } else {
+      document.querySelectorAll(".at-map-ancestor").forEach(function(el){
+        el.classList.remove("at-map-ancestor");
+      });
+    }
+
+    var satBtn = document.getElementById("at-sat-toggle-btn");
+    if (!satBtn){
+      satBtn = document.createElement("button");
+      satBtn.id = "at-sat-toggle-btn";
+      satBtn.type = "button";
+      satBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        satEnabled = !satEnabled;
+        satBtn.classList.toggle("sat-on", satEnabled);
+        satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
+        applySatelliteAndFullScreen();
+      }, false);
+      document.body.appendChild(satBtn);
+    }
+    satBtn.classList.toggle("at-map-only-visible", isMapOpen);
+    satBtn.classList.toggle("sat-on", satEnabled);
+    satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
   }
 
   // 120Hz Apple Spring Physics for Liquid Glass Dock (stiffness 420, damping 32)
@@ -5852,8 +6049,8 @@ nav > div:not(#at-lg-tab-lens),
     measureDock();
     snapLens(activeIdx, true);
 
-    if (nav.dataset.atV10Bound !== "1"){
-      nav.dataset.atV10Bound = "1";
+    if (nav.dataset.atV11Bound !== "1"){
+      nav.dataset.atV11Bound = "1";
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
         if (!tab) return;
@@ -5910,10 +6107,30 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
+  function refreshUI(){
+    syncDemoSwitch();
+    applySatelliteAndFullScreen();
+    initDock();
+  }
+
+  document.addEventListener("click", function(){
+    requestAnimationFrame(refreshUI);
+    setTimeout(refreshUI, 160);
+  }, { passive: true, capture: true });
+
+  window.addEventListener("resize", function(){
+    if (!isDragging){
+      measureDock();
+      snapLens(activeIdx, true);
+      applySatelliteAndFullScreen();
+    }
+  }, { passive: true });
+
   if (document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(function(){ initDock(); lockTopRingSteady(); }); }, { once: true });
+    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(refreshUI); setTimeout(refreshUI, 350); }, { once: true });
   } else {
-    requestAnimationFrame(function(){ initDock(); lockTopRingSteady(); });
+    requestAnimationFrame(refreshUI);
+    setTimeout(refreshUI, 350);
   }
 
   setTimeout(function(){
@@ -5921,7 +6138,7 @@ nav > div:not(#at-lg-tab-lens),
     function probe(now){
       frames++;
       if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_WARM_LIQUID_V10_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | js_errors=" + errCount);
+      else console.log("AQUATWIN_V11_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | js_errors=" + errCount);
     }
     requestAnimationFrame(probe);
   }, 1200);

@@ -1,8 +1,8 @@
 {
-    "version":  "1.129",
-    "version_code":  129,
+    "version":  "1.130",
+    "version_code":  130,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Switched full-app background \u0026 UI to warm liquid glass matching Map edge glow",
+    "notes":  "• Removed ON/OFF text beside Demo toggle \u0026 enforced full-screen Satellite mode on Map tab",
     "force":  false,
-    "updated_at":  "2026-11-26 05:03 IST"
+    "updated_at":  "2026-11-26 05:10 IST"
 }
