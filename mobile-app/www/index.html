@@ -4481,7 +4481,7 @@ nav,
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.102";
+window.AQUATWIN_VERSION = "1.103";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6093,131 +6093,130 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- ASK_AI_3Y_EXT_END -->
-<!-- SMART_AI_RECOMMENDATIONS_START -->
-<script id="at-smart-ai-recommendations">
+<!-- SMART_AI_RECOMMENDATIONS_33D_START -->
+<script id="at-smart-ai-recommendations-33d">
 (function(){
-  if (window.__AT_SMART_REC_INSTALLED__) return;
-  window.__AT_SMART_REC_INSTALLED__ = true;
+  if (window.__AT_33D_REC_ACTIVE__) return;
+  window.__AT_33D_REC_ACTIVE__ = true;
 
-  function pickDistrictRecord(districtName) {
-    var ml = window.AQUATWIN_ML_DATA || {};
-    var list = Array.isArray(ml.districts) ? ml.districts : [];
-    if (!list.length) return null;
-    if (!districtName) return list[0];
-    var target = String(districtName).trim().toLowerCase();
-    for (var i = 0; i < list.length; i++) {
-      var dName = String(list[i].district || list[i].name || "").trim().toLowerCase();
-      if (dName === target || dName.indexOf(target) !== -1 || target.indexOf(dName) !== -1) {
-        return list[i];
+  var DISTRICTS_33 = [{"district": "Adilabad", "reservoir": "Sathnala Reservoir & Swarna Project", "wqi": 78.4, "wqi_1m": 76.2, "wqi_6m": 74.8, "wqi_1y": 75.5, "turb": 0.96, "cov": 2.35, "gw": 5.25, "gw_ext": 40.0, "gw_rech": 18.2, "gw_1m": 5.1, "gw_6m": 6.45, "res": 44.0, "res_6m": 39.5, "rain_1m": 22.0, "rain_6m": 36.0}, {"district": "Bhadradri Kothagudem", "reservoir": "Kinnerasani Reservoir Project", "wqi": 76.1, "wqi_1m": 74.5, "wqi_6m": 72.0, "wqi_1y": 73.1, "turb": 1.04, "cov": 3.8, "gw": 7.3, "gw_ext": 37.0, "gw_rech": 21.4, "gw_1m": 7.05, "gw_6m": 8.6, "res": 58.0, "res_6m": 51.2, "rain_1m": 28.0, "rain_6m": 45.0}, {"district": "Hanumakonda", "reservoir": "Dharmasagar Reservoir (J. Chokka Rao Devadula Lift Irrigation Scheme)", "wqi": 71.5, "wqi_1m": 69.8, "wqi_6m": 68.4, "wqi_1y": 70.1, "turb": 1.12, "cov": 1.95, "gw": 5.98, "gw_ext": 61.0, "gw_rech": 16.5, "gw_1m": 5.85, "gw_6m": 7.45, "res": 52.0, "res_6m": 45.0, "rain_1m": 24.5, "rain_6m": 38.0}, {"district": "Hyderabad", "reservoir": "Osman Sagar & Himayat Sagar Reservoirs", "wqi": 57.3, "wqi_1m": 54.0, "wqi_6m": 54.2, "wqi_1y": 55.7, "turb": 1.28, "cov": 0.68, "gw": 11.1, "gw_ext": 103.7, "gw_rech": 21.1, "gw_1m": 9.06, "gw_6m": 9.93, "res": 65.5, "res_6m": 52.1, "rain_1m": 18.2, "rain_6m": 34.0}, {"district": "Jagtial", "reservoir": "Sri Ram Sagar Project (SRSP)", "wqi": 81.2, "wqi_1m": 79.5, "wqi_6m": 77.9, "wqi_1y": 78.8, "turb": 0.94, "cov": 3.1, "gw": 4.41, "gw_ext": 45.0, "gw_rech": 19.0, "gw_1m": 4.25, "gw_6m": 5.7, "res": 41.2, "res_6m": 36.4, "rain_1m": 23.0, "rain_6m": 37.5}, {"district": "Jangaon", "reservoir": "R.S. Ghanpur & Tapaspally Reservoirs", "wqi": 79.0, "wqi_1m": 70.2, "wqi_6m": 68.7, "wqi_1y": 69.2, "turb": 1.02, "cov": 1.45, "gw": 8.12, "gw_ext": 59.0, "gw_rech": 15.2, "gw_1m": 7.64, "gw_6m": 9.92, "res": 36.0, "res_6m": 32.4, "rain_1m": 41.0, "rain_6m": 37.2}, {"district": "Jayashankar Bhupalpally", "reservoir": "Medigadda Barrage & Godavari Lift Irrigation Grid", "wqi": 77.8, "wqi_1m": 76.0, "wqi_6m": 74.2, "wqi_1y": 75.0, "turb": 1.01, "cov": 3.65, "gw": 6.2, "gw_ext": 43.0, "gw_rech": 20.5, "gw_1m": 6.0, "gw_6m": 7.55, "res": 55.0, "res_6m": 48.8, "rain_1m": 26.5, "rain_6m": 42.0}, {"district": "Jogulamba Gadwal", "reservoir": "Priyadarshini Jurala Project", "wqi": 73.4, "wqi_1m": 71.0, "wqi_6m": 69.5, "wqi_1y": 71.2, "turb": 1.09, "cov": 2.2, "gw": 8.1, "gw_ext": 46.0, "gw_rech": 14.8, "gw_1m": 7.9, "gw_6m": 9.65, "res": 38.0, "res_6m": 33.5, "rain_1m": 19.5, "rain_6m": 31.0}, {"district": "Kamareddy", "reservoir": "Nizam Sagar Reservoir", "wqi": 75.6, "wqi_1m": 73.8, "wqi_6m": 71.9, "wqi_1y": 72.7, "turb": 1.03, "cov": 2.4, "gw": 12.3, "gw_ext": 51.0, "gw_rech": 16.0, "gw_1m": 11.95, "gw_6m": 13.8, "res": 50.4, "res_6m": 43.0, "rain_1m": 21.0, "rain_6m": 35.0}, {"district": "Karimnagar", "reservoir": "Lower Manair Dam (LMD)", "wqi": 84.5, "wqi_1m": 82.0, "wqi_6m": 79.8, "wqi_1y": 80.5, "turb": 0.91, "cov": 3.5, "gw": 6.64, "gw_ext": 56.6, "gw_rech": 16.7, "gw_1m": 6.74, "gw_6m": 9.29, "res": 61.3, "res_6m": 54.0, "rain_1m": 23.5, "rain_6m": 39.0}, {"district": "Khammam", "reservoir": "Palair Reservoir & Wyra Reservoir", "wqi": 76.8, "wqi_1m": 75.1, "wqi_6m": 73.4, "wqi_1y": 74.2, "turb": 1.05, "cov": 2.95, "gw": 4.6, "gw_ext": 43.0, "gw_rech": 22.0, "gw_1m": 4.45, "gw_6m": 5.95, "res": 48.0, "res_6m": 42.5, "rain_1m": 27.0, "rain_6m": 44.0}, {"district": "Kumuram Bheem Asifabad", "reservoir": "Komaram Bheem Project Reservoir", "wqi": 78.9, "wqi_1m": 77.2, "wqi_6m": 75.6, "wqi_1y": 76.4, "turb": 0.97, "cov": 2.75, "gw": 5.85, "gw_ext": 38.0, "gw_rech": 19.5, "gw_1m": 5.65, "gw_6m": 7.15, "res": 46.0, "res_6m": 40.2, "rain_1m": 24.0, "rain_6m": 38.5}, {"district": "Mahabubabad", "reservoir": "Pakhala Lake & Bayyaram Cheruvu", "wqi": 75.2, "wqi_1m": 73.5, "wqi_6m": 71.8, "wqi_1y": 72.5, "turb": 1.06, "cov": 2.3, "gw": 7.3, "gw_ext": 56.0, "gw_rech": 17.8, "gw_1m": 7.1, "gw_6m": 8.85, "res": 51.0, "res_6m": 44.6, "rain_1m": 25.5, "rain_6m": 41.0}, {"district": "Mahabubnagar", "reservoir": "Koilsagar Lift Irrigation Project", "wqi": 70.4, "wqi_1m": 68.5, "wqi_6m": 66.9, "wqi_1y": 68.1, "turb": 1.14, "cov": 1.55, "gw": 9.6, "gw_ext": 76.0, "gw_rech": 13.5, "gw_1m": 9.35, "gw_6m": 11.4, "res": 34.0, "res_6m": 29.8, "rain_1m": 18.5, "rain_6m": 30.0}, {"district": "Mancherial", "reservoir": "Sripada Yellampally Project", "wqi": 82.4, "wqi_1m": 80.7, "wqi_6m": 79.0, "wqi_1y": 79.6, "turb": 0.93, "cov": 3.85, "gw": 5.4, "gw_ext": 42.0, "gw_rech": 20.0, "gw_1m": 5.2, "gw_6m": 6.75, "res": 84.7, "res_6m": 74.5, "rain_1m": 25.0, "rain_6m": 40.5}, {"district": "Medak", "reservoir": "Pocharam Reservoir & Manjeera Barrage", "wqi": 72.8, "wqi_1m": 70.6, "wqi_6m": 68.9, "wqi_1y": 70.2, "turb": 1.08, "cov": 1.4, "gw": 9.68, "gw_ext": 70.0, "gw_rech": 14.2, "gw_1m": 9.4, "gw_6m": 11.55, "res": 22.0, "res_6m": 20.5, "rain_1m": 20.0, "rain_6m": 32.5}, {"district": "Medchal-Malkajgiri", "reservoir": "Sripada Yellampally Water Supply Grid", "wqi": 64.5, "wqi_1m": 62.8, "wqi_6m": 61.5, "wqi_1y": 63.0, "turb": 1.19, "cov": 1.1, "gw": 11.64, "gw_ext": 73.7, "gw_rech": 15.8, "gw_1m": 11.25, "gw_6m": 13.4, "res": 72.0, "res_6m": 63.0, "rain_1m": 19.0, "rain_6m": 33.0}, {"district": "Mulugu", "reservoir": "Laknavaram Lake & Ramappa Lake", "wqi": 80.5, "wqi_1m": 78.8, "wqi_6m": 77.1, "wqi_1y": 77.9, "turb": 0.95, "cov": 3.4, "gw": 5.9, "gw_ext": 36.0, "gw_rech": 22.5, "gw_1m": 5.7, "gw_6m": 7.2, "res": 64.0, "res_6m": 56.5, "rain_1m": 28.5, "rain_6m": 46.0}, {"district": "Nagarkurnool", "reservoir": "Srisailam Hydroelectric & Reservoir Project", "wqi": 72.1, "wqi_1m": 70.2, "wqi_6m": 68.5, "wqi_1y": 69.8, "turb": 1.11, "cov": 1.85, "gw": 8.4, "gw_ext": 40.0, "gw_rech": 14.0, "gw_1m": 8.15, "gw_6m": 10.1, "res": 29.0, "res_6m": 26.5, "rain_1m": 17.5, "rain_6m": 29.0}, {"district": "Nalgonda", "reservoir": "Nagarjuna Sagar Dam & Reservoir", "wqi": 71.8, "wqi_1m": 69.9, "wqi_6m": 68.2, "wqi_1y": 69.4, "turb": 1.1, "cov": 2.05, "gw": 9.8, "gw_ext": 49.0, "gw_rech": 13.8, "gw_1m": 9.5, "gw_6m": 11.6, "res": 25.0, "res_6m": 23.0, "rain_1m": 18.0, "rain_6m": 30.5}, {"district": "Narayanpet", "reservoir": "Koilsagar Project & Priyadarshini Jurala Feed Canal", "wqi": 71.2, "wqi_1m": 69.4, "wqi_6m": 67.8, "wqi_1y": 69.0, "turb": 1.12, "cov": 1.5, "gw": 8.6, "gw_ext": 39.0, "gw_rech": 13.2, "gw_1m": 8.35, "gw_6m": 10.3, "res": 35.0, "res_6m": 31.0, "rain_1m": 18.0, "rain_6m": 29.5}, {"district": "Nirmal", "reservoir": "Kaddam Narayan Reddy Project", "wqi": 79.4, "wqi_1m": 77.6, "wqi_6m": 75.9, "wqi_1y": 76.7, "turb": 0.96, "cov": 2.6, "gw": 6.07, "gw_ext": 38.0, "gw_rech": 18.6, "gw_1m": 5.88, "gw_6m": 7.4, "res": 37.0, "res_6m": 33.0, "rain_1m": 22.5, "rain_6m": 37.0}, {"district": "Nizamabad", "reservoir": "Sri Ram Sagar Project (SRSP)", "wqi": 78.2, "wqi_1m": 76.4, "wqi_6m": 74.7, "wqi_1y": 75.5, "turb": 0.99, "cov": 2.7, "gw": 8.63, "gw_ext": 52.0, "gw_rech": 17.2, "gw_1m": 8.35, "gw_6m": 10.25, "res": 41.2, "res_6m": 36.4, "rain_1m": 22.0, "rain_6m": 36.0}, {"district": "Peddapalli", "reservoir": "Sripada Yellampally Project", "wqi": 83.2, "wqi_1m": 81.4, "wqi_6m": 79.2, "wqi_1y": 80.1, "turb": 0.99, "cov": 2.49, "gw": 6.31, "gw_ext": 48.5, "gw_rech": 15.5, "gw_1m": 6.02, "gw_6m": 8.17, "res": 84.7, "res_6m": 74.0, "rain_1m": 23.0, "rain_6m": 38.5}, {"district": "Rajanna Sircilla", "reservoir": "Mid Manair Dam (MMR)", "wqi": 81.9, "wqi_1m": 80.1, "wqi_6m": 78.3, "wqi_1y": 79.1, "turb": 0.94, "cov": 2.85, "gw": 7.36, "gw_ext": 69.0, "gw_rech": 16.4, "gw_1m": 7.12, "gw_6m": 8.95, "res": 82.7, "res_6m": 72.5, "rain_1m": 22.5, "rain_6m": 37.0}, {"district": "Ranga Reddy", "reservoir": "Himayat Sagar Reservoir & Akkampally Balancing Reservoir", "wqi": 66.8, "wqi_1m": 65.0, "wqi_6m": 63.6, "wqi_1y": 65.1, "turb": 1.16, "cov": 1.35, "gw": 11.74, "gw_ext": 68.0, "gw_rech": 15.0, "gw_1m": 11.35, "gw_6m": 13.5, "res": 79.7, "res_6m": 69.0, "rain_1m": 19.0, "rain_6m": 32.0}, {"district": "Sangareddy", "reservoir": "Singur Dam Reservoir", "wqi": 69.5, "wqi_1m": 67.8, "wqi_6m": 66.2, "wqi_1y": 67.4, "turb": 1.13, "cov": 1.5, "gw": 11.21, "gw_ext": 48.1, "gw_rech": 14.6, "gw_1m": 10.85, "gw_6m": 12.9, "res": 6.4, "res_6m": 9.5, "rain_1m": 19.5, "rain_6m": 32.5}, {"district": "Siddipet", "reservoir": "Mallanna Sagar Reservoir", "wqi": 77.4, "wqi_1m": 75.6, "wqi_6m": 73.9, "wqi_1y": 74.8, "turb": 1.01, "cov": 2.55, "gw": 9.2, "gw_ext": 69.0, "gw_rech": 15.8, "gw_1m": 8.9, "gw_6m": 10.95, "res": 49.0, "res_6m": 43.2, "rain_1m": 21.5, "rain_6m": 35.5}, {"district": "Suryapet", "reservoir": "Musi Reservoir & Nagarjuna Sagar Left Canal Grid", "wqi": 73.0, "wqi_1m": 71.2, "wqi_6m": 69.6, "wqi_1y": 70.8, "turb": 1.09, "cov": 1.9, "gw": 8.2, "gw_ext": 54.0, "gw_rech": 15.4, "gw_1m": 7.95, "gw_6m": 9.85, "res": 31.0, "res_6m": 27.5, "rain_1m": 20.5, "rain_6m": 33.5}, {"district": "Vikarabad", "reservoir": "Kotepally Project & Singur Water Supply Grid", "wqi": 70.8, "wqi_1m": 69.0, "wqi_6m": 67.5, "wqi_1y": 68.7, "turb": 1.12, "cov": 1.25, "gw": 13.54, "gw_ext": 61.0, "gw_rech": 13.9, "gw_1m": 13.1, "gw_6m": 15.2, "res": 18.0, "res_6m": 17.5, "rain_1m": 18.5, "rain_6m": 30.5}, {"district": "Wanaparthy", "reservoir": "Sarala Sagar Project & Ramanpad Reservoir", "wqi": 72.5, "wqi_1m": 70.7, "wqi_6m": 69.1, "wqi_1y": 70.3, "turb": 1.1, "cov": 1.75, "gw": 7.9, "gw_ext": 44.0, "gw_rech": 14.2, "gw_1m": 7.68, "gw_6m": 9.5, "res": 33.0, "res_6m": 29.2, "rain_1m": 18.0, "rain_6m": 29.8}, {"district": "Warangal", "reservoir": "Pakhala Lake & Ramappa Lake Feed System", "wqi": 76.5, "wqi_1m": 74.8, "wqi_6m": 73.1, "wqi_1y": 73.9, "turb": 1.04, "cov": 2.45, "gw": 8.3, "gw_ext": 58.0, "gw_rech": 17.5, "gw_1m": 8.05, "gw_6m": 9.95, "res": 54.0, "res_6m": 47.5, "rain_1m": 25.0, "rain_6m": 40.5}, {"district": "Yadadri Bhuvanagiri", "reservoir": "Musi Reservoir & Gandhamalla Reservoir", "wqi": 72.2, "wqi_1m": 70.4, "wqi_6m": 68.8, "wqi_1y": 70.0, "turb": 1.11, "cov": 1.7, "gw": 9.1, "gw_ext": 70.0, "gw_rech": 14.9, "gw_1m": 8.82, "gw_6m": 10.75, "res": 39.0, "res_6m": 34.5, "rain_1m": 19.5, "rain_6m": 32.0}];
+
+  function normKey(s) {
+    return String(s || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  var ALIASES = {
+    "hanamkonda": "hanumakonda",
+    "warangal urban": "hanumakonda",
+    "warangal rural": "warangal",
+    "peddapalle": "peddapalli",
+    "rajanna siricilla": "rajanna sircilla",
+    "komaram bheem": "kumuram bheem asifabad",
+    "kumuram bheem asifabad": "kumuram bheem asifabad",
+    "bhadradri": "bhadradri kothagudem",
+    "rangareddy": "ranga reddy",
+    "medchal": "medchal malkajgiri",
+    "medchal malkajgiri": "medchal malkajgiri",
+    "yadadri": "yadadri bhuvanagiri",
+    "jagitial": "jagtial",
+    "jangoan": "jangaon",
+    "mahbubnagar": "mahabubnagar"
+  };
+
+  function lookupDistrict(name) {
+    var k = normKey(name);
+    if (ALIASES[k]) k = ALIASES[k];
+    for (var i = 0; i < DISTRICTS_33.length; i++) {
+      if (normKey(DISTRICTS_33[i].district) === k) return DISTRICTS_33[i];
+    }
+    if (k) {
+      for (var j = 0; j < DISTRICTS_33.length; j++) {
+        var dk = normKey(DISTRICTS_33[j].district);
+        if (dk.indexOf(k) !== -1 || k.indexOf(dk) !== -1) return DISTRICTS_33[j];
       }
     }
-    return list[0];
+    return DISTRICTS_33[0];
   }
 
-  function detectActiveDistrict() {
-    var sel = document.querySelector("select");
-    if (sel && sel.value) return sel.value;
-    var headings = document.querySelectorAll("h1, h2, h3, h4, span, div");
-    for (var i = 0; i < headings.length; i++) {
-      var t = (headings[i].textContent || "").trim();
-      var m = t.match(/Groundwater Aquifer\s*\(([^)]+)\)/i) || t.match(/3-Year AI Forecast\s*[—\-]+\s*(.+)/i);
-      if (m && m[1]) return m[1].trim();
+  function detectDistrictName() {
+    var all = document.querySelectorAll("h1, h2, h3, h4, span, div, option, select");
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el.tagName === "SELECT" && el.value) {
+        var hitSelect = lookupDistrict(el.value);
+        if (hitSelect && normKey(hitSelect.district) === normKey(el.value)) return hitSelect.district;
+      }
+      var t = (el.textContent || "").trim();
+      if (t.length > 0 && t.length < 90) {
+        var m = t.match(/Groundwater Aquifer\s*\(([^)]+)\)/i) || t.match(/3-Year AI Forecast\s*[—\-]\s*(.+)/i);
+        if (m && m[1]) return m[1].trim();
+      }
     }
-    return "Karimnagar";
+    return "Peddapalli";
   }
 
-  function buildRecommendations(rec) {
-    var dName = rec.district || detectActiveDistrict();
-    var wqiNow = Number(rec.wqi_score != null ? rec.wqi_score : (rec.water_wqi != null ? rec.water_wqi : 75));
-    var wqi1m  = Number(rec.lstm_1m_wqi != null ? rec.lstm_1m_wqi : wqiNow);
-    var wqi6m  = Number(rec.lstm_6m_wqi != null ? rec.lstm_6m_wqi : wqiNow);
-    var wqi1y  = Number(rec.lstm_1y_wqi != null ? rec.lstm_1y_wqi : wqi6m);
-
-    var turb   = Number(rec.turbidity_index != null ? rec.turbidity_index : 1.0);
-    var wCov   = Number(rec.water_coverage_pct != null ? rec.water_coverage_pct : 2.5);
-
-    var gwDepth = Number(rec.gw_depth_mbgl != null ? rec.gw_depth_mbgl : 8.0);
-    var gwExt   = Number(rec.gw_extraction_pct != null ? rec.gw_extraction_pct : 55.0);
-    var gwRech  = Number(rec.gw_recharge_mm != null ? rec.gw_recharge_mm : 15.0);
-    var gw6m    = Number(rec.gw_pred_6m != null ? rec.gw_pred_6m : gwDepth);
-
-    var resName = rec.reservoir_name || "Primary Basin Reservoir";
-    var resPct  = Number(rec.res_storage_pct != null ? rec.res_storage_pct : 50.0);
-    var res6m   = Number(rec.res_pred_6m != null ? rec.res_pred_6m : resPct);
-
-    var rain1m  = Number(rec.rain_pred_1m != null ? rec.rain_pred_1m : 25.0);
-    var rain6m  = Number(rec.rain_pred_6m != null ? rec.rain_pred_6m : 40.0);
-
-    var items = [];
-
-    // 1. Surface Water & Turbidity Action
-    if (turb >= 1.15 || wqiNow < 60) {
-      items.push("Surface Water (" + dName + "): WQI is " + wqiNow.toFixed(1) + "/100 with turbidity " + turb.toFixed(2) + " — prioritize pre-treatment coagulation, silt traps, and weekly water-quality sampling.");
+  function buildDistrictAdvice(d) {
+    var lines = [];
+    // 1. Surface water & turbidity guidance
+    if (d.turb >= 1.15 || d.wqi < 62) {
+      lines.push("Water Quality (" + d.district + "): WQI " + d.wqi.toFixed(1) + "/100 with turbidity " + d.turb.toFixed(2) + " — run pre-treatment settling/filtration, check upstream runoff, and test weekly.");
     } else {
-      items.push("Surface Water (" + dName + "): WQI is strong at " + wqiNow.toFixed(1) + "/100 (turbidity " + turb.toFixed(2) + ", coverage " + wCov.toFixed(2) + "%) — maintain routine intake screening and protect riparian buffer zones.");
+      lines.push("Water Quality (" + d.district + "): WQI " + d.wqi.toFixed(1) + "/100, turbidity " + d.turb.toFixed(2) + ", water spread " + d.cov.toFixed(2) + "% — keep intake screens clear and monitor seasonal turbidity shifts.");
     }
-
-    // 2. Groundwater Aquifer & Extraction Action
-    if (gwExt >= 90 || gwDepth >= 11.0 || gw6m > gwDepth + 1.2) {
-      items.push("Groundwater (" + gwDepth.toFixed(2) + " mbgl -> +6M " + gw6m.toFixed(2) + " mbgl, extraction " + gwExt.toFixed(1) + "%): Encourage micro-irrigation/drip scheduling, check-dam desilting, and borewell recharge pits.");
+    // 2. Groundwater aquifer & extraction guidance
+    if (d.gw_ext >= 85 || d.gw >= 11.0 || d.gw_6m > d.gw + 1.5) {
+      lines.push("Groundwater (" + d.gw.toFixed(2) + " mbgl -> +6M " + d.gw_6m.toFixed(2) + " mbgl, extraction " + d.gw_ext.toFixed(1) + "%): Promote drip/micro-irrigation, rainwater harvesting pits, and check-dam desilting.");
     } else {
-      items.push("Groundwater (" + gwDepth.toFixed(2) + " mbgl -> +6M " + gw6m.toFixed(2) + " mbgl, recharge " + gwRech.toFixed(1) + " mm): Extraction is " + gwExt.toFixed(1) + "% — sustain percolation tanks and prevent seasonal over-pumping.");
+      lines.push("Groundwater (" + d.gw.toFixed(2) + " mbgl -> +6M " + d.gw_6m.toFixed(2) + " mbgl, recharge " + d.gw_rech.toFixed(1) + " mm): Extraction is " + d.gw_ext.toFixed(1) + "% — protect local recharge tanks and avoid excess borewell pumping.");
     }
-
-    // 3. Reservoir & Rainfall Trajectory Action
-    if (resPct < 35 || res6m < 35 || rain6m < 25) {
-      items.push("Reservoir & Rainfall (" + resName + " at " + resPct.toFixed(1) + "% -> +6M " + res6m.toFixed(1) + "%, +6M rain " + rain6m.toFixed(1) + " mm): Ration canal allocations early and conserve storage for peak dry months.");
+    // 3. Reservoir & rainfall outlook
+    if (d.res < 35 || d.res_6m < 35) {
+      lines.push("Reservoir (" + d.reservoir + " at " + d.res.toFixed(1) + "% -> +6M " + d.res_6m.toFixed(1) + "%, +6M rain " + d.rain_6m.toFixed(1) + " mm): Prioritize drinking-water reserve and schedule phased canal releases.");
     } else {
-      items.push("Reservoir & Rainfall (" + resName + " at " + resPct.toFixed(1) + "% -> +6M " + res6m.toFixed(1) + "%, +1M rain " + rain1m.toFixed(1) + " mm): Balance allocation across agricultural and municipal demand while tracking +1Y WQI (" + wqi1y.toFixed(1) + ").");
+      lines.push("Reservoir (" + d.reservoir + " at " + d.res.toFixed(1) + "% -> +6M " + d.res_6m.toFixed(1) + "%, +1M rain " + d.rain_1m.toFixed(1) + " mm): Coordinate storage releases with agricultural demand and track +1Y WQI (" + d.wqi_1y.toFixed(1) + ").");
     }
-
-    // 4. Multi-Horizon Forecast Watch
-    if (wqi6m < wqiNow - 4 || wqi1y < wqiNow - 4) {
-      items.push("Multi-Horizon Trend (+1M " + wqi1m.toFixed(1) + " | +6M " + wqi6m.toFixed(1) + " | +1Y " + wqi1y.toFixed(1) + "): Gradual WQI dip projected — pre-position treatment/conservation measures ahead of seasonal shift.");
-    } else {
-      items.push("Multi-Horizon Trend (+1M " + wqi1m.toFixed(1) + " | +6M " + wqi6m.toFixed(1) + " | +1Y " + wqi1y.toFixed(1) + "): Multi-horizon water quality remains steady — continue automated digital-twin monitoring.");
-    }
-
-    return items;
+    // 4. Multi-month forecast summary
+    lines.push("Forecast Path: +1M WQI " + d.wqi_1m.toFixed(1) + " | +6M WQI " + d.wqi_6m.toFixed(1) + " | +1Y WQI " + d.wqi_1y.toFixed(1) + " — review alerts before peak summer/monsoon transitions.");
+    return lines;
   }
 
-  function enhanceRecommendationCards() {
-    var activeDist = detectActiveDistrict();
-    var recData = pickDistrictRecord(activeDist);
-    if (!recData) return;
+  function renderRecommendations() {
+    var activeName = detectDistrictName();
+    var d = lookupDistrict(activeName);
+    var advice = buildDistrictAdvice(d);
 
-    var recs = buildRecommendations(recData);
-    var nodes = document.querySelectorAll("div, section, article");
-    for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      if (!el || el.dataset.atRecEnhanced === "1") continue;
-      var headerText = (el.textContent || "");
-      if (headerText.indexOf("AI Recommendation") !== -1 && headerText.length < 420) {
-        // Find child text container that holds the generic recommendation line
-        var children = el.querySelectorAll("p, div, span");
-        var target = null;
-        for (var j = 0; j < children.length; j++) {
-          var c = children[j];
-          var ct = (c.textContent || "").trim();
-          if (ct.length > 10 && ct.indexOf("AI Recommendation") === -1 && c.children.length === 0) {
-            target = c;
+    var containers = document.querySelectorAll("div, section, article");
+    for (var i = 0; i < containers.length; i++) {
+      var box = containers[i];
+      if (!box || box.children.length === 0) continue;
+      var txt = (box.textContent || "");
+      if (txt.indexOf("AI Recommendation") !== -1 && txt.length < 950) {
+        var leafTargets = box.querySelectorAll("p, div, span");
+        for (var j = 0; j < leafTargets.length; j++) {
+          var leaf = leafTargets[j];
+          var ltxt = (leaf.textContent || "").trim();
+          if (leaf.children.length === 0 && ltxt.length > 8 && ltxt.indexOf("AI Recommendation") === -1) {
+            if (leaf.dataset.at33District !== d.district) {
+              leaf.dataset.at33District = d.district;
+              leaf.innerHTML = advice.map(function(item) {
+                var safe = item.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                return "<div style='margin:6px 0;line-height:1.45;'>• " + safe + "</div>";
+              }).join("");
+            }
             break;
           }
         }
-        if (target) {
-          el.dataset.atRecEnhanced = "1";
-          target.innerHTML = recs.map(function(line) {
-            return "<div style='margin:5px 0;line-height:1.45;'>• " + line.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</div>";
-          }).join("");
-        }
       }
     }
   }
 
-  enhanceRecommendationCards();
-  setInterval(enhanceRecommendationCards, 700);
+  renderRecommendations();
+  setInterval(renderRecommendations, 600);
 })();
 </script>
-<!-- SMART_AI_RECOMMENDATIONS_END -->
+<!-- SMART_AI_RECOMMENDATIONS_33D_END -->
 </body>
 </html>
