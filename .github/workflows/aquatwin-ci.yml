@@ -24,5 +24,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run 3Y Model, Forecast & SHA-256 Security Audit
-        run: python ml/run_final_audit.py
+      - name: Regenerate SHA-256 Manifest & Run 3Y Model/Security Audit
+        run: |
+          if [ -f ml/generate_integrity_manifest.py ]; then
+            python ml/generate_integrity_manifest.py
+          fi
+          python ml/run_final_audit.py
