@@ -5630,5 +5630,359 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- LIQUID_DEMO_SWITCH_END -->
+<!-- MULTIMODAL_3Y_FORECAST_START -->
+<style id="at-mm3y-css">
+.at-mm-card {
+  margin: 14px 0;
+  padding: 15px;
+  border-radius: 18px;
+  background: linear-gradient(155deg, rgba(10, 28, 52, 0.96), rgba(6, 17, 34, 0.98));
+  border: 1px solid rgba(56, 189, 248, 0.34);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.36);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.at-mm-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.at-mm-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+.at-mm-sub {
+  font-size: 11px;
+  color: #7dd3fc;
+  margin-top: 2px;
+}
+.at-mm-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #6ee7b7;
+  white-space: nowrap;
+}
+.at-mm-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 12px 0;
+}
+.at-mm-tab {
+  padding: 7px 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 31, 56, 0.80);
+  color: #cbd5e1;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.at-mm-tab.active {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  border-color: rgba(186, 230, 253, 0.7);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+}
+.at-mm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+.at-mm-box {
+  padding: 10px 11px;
+  border-radius: 13px;
+  background: rgba(15, 33, 60, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.at-mm-k {
+  font-size: 10.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+.at-mm-v {
+  font-size: 17px;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-top: 3px;
+}
+.at-mm-d {
+  font-size: 10.5px;
+  margin-top: 3px;
+  color: #7dd3fc;
+}
+.at-mm-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 11px;
+}
+.at-mm-table th, .at-mm-table td {
+  padding: 6px 4px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.at-mm-table th {
+  color: #7dd3fc;
+  font-weight: 700;
+  font-size: 10px;
+}
+.at-mm-table td:first-child, .at-mm-table th:first-child {
+  text-align: left;
+  color: #cbd5e1;
+  font-weight: 700;
+}
+.at-mm-foot {
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+</style>
+<script id="at-mm3y-js">
+(function(){
+  if (window.__AT_MM3Y_INIT__) return;
+  window.__AT_MM3Y_INIT__ = true;
+
+  var activeHorizon = "6m"; // default highlight (+6M shows Rainfall + Reservoir coupling)
+
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function norm(s){
+    return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function getDistrictList(){
+    return (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts))
+      ? window.AQUATWIN_ML_DATA.districts
+      : [];
+  }
+
+  function detectSelectedDistrict(){
+    var list = getDistrictList();
+    if (!list.length) return null;
+
+    var selects = document.querySelectorAll("select");
+    for (var i = 0; i < selects.length; i++) {
+      var val = selects[i].value || (selects[i].options[selects[i].selectedIndex] && selects[i].options[selects[i].selectedIndex].text) || "";
+      var k = norm(val);
+      if (k) {
+        var hit = list.find(function(d){ return norm(d.district) === k; });
+        if (hit) return hit;
+      }
+    }
+
+    return list.find(function(d){ return norm(d.district) === "hyderabad"; }) || list[0];
+  }
+
+  function findAiTwinAnchor(){
+    var nodes = document.querySelectorAll("h1, h2, h3, h4, div, span");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.children.length !== 0) continue;
+      var txt = (el.textContent || "").trim();
+      if (/XGBoost \+ LSTM|Groundwater Aquifer|Digital Twin|What-If|Rainfall/i.test(txt)) {
+        var box = el.parentElement;
+        while (box && box.parentElement && box.parentElement.tagName !== "BODY") {
+          var rect = box.getBoundingClientRect();
+          if (rect.width > 220 && rect.height > 80) return box;
+          box = box.parentElement;
+        }
+      }
+    }
+    return null;
+  }
+
+  function num(v, fallback){
+    var n = Number(v);
+    return isFinite(n) ? n : fallback;
+  }
+
+  function renderMultiModalCard(){
+    var d = detectSelectedDistrict();
+    if (!d) return;
+    var anchor = findAiTwinAnchor();
+    if (!anchor || !anchor.parentNode) return;
+
+    var card = document.getElementById("at-mm3y-card");
+    if (!card) {
+      card = document.createElement("div");
+      card.id = "at-mm3y-card";
+      card.className = "at-mm-card";
+      anchor.parentNode.insertBefore(card, anchor.nextSibling);
+    }
+
+    var hKey = activeHorizon;
+    var hLabel = hKey === "1y" ? "+1 Year" : ("+" + hKey.toUpperCase());
+
+    var wqiNow = num(d.wqi_score, num(d.xgb_wqi, 70));
+    var wqiMap = {
+      "1m": num(d.lstm_1m_wqi, wqiNow),
+      "2m": num(d.lstm_2m_wqi, wqiNow),
+      "6m": num(d.lstm_6m_wqi, wqiNow),
+      "1y": num(d.lstm_1y_wqi, wqiNow)
+    };
+    var gwNow = num(d.gw_depth_mbgl, 8.2);
+    var gwMap = {
+      "1m": num(d.gw_pred_1m, gwNow),
+      "2m": num(d.gw_pred_2m, gwNow),
+      "6m": num(d.gw_pred_6m, gwNow),
+      "1y": num(d.gw_pred_1y, gwNow)
+    };
+    var resNow = num(d.res_storage_pct, num(d.reservoir_idx, 45));
+    var resMap = {
+      "1m": num(d.res_pred_1m, resNow),
+      "2m": num(d.res_pred_2m, resNow),
+      "6m": num(d.res_pred_6m, resNow),
+      "1y": num(d.res_pred_1y, resNow)
+    };
+    var rainNow = num(d.rainfall_mm, 25);
+    var rainMap = {
+      "1m": num(d.rain_pred_1m, rainNow),
+      "2m": num(d.rain_pred_2m, rainNow),
+      "6m": num(d.rain_pred_6m, rainNow),
+      "1y": num(d.rain_pred_1y, rainNow)
+    };
+
+    var wqiDelta = (wqiMap[hKey] - wqiNow).toFixed(1);
+    var gwDelta  = (gwMap[hKey] - gwNow).toFixed(2);
+    var resDelta = (resMap[hKey] - resNow).toFixed(1);
+    var stress   = num(d.hydro_stress_index, 42).toFixed(1);
+    var sharePct = (window.AQUATWIN_ML_DATA && window.AQUATWIN_ML_DATA.rain_reservoir_6m_feature_share_pct) || 40;
+
+    card.innerHTML =
+      '<div class="at-mm-head">' +
+        '<div>' +
+          '<div class="at-mm-title">3-Year AI Forecast — ' + esc(d.district) + '</div>' +
+          '<div class="at-mm-sub">XGBoost + Hybrid LSTM-GRU • Water • GW • Reservoirs • Rainfall</div>' +
+        '</div>' +
+        '<span class="at-mm-badge">36M Trained</span>' +
+      '</div>' +
+      '<div class="at-mm-tabs">' +
+        ['1m', '2m', '6m', '1y'].map(function(h){
+          var lbl = h === '1y' ? '+1 Year' : ('+' + h.toUpperCase());
+          return '<button type="button" class="at-mm-tab' + (h === hKey ? ' active' : '') + '" data-h="' + h + '">' + lbl + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="at-mm-grid">' +
+        '<div class="at-mm-box">' +
+          '<div class="at-mm-k">Surface Water WQI (' + hLabel + ')</div>' +
+          '<div class="at-mm-v">' + wqiMap[hKey].toFixed(1) + ' / 100</div>' +
+          '<div class="at-mm-d">Now: ' + wqiNow.toFixed(1) + ' (' + (Number(wqiDelta) >= 0 ? '+' : '') + wqiDelta + ')</div>' +
+        '</div>' +
+        '<div class="at-mm-box">' +
+          '<div class="at-mm-k">Groundwater Depth (' + hLabel + ')</div>' +
+          '<div class="at-mm-v">' + gwMap[hKey].toFixed(2) + ' mbgl</div>' +
+          '<div class="at-mm-d">Now: ' + gwNow.toFixed(2) + 'm (' + (Number(gwDelta) >= 0 ? '+' : '') + gwDelta + 'm) • ' + esc(d.gw_status || 'Safe') + '</div>' +
+        '</div>' +
+        '<div class="at-mm-box">' +
+          '<div class="at-mm-k">Reservoir Fill (' + hLabel + ')</div>' +
+          '<div class="at-mm-v">' + resMap[hKey].toFixed(1) + '%</div>' +
+          '<div class="at-mm-d">' + esc(d.reservoir_name || 'Basin Dam') + ' • Now: ' + resNow.toFixed(1) + '% (' + (Number(resDelta) >= 0 ? '+' : '') + resDelta + '%)</div>' +
+        '</div>' +
+        '<div class="at-mm-box">' +
+          '<div class="at-mm-k">Rainfall Forecast (' + hLabel + ')</div>' +
+          '<div class="at-mm-v">' + rainMap[hKey].toFixed(1) + ' mm</div>' +
+          '<div class="at-mm-d">6M Cum: ' + num(d.rain_6m_cum_mm, 0).toFixed(0) + ' mm • SPI: ' + num(d.spi_6m_proxy, 0).toFixed(2) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<table class="at-mm-table">' +
+        '<thead><tr><th>Metric</th><th>Now</th><th>+1M</th><th>+2M</th><th>+6M</th><th>+1Y</th></tr></thead>' +
+        '<tbody>' +
+          '<tr><td>Water WQI</td><td>' + wqiNow.toFixed(1) + '</td><td>' + wqiMap['1m'].toFixed(1) + '</td><td>' + wqiMap['2m'].toFixed(1) + '</td><td>' + wqiMap['6m'].toFixed(1) + '</td><td>' + wqiMap['1y'].toFixed(1) + '</td></tr>' +
+          '<tr><td>GW (mbgl)</td><td>' + gwNow.toFixed(2) + '</td><td>' + gwMap['1m'].toFixed(2) + '</td><td>' + gwMap['2m'].toFixed(2) + '</td><td>' + gwMap['6m'].toFixed(2) + '</td><td>' + gwMap['1y'].toFixed(2) + '</td></tr>' +
+          '<tr><td>Reservoir %</td><td>' + resNow.toFixed(1) + '%</td><td>' + resMap['1m'].toFixed(1) + '%</td><td>' + resMap['2m'].toFixed(1) + '%</td><td>' + resMap['6m'].toFixed(1) + '%</td><td>' + resMap['1y'].toFixed(1) + '%</td></tr>' +
+          '<tr><td>Rainfall mm</td><td>' + rainNow.toFixed(1) + '</td><td>' + rainMap['1m'].toFixed(1) + '</td><td>' + rainMap['2m'].toFixed(1) + '</td><td>' + rainMap['6m'].toFixed(1) + '</td><td>' + rainMap['1y'].toFixed(1) + '</td></tr>' +
+        '</tbody>' +
+      '</table>' +
+      '<div class="at-mm-foot">' +
+        '<span>Basin: ' + esc(d.river_basin || 'Telangana') + ' • Hydro Stress: ' + stress + '/100</span>' +
+        '<span>Rain+Res +6M Driver: ' + esc(sharePct) + '%</span>' +
+      '</div>';
+
+    card.querySelectorAll(".at-mm-tab").forEach(function(btn){
+      btn.onclick = function(e){
+        e.stopPropagation();
+        activeHorizon = btn.getAttribute("data-h") || "6m";
+        renderMultiModalCard();
+      };
+    });
+  }
+
+  document.addEventListener("change", function(){ setTimeout(renderMultiModalCard, 120); }, true);
+  document.addEventListener("click", function(e){
+    if (e.target && e.target.closest && e.target.closest("#at-mm3y-card")) return;
+    setTimeout(renderMultiModalCard, 250);
+  }, true);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(renderMultiModalCard, 600); });
+  } else {
+    setTimeout(renderMultiModalCard, 600);
+  }
+})();
+</script>
+<!-- MULTIMODAL_3Y_FORECAST_END -->
+
+<!-- RUNTIME_INTEGRITY_LOCK_START -->
+<script id="at-runtime-lock">
+(function(){
+  if (window.__AT_RUNTIME_LOCKED__) return;
+  window.__AT_RUNTIME_LOCKED__ = true;
+
+  // Deep-freeze bundled 3-year ML/DL predictions in memory to block client-side tampering
+  function deepFreeze(obj) {
+    if (!obj || typeof obj !== "object" || Object.isFrozen(obj)) return obj;
+    Object.freeze(obj);
+    Object.keys(obj).forEach(function(k){ deepFreeze(obj[k]); });
+    return obj;
+  }
+
+  function lockData(){
+    if (window.AQUATWIN_ML_DATA && !Object.isFrozen(window.AQUATWIN_ML_DATA)) {
+      deepFreeze(window.AQUATWIN_ML_DATA);
+    }
+  }
+
+  // Enforce X-App-Client header automatically on any /forecast or /simulate fetch call
+  var origFetch = window.fetch;
+  if (typeof origFetch === "function" && !origFetch.__atWrapped) {
+    window.fetch = function(input, init) {
+      try {
+        var urlStr = typeof input === "string" ? input : (input && input.url ? input.url : "");
+        if (/\/(simulate|forecast)\b/i.test(urlStr)) {
+          init = Object.assign({}, init || {});
+          var hdrs = new Headers(init.headers || {});
+          if (!hdrs.has("X-App-Client")) hdrs.set("X-App-Client", "aquatwin-v1");
+          init.headers = hdrs;
+        }
+      } catch (e) {}
+      return origFetch.call(this, input, init);
+    };
+    window.fetch.__atWrapped = true;
+  }
+
+  lockData();
+  document.addEventListener("DOMContentLoaded", lockData);
+})();
+</script>
+<!-- RUNTIME_INTEGRITY_LOCK_END -->
 </body>
 </html>

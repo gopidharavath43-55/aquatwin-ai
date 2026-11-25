@@ -1,0 +1,167 @@
+{
+  "algorithm": "SHA-256",
+  "generated_utc": "2026-11-25T18:44:16Z",
+  "protected_files": 40,
+  "files": {
+    "ml/data_3y/water_3y.csv": {
+      "sha256": "8e50c5b9beb320245b4c44c902e062a793759bdc2c73f560624cc8c0cf570aac",
+      "bytes": 176059
+    },
+    "ml/data_3y/groundwater_3y.csv": {
+      "sha256": "9e640a4338b3d2564e8576e0d4c51f918410599ab849c01fa8d238adbf553e38",
+      "bytes": 173681
+    },
+    "ml/data_3y/reservoirs_3y.csv": {
+      "sha256": "44d15f4c8c8076d0a0342fd0063df1ec39be8b902d6b43f88ea8cb2fe3c9953a",
+      "bytes": 236264
+    },
+    "ml/data_3y/rainfall_3y.csv": {
+      "sha256": "61e601da315615d297979cd436baa416dff03b79539ec0509af6ba9e1fbea9f4",
+      "bytes": 218307
+    },
+    "ml/data_3y/telangana_master_3y.csv": {
+      "sha256": "166fd026072b1cc0fb503f58d215911463d75f9f5aa990781fa49de89c6ae97f",
+      "bytes": 585427
+    },
+    "ml/ml_predictions.json": {
+      "sha256": "8c9e656eb07bc0beec18081e3416fcd7d0c4621a70764054138d7a2a1b6d403c",
+      "bytes": 55307
+    },
+    "mobile-app/www/ml_data.js": {
+      "sha256": "dc0dd1005d9ed53d5b13a34951efbb02934ab6e276b4b44c28d173c28c12ad33",
+      "bytes": 55334
+    },
+    "ml/models_3y/fused_xgb_gw_1m.json": {
+      "sha256": "5d589b0e73d969dc82131b05c20dda50937174c7385a19c2a44c54557c0ff93e",
+      "bytes": 930100
+    },
+    "ml/models_3y/fused_xgb_gw_1y.json": {
+      "sha256": "dba7c02dffa6f28280034e0f918609a6b5059e87185db49432011e4de7865093",
+      "bytes": 842801
+    },
+    "ml/models_3y/fused_xgb_gw_2m.json": {
+      "sha256": "d9e9074db3087cbf3d4abfb8a9fc9184ba5ae267e0a0c9795558a1c64bf286a3",
+      "bytes": 922835
+    },
+    "ml/models_3y/fused_xgb_gw_6m.json": {
+      "sha256": "a149357783b7f1ec6c8631c65095abb239cbdbce3d1faf92469d88e75ca127a7",
+      "bytes": 886254
+    },
+    "ml/models_3y/fused_xgb_rain_1m.json": {
+      "sha256": "618bab9bd258985e8415925bbb1382e53c4f24f8dbf1d81b17de457b374f6dce",
+      "bytes": 844743
+    },
+    "ml/models_3y/fused_xgb_rain_1y.json": {
+      "sha256": "8f7ca25ed8798cc62d6d6024b8e65dd6524c5080847c9ca5ec8ca241c981a4cb",
+      "bytes": 715060
+    },
+    "ml/models_3y/fused_xgb_rain_2m.json": {
+      "sha256": "18df9996142c5ab26665c78c19f50cac2c6ef96f00b040ab9322eafbf5f2f162",
+      "bytes": 810192
+    },
+    "ml/models_3y/fused_xgb_rain_6m.json": {
+      "sha256": "c8d17d0a1560a5aa2d926265fbe1e7b525c3682b8c7779315548da160fb632ae",
+      "bytes": 851556
+    },
+    "ml/models_3y/fused_xgb_res_1m.json": {
+      "sha256": "d826cbf1dfd6b1d9f3ebb2ecb354c4c1eb7161c1829cf4392eac4380ad1588d0",
+      "bytes": 904798
+    },
+    "ml/models_3y/fused_xgb_res_1y.json": {
+      "sha256": "86c3ee9c79d3fa2bfa75e1f65201711dd0d600176b0e369be73178cef9473c06",
+      "bytes": 840391
+    },
+    "ml/models_3y/fused_xgb_res_2m.json": {
+      "sha256": "1c1949ce26eb9b9b2567369130b7ffebf3c9c46da746c2b49b293fa7d89cb94f",
+      "bytes": 924358
+    },
+    "ml/models_3y/fused_xgb_res_6m.json": {
+      "sha256": "0c6c1297c2a8fcab791aee8a23014a13ec574a987f2e55798e4577fb496e8902",
+      "bytes": 902104
+    },
+    "ml/models_3y/fused_xgb_wqi_1m.json": {
+      "sha256": "0d6dcac9e7867e79cdef38830ae174ae4a5faeeec80580c90c284d59303346da",
+      "bytes": 905813
+    },
+    "ml/models_3y/fused_xgb_wqi_1y.json": {
+      "sha256": "3393d0974696e7af8dc9b6c3c7a37188ec4fa74a077f1d4126f29ea0568d4552",
+      "bytes": 820288
+    },
+    "ml/models_3y/fused_xgb_wqi_2m.json": {
+      "sha256": "f566f5c5e8e6e55c3982eb0b787670648ca6f5a537ac7758c415afbb2db3b9b2",
+      "bytes": 874495
+    },
+    "ml/models_3y/fused_xgb_wqi_6m.json": {
+      "sha256": "8592194d8af29967f58dd54d8e45a0c4edc5cfc5532b4976f06d02b31082dd06",
+      "bytes": 875537
+    },
+    "ml/models_3y/gw_xgb_12m.json": {
+      "sha256": "2bfb36fcbf3eb6a6c5bd0971ed1e236d3ed64e2d3af119964e9c10568fb73007",
+      "bytes": 806597
+    },
+    "ml/models_3y/gw_xgb_1m.json": {
+      "sha256": "2c78cacfb971bfc7f47b10286b596d7ecb62d7f55d85c5dfd0aa7909357fc3fa",
+      "bytes": 842767
+    },
+    "ml/models_3y/gw_xgb_2m.json": {
+      "sha256": "4ff1bbd71eb0c497ac2e917d2dd8f014b7ef799cc7004b8f061ddaad9e150829",
+      "bytes": 838783
+    },
+    "ml/models_3y/gw_xgb_6m.json": {
+      "sha256": "9ce187224da3630588c210d2a4439c364ba76d764ddd2fee494bcc490d98735b",
+      "bytes": 831265
+    },
+    "ml/models_3y/hybrid_lstm_gru_3y.pt": {
+      "sha256": "e6f20ce8fd104526da6aba54ed591494d1b03038a1fa5ab1511b0a97599bbca5",
+      "bytes": 301605
+    },
+    "ml/models_3y/rain_xgb_12m.json": {
+      "sha256": "6473ecb885611761adbf407d51ed06c0aa701a53a16de6e18c7b73138d3c8d4d",
+      "bytes": 709068
+    },
+    "ml/models_3y/rain_xgb_1m.json": {
+      "sha256": "f108353a109a6cf171a3211e818117933c82e10accc7e294311d610779829192",
+      "bytes": 785014
+    },
+    "ml/models_3y/rain_xgb_2m.json": {
+      "sha256": "f24fbb60fb52ab4f2661d7a1105ca2926ef7dedfcfe3ee92a966f72092a080f6",
+      "bytes": 777860
+    },
+    "ml/models_3y/rain_xgb_6m.json": {
+      "sha256": "c7b9412566c18dbdaffafdd4c63d153c0eb092751a02e5cc8be678f29aa73fbf",
+      "bytes": 803922
+    },
+    "ml/models_3y/res_xgb_12m.json": {
+      "sha256": "d56f4a3fde62676d9a75b4e478a1ef995c51e8e6dfedd578cd8a1b0b49640649",
+      "bytes": 822201
+    },
+    "ml/models_3y/res_xgb_1m.json": {
+      "sha256": "9649aeabf738cb9c8ddc752bedd6cff93a95187d4d6fd4f4c2a12268768d6b72",
+      "bytes": 850000
+    },
+    "ml/models_3y/res_xgb_2m.json": {
+      "sha256": "c003988d11800e9993ba553fe2b7c0ddbf3ad92c37a19959cdecfa8b423381e0",
+      "bytes": 879021
+    },
+    "ml/models_3y/res_xgb_6m.json": {
+      "sha256": "230d89fdd40ac75e44afffbb901aaceac4e1b9c1143c499f995147c9dd2bf1b3",
+      "bytes": 863559
+    },
+    "ml/models_3y/water_xgb_12m.json": {
+      "sha256": "3a5873219a11791b9f2e1cbc0f96ce40ddb1965efe2a1a6cdc5d170d8734ea5b",
+      "bytes": 808442
+    },
+    "ml/models_3y/water_xgb_1m.json": {
+      "sha256": "bdf75012229287e21dbe8b2d04492f4f0c3bc7a55e192596e3ce1d69401eae3a",
+      "bytes": 861623
+    },
+    "ml/models_3y/water_xgb_2m.json": {
+      "sha256": "6bc22698413f97234cc0f026c77a5cbf5b229dc4bc7ccb8d1d75a7eaf8f9946e",
+      "bytes": 869591
+    },
+    "ml/models_3y/water_xgb_6m.json": {
+      "sha256": "04407d0368c9a4e85e481d409c9057a1613110dbc8619af6bf4fadf3b62b8a93",
+      "bytes": 832899
+    }
+  }
+}

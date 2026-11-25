@@ -238,3 +238,110 @@ def predict_v3(req: SimRequest):
         "anomaly_score": ascore,
         "anomaly_status": "Critical Alert" if ascore >= 75 else ("Watch" if ascore >= 48 else "Normal")
     }
+@app.get("/forecast/{district}")
+def get_multimodal_forecast(district: str):
+    key = district.strip().lower()
+    with open("ml_predictions.json", encoding="utf-8") as f:
+        latest_bundle = json.load(f)
+    for item in latest_bundle.get("districts", []):
+        if item["district"].lower() == key:
+            return {
+                "district": item["district"],
+                "model_version": latest_bundle.get("model_version", "AquaTwin-3Y-MultiModal-v2"),
+                "trained_window": latest_bundle.get("trained_window", "36 months"),
+                "horizons": {
+                    "now": {
+                        "wqi": item.get("wqi_score"),
+                        "gw_depth_mbgl": item.get("gw_depth_mbgl"),
+                        "res_storage_pct": item.get("res_storage_pct"),
+                        "rainfall_mm": item.get("rainfall_mm"),
+                    },
+                    "+1M": {
+                        "wqi": item.get("lstm_1m_wqi"),
+                        "gw_depth_mbgl": item.get("gw_pred_1m"),
+                        "res_storage_pct": item.get("res_pred_1m"),
+                        "rainfall_mm": item.get("rain_pred_1m"),
+                    },
+                    "+2M": {
+                        "wqi": item.get("lstm_2m_wqi"),
+                        "gw_depth_mbgl": item.get("gw_pred_2m"),
+                        "res_storage_pct": item.get("res_pred_2m"),
+                        "rainfall_mm": item.get("rain_pred_2m"),
+                    },
+                    "+6M": {
+                        "wqi": item.get("lstm_6m_wqi"),
+                        "gw_depth_mbgl": item.get("gw_pred_6m"),
+                        "res_storage_pct": item.get("res_pred_6m"),
+                        "rainfall_mm": item.get("rain_pred_6m"),
+                    },
+                    "+1Y": {
+                        "wqi": item.get("lstm_1y_wqi"),
+                        "gw_depth_mbgl": item.get("gw_pred_1y"),
+                        "res_storage_pct": item.get("res_pred_1y"),
+                        "rainfall_mm": item.get("rain_pred_1y"),
+                    },
+                },
+                "reservoir_name": item.get("reservoir_name"),
+                "river_basin": item.get("river_basin"),
+                "hydro_stress_index": item.get("hydro_stress_index"),
+            }
+    raise HTTPException(status_code=404, detail="District not found")
+# AQUATWIN_ML_STRONG_SECURITY
+import hmac as _at_hmac
+import os as _at_os
+import re as _at_re
+from fastapi import Request as _AtRequest
+from fastapi.responses import JSONResponse as _AtJSONResponse
+from verify_integrity import verify_all as _at_verify_integrity
+
+_AT_CLIENT_TOKEN = _at_os.environ.get("AQUATWIN_CLIENT_TOKEN", "aquatwin-v1")
+_AT_DISTRICT_RE = _at_re.compile(r"^[A-Za-z0-9\s\-]{2,40}$")
+
+@app.middleware("http")
+async def _at_strong_security_middleware(request: _AtRequest, call_next):
+    # 1. Block oversized payload floods (> 16 KB)
+    cl = request.headers.get("content-length")
+    if cl and cl.isdigit() and int(cl) > 16384:
+        return _AtJSONResponse(
+            status_code=413,
+            content={"ok": False, "code": "PAYLOAD_TOO_LARGE", "message": "Payload exceeds 16 KB limit."},
+        )
+
+    # 2. Enforce X-App-Client token on protected endpoints (/simulate, /forecast)
+    path = request.url.path or ""
+    if request.method != "OPTIONS" and (path.startswith("/simulate") or path.startswith("/forecast")):
+        supplied = request.headers.get("X-App-Client", "")
+        if not _at_hmac.compare_digest(supplied, _AT_CLIENT_TOKEN):
+            return _AtJSONResponse(
+                status_code=403,
+                content={"ok": False, "code": "UNAUTHORIZED_CLIENT", "message": "Valid X-App-Client header required."},
+            )
+
+    # 3. Validate district name path parameter against injection / traversal
+    if path.startswith("/forecast/") or path.startswith("/districts/"):
+        seg = path.rsplit("/", 1)[-1].replace("%20", " ")
+        if not _AT_DISTRICT_RE.match(seg):
+            return _AtJSONResponse(
+                status_code=400,
+                content={"ok": False, "code": "INVALID_DISTRICT", "message": "Invalid district parameter format."},
+            )
+
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+    response.headers["X-Permitted-Cross-Domain-Policies"] = "none"
+    return response
+
+@app.get("/security/status")
+def security_integrity_status():
+    res = _at_verify_integrity()
+    return {
+        "ok": res["ok"],
+        "integrity_verified": res["ok"],
+        "protected_artifacts": res["checked"],
+        "headers_enforced": True,
+        "client_guard": True,
+    }
