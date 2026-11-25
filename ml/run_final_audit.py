@@ -1,7 +1,7 @@
 import json, subprocess, sys
 from pathlib import Path
 
-ROOT = Path(r"C:\Users\gopid\aquatwin-ai")
+ROOT = Path(__file__).resolve().parent.parent
 errors = []
 
 def check(cond, ok_msg, fail_msg):

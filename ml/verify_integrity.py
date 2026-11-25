@@ -1,7 +1,7 @@
 import hashlib, hmac, json, sys
 from pathlib import Path
 
-ROOT = Path(r"C:\Users\gopid\aquatwin-ai")
+ROOT = Path(__file__).resolve().parent.parent
 MANIFEST_PATH = ROOT / "ml" / "data_3y" / "integrity_manifest.json"
 
 def sha256_file(path: Path) -> str:

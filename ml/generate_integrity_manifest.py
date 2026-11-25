@@ -2,7 +2,7 @@ import hashlib, json
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(r"C:\Users\gopid\aquatwin-ai")
+ROOT = Path(__file__).resolve().parent.parent
 TARGETS = [
     "ml/data_3y/water_3y.csv",
     "ml/data_3y/groundwater_3y.csv",
