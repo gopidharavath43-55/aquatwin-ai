@@ -1,8 +1,8 @@
 {
-  "version": "1.148",
-  "version_code": 148,
+  "version": "1.149",
+  "version_code": 149,
   "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-  "notes": "\u2022 Bundled offline Leaflet & Chart.js for instant launch\n\u2022 GPU-accelerated spring animations & Android hardware acceleration\n\u2022 All 5 security layers locked & verified",
+  "notes": "\u2022 Expanded ~5.6 MB offline bundle with pre-cached Telangana/India satellite map tiles\n\u2022 Zero-buffer map zoom + persistent Chrome Service Worker cache\n\u2022 All 5 security layers locked & verified",
   "force": false,
-  "updated_at": "2026-11-26 19:00 IST"
+  "updated_at": "2026-11-26 19:07 IST"
 }

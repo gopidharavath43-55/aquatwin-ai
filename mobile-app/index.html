@@ -842,7 +842,7 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 
 <!-- PROMOTION_PRECONNECT_END -->
 
-<script>window.AQUATWIN_VERSION = "1.148";</script>
+<script>window.AQUATWIN_VERSION = "1.149";</script>
 
 <!-- AQUATWIN_SMOOTH_FX_START -->
 <style id="at-smooth-fx-css">
@@ -901,6 +901,7 @@ html, body {
 }
 </style>
 <!-- AQUATWIN_SMOOTH_FX_END -->
+<script src="tiles/manifest.js"></script>
 </head>
 
 <body>
@@ -12089,6 +12090,67 @@ nav > div:not(#at-lg-tab-lens),
 </script>
 <!-- AQUATWIN_RUNTIME_SECURITY_END -->
 
+
+<!-- AQUATWIN_OFFLINE_ENGINE_START -->
+<style id="at-zero-buffer-css">
+#map, #aquatwin-map, .leaflet-container { background: #132822 !important; }
+.leaflet-fade-anim .leaflet-tile, .leaflet-zoom-anim .leaflet-tile { transition: none !important; }
+.leaflet-tile-loaded { opacity: 1 !important; }
+</style>
+<script id="at-offline-engine-js">
+(function(){
+  if (window.__AT_OFFLINE_ENGINE_V1__) return;
+  window.__AT_OFFLINE_ENGINE_V1__ = true;
+
+  var isNative = Boolean(
+    (window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform()) ||
+    location.protocol === "capacitor:"
+  );
+
+  // 1. Chrome / Web: Register Service Worker + request persistent storage so tiles never evict
+  if (!isNative && location.protocol === "https:") {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function(){
+        navigator.serviceWorker.register("./sw.js").catch(function(){});
+      }, { once: true });
+    }
+    if (navigator.storage && typeof navigator.storage.persist === "function") {
+      navigator.storage.persist().catch(function(){});
+    }
+  }
+
+  // 2. Patch Leaflet L.TileLayer.prototype.getTileUrl to serve bundled Telangana/India tiles first
+  var man = window.__AT_LOCAL_TILES__ || { sat: [], lbl: [] };
+  var satSet = new Set(man.sat || []);
+  var lblSet = new Set(man.lbl || []);
+
+  function patchLeafletTiles(){
+    if (!window.L || !window.L.TileLayer || window.L.TileLayer.prototype._atHybridPatched) return;
+    var origGetUrl = window.L.TileLayer.prototype.getTileUrl;
+    window.L.TileLayer.prototype.getTileUrl = function(coords){
+      var tmpl = String(this._url || "");
+      var z = coords && coords.z;
+      var y = coords && coords.y;
+      var x = coords && coords.x;
+      if (z != null && y != null && x != null) {
+        var key = z + "/" + y + "/" + x;
+        if (tmpl.indexOf("World_Imagery") !== -1 && satSet.has(key)) {
+          return "tiles/sat/" + key + ".jpg";
+        }
+        if (tmpl.indexOf("World_Boundaries_and_Places") !== -1 && lblSet.has(key)) {
+          return "tiles/lbl/" + key + ".png";
+        }
+      }
+      return origGetUrl.call(this, coords);
+    };
+    window.L.TileLayer.prototype._atHybridPatched = true;
+  }
+
+  patchLeafletTiles();
+  document.addEventListener("DOMContentLoaded", patchLeafletTiles, { once: true });
+})();
+</script>
+<!-- AQUATWIN_OFFLINE_ENGINE_END -->
 </body>
 
 </html>

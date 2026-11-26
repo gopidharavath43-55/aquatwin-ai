@@ -1,61 +1,66 @@
-const APP_CACHE = 'aquatwin-white-liquid-v8';
-const TILE_CACHE = 'aquatwin-tiles-v8';
-const MAX_TILES = 1200;
+const CACHE_CORE = "aquatwin-core-v1.149";
+const CACHE_TILES = "aquatwin-tiles-v1";
+const CORE_ASSETS = [
+  "./",
+  "./index.html",
+  "./data.js",
+  "./ml_data.js",
+  "./vendor/leaflet.css",
+  "./vendor/leaflet.js",
+  "./vendor/chart.umd.min.js",
+  "./tiles/manifest.js"
+];
 
-self.addEventListener('install', (e) => {
-  self.skipWaiting();
-  e.waitUntil(
-    caches.open(APP_CACHE).then((c) =>
-      c.addAll(['./', './index.html', './ml_data.js', './fonts/InterVariable.woff2']).catch(() => {})
-    )
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_CORE)
+      .then((cache) => Promise.allSettled(CORE_ASSETS.map((u) => cache.add(u))))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== APP_CACHE && k !== TILE_CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(
+        keys.filter((k) => k !== CACHE_CORE && k !== CACHE_TILES).map((k) => caches.delete(k))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', (e) => {
-  const req = e.request;
-  if (req.method !== 'GET') return;
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET") return;
   const url = new URL(req.url);
 
-  if (url.hostname.includes('arcgisonline.com') || url.hostname.includes('openstreetmap.org') || url.hostname.includes('cartocdn.com')) {
-    e.respondWith(
-      caches.open(TILE_CACHE).then(async (cache) => {
-        const hit = await cache.match(req);
-        if (hit) return hit;
-        try {
-          const resp = await fetch(req);
-          if (resp && (resp.ok || resp.type === 'opaque')) {
-            cache.put(req, resp.clone());
-            cache.keys().then((ks) => {
-              if (ks.length > MAX_TILES) ks.slice(0, ks.length - MAX_TILES).forEach((k) => cache.delete(k));
-            });
-          }
-          return resp;
-        } catch (err) {
-          return hit || Response.error();
-        }
-      })
+  // Cache-First for bundled & ArcGIS map tiles -> zero buffering in Chrome
+  if (url.pathname.includes("/tiles/") || url.hostname === "server.arcgisonline.com") {
+    event.respondWith(
+      caches.open(CACHE_TILES).then((cache) =>
+        cache.match(req).then((cached) => {
+          if (cached) return cached;
+          return fetch(req).then((netRes) => {
+            if (netRes && (netRes.ok || netRes.type === "opaque")) {
+              cache.put(req, netRes.clone()).catch(() => {});
+            }
+            return netRes;
+          }).catch(() => cached || Response.error());
+        })
+      )
     );
     return;
   }
 
-  if (url.origin === self.location.origin || url.hostname.includes('unpkg.com') || url.hostname.includes('jsdelivr.net') || url.hostname.includes('fonts.g')) {
-    e.respondWith(
-      caches.open(APP_CACHE).then(async (cache) => {
-        const cached = await cache.match(req);
-        const net = fetch(req).then((resp) => {
-          if (resp && (resp.ok || resp.type === 'opaque')) cache.put(req, resp.clone());
-          return resp;
-        }).catch(() => cached);
-        return cached || net;
-      })
+  // Network-First with instant cache fallback for app shell & datasets
+  if (url.origin === self.location.origin) {
+    event.respondWith(
+      fetch(req).then((netRes) => {
+        if (netRes && netRes.ok) {
+          caches.open(CACHE_CORE).then((c) => c.put(req, netRes.clone())).catch(() => {});
+        }
+        return netRes;
+      }).catch(() => caches.match(req))
     );
   }
 });
