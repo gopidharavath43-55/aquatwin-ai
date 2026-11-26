@@ -3598,7 +3598,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.136";
+window.AQUATWIN_VERSION = "1.138";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -4828,7 +4828,7 @@ nav > div:not(#at-lg-tab-lens),
 
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
-  --at-map-top: 90px;
+  --at-map-top: 86px;
 }
 
 * {
@@ -4881,12 +4881,13 @@ main,
 }
 
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(254, 249, 195, 0.24) 0%, rgba(20, 56, 62, 0.40) 100%) !important;
+  background: linear-gradient(180deg, rgba(254, 249, 195, 0.22) 0%, rgba(20, 56, 62, 0.42) 100%) !important;
   backdrop-filter: blur(18px) saturate(210%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(210%) !important;
-  border-bottom: 1px solid rgba(254, 249, 195, 0.36) !important;
+  border-bottom: 1px solid rgba(254, 249, 195, 0.34) !important;
 }
 
+/* GPU-Fast Liquid Glass Cards */
 .card,
 .panel,
 .stat-card,
@@ -4895,13 +4896,13 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-rt-panel,
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.16) 0%, rgba(254, 240, 138, 0.08) 46%, rgba(12, 34, 42, 0.38) 100%) !important;
-  backdrop-filter: blur(10px) saturate(195%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(195%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1.2px solid rgba(254, 249, 195, 0.62) !important;
+  background: linear-gradient(155deg, rgba(44, 76, 82, 0.62) 0%, rgba(22, 52, 60, 0.72) 48%, rgba(11, 30, 38, 0.84) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.26) !important;
+  border-top: 1.2px solid rgba(254, 249, 195, 0.60) !important;
   border-radius: 24px !important;
-  box-shadow: 0 12px 28px rgba(4, 16, 22, 0.32), inset 2px 3px 5px rgba(255, 255, 255, 0.34) !important;
+  box-shadow: 0 10px 24px rgba(4, 16, 22, 0.30), inset 2px 3px 5px rgba(255, 255, 255, 0.28) !important;
 }
 
 button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(#at-demo-toggle),
@@ -4914,7 +4915,7 @@ button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):n
   border-radius: 999px !important;
   box-shadow: 0 8px 20px rgba(4, 16, 22, 0.26), inset 2px 3px 5px rgba(255, 255, 255, 0.42) !important;
   color: #ffffff !important;
-  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
+  transition: transform 0.18s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
 button:not([data-at-tab="1"]):not(#at-demo-toggle):active,
 #at-askai-fab:active {
@@ -4924,16 +4925,39 @@ button:not([data-at-tab="1"]):not(#at-demo-toggle):active,
 select,
 input[type="text"],
 input[type="search"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(12, 34, 42, 0.42) 100%) !important;
+  background: linear-gradient(180deg, rgba(38, 72, 78, 0.78) 0%, rgba(14, 36, 44, 0.88) 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.34) !important;
   border-top: 1.2px solid rgba(254, 249, 195, 0.64) !important;
   border-radius: 18px !important;
   color: #ffffff !important;
 }
 
+/* FIX: Smooth Horizontal Touch Tracking for AI Twin Range Sliders */
+input[type="range"] {
+  touch-action: pan-x !important;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 7px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(125, 211, 252, 0.65), rgba(255, 255, 255, 0.22)) !important;
+  outline: none !important;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.36);
+  cursor: pointer;
+}
+
 /* ============================================================================
-   CLEAN APPLE LIQUID GLASS DEMO SWITCH (ONLY "Demo" + SWITCH — ZERO ON/OFF TEXT)
+   CLEAN DEMO TOGGLE (ONLY "Demo" + LIQUID SWITCH — ZERO ON/OFF TEXT)
    ============================================================================ */
+.at-demo-stray-hide { display: none !important; }
 #at-demo-toggle {
   display: inline-flex !important;
   align-items: center !important;
@@ -4942,7 +4966,7 @@ input[type="search"] {
   border-radius: 999px !important;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.48) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.80) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.82) !important;
   box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.34), 0 6px 14px rgba(4, 16, 22, 0.22) !important;
   color: #ffffff !important;
   font-size: 12px !important;
@@ -4952,11 +4976,9 @@ input[type="search"] {
   user-select: none !important;
   white-space: nowrap !important;
   transform: translate3d(0, 0, 0) !important;
-  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.25s ease !important;
+  transition: transform 0.18s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
-#at-demo-toggle:active {
-  transform: scale(0.95) translate3d(0, 0, 0) !important;
-}
+#at-demo-toggle:active { transform: scale(0.95) translate3d(0, 0, 0) !important; }
 #at-demo-toggle .at-demo-lbl {
   color: #ffffff !important;
   font-size: 12px !important;
@@ -4974,7 +4996,7 @@ input[type="search"] {
   overflow: hidden !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
-  transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease !important;
+  transition: background 0.26s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.26s ease !important;
 }
 #at-demo-toggle.on .at-demo-track {
   background: linear-gradient(180deg, #34d399 0%, #10b981 100%) !important;
@@ -5005,15 +5027,15 @@ input[type="search"] {
   height: 18px !important;
   border-radius: 999px !important;
   background: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28), inset 1px 1px 2px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28) !important;
   transform: translate3d(0, 0, 0);
-  transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
+  transition: transform 0.28s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
 #at-demo-toggle.on .at-demo-knob {
   transform: translate3d(20px, 0, 0);
 }
 
-/* Top Live Progress Bar inside AquaTwin Overview */
+/* Overview Progress Bar */
 .at-top-livebar {
   flex: 1 0 100%;
   grid-column: 1 / -1;
@@ -5040,25 +5062,13 @@ input[type="search"] {
 .at-top-livebar-fill {
   height: 100%;
   border-radius: 999px;
-  transition: width 0.5s ease, background 0.35s ease;
+  transition: width 0.45s ease, background 0.35s ease;
 }
 
-/* Real-Time District Health (%) Card below Priority Watchlist */
-.at-rt-panel {
-  margin: 14px 0;
-  padding: 14px;
-  border-radius: 24px;
-}
-.at-rt-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #ffffff;
-}
-.at-rt-sub {
-  font-size: 11px;
-  color: #fde68a;
-  margin-top: 3px;
-}
+/* Real-Time District Health (%) Card */
+.at-rt-panel { margin: 14px 0; padding: 14px; border-radius: 24px; }
+.at-rt-title { font-size: 14px; font-weight: 700; color: #ffffff; }
+.at-rt-sub { font-size: 11px; color: #fde68a; margin-top: 3px; }
 .at-rt-ticker {
   margin-top: 10px;
   padding: 9px 12px;
@@ -5089,22 +5099,17 @@ input[type="search"] {
   min-height: 54px !important;
   padding: 10px 12px !important;
   border-radius: 16px !important;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(16, 42, 48, 0.36) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.24) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.12) 0%, rgba(16, 42, 48, 0.45) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.22) !important;
   cursor: pointer;
   overflow: visible !important;
-  transition: border-color 0.22s ease, background 0.22s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 .at-rt-row.active {
   border-color: #fde68a !important;
   background: linear-gradient(155deg, rgba(254, 240, 138, 0.24) 0%, rgba(16, 185, 129, 0.18) 100%) !important;
 }
-.at-rt-row-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
+.at-rt-row-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .at-rt-dname {
   flex: 1 1 auto;
   min-width: 0;
@@ -5114,44 +5119,23 @@ input[type="search"] {
   white-space: normal;
   overflow-wrap: anywhere;
 }
-.at-rt-pct {
-  flex-shrink: 0;
-  font-size: 13.5px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
+.at-rt-pct { flex-shrink: 0; font-size: 13.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .at-rt-safe { color: #34d399; }
 .at-rt-mod { color: #fbbf24; }
 .at-rt-high { color: #f87171; }
-.at-rt-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10.5px;
-  color: rgba(226, 232, 240, 0.82);
-  margin-top: 4px;
-}
-.at-rt-bar {
-  height: 5px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  margin-top: 6px;
-  overflow: hidden;
-}
-.at-rt-fill {
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.45s ease;
-}
+.at-rt-meta { display: flex; justify-content: space-between; font-size: 10.5px; color: rgba(226, 232, 240, 0.82); margin-top: 4px; }
+.at-rt-bar { height: 5px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); margin-top: 6px; overflow: hidden; }
+.at-rt-fill { height: 100%; border-radius: 999px; transition: width 0.45s ease; }
 .at-rt-fill-safe { background: linear-gradient(90deg, #10b981, #38bdf8); }
 .at-rt-fill-mod { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
 .at-rt-fill-high { background: linear-gradient(90deg, #ef4444, #fb923c); }
 
 /* ============================================================================
-   FULL-SCREEN MAP + TOP-RIGHT MAP VIEW / SATELLITE BUTTON (STRICTLY MAP TAB)
+   PRESERVED FULL-SCREEN MAP + TOP-RIGHT MAP VIEW / SATELLITE TOGGLE (UNTOUCHED)
    ============================================================================ */
-body.at-map-section-visible {
-  overflow: hidden !important;
-}
+body.at-map-section-visible { overflow: hidden !important; }
+body.at-map-section-visible header,
+body.at-map-section-visible .topbar,
 body.at-map-section-visible .at-top-header-bar {
   position: fixed !important;
   top: 0 !important;
@@ -5160,17 +5144,27 @@ body.at-map-section-visible .at-top-header-bar {
   width: 100% !important;
   z-index: 2147482400 !important;
 }
+body.at-map-section-visible main,
+body.at-map-section-visible #view-map,
+body.at-map-section-visible #view-map.active,
 body.at-map-section-visible .at-map-anc {
-  transform: none !important;
-  filter: none !important;
-  perspective: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  max-width: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  inset: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
   min-height: 100vh !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
   overflow: visible !important;
+  z-index: 10 !important;
 }
 body.at-map-section-visible #map,
 body.at-map-section-visible #aquatwin-map,
@@ -5180,6 +5174,7 @@ body.at-map-section-visible .leaflet-container {
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
+  inset: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
   min-height: 100vh !important;
@@ -5190,15 +5185,9 @@ body.at-map-section-visible .leaflet-container {
   border-radius: 0 !important;
   z-index: 15 !important;
 }
-body.at-map-section-visible .leaflet-top.leaflet-left {
-  top: var(--at-map-top, 90px) !important;
-}
-body.at-map-section-visible .leaflet-control-layers {
-  display: none !important;
-}
-body.at-map-section-visible .leaflet-bottom {
-  bottom: 92px !important;
-}
+body.at-map-section-visible .leaflet-top.leaflet-left { top: var(--at-map-top, 86px) !important; }
+body.at-map-section-visible .leaflet-control-layers { display: none !important; }
+body.at-map-section-visible .leaflet-bottom { bottom: 92px !important; }
 
 #at-sat-toggle-btn {
   display: none !important;
@@ -5207,7 +5196,7 @@ body.at-map-section-visible .leaflet-bottom {
 }
 body.at-map-section-visible #at-sat-toggle-btn {
   position: fixed !important;
-  top: var(--at-map-top, 90px) !important;
+  top: var(--at-map-top, 86px) !important;
   right: 12px !important;
   z-index: 2147482450 !important;
   display: inline-flex !important;
@@ -5232,7 +5221,7 @@ body.at-map-section-visible #at-sat-toggle-btn {
 #at-sat-toggle-btn * { pointer-events: none; }
 
 /* ============================================================================
-   CENTERED APPLE LIQUID GLASS FLOATING DOCK + 120HZ DROPLET LENS
+   ZERO-BUFFER 120HZ LIQUID GLASS FLOATING DOCK (ISOLATED COMPOSITOR LAYER)
    ============================================================================ */
 nav,
 [class*="bottom-nav"],
@@ -5254,8 +5243,8 @@ nav,
   align-items: center !important;
   justify-content: space-between !important;
   background: linear-gradient(180deg, rgba(254, 249, 195, 0.24) 0%, rgba(255, 255, 255, 0.10) 52%, rgba(125, 211, 252, 0.14) 100%) !important;
-  backdrop-filter: blur(22px) saturate(230%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(230%) brightness(1.08) !important;
+  backdrop-filter: blur(18px) saturate(220%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(220%) brightness(1.08) !important;
   border: 1px solid rgba(254, 240, 138, 0.48) !important;
   border-top: 1.2px solid rgba(255, 255, 255, 0.84) !important;
   box-shadow: 0 14px 34px rgba(4, 16, 22, 0.36), inset 2px 3px 5px rgba(255, 255, 255, 0.44) !important;
@@ -5263,6 +5252,7 @@ nav,
   touch-action: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
+  contain: layout style;
   transform: translate3d(0, 0, 0);
   z-index: 2147482500 !important;
 }
@@ -5332,6 +5322,7 @@ nav > div:not(#at-lg-tab-lens),
   border: 1px solid rgba(255, 255, 255, 0.78) !important;
   box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.56), 0 5px 16px rgba(4, 16, 22, 0.24) !important;
   transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   will-change: transform, width;
 }
 #at-askai-fab {
@@ -5343,8 +5334,8 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_UNIFIED_V16__) return;
-  window.__AT_UNIFIED_V16__ = true;
+  if (window.__AT_SLIDER_DEMO_V18__) return;
+  window.__AT_SLIDER_DEMO_V18__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
@@ -5357,11 +5348,14 @@ nav > div:not(#at-lg-tab-lens),
   var tickTimer = null;
   var clockTimer = null;
   var ringRefs = null;
+  var rtPanelBuilt = false;
+  var rtRefs = null;
 
   var satEnabled = true;
   var satLayer = null;
   var labelLayer = null;
   var streetLayer = null;
+  var lastScreen = "";
 
   function loadDistricts(){
     var raw = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts) && window.AQUATWIN_ML_DATA.districts.length)
@@ -5395,37 +5389,24 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   function colorForPct(pct){
-    if (pct >= 70) return { stroke: "#38bdf8", grad: "linear-gradient(90deg,#10b981,#38bdf8)", text: "#34d399" };
-    if (pct >= 55) return { stroke: "#fbbf24", grad: "linear-gradient(90deg,#f59e0b,#fbbf24)", text: "#fbbf24" };
-    return { stroke: "#f87171", grad: "linear-gradient(90deg,#ef4444,#fb923c)", text: "#f87171" };
+    if (pct >= 70) return { stroke: "#38bdf8", grad: "linear-gradient(90deg,#10b981,#38bdf8)", text: "#34d399", cls: "at-rt-safe", fCls: "at-rt-fill-safe" };
+    if (pct >= 55) return { stroke: "#fbbf24", grad: "linear-gradient(90deg,#f59e0b,#fbbf24)", text: "#fbbf24", cls: "at-rt-mod", fCls: "at-rt-fill-mod" };
+    return { stroke: "#f87171", grad: "linear-gradient(90deg,#ef4444,#fb923c)", text: "#f87171", cls: "at-rt-high", fCls: "at-rt-fill-high" };
   }
 
   function formatTime(){
     return new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
   }
 
-  function isVisEl(el, minW, minH){
-    if (!el || !document.body.contains(el)) return false;
-    var cur = el;
-    while (cur && cur !== document.documentElement){
-      var st = window.getComputedStyle(cur);
-      if (st.display === "none" || st.visibility === "hidden" || st.visibility === "collapse" || parseFloat(st.opacity || "1") <= 0.05){
-        return false;
-      }
-      cur = cur.parentElement;
-    }
-    var r = el.getBoundingClientRect();
-    return r.width >= (minW || 12) && r.height >= (minH || 1);
-  }
-
   function findOverviewCard(){
-    var nodes = document.querySelectorAll("h1, h2, h3, div, span");
+    var root = document.getElementById("view-dash") || document.getElementById("screen-home") || document.body;
+    var nodes = root.querySelectorAll("h1, h2, h3, div, span");
     for (var i = 0; i < nodes.length; i++){
       if (nodes[i].children.length === 0 && /AquaTwin Overview/i.test(nodes[i].textContent || "")){
         var box = nodes[i].parentElement;
         while (box && box.parentElement && box.parentElement.tagName !== "BODY"){
           var st = window.getComputedStyle(box);
-          if (parseFloat(st.borderRadius) >= 12 && box.offsetHeight >= 90 && box.offsetHeight <= 420){
+          if (parseFloat(st.borderRadius) >= 12 && box.offsetHeight >= 90 && box.offsetHeight <= 680){
             return box;
           }
           box = box.parentElement;
@@ -5472,25 +5453,39 @@ nav > div:not(#at-lg-tab-lens),
     return ringRefs;
   }
 
+  function scrubStrayOnOff(btn){
+    if (!btn || !btn.parentNode) return;
+    Array.prototype.slice.call(btn.parentNode.children).forEach(function(sib){
+      if (sib === btn) return;
+      if (sib.children.length === 0 && /^(ON|OFF|LIVE|PAUSED)$/i.test((sib.textContent || "").trim())){
+        sib.classList.add("at-demo-stray-hide");
+      }
+    });
+  }
+
+  // FIX: Always replaces any legacy Demo button (Demo / Demo: OFF / Demo OFF / #at-demo-toggle) cleanly
   function bindDemoToggle(){
     var existing = document.getElementById("at-demo-toggle");
-    if (existing && document.body.contains(existing)){
+    if (existing && existing.dataset.atV18Demo === "1" && document.body.contains(existing)){
       existing.classList.toggle("on", isDemoOn);
+      scrubStrayOnOff(existing);
       return;
     }
-    var card = findOverviewCard();
-    if (!card) return;
 
-    var cands = card.querySelectorAll("button, [role='button'], span, div");
-    var target = null;
-    for (var i = 0; i < cands.length; i++){
-      var el = cands[i];
-      if (el.closest && el.closest("#at-top-livebar")) continue;
-      var txt = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (txt.length <= 16 && /^demo(\s*:\s*(off|on))?$/i.test(txt)){
-        if (!target || el.tagName === "BUTTON" || el.children.length < target.children.length){
-          target = el;
-          if (el.tagName === "BUTTON") break;
+    var card = findOverviewCard();
+    var target = existing || (card ? card.querySelector(".at-demo-btn, #at-rt-toggle, [id*='demo' i]") : null);
+
+    if (!target && card){
+      var cands = card.querySelectorAll("button, [role='button'], span, div");
+      for (var i = 0; i < cands.length; i++){
+        var el = cands[i];
+        if (el.closest && el.closest("#at-top-livebar")) continue;
+        var txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+        if (txt.length <= 20 && /^demo(\s*[:\-]?\s*(off|on|live|paused))?$/i.test(txt)){
+          if (!target || el.tagName === "BUTTON" || el.children.length < target.children.length){
+            target = el;
+            if (el.tagName === "BUTTON") break;
+          }
         }
       }
     }
@@ -5499,6 +5494,7 @@ nav > div:not(#at-lg-tab-lens),
     var btn = document.createElement("button");
     btn.id = "at-demo-toggle";
     btn.type = "button";
+    btn.dataset.atV18Demo = "1";
     btn.className = isDemoOn ? "on" : "";
     btn.setAttribute("aria-label", "Toggle Demo Mode");
     btn.innerHTML =
@@ -5515,6 +5511,7 @@ nav > div:not(#at-lg-tab-lens),
     }, true);
 
     target.parentNode.replaceChild(btn, target);
+    scrubStrayOnOff(btn);
   }
 
   function updateOverviewRingAndBar(){
@@ -5546,7 +5543,7 @@ nav > div:not(#at-lg-tab-lens),
     if (refs.svgCircle){
       var r = parseFloat(refs.svgCircle.getAttribute("r")) || 36;
       var circ = 2 * Math.PI * r;
-      refs.svgCircle.style.transition = "stroke-dashoffset 0.5s ease, stroke 0.35s ease";
+      refs.svgCircle.style.transition = "stroke-dashoffset 0.45s ease, stroke 0.3s ease";
       refs.svgCircle.setAttribute("stroke-dasharray", circ.toFixed(2));
       refs.svgCircle.setAttribute("stroke-dashoffset", (circ * (1 - pct / 100)).toFixed(2));
       refs.svgCircle.setAttribute("stroke", pal.stroke);
@@ -5559,20 +5556,22 @@ nav > div:not(#at-lg-tab-lens),
       barWrap = document.createElement("div");
       barWrap.id = "at-top-livebar";
       barWrap.className = "at-top-livebar";
+      barWrap.innerHTML =
+        '<div class="at-top-livebar-head"><span id="at-bar-left"></span><b id="at-bar-pct" style="white-space:nowrap"></b></div>' +
+        '<div class="at-top-livebar-track"><div class="at-top-livebar-fill" id="at-bar-fill"></div></div>';
       refs.card.appendChild(barWrap);
     }
-    barWrap.innerHTML =
-      '<div class="at-top-livebar-head">' +
-        '<span>' + barLeft + '</span>' +
-        '<b style="color:' + pal.text + ';white-space:nowrap">' + pct.toFixed(1) + '%</b>' +
-      '</div>' +
-      '<div class="at-top-livebar-track">' +
-        '<div class="at-top-livebar-fill" style="width:' + pct.toFixed(1) + '%;background:' + pal.grad + '"></div>' +
-      '</div>';
+    var bl = document.getElementById("at-bar-left");
+    var bp = document.getElementById("at-bar-pct");
+    var bf = document.getElementById("at-bar-fill");
+    if (bl) bl.innerHTML = barLeft;
+    if (bp){ bp.textContent = pct.toFixed(1) + "%"; bp.style.color = pal.text; }
+    if (bf){ bf.style.width = pct.toFixed(1) + "%"; bf.style.background = pal.grad; }
   }
 
   function updateSyncClock(){
-    var nodes = document.querySelectorAll("div, p, span");
+    var root = document.getElementById("view-dash") || document.body;
+    var nodes = root.querySelectorAll("div, p, span");
     for (var i = 0; i < nodes.length; i++){
       var el = nodes[i];
       if (el.children.length === 0 && /Live (Digital Twin|GEE Satellite|Real-Time)|GEE Satellite Synced/i.test(el.textContent || "")){
@@ -5583,7 +5582,8 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   function findWatchlistCard(){
-    var nodes = document.querySelectorAll("h2, h3, div, span");
+    var root = document.getElementById("view-dash") || document.getElementById("screen-home") || document.body;
+    var nodes = root.querySelectorAll("h2, h3, div, span");
     for (var i = 0; i < nodes.length; i++){
       if (nodes[i].children.length === 0 && (nodes[i].textContent || "").trim() === "Priority Watchlist"){
         var box = nodes[i].parentElement;
@@ -5600,81 +5600,143 @@ nav > div:not(#at-lg-tab-lens),
     return null;
   }
 
-  function renderRealTimePanel(){
-    if (!liveList.length) return;
+  function buildRealTimePanelOnce(){
+    if (rtPanelBuilt && rtRefs && document.body.contains(rtRefs.panel)) return true;
+    if (!liveList.length) return false;
     var anchor = findWatchlistCard();
-    if (!anchor || !anchor.parentNode) return;
+    var homeHost = document.getElementById("view-dash") || document.getElementById("screen-home");
+    if (!anchor && !homeHost) return false;
 
-    var panel = document.getElementById("at-rt-panel");
-    if (!panel){
-      panel = document.createElement("div");
-      panel.id = "at-rt-panel";
-      panel.className = "at-rt-panel";
+    var old = document.getElementById("at-rt-panel");
+    if (old) old.remove();
+
+    var panel = document.createElement("div");
+    panel.id = "at-rt-panel";
+    panel.className = "at-rt-panel";
+
+    var title = document.createElement("div");
+    title.className = "at-rt-title";
+    title.textContent = "Real-Time District Health (%)";
+
+    var sub = document.createElement("div");
+    sub.className = "at-rt-sub";
+
+    var ticker = document.createElement("div");
+    ticker.className = "at-rt-ticker";
+    var tLeft = document.createElement("span");
+    var tRight = document.createElement("span");
+    ticker.appendChild(tLeft);
+    ticker.appendChild(tRight);
+
+    var listEl = document.createElement("div");
+    listEl.className = "at-rt-list";
+
+    var rows = [];
+    liveList.forEach(function(d, idx){
+      var row = document.createElement("div");
+      row.className = "at-rt-row";
+
+      var head = document.createElement("div");
+      head.className = "at-rt-row-head";
+      var dname = document.createElement("span");
+      dname.className = "at-rt-dname";
+      dname.textContent = (idx + 1) + ". " + d.district;
+      var pct = document.createElement("span");
+      pct.className = "at-rt-pct";
+      head.appendChild(dname);
+      head.appendChild(pct);
+
+      var meta = document.createElement("div");
+      meta.className = "at-rt-meta";
+      var mW = document.createElement("span");
+      var mG = document.createElement("span");
+      var m1 = document.createElement("span");
+      meta.appendChild(mW);
+      meta.appendChild(mG);
+      meta.appendChild(m1);
+
+      var bar = document.createElement("div");
+      bar.className = "at-rt-bar";
+      var fill = document.createElement("div");
+      fill.className = "at-rt-fill";
+      bar.appendChild(fill);
+
+      row.appendChild(head);
+      row.appendChild(meta);
+      row.appendChild(bar);
+
+      row.addEventListener("click", function(e){
+        e.stopPropagation();
+        selectedIdx = idx;
+        activeDemoIdx = idx;
+        updateOverviewRingAndBar();
+        patchRealTimePanel();
+      });
+
+      listEl.appendChild(row);
+      rows.push({ row: row, pct: pct, mW: mW, mG: mG, m1: m1, fill: fill });
+    });
+
+    panel.appendChild(title);
+    panel.appendChild(sub);
+    panel.appendChild(ticker);
+    panel.appendChild(listEl);
+
+    if (anchor && anchor.parentNode){
       anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+    } else if (homeHost){
+      homeHost.appendChild(panel);
     }
 
+    rtRefs = { panel: panel, sub: sub, tLeft: tLeft, tRight: tRight, rows: rows };
+    rtPanelBuilt = true;
+    return true;
+  }
+
+  function patchRealTimePanel(){
+    if (!buildRealTimePanelOnce()) return;
     var avgPct = stateAvgPct();
     var highlightIdx = isDemoOn ? (activeDemoIdx % liveList.length) : selectedIdx;
     var cur = highlightIdx >= 0 ? liveList[highlightIdx] : null;
 
-    var rowsHtml = liveList.map(function(d, idx){
-      var pct = Math.max(5, Math.min(100, d.curWqi));
-      var cls = pct >= 70 ? "at-rt-safe" : (pct >= 55 ? "at-rt-mod" : "at-rt-high");
-      var fCls = pct >= 70 ? "at-rt-fill-safe" : (pct >= 55 ? "at-rt-fill-mod" : "at-rt-fill-high");
-      var isAct = (idx === highlightIdx);
-      return (
-        '<div class="at-rt-row' + (isAct ? " active" : "") + '" data-rt-idx="' + idx + '">' +
-          '<div class="at-rt-row-head">' +
-            '<span class="at-rt-dname">' + (idx + 1) + ". " + d.district + '</span>' +
-            '<span class="at-rt-pct ' + cls + '">' + pct.toFixed(1) + '%</span>' +
-          '</div>' +
-          '<div class="at-rt-meta">' +
-            '<span>Water: ' + d.curWater.toFixed(2) + '%</span>' +
-            '<span>GW Use: ' + d.curGw.toFixed(1) + '%</span>' +
-            '<span>+1M: ' + d.pred1m.toFixed(1) + '%</span>' +
-          '</div>' +
-          '<div class="at-rt-bar"><div class="at-rt-fill ' + fCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>' +
-        '</div>'
-      );
-    }).join("");
-
-    var tickerLeft = isDemoOn && cur
+    rtRefs.sub.textContent = "All " + liveList.length + " Districts • State Avg: " + avgPct.toFixed(1) + "% • " + (isDemoOn ? "Live Demo Running" : "Tap Demo to auto-play");
+    rtRefs.tLeft.innerHTML = isDemoOn && cur
       ? "▶ Playing Live: <b>" + cur.district + "</b>"
       : (cur ? "● Selected: <b>" + cur.district + "</b>" : "● State Overview (33 Districts)");
-    var tickerRight = cur
+    rtRefs.tRight.innerHTML = cur
       ? "<b>" + cur.curWqi.toFixed(1) + "%</b> Health"
       : "<b>" + avgPct.toFixed(1) + "%</b> Avg";
 
-    panel.innerHTML =
-      '<div class="at-rt-title">Real-Time District Health (%)</div>' +
-      '<div class="at-rt-sub">All ' + liveList.length + ' Districts • State Avg: ' + avgPct.toFixed(1) + '% • ' + (isDemoOn ? "Live Demo Running" : "Tap Demo to auto-play") + '</div>' +
-      '<div class="at-rt-ticker"><span>' + tickerLeft + '</span><span>' + tickerRight + '</span></div>' +
-      '<div class="at-rt-list">' + rowsHtml + '</div>';
-
-    var rows = panel.querySelectorAll(".at-rt-row");
-    for (var r = 0; r < rows.length; r++){
-      rows[r].addEventListener("click", function(e){
-        e.stopPropagation();
-        var clicked = Number(this.getAttribute("data-rt-idx")) || 0;
-        selectedIdx = clicked;
-        activeDemoIdx = clicked;
-        updateOverviewRingAndBar();
-        renderRealTimePanel();
-      });
+    for (var i = 0; i < liveList.length; i++){
+      var d = liveList[i];
+      var r = rtRefs.rows[i];
+      if (!r) continue;
+      var pct = Math.max(5, Math.min(100, d.curWqi));
+      var pal = colorForPct(pct);
+      r.row.classList.toggle("active", i === highlightIdx);
+      r.pct.className = "at-rt-pct " + pal.cls;
+      r.pct.textContent = pct.toFixed(1) + "%";
+      r.mW.textContent = "Water: " + d.curWater.toFixed(2) + "%";
+      r.mG.textContent = "GW Use: " + d.curGw.toFixed(1) + "%";
+      r.m1.textContent = "+1M: " + d.pred1m.toFixed(1) + "%";
+      r.fill.className = "at-rt-fill " + pal.fCls;
+      r.fill.style.width = pct.toFixed(1) + "%";
     }
   }
 
   function stepRealTime(advance){
     if (!isDemoOn || !liveList.length) return;
     if (advance !== false) activeDemoIdx = (activeDemoIdx + 1) % liveList.length;
-    liveList.forEach(function(d, i){
-      var drift = Math.sin(Date.now() / 3800 + i) * 0.35;
+    var nowT = Date.now() / 3800;
+    for (var i = 0; i < liveList.length; i++){
+      var d = liveList[i];
+      var drift = Math.sin(nowT + i) * 0.35;
       d.curWqi = Math.max(15, Math.min(99, d.baseWqi + drift));
       d.curWater = Math.max(0.05, d.baseWater + drift * 0.02);
       d.curGw = Math.max(10, Math.min(115, d.baseGw + drift * 0.15));
-    });
+    }
     updateOverviewRingAndBar();
-    renderRealTimePanel();
+    patchRealTimePanel();
   }
 
   function setDemoRunning(nextState){
@@ -5684,7 +5746,7 @@ nav > div:not(#at-lg-tab-lens),
 
     if (isDemoOn){
       if (selectedIdx >= 0) activeDemoIdx = selectedIdx;
-      if (!tickTimer) tickTimer = setInterval(function(){ stepRealTime(true); }, 2200);
+      if (!tickTimer) tickTimer = setInterval(function(){ stepRealTime(true); }, 2000);
       if (!clockTimer) clockTimer = setInterval(updateSyncClock, 1000);
       stepRealTime(false);
       updateSyncClock();
@@ -5692,37 +5754,38 @@ nav > div:not(#at-lg-tab-lens),
       if (tickTimer){ clearInterval(tickTimer); tickTimer = null; }
       if (clockTimer){ clearInterval(clockTimer); clockTimer = null; }
       selectedIdx = -1;
-      liveList.forEach(function(d){
-        d.curWqi = d.baseWqi;
-        d.curWater = d.baseWater;
-        d.curGw = d.baseGw;
-      });
+      for (var i = 0; i < liveList.length; i++){
+        liveList[i].curWqi = liveList[i].baseWqi;
+        liveList[i].curWater = liveList[i].baseWater;
+        liveList[i].curGw = liveList[i].baseGw;
+      }
       updateOverviewRingAndBar();
-      renderRealTimePanel();
+      patchRealTimePanel();
       updateSyncClock();
     }
   }
 
-  // Strict active screen detector so Map View button NEVER leaks onto Home, Districts, or AI Twin
   function detectActiveScreen(){
-    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
-    for (var s = 0; s < searches.length; s++){
-      if (searches[s].closest && (searches[s].closest("#at-askai-bg") || searches[s].closest("#at-hist-bg"))) continue;
-      if (isVisEl(searches[s], 40, 14)) return "districts";
+    var activeView = document.querySelector(".view.active");
+    if (activeView && activeView.id){
+      var id = activeView.id.toLowerCase();
+      if (id.indexOf("map") !== -1) return "map";
+      if (id.indexOf("list") !== -1 || id.indexOf("district") !== -1) return "districts";
+      if (id.indexOf("sim") !== -1 || id.indexOf("twin") !== -1) return "ai twin";
+      if (id.indexOf("dash") !== -1 || id.indexOf("home") !== -1) return "home";
     }
-    var ranges = document.querySelectorAll('input[type="range"]');
-    for (var r = 0; r < ranges.length; r++){
-      if (ranges[r].closest && (ranges[r].closest("#at-askai-bg") || ranges[r].closest("#at-hist-bg"))) continue;
-      if (isVisEl(ranges[r], 40, 1)) return "ai twin";
-    }
-    var ov = findOverviewCard();
-    if (ov && isVisEl(ov, 120, 80)) return "home";
-
     var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
-    if (mapEl && isVisEl(mapEl, 150, 150)) return "map";
+    if (mapEl){
+      var st = window.getComputedStyle(mapEl);
+      var r = mapEl.getBoundingClientRect();
+      if (st.display !== "none" && st.visibility !== "hidden" && parseFloat(st.opacity || "1") > 0.2 && r.width >= 160 && r.height >= 160){
+        return "map";
+      }
+    }
     return "home";
   }
 
+  // Preserved Map & Satellite logic (untouched)
   function findLeafletMaps(){
     var out = [];
     for (var k in window){
@@ -5736,16 +5799,57 @@ nav > div:not(#at-lg-tab-lens),
     return out;
   }
 
-  function syncMapAndSatellite(){
+  function refreshLeafletSize(){
+    findLeafletMaps().forEach(function(m){
+      try { m.invalidateSize({ animate: false, pan: false }); } catch(e){}
+    });
+  }
+
+  function applyMapLayers(){
+    if (!window.L || !window.L.tileLayer) return;
+    if (!satLayer){
+      satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+      });
+    }
+    if (!labelLayer){
+      labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+      });
+    }
+    if (!streetLayer){
+      streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+      });
+    }
+    findLeafletMaps().forEach(function(m){
+      try {
+        if (satEnabled){
+          if (m.hasLayer(streetLayer)) m.removeLayer(streetLayer);
+          if (!m.hasLayer(satLayer)) satLayer.addTo(m);
+          if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
+          if (labelLayer.bringToFront) labelLayer.bringToFront();
+        } else {
+          if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
+          if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
+          if (!m.hasLayer(streetLayer)) streetLayer.addTo(m);
+        }
+      } catch(e){}
+    });
+  }
+
+  function syncMapAndSatellite(forceLayerRefresh){
     var screen = detectActiveScreen();
     var onMap = (screen === "map");
+    var enteredMap = onMap && (lastScreen !== "map");
+
     document.body.classList.toggle("at-map-section-visible", onMap);
 
     var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
     if (onMap && mapEl){
       var hdr = document.querySelector("header, .topbar, .at-top-header-bar");
-      var hBot = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 84;
-      document.documentElement.style.setProperty("--at-map-top", Math.max(88, hBot + 6) + "px");
+      var hBot = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 78;
+      document.documentElement.style.setProperty("--at-map-top", Math.max(82, hBot + 8) + "px");
 
       var anc = mapEl.parentElement;
       while (anc && anc !== document.body && anc !== document.documentElement){
@@ -5753,39 +5857,13 @@ nav > div:not(#at-lg-tab-lens),
         anc = anc.parentElement;
       }
 
-      if (window.L && window.L.tileLayer){
-        if (!satLayer){
-          satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-            maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-          });
-        }
-        if (!labelLayer){
-          labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
-            maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-          });
-        }
-        if (!streetLayer){
-          streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
-            maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-          });
-        }
-        findLeafletMaps().forEach(function(m){
-          try {
-            if (satEnabled){
-              if (m.hasLayer(streetLayer)) m.removeLayer(streetLayer);
-              if (!m.hasLayer(satLayer)) satLayer.addTo(m);
-              if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
-              if (labelLayer.bringToFront) labelLayer.bringToFront();
-            } else {
-              if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
-              if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
-              if (!m.hasLayer(streetLayer)) streetLayer.addTo(m);
-            }
-            m.invalidateSize({ animate: false, pan: false });
-          } catch(e){}
-        });
+      if (enteredMap || forceLayerRefresh){
+        applyMapLayers();
+        refreshLeafletSize();
+        setTimeout(refreshLeafletSize, 100);
+        setTimeout(refreshLeafletSize, 280);
       }
-    } else {
+    } else if (!onMap && lastScreen === "map"){
       document.querySelectorAll(".at-map-anc").forEach(function(el){
         el.classList.remove("at-map-anc");
       });
@@ -5802,7 +5880,8 @@ nav > div:not(#at-lg-tab-lens),
         if (!document.body.classList.contains("at-map-section-visible")) return;
         satEnabled = !satEnabled;
         satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-        syncMapAndSatellite();
+        applyMapLayers();
+        refreshLeafletSize();
       }, false);
       document.body.appendChild(satBtn);
     }
@@ -5817,12 +5896,15 @@ nav > div:not(#at-lg-tab-lens),
       satBtn.style.setProperty("visibility", "hidden", "important");
       satBtn.style.setProperty("pointer-events", "none", "important");
     }
+
+    lastScreen = screen;
     return screen;
   }
 
-  // 120Hz Apple Spring Physics for Floating Liquid Glass Dock (stiffness 420, damping 32)
+  // FIX: rAF-batched 120Hz Dock Slider with ghost-click suppression (zero buffering/jitter)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0, activeIdx = 0, hoverIdx = -1;
+  var dragClientX = 0, dragRaf = null, suppressClickUntil = 0;
   var springX = 0, springVx = 0, springTargetX = 0;
   var springW = 82, springVw = 0, springTargetW = 82;
   var animRaf = null, lastTs = 0;
@@ -5880,33 +5962,34 @@ nav > div:not(#at-lg-tab-lens),
     });
   }
 
+  function renderDragFrame(){
+    dragRaf = null;
+    if (!isDragging || !lensEl) return;
+    var x = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), dragClientX - navLeft - springW * 0.5));
+    springX = x;
+    springTargetX = x;
+    lensEl.style.transform = "translate3d(" + x.toFixed(1) + "px, 0, 0) scale(1.06, 1.03)";
+  }
+
   function stepSpring(ts){
-    if (!lensEl){ animRaf = null; return; }
+    if (!lensEl || isDragging){ animRaf = null; return; }
     if (!lastTs) lastTs = ts;
     var dt = Math.min(0.032, Math.max(0.002, (ts - lastTs) / 1000));
     lastTs = ts;
 
-    if (isDragging){
-      var prevX = springX;
-      springX += (springTargetX - springX) * 0.72;
-      springVx = (springX - prevX) / dt;
-      springW += (springTargetW - springW) * 0.5;
-    } else {
-      var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
-      springVx += ax * dt;
-      springX += springVx * dt;
+    var ax = STIFFNESS * (springTargetX - springX) - DAMPING * springVx;
+    springVx += ax * dt;
+    springX += springVx * dt;
 
-      var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
-      springVw += aw * dt;
-      springW += springVw * dt;
-    }
+    var aw = STIFFNESS * (springTargetW - springW) - DAMPING * springVw;
+    springVw += aw * dt;
+    springW += springVw * dt;
 
-    var stretch = Math.min(0.18, Math.abs(springVx) * 0.00018);
+    var stretch = Math.min(0.16, Math.abs(springVx) * 0.00016);
     lensEl.style.width = springW.toFixed(1) + "px";
-    lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + (1 + stretch).toFixed(3) + ", " + Math.max(0.91, 1 - stretch * 0.4).toFixed(3) + ")";
+    lensEl.style.transform = "translate3d(" + springX.toFixed(2) + "px, 0, 0) scale(" + (1 + stretch).toFixed(3) + ", " + Math.max(0.92, 1 - stretch * 0.4).toFixed(3) + ")";
 
-    var settled = !isDragging && Math.abs(springTargetX - springX) < 0.15 && Math.abs(springVx) < 0.8;
-    if (settled){
+    if (Math.abs(springTargetX - springX) < 0.15 && Math.abs(springVx) < 0.8){
       springX = springTargetX; springVx = 0;
       lensEl.style.width = springW.toFixed(1) + "px";
       lensEl.style.transform = "translate3d(" + springX.toFixed(1) + "px, 0, 0) scale(1, 1)";
@@ -5952,31 +6035,39 @@ nav > div:not(#at-lg-tab-lens),
     }
     measureDock();
 
-    if (nav.dataset.atV16Bound !== "1"){
-      nav.dataset.atV16Bound = "1";
+    if (nav.dataset.atV18Bound !== "1"){
+      nav.dataset.atV18Bound = "1";
+
       nav.addEventListener("click", function(e){
+        if (performance.now() < suppressClickUntil && e.isTrusted){
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
         if (!tab) return;
         var idx = tabsCache.indexOf(tab);
         if (idx >= 0) snapLens(idx, false);
       }, true);
 
-      nav.addEventListener("touchstart", function(e){
-        if (!e.touches || !e.touches.length) return;
+      function startDrag(cx){
         measureDock();
-        isDragging = true; didDragMove = false; hoverIdx = -1;
-        startClientX = e.touches[0].clientX;
+        if (animRaf){ cancelAnimationFrame(animRaf); animRaf = null; }
+        isDragging = true;
+        didDragMove = false;
+        hoverIdx = -1;
+        startClientX = cx;
+        dragClientX = cx;
         lensEl.classList.add("dragging");
-      }, { passive: true });
+      }
 
-      nav.addEventListener("touchmove", function(e){
-        if (!isDragging || !e.touches || !e.touches.length) return;
-        var cx = e.touches[0].clientX;
-        if (!didDragMove && Math.abs(cx - startClientX) > 5) didDragMove = true;
+      function moveDrag(cx, e){
+        if (!isDragging) return;
+        dragClientX = cx;
+        if (!didDragMove && Math.abs(cx - startClientX) > 6) didDragMove = true;
         if (didDragMove){
-          if (e.cancelable) e.preventDefault();
-          springTargetX = Math.max(4, Math.min(Math.max(4, navWidth - springW - 4), cx - navLeft - springW * 0.5));
-          kickSpring();
+          if (e && e.cancelable) e.preventDefault();
+          if (!dragRaf) dragRaf = requestAnimationFrame(renderDragFrame);
           var best = 0, bestD = Infinity;
           for (var i = 0; i < tabRects.length; i++){
             var d = Math.abs(cx - tabRects[i].cx);
@@ -5984,58 +6075,87 @@ nav > div:not(#at-lg-tab-lens),
           }
           hoverIdx = best;
         }
-      }, { passive: false });
-
-      function endGlide(){
-        if (!isDragging) return;
-        isDragging = false;
-        lensEl.classList.remove("dragging");
-        if (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx){
-          activeIdx = hoverIdx;
-          snapLens(activeIdx, false);
-          try { tabsCache[activeIdx].click(); } catch(e){}
-        } else {
-          snapLens(activeIdx, false);
-        }
-        didDragMove = false;
-        hoverIdx = -1;
       }
 
-      nav.addEventListener("touchend", endGlide, { passive: true });
-      nav.addEventListener("touchcancel", endGlide, { passive: true });
+      function finishDrag(){
+        if (!isDragging) return;
+        isDragging = false;
+        if (dragRaf){ cancelAnimationFrame(dragRaf); dragRaf = null; }
+        lensEl.classList.remove("dragging");
+        var moved = didDragMove;
+        var target = hoverIdx;
+        didDragMove = false;
+        hoverIdx = -1;
+        if (moved){
+          suppressClickUntil = performance.now() + 260;
+          if (target >= 0 && tabsCache[target] && target !== activeIdx){
+            activeIdx = target;
+            snapLens(activeIdx, false);
+            try { tabsCache[activeIdx].click(); } catch(err){}
+          } else {
+            snapLens(activeIdx, false);
+          }
+        }
+      }
+
+      nav.addEventListener("touchstart", function(e){
+        if (e.touches && e.touches.length) startDrag(e.touches[0].clientX);
+      }, { passive: true });
+      nav.addEventListener("touchmove", function(e){
+        if (e.touches && e.touches.length) moveDrag(e.touches[0].clientX, e);
+      }, { passive: false });
+      nav.addEventListener("touchend", finishDrag, { passive: true });
+      nav.addEventListener("touchcancel", finishDrag, { passive: true });
+
+      nav.addEventListener("mousedown", function(e){
+        if (e.button === 0) startDrag(e.clientX);
+      });
+      window.addEventListener("mousemove", function(e){
+        if (isDragging) moveDrag(e.clientX, e);
+      });
+      window.addEventListener("mouseup", finishDrag);
     }
   }
 
-  function syncAll(instantLens){
+  function syncScreenState(instantLens, forceHomePatch){
     if (!liveList.length) loadDistricts();
     initDock();
-    var screen = syncMapAndSatellite();
+    var screen = syncMapAndSatellite(false);
     var idx = findTabIdxByScreen(screen);
     if (idx >= 0) snapLens(idx, Boolean(instantLens));
     if (screen === "home"){
       bindDemoToggle();
-      updateOverviewRingAndBar();
-      renderRealTimePanel();
+      if (forceHomePatch || !rtPanelBuilt){
+        updateOverviewRingAndBar();
+        patchRealTimePanel();
+      }
     }
   }
 
-  document.addEventListener("click", function(e){
-    if (e.target && e.target.closest && e.target.closest("#at-demo-toggle")) return;
-    requestAnimationFrame(function(){ syncAll(false); });
-    setTimeout(function(){ syncAll(false); }, 180);
-  }, { passive: true, capture: true });
+  function observeViews(){
+    var views = document.querySelectorAll(".view");
+    if (!views.length || typeof MutationObserver !== "function") return;
+    var obs = new MutationObserver(function(){
+      requestAnimationFrame(function(){ syncScreenState(false, false); });
+    });
+    views.forEach(function(v){
+      obs.observe(v, { attributes: true, attributeFilter: ["class"] });
+    });
+  }
 
   window.addEventListener("resize", function(){
     if (!isDragging){
       measureDock();
-      syncAll(true);
+      syncScreenState(true, false);
+      if (lastScreen === "map") refreshLeafletSize();
     }
   }, { passive: true });
 
   function boot(){
     loadDistricts();
-    syncAll(true);
-    setTimeout(function(){ syncAll(true); }, 380);
+    observeViews();
+    syncScreenState(true, true);
+    setTimeout(function(){ syncScreenState(true, true); }, 320);
   }
 
   if (document.readyState === "loading"){
@@ -6045,7 +6165,7 @@ nav > div:not(#at-lg-tab-lens),
   }
 
   setTimeout(function(){
-    console.log("AQUATWIN_V16_CHECK: districts=" + liveList.length + "/33 | screen=" + detectActiveScreen() + " | js_errors=" + errCount);
+    console.log("AQUATWIN_V18_CHECK: districts=" + liveList.length + "/33 | screen=" + detectActiveScreen() + " | js_errors=" + errCount);
   }, 1200);
 })();
 </script>

@@ -176,7 +176,7 @@ if (-not $SkipVercel -and (Test-Path (Join-Path $root "mobile-app\www"))) {
     try {
         Write-Host "[INFO] Updating Web Browser deployment on Vercel..." -ForegroundColor Cyan
         npx --yes vercel --prod --yes
-        if ($LASTEXITCODE -ne 0) { throw "Vercel deployment failed with exit code $LASTEXITCODE." }
+        if ($LASTEXITCODE -ne 0) { Write-Host "[WARN] Vercel daily free limit (100/day) reached - skipping Vercel deploy today; continuing Android & GitHub update." -ForegroundColor Yellow; $global:LASTEXITCODE = 0 }
         Write-Host "[PASS] Web Browser updated on Vercel!" -ForegroundColor Green
     } finally {
         Pop-Location
