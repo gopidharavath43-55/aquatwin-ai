@@ -1,8 +1,8 @@
 {
-    "version":  "1.135",
-    "version_code":  135,
+    "version":  "1.136",
+    "version_code":  136,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Refixed Demo \u0026 33-district health stream, full-screen Map with Satellite ON by default \u0026 top-right Map-only toggle",
+    "notes":  "• Unified Demo switch (zero ON/OFF text), working 33-district live health + ring, Map-only Satellite/Map View toggle \u0026 dock fix",
     "force":  false,
-    "updated_at":  "2026-11-26 05:54 IST"
+    "updated_at":  "2026-11-26 06:02 IST"
 }

@@ -2502,513 +2502,6 @@ body.at-map-fullscreen-active .leaflet-bottom {
 </script>
 <!-- GROUNDWATER_UI_END -->
 
-<!-- REALTIME_LIVE_START -->
-<style id="at-rt-css">
-.at-demo-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(30, 41, 59, 0.78);
-  color: #cbd5e1;
-  transition: all 0.25s ease;
-  white-space: nowrap;
-}
-.at-demo-btn.on {
-  border-color: rgba(52, 211, 153, 0.50);
-  background: rgba(16, 185, 129, 0.22);
-  color: #6ee7b7;
-}
-.at-demo-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #94a3b8;
-  display: inline-block;
-}
-.at-demo-btn.on .at-demo-dot {
-  background: #34d399;
-  box-shadow: 0 0 8px #34d399;
-  animation: atRtBlink 1.2s infinite;
-}
-@keyframes atRtBlink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.8); }
-}
-.at-top-livebar {
-  flex: 1 0 100%;
-  grid-column: 1 / -1;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(56, 189, 248, 0.16);
-}
-.at-top-livebar-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 11.5px;
-  color: #e0f2fe;
-  margin-bottom: 6px;
-}
-.at-top-livebar-track {
-  height: 7px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.10);
-  overflow: hidden;
-}
-.at-top-livebar-fill {
-  height: 100%;
-  border-radius: 99px;
-  transition: width 0.5s ease, background 0.35s ease;
-}
-.at-rt-panel {
-  margin: 14px 0;
-  padding: 14px;
-  border-radius: 18px;
-  background: linear-gradient(155deg, rgba(11, 29, 53, 0.94), rgba(6, 18, 36, 0.96));
-  border: 1px solid rgba(56, 189, 248, 0.24);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
-}
-.at-rt-title { font-size: 14px; font-weight: 700; color: #f8fafc; }
-.at-rt-sub { font-size: 11px; color: #7dd3fc; margin-top: 3px; }
-.at-rt-ticker {
-  margin-top: 10px;
-  padding: 9px 11px;
-  border-radius: 12px;
-  background: rgba(6, 78, 128, 0.26);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 11.5px;
-  color: #e0f2fe;
-}
-.at-rt-ticker b { color: #38bdf8; }
-.at-rt-list {
-  margin-top: 10px;
-  max-height: 310px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-right: 3px;
-}
-.at-rt-row {
-  padding: 9px 11px;
-  border-radius: 12px;
-  background: rgba(15, 31, 56, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-.at-rt-row.active {
-  border-color: rgba(56, 189, 248, 0.70);
-  background: rgba(14, 52, 88, 0.62);
-}
-.at-rt-row-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.at-rt-dname { font-size: 13px; font-weight: 700; color: #f1f5f9; }
-.at-rt-pct { font-size: 13.5px; font-weight: 800; }
-.at-rt-safe { color: #34d399; }
-.at-rt-mod { color: #fbbf24; }
-.at-rt-high { color: #f87171; }
-.at-rt-meta { display: flex; justify-content: space-between; font-size: 10.5px; color: #94a3b8; margin-top: 4px; }
-.at-rt-bar { height: 5px; border-radius: 99px; background: rgba(255, 255, 255, 0.09); margin-top: 6px; overflow: hidden; }
-.at-rt-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
-.at-rt-fill-safe { background: linear-gradient(90deg, #10b981, #38bdf8); }
-.at-rt-fill-mod { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-.at-rt-fill-high { background: linear-gradient(90deg, #ef4444, #fb923c); }
-</style>
-<script id="at-rt-js">
-(function(){
-  var isDemoOn = false;        // OFF by default — only runs when user turns Demo ON
-  var selectedIdx = -1;        // -1 = State Average when Demo is OFF
-  var activeIdx = 0;
-  var liveList = [];
-  var tickTimer = null;
-  var clockTimer = null;
-  var ringRefs = null;
-
-  function loadDistricts(){
-    var raw = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts : [];
-    liveList = raw.map(function(d){
-      var baseWqi = Number(d.xgb_wqi != null ? d.xgb_wqi : (d.wqi_score != null ? d.wqi_score : 72));
-      var baseWater = Number(d.water_coverage_pct != null ? d.water_coverage_pct : 1.2);
-      var baseGw = Number(d.gw_extraction_pct != null ? d.gw_extraction_pct : 48.0);
-      return {
-        district: d.district || 'Unknown',
-        baseWqi: baseWqi,
-        curWqi: baseWqi,
-        baseWater: baseWater,
-        curWater: baseWater,
-        baseGw: baseGw,
-        curGw: baseGw,
-        pred1m: Number(d.lstm_1m_wqi != null ? d.lstm_1m_wqi : baseWqi),
-        sync: d.last_satellite_sync || (window.AQUATWIN_ML_DATA && window.AQUATWIN_ML_DATA.last_satellite_sync) || 'Sentinel-2 Live'
-      };
-    });
-  }
-
-  function stateAvgPct(){
-    if (!liveList.length) return 75.0;
-    var sum = liveList.reduce(function(acc, x){ return acc + x.curWqi; }, 0);
-    return sum / liveList.length;
-  }
-
-  function colorForPct(pct){
-    if (pct >= 70) return { stroke: '#38bdf8', grad: 'linear-gradient(90deg,#10b981,#38bdf8)', text: '#34d399' };
-    if (pct >= 55) return { stroke: '#fbbf24', grad: 'linear-gradient(90deg,#f59e0b,#fbbf24)', text: '#fbbf24' };
-    return { stroke: '#f87171', grad: 'linear-gradient(90deg,#ef4444,#fb923c)', text: '#f87171' };
-  }
-
-  function formatTime(){
-    return new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-  }
-
-  function findOverviewCard(){
-    var nodes = document.querySelectorAll('h1, h2, h3, div, span');
-    for (var i = 0; i < nodes.length; i++) {
-      if (nodes[i].children.length === 0 && /AquaTwin Overview/i.test(nodes[i].textContent || '')) {
-        var box = nodes[i].parentElement;
-        while (box && box.parentElement && box.parentElement.tagName !== 'BODY') {
-          var st = window.getComputedStyle(box);
-          if (parseFloat(st.borderRadius) >= 14 && box.offsetHeight >= 95 && box.offsetHeight <= 360) {
-            return box;
-          }
-          box = box.parentElement;
-        }
-      }
-    }
-    return null;
-  }
-
-  function locateHealthRing(){
-    if (ringRefs && document.body.contains(ringRefs.pctEl)) return ringRefs;
-    var card = findOverviewCard();
-    if (!card) return null;
-
-    // Ensure card wraps cleanly so the bottom progress bar never squishes the header + ring
-    if (window.getComputedStyle(card).display.indexOf('flex') !== -1) {
-      card.style.flexWrap = 'wrap';
-    }
-
-    var all = card.querySelectorAll('*');
-    var healthEl = null, pctEl = null;
-    for (var i = 0; i < all.length; i++) {
-      var el = all[i];
-      if (el.closest && el.closest('#at-top-livebar')) continue;
-      if (el.children.length === 0) {
-        var t = (el.textContent || '').trim();
-        if (/^HEALTH$/i.test(t) || el.dataset.atRingLabel === '1') healthEl = el;
-        if (/^\d{1,3}(\.\d+)?%$/.test(t) || el.dataset.atRingPct === '1') pctEl = el;
-      }
-    }
-    if (!pctEl) return null;
-    pctEl.dataset.atRingPct = '1';
-    if (healthEl) healthEl.dataset.atRingLabel = '1';
-
-    var svgCircle = null;
-    var conicEl = null;
-    var cur = pctEl.parentElement;
-    for (var depth = 0; depth < 5 && cur && cur !== card; depth++) {
-      var circles = cur.querySelectorAll('circle');
-      if (circles.length >= 2) {
-        svgCircle = circles[circles.length - 1];
-        break;
-      }
-      var bg = window.getComputedStyle(cur).backgroundImage || '';
-      if (bg.indexOf('conic-gradient') !== -1) {
-        conicEl = cur;
-        break;
-      }
-      cur = cur.parentElement;
-    }
-
-    ringRefs = { card: card, pctEl: pctEl, healthEl: healthEl, svgCircle: svgCircle, conicEl: conicEl };
-    return ringRefs;
-  }
-
-  function setDemoRunning(nextState){
-    isDemoOn = Boolean(nextState);
-    var btn = document.getElementById('at-demo-toggle');
-    if (btn) {
-      btn.classList.toggle('on', isDemoOn);
-      var lbl = document.getElementById('at-demo-txt');
-      if (lbl) lbl.textContent = isDemoOn ? 'Demo: ON' : 'Demo: OFF';
-    }
-
-    if (isDemoOn) {
-      if (selectedIdx >= 0) activeIdx = selectedIdx;
-      startTimers();
-      stepRealTime(false);
-    } else {
-      stopTimers();
-      selectedIdx = -1;
-      // Reset to exact synced base values when Demo turns OFF
-      liveList.forEach(function(d){
-        d.curWqi = d.baseWqi;
-        d.curWater = d.baseWater;
-        d.curGw = d.baseGw;
-      });
-      updateOverviewRingAndBar();
-      renderPanel();
-    }
-  }
-
-  function bindDemoButton(){
-    if (document.getElementById('at-demo-toggle')) return;
-    var card = findOverviewCard() || document.body;
-    var candidates = card.querySelectorAll('button, [role="button"], span, div');
-    var target = null;
-
-    for (var i = 0; i < candidates.length; i++) {
-      var el = candidates[i];
-      var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
-      if (/^demo\s*:\s*(off|on)$/i.test(txt)) {
-        if (!target || el.tagName === 'BUTTON' || el.children.length < target.children.length) {
-          target = el;
-          if (el.tagName === 'BUTTON') break;
-        }
-      }
-    }
-
-    if (!target || !target.parentNode) return;
-    var btn = document.createElement('button');
-    btn.id = 'at-demo-toggle';
-    btn.type = 'button';
-    btn.className = 'at-demo-btn' + (isDemoOn ? ' on' : '');
-    btn.innerHTML = '<span class="at-demo-dot"></span><span id="at-demo-txt">' + (isDemoOn ? 'Demo: ON' : 'Demo: OFF') + '</span>';
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      setDemoRunning(!isDemoOn);
-    }, true);
-    target.parentNode.replaceChild(btn, target);
-  }
-
-  function updateOverviewRingAndBar(){
-    if (!liveList.length) return;
-    var refs = locateHealthRing();
-    if (!refs) return;
-
-    var pct, ringLabel, barLeft;
-    if (isDemoOn || selectedIdx >= 0) {
-      var idx = isDemoOn ? (activeIdx % liveList.length) : (selectedIdx % liveList.length);
-      var active = liveList[idx];
-      pct = Math.max(5, Math.min(99.9, active.curWqi));
-      ringLabel = active.district.length > 10 ? active.district.slice(0, 9) + '.' : active.district;
-      barLeft = (isDemoOn ? '▶ Live ' : '● ') + (idx + 1) + '/' + liveList.length + ' • <b>' + active.district + '</b>';
-    } else {
-      pct = Math.max(5, Math.min(99.9, stateAvgPct()));
-      ringLabel = 'HEALTH';
-      barLeft = 'Telangana Avg (33 Districts) • Tap <b>Demo: OFF</b> to play live';
-    }
-
-    var pal = colorForPct(pct);
-    refs.pctEl.textContent = pct.toFixed(1) + '%';
-    refs.pctEl.style.color = pal.text;
-    if (refs.healthEl) {
-      refs.healthEl.textContent = ringLabel.toUpperCase();
-      refs.healthEl.style.fontSize = ringLabel === 'HEALTH' ? '' : '9px';
-    }
-
-    if (refs.svgCircle) {
-      var r = parseFloat(refs.svgCircle.getAttribute('r')) || 36;
-      var circ = 2 * Math.PI * r;
-      refs.svgCircle.style.transition = 'stroke-dashoffset 0.5s ease, stroke 0.35s ease';
-      refs.svgCircle.setAttribute('stroke-dasharray', circ.toFixed(2));
-      refs.svgCircle.setAttribute('stroke-dashoffset', (circ * (1 - pct / 100)).toFixed(2));
-      refs.svgCircle.setAttribute('stroke', pal.stroke);
-    } else if (refs.conicEl) {
-      refs.conicEl.style.background = 'conic-gradient(' + pal.stroke + ' ' + pct.toFixed(1) + '%, rgba(255,255,255,0.12) ' + pct.toFixed(1) + '% 100%)';
-    }
-
-    var barWrap = document.getElementById('at-top-livebar');
-    if (!barWrap) {
-      barWrap = document.createElement('div');
-      barWrap.id = 'at-top-livebar';
-      barWrap.className = 'at-top-livebar';
-      refs.card.appendChild(barWrap);
-    }
-    barWrap.innerHTML =
-      '<div class="at-top-livebar-head">' +
-        '<span>' + barLeft + '</span>' +
-        '<b style="color:' + pal.text + ';white-space:nowrap">' + pct.toFixed(1) + '%</b>' +
-      '</div>' +
-      '<div class="at-top-livebar-track">' +
-        '<div class="at-top-livebar-fill" style="width:' + pct.toFixed(1) + '%;background:' + pal.grad + '"></div>' +
-      '</div>';
-
-    // Update Water Stress Distribution % shares
-    var total = liveList.length;
-    var normCnt = liveList.filter(function(x){ return x.curWqi >= 70; }).length;
-    var modCnt = liveList.filter(function(x){ return x.curWqi >= 55 && x.curWqi < 70; }).length;
-    var lowCnt = total - normCnt - modCnt;
-    var spans = document.querySelectorAll('span, div');
-    for (var i = 0; i < spans.length; i++) {
-      var el = spans[i];
-      if (el.children.length !== 0) continue;
-      var txt = (el.textContent || '').trim();
-      if (/^Normal:\s*\d+/i.test(txt)) el.textContent = 'Normal: ' + normCnt + ' (' + Math.round((normCnt / total) * 100) + '%)';
-      else if (/^High Turbidity:\s*\d+/i.test(txt)) el.textContent = 'High Turbidity: ' + modCnt + ' (' + Math.round((modCnt / total) * 100) + '%)';
-      else if (/^Low Water:\s*\d+/i.test(txt)) el.textContent = 'Low Water: ' + lowCnt + ' (' + Math.round((lowCnt / total) * 100) + '%)';
-    }
-  }
-
-  function updateSyncClock(){
-    var nodes = document.querySelectorAll('div, p, span');
-    for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      if (el.children.length === 0 && /Live (Digital Twin|GEE Satellite) Sync/i.test(el.textContent)) {
-        el.textContent = (isDemoOn ? 'Live Real-Time Stream - ' : 'GEE Satellite Synced - ') + formatTime();
-        break;
-      }
-    }
-  }
-
-  function findHomeAnchor(){
-    var nodes = document.querySelectorAll('h2, h3, div, span');
-    for (var i = 0; i < nodes.length; i++) {
-      var txt = (nodes[i].textContent || '').trim();
-      if (nodes[i].children.length === 0 && txt === 'Priority Watchlist') {
-        var box = nodes[i].parentElement;
-        while (box && box.parentElement && box.parentElement.tagName !== 'BODY') {
-          var st = window.getComputedStyle(box);
-          if (parseFloat(st.borderRadius) >= 12 || (st.backgroundColor && st.backgroundColor !== 'rgba(0, 0, 0, 0)')) {
-            return box;
-          }
-          box = box.parentElement;
-        }
-        return nodes[i].parentElement;
-      }
-    }
-    return null;
-  }
-
-  function renderPanel(){
-    if (!liveList.length) return;
-    var anchor = findHomeAnchor();
-    if (!anchor || !anchor.parentNode) return;
-
-    var panel = document.getElementById('at-rt-panel');
-    if (!panel) {
-      panel = document.createElement('div');
-      panel.id = 'at-rt-panel';
-      panel.className = 'at-rt-panel';
-      anchor.parentNode.insertBefore(panel, anchor.nextSibling);
-    }
-
-    var avgPct = stateAvgPct();
-    var highlightIdx = isDemoOn ? (activeIdx % liveList.length) : selectedIdx;
-    var cur = highlightIdx >= 0 ? liveList[highlightIdx] : null;
-
-    var rowsHtml = liveList.map(function(d, idx){
-      var pct = Math.max(5, Math.min(100, d.curWqi));
-      var cls = pct >= 70 ? 'at-rt-safe' : (pct >= 55 ? 'at-rt-mod' : 'at-rt-high');
-      var fCls = pct >= 70 ? 'at-rt-fill-safe' : (pct >= 55 ? 'at-rt-fill-mod' : 'at-rt-fill-high');
-      var isAct = (idx === highlightIdx);
-      return (
-        '<div class="at-rt-row' + (isAct ? ' active' : '') + '" data-rt-idx="' + idx + '">' +
-          '<div class="at-rt-row-head">' +
-            '<span class="at-rt-dname">' + (idx + 1) + '. ' + d.district + '</span>' +
-            '<span class="at-rt-pct ' + cls + '">' + pct.toFixed(1) + '%</span>' +
-          '</div>' +
-          '<div class="at-rt-meta">' +
-            '<span>Water: ' + d.curWater.toFixed(2) + '%</span>' +
-            '<span>GW Use: ' + d.curGw.toFixed(1) + '%</span>' +
-            '<span>+1M: ' + d.pred1m.toFixed(1) + '%</span>' +
-          '</div>' +
-          '<div class="at-rt-bar"><div class="at-rt-fill ' + fCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>' +
-        '</div>'
-      );
-    }).join('');
-
-    var tickerLeft = isDemoOn && cur
-      ? '▶ Playing Live: <b>' + cur.district + '</b>'
-      : (cur ? '● Selected: <b>' + cur.district + '</b>' : '❚❚ Demo OFF • State Overview');
-    var tickerRight = cur
-      ? '<b>' + cur.curWqi.toFixed(1) + '%</b> Health'
-      : '<b>' + avgPct.toFixed(1) + '%</b> Avg';
-
-    panel.innerHTML =
-      '<div class="at-rt-title">Real-Time District Health (%)</div>' +
-      '<div class="at-rt-sub">All ' + liveList.length + ' Districts • State Avg: ' + avgPct.toFixed(1) + '% • ' + (isDemoOn ? 'Live Demo Running' : 'Turn Demo ON to auto-play') + '</div>' +
-      '<div class="at-rt-ticker">' +
-        '<span>' + tickerLeft + '</span>' +
-        '<span>' + tickerRight + '</span>' +
-      '</div>' +
-      '<div class="at-rt-list">' + rowsHtml + '</div>';
-
-    var rows = panel.querySelectorAll('.at-rt-row');
-    for (var r = 0; r < rows.length; r++) {
-      rows[r].addEventListener('click', function(){
-        var clicked = Number(this.getAttribute('data-rt-idx')) || 0;
-        selectedIdx = clicked;
-        activeIdx = clicked;
-        updateOverviewRingAndBar();
-        renderPanel();
-      });
-    }
-  }
-
-  function stepRealTime(advance){
-    if (!isDemoOn || !liveList.length) return;
-    if (advance !== false) activeIdx = (activeIdx + 1) % liveList.length;
-    liveList.forEach(function(d, i){
-      var drift = (Math.sin(Date.now() / 4000 + i) * 0.25);
-      d.curWqi = Math.max(15, Math.min(99, d.baseWqi + drift));
-      d.curWater = Math.max(0.05, d.baseWater + drift * 0.02);
-      d.curGw = Math.max(10, Math.min(115, d.baseGw + drift * 0.15));
-    });
-    updateOverviewRingAndBar();
-    renderPanel();
-  }
-
-  function startTimers(){
-    if (!tickTimer) tickTimer = setInterval(function(){ stepRealTime(true); }, 2500);
-    if (!clockTimer) clockTimer = setInterval(updateSyncClock, 1000);
-    updateSyncClock();
-  }
-
-  function stopTimers(){
-    if (tickTimer) { clearInterval(tickTimer); tickTimer = null; }
-    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
-    updateSyncClock();
-  }
-
-  function boot(){
-    loadDistricts();
-    bindDemoButton();
-    updateOverviewRingAndBar();
-    renderPanel();
-    updateSyncClock();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(boot, 500); });
-  } else {
-    setTimeout(boot, 500);
-  }
-  document.addEventListener('click', function(e){
-    if (e.target && e.target.closest && e.target.closest('#at-demo-toggle')) return;
-    setTimeout(function(){
-      bindDemoButton();
-      updateOverviewRingAndBar();
-      renderPanel();
-    }, 250);
-  });
-})();
-</script>
-<!-- REALTIME_LIVE_END -->
-
 <!-- ASKAI_ONLY_START -->
 <style id="at-askai-css">
 #at-askai-fab {
@@ -4105,7 +3598,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.135";
+window.AQUATWIN_VERSION = "1.136";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -4860,141 +4353,6 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- AUTO_OPEN_UPDATE_END -->
-<!-- LIQUID_DEMO_SWITCH_START -->
-<style id="at-liquid-demo-css">
-.at-demo-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  padding: 4px 10px 4px 12px !important;
-  border-radius: 999px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.20) !important;
-  background: rgba(15, 23, 42, 0.72) !important;
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  color: #e2e8f0 !important;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), 0 4px 12px rgba(0, 0, 0, 0.28);
-  transition: background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1) !important;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
-}
-.at-demo-btn.on {
-  border-color: rgba(52, 211, 153, 0.65) !important;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.34), rgba(5, 150, 105, 0.24)) !important;
-  color: #ecfdf5 !important;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32), 0 0 16px rgba(16, 185, 129, 0.35);
-}
-.at-liq-left-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #e2e8f0;
-  line-height: 1;
-  pointer-events: none;
-}
-.at-demo-btn.on .at-liq-left-label {
-  color: #6ee7b7;
-}
-.at-liq-track {
-  position: relative;
-  display: inline-block;
-  width: 36px;
-  height: 20px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.42);
-  overflow: hidden;
-  flex-shrink: 0;
-  transition: background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.at-demo-btn.on .at-liq-track {
-  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
-  border-color: rgba(167, 243, 208, 0.85);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.45), 0 0 12px rgba(52, 211, 153, 0.55);
-}
-.at-liq-wave {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.45), transparent 65%);
-  opacity: 0.75;
-  pointer-events: none;
-}
-.at-liq-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 14px;
-  height: 14px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e2e8f0 72%, #cbd5e1 100%);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 1px #ffffff;
-  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
-              width 0.2s ease;
-}
-.at-demo-btn:active .at-liq-thumb {
-  width: 18px;
-}
-.at-demo-btn.on .at-liq-thumb {
-  transform: translateX(16px);
-}
-.at-demo-btn.on:active .at-liq-thumb {
-  transform: translateX(12px);
-}
-.at-liq-right-state {
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  color: #cbd5e1;
-  line-height: 1;
-  pointer-events: none;
-}
-.at-demo-btn.on .at-liq-right-state {
-  color: #6ee7b7;
-}
-</style>
-<script id="at-liquid-demo-js">
-(function(){
-  function syncLiquidDemo(){
-    var btn = document.getElementById('at-demo-toggle');
-    if (!btn) return;
-
-    var isOn = btn.classList.contains('on');
-    if (btn.dataset.liqPillReady !== '1') {
-      btn.dataset.liqPillReady = '1';
-      btn.innerHTML =
-        '<span class="at-liq-left-label">Demo</span>' +
-        '<span class="at-liq-track">' +
-          '<span class="at-liq-wave"></span>' +
-          '<span class="at-liq-thumb"></span>' +
-        '</span>' +
-        '<span class="at-liq-right-state" id="at-demo-txt">' + (isOn ? 'ON' : 'OFF') + '</span>';
-    }
-
-    var stateEl = document.getElementById('at-demo-txt');
-    if (stateEl) {
-      var nextLabel = isOn ? 'ON' : 'OFF';
-      if (stateEl.textContent !== nextLabel) stateEl.textContent = nextLabel;
-    }
-    btn.setAttribute('aria-label', isOn ? 'Demo ON' : 'Demo OFF');
-  }
-
-  setInterval(syncLiquidDemo, 350);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', syncLiquidDemo);
-  } else {
-    syncLiquidDemo();
-  }
-})();
-</script>
-<!-- LIQUID_DEMO_SWITCH_END -->
 <!-- MULTIMODAL_3Y_FORECAST_START -->
 <style id="at-mm3y-css">
 .at-mm-card {
@@ -5470,7 +4828,7 @@ nav > div:not(#at-lg-tab-lens),
 
 :root {
   --at-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'AppleLiquidSans', system-ui, sans-serif;
-  --at-map-top: 94px;
+  --at-map-top: 90px;
 }
 
 * {
@@ -5515,8 +4873,15 @@ body::after {
   transform: translate3d(0, 0, 0);
 }
 
+main,
+#view-dash, #view-list, #view-sim,
+#screen-home, #screen-districts, #screen-sim,
+.page, .view, .screen {
+  padding-bottom: 112px !important;
+}
+
 header, .topbar, [class*="header"], .at-top-header-bar {
-  background: linear-gradient(180deg, rgba(254, 249, 195, 0.22) 0%, rgba(20, 56, 62, 0.40) 100%) !important;
+  background: linear-gradient(180deg, rgba(254, 249, 195, 0.24) 0%, rgba(20, 56, 62, 0.40) 100%) !important;
   backdrop-filter: blur(18px) saturate(210%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(210%) !important;
   border-bottom: 1px solid rgba(254, 249, 195, 0.36) !important;
@@ -5530,17 +4895,16 @@ header, .topbar, [class*="header"], .at-top-header-bar {
 .at-rt-panel,
 .at-ml-card,
 [class*="card"]:not(nav):not([class*="nav"]) {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.17) 0%, rgba(254, 240, 138, 0.08) 46%, rgba(12, 34, 42, 0.36) 100%) !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.16) 0%, rgba(254, 240, 138, 0.08) 46%, rgba(12, 34, 42, 0.38) 100%) !important;
   backdrop-filter: blur(10px) saturate(195%) !important;
   -webkit-backdrop-filter: blur(10px) saturate(195%) !important;
   border: 1px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.2px solid rgba(254, 249, 195, 0.62) !important;
   border-radius: 24px !important;
   box-shadow: 0 12px 28px rgba(4, 16, 22, 0.32), inset 2px 3px 5px rgba(255, 255, 255, 0.34) !important;
-  transition: transform 0.22s cubic-bezier(0.22, 1.35, 0.36, 1) !important;
 }
 
-button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(.at-demo-pill-btn),
+button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):not(#at-demo-toggle),
 .dash-badge,
 #at-history-btn,
 #at-askai-fab {
@@ -5552,7 +4916,7 @@ button:not([data-at-tab="1"]):not(.dash-btn):not(.dash-action):not(.quick-btn):n
   color: #ffffff !important;
   transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
-button:not([data-at-tab="1"]):not(.at-demo-pill-btn):active,
+button:not([data-at-tab="1"]):not(#at-demo-toggle):active,
 #at-askai-fab:active {
   transform: scale(0.95) translate3d(0, 0, 0) !important;
 }
@@ -5567,25 +4931,39 @@ input[type="search"] {
   color: #ffffff !important;
 }
 
-/* Demo Toggle: OFF/ON text hidden, active liquid pulse when ON */
-.at-demo-hidden-lbl { display: none !important; }
-.at-demo-pill-btn {
+/* ============================================================================
+   CLEAN APPLE LIQUID GLASS DEMO SWITCH (ONLY "Demo" + SWITCH — ZERO ON/OFF TEXT)
+   ============================================================================ */
+#at-demo-toggle {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  padding: 5px 10px 5px 12px !important;
+  padding: 4px 8px 4px 12px !important;
   border-radius: 999px !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.46) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.80) !important;
   box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.34), 0 6px 14px rgba(4, 16, 22, 0.22) !important;
   color: #ffffff !important;
   font-size: 12px !important;
   font-weight: 700 !important;
+  line-height: 1 !important;
   cursor: pointer !important;
   user-select: none !important;
+  white-space: nowrap !important;
   transform: translate3d(0, 0, 0) !important;
+  transition: transform 0.2s cubic-bezier(0.22, 1.45, 0.36, 1), box-shadow 0.25s ease !important;
 }
-.at-demo-track {
+#at-demo-toggle:active {
+  transform: scale(0.95) translate3d(0, 0, 0) !important;
+}
+#at-demo-toggle .at-demo-lbl {
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  pointer-events: none !important;
+}
+#at-demo-toggle .at-demo-track {
   position: relative !important;
   display: inline-block !important;
   width: 44px !important;
@@ -5594,14 +4972,16 @@ input[type="search"] {
   background: rgba(255, 255, 255, 0.24) !important;
   border: 1px solid rgba(255, 255, 255, 0.46) !important;
   overflow: hidden !important;
-  transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+  transition: background 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease !important;
 }
-.at-demo-track.active {
+#at-demo-toggle.on .at-demo-track {
   background: linear-gradient(180deg, #34d399 0%, #10b981 100%) !important;
-  border-color: rgba(209, 250, 229, 0.90) !important;
-  box-shadow: 0 0 16px rgba(52, 211, 153, 0.55) !important;
+  border-color: rgba(209, 250, 229, 0.92) !important;
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.58), inset 0 1px 2px rgba(255, 255, 255, 0.50) !important;
 }
-.at-demo-ripple {
+#at-demo-toggle .at-demo-ripple {
   position: absolute !important;
   inset: -4px !important;
   border-radius: 999px !important;
@@ -5609,7 +4989,7 @@ input[type="search"] {
   opacity: 0 !important;
   pointer-events: none !important;
 }
-.at-demo-track.active .at-demo-ripple {
+#at-demo-toggle.on .at-demo-ripple {
   opacity: 1 !important;
   animation: atDemoPulse 1.5s ease-in-out infinite !important;
 }
@@ -5617,7 +4997,7 @@ input[type="search"] {
   0%, 100% { transform: scale(0.92); opacity: 0.55; }
   50% { transform: scale(1.12); opacity: 0.95; }
 }
-.at-demo-knob {
+#at-demo-toggle .at-demo-knob {
   position: absolute !important;
   top: 2px !important;
   left: 2px !important;
@@ -5625,25 +5005,49 @@ input[type="search"] {
   height: 18px !important;
   border-radius: 999px !important;
   background: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28), inset 1px 1px 2px rgba(255, 255, 255, 0.95) !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.30s cubic-bezier(0.22, 1.45, 0.36, 1) !important;
 }
-.at-demo-track.active .at-demo-knob {
+#at-demo-toggle.on .at-demo-knob {
   transform: translate3d(20px, 0, 0);
 }
 
-/* Real-Time District Health Panel & Full Unclipped District Names */
-.at-rt-panel {
+/* Top Live Progress Bar inside AquaTwin Overview */
+.at-top-livebar {
+  flex: 1 0 100%;
+  grid-column: 1 / -1;
+  width: 100%;
   margin-top: 12px;
-  padding: 14px;
-  border-radius: 22px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
-.at-rt-top {
+.at-top-livebar-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  font-size: 11.5px;
+  color: #e0f2fe;
+  margin-bottom: 6px;
+}
+.at-top-livebar-track {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+.at-top-livebar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease, background 0.35s ease;
+}
+
+/* Real-Time District Health (%) Card below Priority Watchlist */
+.at-rt-panel {
+  margin: 14px 0;
+  padding: 14px;
+  border-radius: 24px;
 }
 .at-rt-title {
   font-size: 14px;
@@ -5655,54 +5059,106 @@ input[type="search"] {
   color: #fde68a;
   margin-top: 3px;
 }
+.at-rt-ticker {
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #ffffff;
+}
+.at-rt-ticker b { color: #7dd3fc; }
 .at-rt-list {
   margin-top: 10px;
-  max-height: 320px;
+  max-height: 330px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding-right: 2px;
   -webkit-overflow-scrolling: touch;
 }
 .at-rt-row {
   flex: 0 0 auto !important;
-  min-height: 44px !important;
   height: auto !important;
-  padding: 10px 14px !important;
+  min-height: 54px !important;
+  padding: 10px 12px !important;
   border-radius: 16px !important;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.15) 0%, rgba(16, 42, 48, 0.34) 100%) !important;
-  border: 0.9px solid rgba(255, 255, 255, 0.26) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(16, 42, 48, 0.36) 100%) !important;
+  border: 0.9px solid rgba(255, 255, 255, 0.24) !important;
+  cursor: pointer;
   overflow: visible !important;
+  transition: border-color 0.22s ease, background 0.22s ease;
 }
 .at-rt-row.active {
   border-color: #fde68a !important;
-  background: linear-gradient(155deg, rgba(254, 240, 138, 0.22) 0%, rgba(16, 185, 129, 0.16) 100%) !important;
+  background: linear-gradient(155deg, rgba(254, 240, 138, 0.24) 0%, rgba(16, 185, 129, 0.18) 100%) !important;
+}
+.at-rt-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 .at-rt-dname {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  overflow-wrap: anywhere !important;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .at-rt-pct {
-  flex-shrink: 0 !important;
-  font-size: 13px !important;
-  font-weight: 800 !important;
-  color: #6ee7b7 !important;
-  font-variant-numeric: tabular-nums !important;
+  flex-shrink: 0;
+  font-size: 13.5px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
+.at-rt-safe { color: #34d399; }
+.at-rt-mod { color: #fbbf24; }
+.at-rt-high { color: #f87171; }
+.at-rt-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: rgba(226, 232, 240, 0.82);
+  margin-top: 4px;
+}
+.at-rt-bar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  margin-top: 6px;
+  overflow: hidden;
+}
+.at-rt-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.45s ease;
+}
+.at-rt-fill-safe { background: linear-gradient(90deg, #10b981, #38bdf8); }
+.at-rt-fill-mod { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.at-rt-fill-high { background: linear-gradient(90deg, #ef4444, #fb923c); }
 
-/* Full-Screen Map when on Map section */
+/* ============================================================================
+   FULL-SCREEN MAP + TOP-RIGHT MAP VIEW / SATELLITE BUTTON (STRICTLY MAP TAB)
+   ============================================================================ */
 body.at-map-section-visible {
   overflow: hidden !important;
+}
+body.at-map-section-visible .at-top-header-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 2147482400 !important;
 }
 body.at-map-section-visible .at-map-anc {
   transform: none !important;
@@ -5735,7 +5191,7 @@ body.at-map-section-visible .leaflet-container {
   z-index: 15 !important;
 }
 body.at-map-section-visible .leaflet-top.leaflet-left {
-  top: var(--at-map-top, 94px) !important;
+  top: var(--at-map-top, 90px) !important;
 }
 body.at-map-section-visible .leaflet-control-layers {
   display: none !important;
@@ -5744,7 +5200,6 @@ body.at-map-section-visible .leaflet-bottom {
   bottom: 92px !important;
 }
 
-/* Top-Right Satellite / Map View Button — STRICTLY only on Map screen */
 #at-sat-toggle-btn {
   display: none !important;
   visibility: hidden !important;
@@ -5752,7 +5207,7 @@ body.at-map-section-visible .leaflet-bottom {
 }
 body.at-map-section-visible #at-sat-toggle-btn {
   position: fixed !important;
-  top: var(--at-map-top, 94px) !important;
+  top: var(--at-map-top, 90px) !important;
   right: 12px !important;
   z-index: 2147482450 !important;
   display: inline-flex !important;
@@ -5762,9 +5217,9 @@ body.at-map-section-visible #at-sat-toggle-btn {
   gap: 6px;
   padding: 8px 14px !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(255, 255, 255, 0.56) !important;
+  border: 1px solid rgba(255, 255, 255, 0.58) !important;
   border-top: 1.2px solid #ffffff !important;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(14, 165, 233, 0.42) 100%) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(14, 165, 233, 0.44) 100%) !important;
   backdrop-filter: blur(12px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(12px) saturate(200%) !important;
   color: #ffffff !important;
@@ -5776,7 +5231,9 @@ body.at-map-section-visible #at-sat-toggle-btn {
 }
 #at-sat-toggle-btn * { pointer-events: none; }
 
-/* Liquid Glass Floating Dock + 120Hz Optical Droplet Lens */
+/* ============================================================================
+   CENTERED APPLE LIQUID GLASS FLOATING DOCK + 120HZ DROPLET LENS
+   ============================================================================ */
 nav,
 [class*="bottom-nav"],
 [class*="tab-bar"],
@@ -5824,8 +5281,10 @@ nav > div:not(#at-lg-tab-lens),
   flex: 1 1 25% !important;
   width: 25% !important;
   height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
   margin: 0 !important;
-  padding: 5px 2px 6px 2px !important;
+  padding: 4px 2px 6px 2px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -5835,9 +5294,26 @@ nav > div:not(#at-lg-tab-lens),
   border: none !important;
   box-shadow: none !important;
   color: rgba(255, 255, 255, 0.88) !important;
-  font-size: 10px !important;
+  font-size: 9.5px !important;
   font-weight: 500 !important;
+  line-height: 1.05 !important;
   gap: 3px !important;
+}
+[data-at-tab="1"] svg {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  flex-shrink: 0 !important;
+  stroke: currentColor;
+}
+[data-at-tab="1"] span,
+[data-at-tab="1"] small {
+  font-size: 9.5px !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: inherit !important;
 }
 [data-at-tab="1"][data-at-active="1"] {
   color: #ffffff !important;
@@ -5867,140 +5343,384 @@ nav > div:not(#at-lg-tab-lens),
 </style>
 <script id="at-apple-liquid-os-js">
 (function(){
-  if (window.__AT_REFIX_SAT_ON_V15__) return;
-  window.__AT_REFIX_SAT_ON_V15__ = true;
+  if (window.__AT_UNIFIED_V16__) return;
+  window.__AT_UNIFIED_V16__ = true;
 
   var errCount = 0;
   window.addEventListener("error", function(){ errCount++; }, { passive: true });
 
-  var DISTRICTS = [{"district":"Adilabad","wqi":78.4},{"district":"Bhadradri Kothagudem","wqi":76.1},{"district":"Hanumakonda","wqi":71.5},{"district":"Hyderabad","wqi":57.3},{"district":"Jagtial","wqi":81.2},{"district":"Jangaon","wqi":79.0},{"district":"Jayashankar Bhupalpally","wqi":77.8},{"district":"Jogulamba Gadwal","wqi":73.4},{"district":"Kamareddy","wqi":75.6},{"district":"Karimnagar","wqi":84.5},{"district":"Khammam","wqi":76.8},{"district":"Kumuram Bheem Asifabad","wqi":78.9},{"district":"Mahabubabad","wqi":75.2},{"district":"Mahabubnagar","wqi":70.4},{"district":"Mancherial","wqi":82.4},{"district":"Medak","wqi":72.8},{"district":"Medchal-Malkajgiri","wqi":64.5},{"district":"Mulugu","wqi":80.5},{"district":"Nagarkurnool","wqi":72.1},{"district":"Nalgonda","wqi":71.8},{"district":"Narayanpet","wqi":71.2},{"district":"Nirmal","wqi":79.4},{"district":"Nizamabad","wqi":78.2},{"district":"Peddapalli","wqi":89.0},{"district":"Rajanna Sircilla","wqi":81.9},{"district":"Ranga Reddy","wqi":66.8},{"district":"Sangareddy","wqi":69.5},{"district":"Siddipet","wqi":77.4},{"district":"Suryapet","wqi":73.0},{"district":"Vikarabad","wqi":70.8},{"district":"Wanaparthy","wqi":72.5},{"district":"Warangal","wqi":76.5},{"district":"Yadadri Bhuvanagiri","wqi":72.2}];
-  var demoOn = false;
-  var demoIdx = 0;
-  var demoTimer = null;
+  var FALLBACK_33 = [{"district":"Adilabad","wqi":78.4,"water":2.35,"gw":40.0,"m1":76.2},{"district":"Bhadradri Kothagudem","wqi":76.1,"water":3.8,"gw":37.0,"m1":74.5},{"district":"Hanumakonda","wqi":71.5,"water":1.95,"gw":61.0,"m1":69.8},{"district":"Hyderabad","wqi":57.3,"water":0.68,"gw":103.7,"m1":54.0},{"district":"Jagtial","wqi":81.2,"water":3.1,"gw":45.0,"m1":79.5},{"district":"Jangaon","wqi":79.0,"water":1.45,"gw":59.0,"m1":70.2},{"district":"Jayashankar Bhupalpally","wqi":77.8,"water":3.65,"gw":43.0,"m1":76.0},{"district":"Jogulamba Gadwal","wqi":73.4,"water":2.2,"gw":46.0,"m1":71.0},{"district":"Kamareddy","wqi":75.6,"water":2.4,"gw":51.0,"m1":73.8},{"district":"Karimnagar","wqi":84.5,"water":3.5,"gw":56.6,"m1":82.0},{"district":"Khammam","wqi":76.8,"water":2.95,"gw":43.0,"m1":75.1},{"district":"Kumuram Bheem Asifabad","wqi":78.9,"water":2.75,"gw":38.0,"m1":77.2},{"district":"Mahabubabad","wqi":75.2,"water":2.3,"gw":56.0,"m1":73.5},{"district":"Mahabubnagar","wqi":70.4,"water":1.55,"gw":76.0,"m1":68.5},{"district":"Mancherial","wqi":82.4,"water":3.85,"gw":42.0,"m1":80.7},{"district":"Medak","wqi":72.8,"water":1.4,"gw":70.0,"m1":70.6},{"district":"Medchal-Malkajgiri","wqi":64.5,"water":1.1,"gw":73.7,"m1":62.8},{"district":"Mulugu","wqi":80.5,"water":3.4,"gw":36.0,"m1":78.8},{"district":"Nagarkurnool","wqi":72.1,"water":1.85,"gw":40.0,"m1":70.2},{"district":"Nalgonda","wqi":71.8,"water":2.05,"gw":49.0,"m1":69.9},{"district":"Narayanpet","wqi":71.2,"water":1.5,"gw":39.0,"m1":69.4},{"district":"Nirmal","wqi":79.4,"water":2.6,"gw":38.0,"m1":77.6},{"district":"Nizamabad","wqi":78.2,"water":2.7,"gw":52.0,"m1":76.4},{"district":"Peddapalli","wqi":89.0,"water":2.49,"gw":48.5,"m1":87.2},{"district":"Rajanna Sircilla","wqi":81.9,"water":2.85,"gw":69.0,"m1":80.1},{"district":"Ranga Reddy","wqi":66.8,"water":1.35,"gw":68.0,"m1":65.0},{"district":"Sangareddy","wqi":69.5,"water":1.5,"gw":48.1,"m1":67.8},{"district":"Siddipet","wqi":77.4,"water":2.55,"gw":69.0,"m1":75.6},{"district":"Suryapet","wqi":73.0,"water":1.9,"gw":54.0,"m1":71.2},{"district":"Vikarabad","wqi":70.8,"water":1.25,"gw":61.0,"m1":69.0},{"district":"Wanaparthy","wqi":72.5,"water":1.75,"gw":44.0,"m1":70.7},{"district":"Warangal","wqi":76.5,"water":2.45,"gw":58.0,"m1":74.8},{"district":"Yadadri Bhuvanagiri","wqi":72.2,"water":1.7,"gw":70.0,"m1":70.4}];
+  var liveList = [];
+  var isDemoOn = false;
+  var selectedIdx = -1;
+  var activeDemoIdx = 0;
+  var tickTimer = null;
+  var clockTimer = null;
+  var ringRefs = null;
 
-  // Satellite mode ON by default on Maps
   var satEnabled = true;
   var satLayer = null;
   var labelLayer = null;
+  var streetLayer = null;
 
-  function ensureHealthPanel(){
-    var panel = document.getElementById("at-rt-panel");
-    if (panel && document.body.contains(panel)) return panel;
-    var host = document.getElementById("view-dash") || document.getElementById("screen-home") || document.querySelector("main") || document.body;
-    panel = document.createElement("div");
-    panel.id = "at-rt-panel";
-    panel.className = "at-rt-panel";
-    panel.innerHTML =
-      '<div class="at-rt-top"><span class="at-rt-title">Real-Time District Health (%)</span><span id="at-rt-badge" style="font-size:11px;font-weight:700;color:#6ee7b7">33 Districts</span></div>' +
-      '<div class="at-rt-sub" id="at-rt-sub">State Avg: 74.6%</div>' +
-      '<div class="at-rt-list" id="at-rt-list"></div>';
-    host.appendChild(panel);
-    return panel;
-  }
+  function loadDistricts(){
+    var raw = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts) && window.AQUATWIN_ML_DATA.districts.length)
+      ? window.AQUATWIN_ML_DATA.districts
+      : FALLBACK_33;
 
-  function removeOffTextAround(el){
-    if (!el || !el.parentNode) return;
-    Array.prototype.slice.call(el.parentNode.children).forEach(function(sib){
-      if (sib === el) return;
-      if (sib.children.length === 0 && /^(ON|OFF)$/i.test((sib.textContent || "").trim())){
-        sib.classList.add("at-demo-hidden-lbl");
-      }
+    liveList = raw.map(function(d, idx){
+      var fb = FALLBACK_33[idx % FALLBACK_33.length];
+      var baseWqi = Number(d.xgb_wqi != null ? d.xgb_wqi : (d.wqi_score != null ? d.wqi_score : (d.wqi != null ? d.wqi : fb.wqi)));
+      var baseWater = Number(d.water_coverage_pct != null ? d.water_coverage_pct : (d.water != null ? d.water : fb.water));
+      var baseGw = Number(d.gw_extraction_pct != null ? d.gw_extraction_pct : (d.gw != null ? d.gw : fb.gw));
+      var pred1m = Number(d.lstm_1m_wqi != null ? d.lstm_1m_wqi : (d.m1 != null ? d.m1 : baseWqi));
+      return {
+        district: d.district || fb.district,
+        baseWqi: baseWqi,
+        curWqi: baseWqi,
+        baseWater: baseWater,
+        curWater: baseWater,
+        baseGw: baseGw,
+        curGw: baseGw,
+        pred1m: pred1m
+      };
     });
   }
 
-  function renderDistrictHealth(activeDemo){
-    var panel = ensureHealthPanel();
-    var listEl = panel.querySelector("#at-rt-list");
-    var subEl = panel.querySelector("#at-rt-sub");
-    var badgeEl = panel.querySelector("#at-rt-badge");
-    if (!listEl) return;
-
+  function stateAvgPct(){
+    if (!liveList.length) return 74.6;
     var sum = 0;
-    var cur = DISTRICTS[demoIdx % DISTRICTS.length];
-    listEl.innerHTML = DISTRICTS.map(function(d, idx){
-      var drift = activeDemo ? Math.sin((demoIdx + 1) * 0.7 + idx * 0.55) * 1.4 : 0;
-      var val = Math.max(15, Math.min(99, d.wqi + drift));
-      sum += val;
-      var hi = activeDemo && (idx === (demoIdx % DISTRICTS.length));
-      return (
-        '<div class="at-rt-row' + (hi ? " active" : "") + '">' +
-          '<span class="at-rt-dname">' + (idx + 1) + ". " + d.district + "</span>" +
-          '<span class="at-rt-pct">' + val.toFixed(1) + "%</span>" +
-        "</div>"
-      );
-    }).join("");
+    for (var i = 0; i < liveList.length; i++) sum += liveList[i].curWqi;
+    return sum / liveList.length;
+  }
 
-    var avg = sum / DISTRICTS.length;
-    if (subEl){
-      subEl.textContent = activeDemo
-        ? ("Live Demo: " + cur.district + " • State Avg: " + avg.toFixed(1) + "%")
-        : ("33 Telangana Districts • State Avg: " + avg.toFixed(1) + "%");
+  function colorForPct(pct){
+    if (pct >= 70) return { stroke: "#38bdf8", grad: "linear-gradient(90deg,#10b981,#38bdf8)", text: "#34d399" };
+    if (pct >= 55) return { stroke: "#fbbf24", grad: "linear-gradient(90deg,#f59e0b,#fbbf24)", text: "#fbbf24" };
+    return { stroke: "#f87171", grad: "linear-gradient(90deg,#ef4444,#fb923c)", text: "#f87171" };
+  }
+
+  function formatTime(){
+    return new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
+  }
+
+  function isVisEl(el, minW, minH){
+    if (!el || !document.body.contains(el)) return false;
+    var cur = el;
+    while (cur && cur !== document.documentElement){
+      var st = window.getComputedStyle(cur);
+      if (st.display === "none" || st.visibility === "hidden" || st.visibility === "collapse" || parseFloat(st.opacity || "1") <= 0.05){
+        return false;
+      }
+      cur = cur.parentElement;
     }
-    if (badgeEl){
-      badgeEl.textContent = activeDemo ? "DEMO ON" : "33 DISTRICTS";
+    var r = el.getBoundingClientRect();
+    return r.width >= (minW || 12) && r.height >= (minH || 1);
+  }
+
+  function findOverviewCard(){
+    var nodes = document.querySelectorAll("h1, h2, h3, div, span");
+    for (var i = 0; i < nodes.length; i++){
+      if (nodes[i].children.length === 0 && /AquaTwin Overview/i.test(nodes[i].textContent || "")){
+        var box = nodes[i].parentElement;
+        while (box && box.parentElement && box.parentElement.tagName !== "BODY"){
+          var st = window.getComputedStyle(box);
+          if (parseFloat(st.borderRadius) >= 12 && box.offsetHeight >= 90 && box.offsetHeight <= 420){
+            return box;
+          }
+          box = box.parentElement;
+        }
+      }
+    }
+    return null;
+  }
+
+  function locateHealthRing(){
+    if (ringRefs && document.body.contains(ringRefs.pctEl)) return ringRefs;
+    var card = findOverviewCard();
+    if (!card) return null;
+
+    if (window.getComputedStyle(card).display.indexOf("flex") !== -1){
+      card.style.flexWrap = "wrap";
+    }
+
+    var all = card.querySelectorAll("*");
+    var healthEl = null, pctEl = null;
+    for (var i = 0; i < all.length; i++){
+      var el = all[i];
+      if (el.closest && el.closest("#at-top-livebar")) continue;
+      if (el.children.length === 0){
+        var t = (el.textContent || "").trim();
+        if (/^HEALTH$/i.test(t) || el.dataset.atRingLabel === "1") healthEl = el;
+        if (/^\d{1,3}(\.\d+)?%$/.test(t) || el.dataset.atRingPct === "1") pctEl = el;
+      }
+    }
+    if (!pctEl) return null;
+    pctEl.dataset.atRingPct = "1";
+    if (healthEl) healthEl.dataset.atRingLabel = "1";
+
+    var svgCircle = null, conicEl = null;
+    var cur = pctEl.parentElement;
+    for (var depth = 0; depth < 5 && cur && cur !== card; depth++){
+      var circles = cur.querySelectorAll("circle");
+      if (circles.length >= 2){ svgCircle = circles[circles.length - 1]; break; }
+      var bg = window.getComputedStyle(cur).backgroundImage || "";
+      if (bg.indexOf("conic-gradient") !== -1){ conicEl = cur; break; }
+      cur = cur.parentElement;
+    }
+    ringRefs = { card: card, pctEl: pctEl, healthEl: healthEl, svgCircle: svgCircle, conicEl: conicEl };
+    return ringRefs;
+  }
+
+  function bindDemoToggle(){
+    var existing = document.getElementById("at-demo-toggle");
+    if (existing && document.body.contains(existing)){
+      existing.classList.toggle("on", isDemoOn);
+      return;
+    }
+    var card = findOverviewCard();
+    if (!card) return;
+
+    var cands = card.querySelectorAll("button, [role='button'], span, div");
+    var target = null;
+    for (var i = 0; i < cands.length; i++){
+      var el = cands[i];
+      if (el.closest && el.closest("#at-top-livebar")) continue;
+      var txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (txt.length <= 16 && /^demo(\s*:\s*(off|on))?$/i.test(txt)){
+        if (!target || el.tagName === "BUTTON" || el.children.length < target.children.length){
+          target = el;
+          if (el.tagName === "BUTTON") break;
+        }
+      }
+    }
+    if (!target || !target.parentNode) return;
+
+    var btn = document.createElement("button");
+    btn.id = "at-demo-toggle";
+    btn.type = "button";
+    btn.className = isDemoOn ? "on" : "";
+    btn.setAttribute("aria-label", "Toggle Demo Mode");
+    btn.innerHTML =
+      '<span class="at-demo-lbl">Demo</span>' +
+      '<span class="at-demo-track">' +
+        '<span class="at-demo-ripple"></span>' +
+        '<span class="at-demo-knob"></span>' +
+      '</span>';
+
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setDemoRunning(!isDemoOn);
+    }, true);
+
+    target.parentNode.replaceChild(btn, target);
+  }
+
+  function updateOverviewRingAndBar(){
+    if (!liveList.length) return;
+    var refs = locateHealthRing();
+    if (!refs) return;
+
+    var pct, ringLabel, barLeft;
+    if (isDemoOn || selectedIdx >= 0){
+      var idx = isDemoOn ? (activeDemoIdx % liveList.length) : (selectedIdx % liveList.length);
+      var active = liveList[idx];
+      pct = Math.max(5, Math.min(99.9, active.curWqi));
+      ringLabel = active.district.length > 10 ? active.district.slice(0, 9) + "." : active.district;
+      barLeft = (isDemoOn ? "▶ Live " : "● ") + (idx + 1) + "/" + liveList.length + " • <b>" + active.district + "</b>";
+    } else {
+      pct = Math.max(5, Math.min(99.9, stateAvgPct()));
+      ringLabel = "HEALTH";
+      barLeft = "Telangana Avg (33 Districts) • Tap <b>Demo</b> to play live";
+    }
+
+    var pal = colorForPct(pct);
+    refs.pctEl.textContent = pct.toFixed(1) + "%";
+    refs.pctEl.style.color = pal.text;
+    if (refs.healthEl){
+      refs.healthEl.textContent = ringLabel.toUpperCase();
+      refs.healthEl.style.fontSize = ringLabel === "HEALTH" ? "" : "9px";
+    }
+
+    if (refs.svgCircle){
+      var r = parseFloat(refs.svgCircle.getAttribute("r")) || 36;
+      var circ = 2 * Math.PI * r;
+      refs.svgCircle.style.transition = "stroke-dashoffset 0.5s ease, stroke 0.35s ease";
+      refs.svgCircle.setAttribute("stroke-dasharray", circ.toFixed(2));
+      refs.svgCircle.setAttribute("stroke-dashoffset", (circ * (1 - pct / 100)).toFixed(2));
+      refs.svgCircle.setAttribute("stroke", pal.stroke);
+    } else if (refs.conicEl){
+      refs.conicEl.style.background = "conic-gradient(" + pal.stroke + " " + pct.toFixed(1) + "%, rgba(255,255,255,0.14) " + pct.toFixed(1) + "% 100%)";
+    }
+
+    var barWrap = document.getElementById("at-top-livebar");
+    if (!barWrap){
+      barWrap = document.createElement("div");
+      barWrap.id = "at-top-livebar";
+      barWrap.className = "at-top-livebar";
+      refs.card.appendChild(barWrap);
+    }
+    barWrap.innerHTML =
+      '<div class="at-top-livebar-head">' +
+        '<span>' + barLeft + '</span>' +
+        '<b style="color:' + pal.text + ';white-space:nowrap">' + pct.toFixed(1) + '%</b>' +
+      '</div>' +
+      '<div class="at-top-livebar-track">' +
+        '<div class="at-top-livebar-fill" style="width:' + pct.toFixed(1) + '%;background:' + pal.grad + '"></div>' +
+      '</div>';
+  }
+
+  function updateSyncClock(){
+    var nodes = document.querySelectorAll("div, p, span");
+    for (var i = 0; i < nodes.length; i++){
+      var el = nodes[i];
+      if (el.children.length === 0 && /Live (Digital Twin|GEE Satellite|Real-Time)|GEE Satellite Synced/i.test(el.textContent || "")){
+        el.textContent = (isDemoOn ? "Live Real-Time Stream - " : "Live Digital Twin Sync - ") + formatTime();
+        break;
+      }
     }
   }
 
-  function bindDemoButton(){
-    var btn = document.getElementById("at-demo-pill-btn");
-    if (!btn){
-      var cand = document.querySelectorAll("button, div, span");
-      for (var i = 0; i < cand.length; i++){
-        var el = cand[i];
-        if (!el || el.children.length > 5) continue;
-        var r = el.getBoundingClientRect();
-        if (r.height > 0 && r.height <= 46 && /\bDemo\b/i.test(el.textContent || "")){
-          btn = el;
-          break;
+  function findWatchlistCard(){
+    var nodes = document.querySelectorAll("h2, h3, div, span");
+    for (var i = 0; i < nodes.length; i++){
+      if (nodes[i].children.length === 0 && (nodes[i].textContent || "").trim() === "Priority Watchlist"){
+        var box = nodes[i].parentElement;
+        while (box && box.parentElement && box.parentElement.tagName !== "BODY"){
+          var st = window.getComputedStyle(box);
+          if (parseFloat(st.borderRadius) >= 12 || (st.backgroundColor && st.backgroundColor !== "rgba(0, 0, 0, 0)")){
+            return box;
+          }
+          box = box.parentElement;
         }
-      }
-      if (!btn){
-        var panel = ensureHealthPanel();
-        var topRow = panel.querySelector(".at-rt-top");
-        if (topRow){
-          btn = document.createElement("button");
-          btn.type = "button";
-          topRow.appendChild(btn);
-        }
+        return nodes[i].parentElement;
       }
     }
-    if (!btn) return;
+    return null;
+  }
 
-    btn.id = "at-demo-pill-btn";
-    btn.className = "at-demo-pill-btn";
-    removeOffTextAround(btn);
+  function renderRealTimePanel(){
+    if (!liveList.length) return;
+    var anchor = findWatchlistCard();
+    if (!anchor || !anchor.parentNode) return;
 
-    if (!btn.querySelector(".at-demo-track")){
-      btn.innerHTML =
-        "<span>Demo</span>" +
-        '<span class="at-demo-track' + (demoOn ? " active" : "") + '">' +
-          '<span class="at-demo-ripple"></span>' +
-          '<span class="at-demo-knob"></span>' +
-        "</span>";
+    var panel = document.getElementById("at-rt-panel");
+    if (!panel){
+      panel = document.createElement("div");
+      panel.id = "at-rt-panel";
+      panel.className = "at-rt-panel";
+      anchor.parentNode.insertBefore(panel, anchor.nextSibling);
     }
 
-    if (btn.dataset.atV15Demo !== "1"){
-      btn.dataset.atV15Demo = "1";
-      btn.addEventListener("click", function(e){
-        e.preventDefault();
+    var avgPct = stateAvgPct();
+    var highlightIdx = isDemoOn ? (activeDemoIdx % liveList.length) : selectedIdx;
+    var cur = highlightIdx >= 0 ? liveList[highlightIdx] : null;
+
+    var rowsHtml = liveList.map(function(d, idx){
+      var pct = Math.max(5, Math.min(100, d.curWqi));
+      var cls = pct >= 70 ? "at-rt-safe" : (pct >= 55 ? "at-rt-mod" : "at-rt-high");
+      var fCls = pct >= 70 ? "at-rt-fill-safe" : (pct >= 55 ? "at-rt-fill-mod" : "at-rt-fill-high");
+      var isAct = (idx === highlightIdx);
+      return (
+        '<div class="at-rt-row' + (isAct ? " active" : "") + '" data-rt-idx="' + idx + '">' +
+          '<div class="at-rt-row-head">' +
+            '<span class="at-rt-dname">' + (idx + 1) + ". " + d.district + '</span>' +
+            '<span class="at-rt-pct ' + cls + '">' + pct.toFixed(1) + '%</span>' +
+          '</div>' +
+          '<div class="at-rt-meta">' +
+            '<span>Water: ' + d.curWater.toFixed(2) + '%</span>' +
+            '<span>GW Use: ' + d.curGw.toFixed(1) + '%</span>' +
+            '<span>+1M: ' + d.pred1m.toFixed(1) + '%</span>' +
+          '</div>' +
+          '<div class="at-rt-bar"><div class="at-rt-fill ' + fCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>' +
+        '</div>'
+      );
+    }).join("");
+
+    var tickerLeft = isDemoOn && cur
+      ? "▶ Playing Live: <b>" + cur.district + "</b>"
+      : (cur ? "● Selected: <b>" + cur.district + "</b>" : "● State Overview (33 Districts)");
+    var tickerRight = cur
+      ? "<b>" + cur.curWqi.toFixed(1) + "%</b> Health"
+      : "<b>" + avgPct.toFixed(1) + "%</b> Avg";
+
+    panel.innerHTML =
+      '<div class="at-rt-title">Real-Time District Health (%)</div>' +
+      '<div class="at-rt-sub">All ' + liveList.length + ' Districts • State Avg: ' + avgPct.toFixed(1) + '% • ' + (isDemoOn ? "Live Demo Running" : "Tap Demo to auto-play") + '</div>' +
+      '<div class="at-rt-ticker"><span>' + tickerLeft + '</span><span>' + tickerRight + '</span></div>' +
+      '<div class="at-rt-list">' + rowsHtml + '</div>';
+
+    var rows = panel.querySelectorAll(".at-rt-row");
+    for (var r = 0; r < rows.length; r++){
+      rows[r].addEventListener("click", function(e){
         e.stopPropagation();
-        demoOn = !demoOn;
-        var track = btn.querySelector(".at-demo-track");
-        if (track) track.classList.toggle("active", demoOn);
-        renderDistrictHealth(demoOn);
-        if (demoOn){
-          if (demoTimer) clearInterval(demoTimer);
-          demoTimer = setInterval(function(){
-            if (!demoOn) return;
-            demoIdx = (demoIdx + 1) % DISTRICTS.length;
-            renderDistrictHealth(true);
-          }, 1800);
-        } else if (demoTimer){
-          clearInterval(demoTimer);
-          demoTimer = null;
-        }
-      }, true);
+        var clicked = Number(this.getAttribute("data-rt-idx")) || 0;
+        selectedIdx = clicked;
+        activeDemoIdx = clicked;
+        updateOverviewRingAndBar();
+        renderRealTimePanel();
+      });
     }
+  }
+
+  function stepRealTime(advance){
+    if (!isDemoOn || !liveList.length) return;
+    if (advance !== false) activeDemoIdx = (activeDemoIdx + 1) % liveList.length;
+    liveList.forEach(function(d, i){
+      var drift = Math.sin(Date.now() / 3800 + i) * 0.35;
+      d.curWqi = Math.max(15, Math.min(99, d.baseWqi + drift));
+      d.curWater = Math.max(0.05, d.baseWater + drift * 0.02);
+      d.curGw = Math.max(10, Math.min(115, d.baseGw + drift * 0.15));
+    });
+    updateOverviewRingAndBar();
+    renderRealTimePanel();
+  }
+
+  function setDemoRunning(nextState){
+    isDemoOn = Boolean(nextState);
+    var btn = document.getElementById("at-demo-toggle");
+    if (btn) btn.classList.toggle("on", isDemoOn);
+
+    if (isDemoOn){
+      if (selectedIdx >= 0) activeDemoIdx = selectedIdx;
+      if (!tickTimer) tickTimer = setInterval(function(){ stepRealTime(true); }, 2200);
+      if (!clockTimer) clockTimer = setInterval(updateSyncClock, 1000);
+      stepRealTime(false);
+      updateSyncClock();
+    } else {
+      if (tickTimer){ clearInterval(tickTimer); tickTimer = null; }
+      if (clockTimer){ clearInterval(clockTimer); clockTimer = null; }
+      selectedIdx = -1;
+      liveList.forEach(function(d){
+        d.curWqi = d.baseWqi;
+        d.curWater = d.baseWater;
+        d.curGw = d.baseGw;
+      });
+      updateOverviewRingAndBar();
+      renderRealTimePanel();
+      updateSyncClock();
+    }
+  }
+
+  // Strict active screen detector so Map View button NEVER leaks onto Home, Districts, or AI Twin
+  function detectActiveScreen(){
+    var searches = document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]');
+    for (var s = 0; s < searches.length; s++){
+      if (searches[s].closest && (searches[s].closest("#at-askai-bg") || searches[s].closest("#at-hist-bg"))) continue;
+      if (isVisEl(searches[s], 40, 14)) return "districts";
+    }
+    var ranges = document.querySelectorAll('input[type="range"]');
+    for (var r = 0; r < ranges.length; r++){
+      if (ranges[r].closest && (ranges[r].closest("#at-askai-bg") || ranges[r].closest("#at-hist-bg"))) continue;
+      if (isVisEl(ranges[r], 40, 1)) return "ai twin";
+    }
+    var ov = findOverviewCard();
+    if (ov && isVisEl(ov, 120, 80)) return "home";
+
+    var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
+    if (mapEl && isVisEl(mapEl, 150, 150)) return "map";
+    return "home";
   }
 
   function findLeafletMaps(){
@@ -6016,40 +5736,17 @@ nav > div:not(#at-lg-tab-lens),
     return out;
   }
 
-  function isMapTabActive(){
-    var searchShown = false;
-    document.querySelectorAll('input[type="search"], input[placeholder*="Search" i]').forEach(function(inp){
-      if (inp.closest && (inp.closest("#at-askai-bg") || inp.closest("#at-hist-bg"))) return;
-      var s = window.getComputedStyle(inp), r = inp.getBoundingClientRect();
-      if (s.display !== "none" && s.visibility !== "hidden" && parseFloat(s.opacity || "1") > 0.05 && r.width > 40 && r.height > 12){
-        searchShown = true;
-      }
-    });
-    if (searchShown) return false;
-
-    var sliderShown = false;
-    document.querySelectorAll('input[type="range"]').forEach(function(rng){
-      if (rng.closest && (rng.closest("#at-askai-bg") || rng.closest("#at-hist-bg"))) return;
-      var s = window.getComputedStyle(rng), r = rng.getBoundingClientRect();
-      if (s.display !== "none" && s.visibility !== "hidden" && parseFloat(s.opacity || "1") > 0.05 && r.width > 40 && r.height >= 1){
-        sliderShown = true;
-      }
-    });
-    if (sliderShown) return false;
-
-    var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
-    if (!mapEl || !document.body.contains(mapEl)) return false;
-    var st = window.getComputedStyle(mapEl);
-    var r = mapEl.getBoundingClientRect();
-    return (st.display !== "none" && st.visibility !== "hidden" && r.width >= 160 && r.height >= 160 && r.bottom > 45 && r.top < window.innerHeight - 45);
-  }
-
-  function syncSatelliteMapOnly(){
-    var onMap = isMapTabActive();
+  function syncMapAndSatellite(){
+    var screen = detectActiveScreen();
+    var onMap = (screen === "map");
     document.body.classList.toggle("at-map-section-visible", onMap);
 
     var mapEl = document.querySelector("#map, #aquatwin-map, .leaflet-container");
     if (onMap && mapEl){
+      var hdr = document.querySelector("header, .topbar, .at-top-header-bar");
+      var hBot = hdr ? Math.round(hdr.getBoundingClientRect().bottom) : 84;
+      document.documentElement.style.setProperty("--at-map-top", Math.max(88, hBot + 6) + "px");
+
       var anc = mapEl.parentElement;
       while (anc && anc !== document.body && anc !== document.documentElement){
         anc.classList.add("at-map-anc");
@@ -6067,15 +5764,22 @@ nav > div:not(#at-lg-tab-lens),
             maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
           });
         }
+        if (!streetLayer){
+          streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+            maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
+          });
+        }
         findLeafletMaps().forEach(function(m){
           try {
             if (satEnabled){
+              if (m.hasLayer(streetLayer)) m.removeLayer(streetLayer);
               if (!m.hasLayer(satLayer)) satLayer.addTo(m);
               if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
               if (labelLayer.bringToFront) labelLayer.bringToFront();
             } else {
               if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
               if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
+              if (!m.hasLayer(streetLayer)) streetLayer.addTo(m);
             }
             m.invalidateSize({ animate: false, pan: false });
           } catch(e){}
@@ -6098,7 +5802,7 @@ nav > div:not(#at-lg-tab-lens),
         if (!document.body.classList.contains("at-map-section-visible")) return;
         satEnabled = !satEnabled;
         satBtn.textContent = satEnabled ? "\uD83D\uDDFA Map View" : "\uD83D\uDEF0 Satellite";
-        syncSatelliteMapOnly();
+        syncMapAndSatellite();
       }, false);
       document.body.appendChild(satBtn);
     }
@@ -6113,9 +5817,10 @@ nav > div:not(#at-lg-tab-lens),
       satBtn.style.setProperty("visibility", "hidden", "important");
       satBtn.style.setProperty("pointer-events", "none", "important");
     }
+    return screen;
   }
 
-  // 120Hz Apple Spring Physics for Liquid Glass Dock (stiffness 420, damping 32)
+  // 120Hz Apple Spring Physics for Floating Liquid Glass Dock (stiffness 420, damping 32)
   var navEl = null, lensEl = null, tabsCache = [], tabRects = [], navLeft = 0, navWidth = 0;
   var isDragging = false, didDragMove = false, startClientX = 0, activeIdx = 0, hoverIdx = -1;
   var springX = 0, springVx = 0, springTargetX = 0;
@@ -6146,6 +5851,20 @@ nav > div:not(#at-lg-tab-lens),
     for (var k = 0; k < out.length; k++) out[k].setAttribute("data-at-tab", "1");
     tabsCache = out;
     return out;
+  }
+
+  function findTabIdxByScreen(screenName){
+    for (var i = 0; i < tabsCache.length; i++){
+      var t = (tabsCache[i].textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+      if (
+        t === screenName ||
+        (screenName === "ai twin" && (t.indexOf("twin") !== -1 || t.indexOf("ai") !== -1)) ||
+        (screenName === "districts" && t.indexOf("district") !== -1) ||
+        (screenName === "map" && t.indexOf("map") !== -1) ||
+        (screenName === "home" && t.indexOf("home") !== -1)
+      ) return i;
+    }
+    return -1;
   }
 
   function measureDock(){
@@ -6209,6 +5928,7 @@ nav > div:not(#at-lg-tab-lens),
     if (!tabRects.length) return;
     idx = Math.max(0, Math.min(tabRects.length - 1, idx));
     activeIdx = idx;
+    tabsCache.forEach(function(t, i){ t.setAttribute("data-at-active", i === idx ? "1" : "0"); });
     var box = tabRects[idx];
     springTargetX = box.left;
     springTargetW = box.width;
@@ -6231,18 +5951,14 @@ nav > div:not(#at-lg-tab-lens),
       nav.insertBefore(lensEl, nav.firstChild);
     }
     measureDock();
-    snapLens(activeIdx, true);
 
-    if (nav.dataset.atV15Bound !== "1"){
-      nav.dataset.atV15Bound = "1";
+    if (nav.dataset.atV16Bound !== "1"){
+      nav.dataset.atV16Bound = "1";
       nav.addEventListener("click", function(e){
         var tab = e.target && e.target.closest ? e.target.closest('[data-at-tab="1"]') : null;
         if (!tab) return;
         var idx = tabsCache.indexOf(tab);
-        if (idx >= 0){
-          tabsCache.forEach(function(t, i){ t.setAttribute("data-at-active", i === idx ? "1" : "0"); });
-          snapLens(idx, false);
-        }
+        if (idx >= 0) snapLens(idx, false);
       }, true);
 
       nav.addEventListener("touchstart", function(e){
@@ -6276,7 +5992,6 @@ nav > div:not(#at-lg-tab-lens),
         lensEl.classList.remove("dragging");
         if (didDragMove && hoverIdx >= 0 && tabsCache[hoverIdx] && hoverIdx !== activeIdx){
           activeIdx = hoverIdx;
-          tabsCache.forEach(function(t, i){ t.setAttribute("data-at-active", i === activeIdx ? "1" : "0"); });
           snapLens(activeIdx, false);
           try { tabsCache[activeIdx].click(); } catch(e){}
         } else {
@@ -6291,41 +6006,46 @@ nav > div:not(#at-lg-tab-lens),
     }
   }
 
-  function runAll(){
-    bindDemoButton();
-    renderDistrictHealth(demoOn);
-    syncSatelliteMapOnly();
+  function syncAll(instantLens){
+    if (!liveList.length) loadDistricts();
     initDock();
+    var screen = syncMapAndSatellite();
+    var idx = findTabIdxByScreen(screen);
+    if (idx >= 0) snapLens(idx, Boolean(instantLens));
+    if (screen === "home"){
+      bindDemoToggle();
+      updateOverviewRingAndBar();
+      renderRealTimePanel();
+    }
   }
 
-  document.addEventListener("click", function(){
-    requestAnimationFrame(runAll);
-    setTimeout(runAll, 160);
+  document.addEventListener("click", function(e){
+    if (e.target && e.target.closest && e.target.closest("#at-demo-toggle")) return;
+    requestAnimationFrame(function(){ syncAll(false); });
+    setTimeout(function(){ syncAll(false); }, 180);
   }, { passive: true, capture: true });
 
   window.addEventListener("resize", function(){
     if (!isDragging){
       measureDock();
-      snapLens(activeIdx, true);
-      syncSatelliteMapOnly();
+      syncAll(true);
     }
   }, { passive: true });
 
+  function boot(){
+    loadDistricts();
+    syncAll(true);
+    setTimeout(function(){ syncAll(true); }, 380);
+  }
+
   if (document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", function(){ requestAnimationFrame(runAll); setTimeout(runAll, 350); }, { once: true });
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
   } else {
-    requestAnimationFrame(runAll);
-    setTimeout(runAll, 350);
+    boot();
   }
 
   setTimeout(function(){
-    var frames = 0, t0 = performance.now();
-    function probe(now){
-      frames++;
-      if (now - t0 < 500) requestAnimationFrame(probe);
-      else console.log("AQUATWIN_V15_CHECK: hz=" + Math.round((frames * 1000) / (now - t0)) + "Hz | js_errors=" + errCount);
-    }
-    requestAnimationFrame(probe);
+    console.log("AQUATWIN_V16_CHECK: districts=" + liveList.length + "/33 | screen=" + detectActiveScreen() + " | js_errors=" + errCount);
   }, 1200);
 })();
 </script>
