@@ -1,8 +1,8 @@
 {
   "schema": "aquatwin-hmac-sha256-v1",
-  "sealed_at_utc": "2026-11-26T13:00:19Z",
+  "sealed_at_utc": "2026-11-26T13:08:44Z",
   "file_count": 26,
-  "hmac_sha256": "3ecdaafe551e23224557cef170809b864126aeed3217170716eedbae5e131da6",
+  "hmac_sha256": "d78cfadaf195e3dc0fb50dff35c9817ade77abde1dcec38b08dc97c666eff0e8",
   "files": {
     "backend/main.py": {
       "sha256": "a6d6a217ad31a0523e0bd2e5faa45e0384b3b9762cd599783208a30cccd3f1a9",
@@ -77,8 +77,8 @@
       "bytes": 182387
     },
     "mobile-app/index.html": {
-      "sha256": "43c785b7ecf54ca383cb34171f7c399fb9e56ac45e772002294f87cae2ddafc9",
-      "bytes": 283144
+      "sha256": "3daff334fa427af532b5f69237dcdab3580d5d5829566a19a3c47a557890d345",
+      "bytes": 285900
     },
     "mobile-app/ml_data.js": {
       "sha256": "98e84e94996cfb21db6baaa8b823e913eb757f52bd591829575e3cbb5ad57ec5",
@@ -89,8 +89,8 @@
       "bytes": 6748
     },
     "mobile-app/www/index.html": {
-      "sha256": "43c785b7ecf54ca383cb34171f7c399fb9e56ac45e772002294f87cae2ddafc9",
-      "bytes": 283144
+      "sha256": "3daff334fa427af532b5f69237dcdab3580d5d5829566a19a3c47a557890d345",
+      "bytes": 285900
     },
     "mobile-app/www/ml_data.js": {
       "sha256": "98e84e94996cfb21db6baaa8b823e913eb757f52bd591829575e3cbb5ad57ec5",

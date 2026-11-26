@@ -1,8 +1,8 @@
 {
-  "version": "1.146",
-  "version_code": 146,
+  "version": "1.147",
+  "version_code": 147,
   "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-  "notes": "\u2022 Restored clean v18 Liquid Glass UI, Demo switch & Satellite Map\n\u2022 Live 33 Telangana districts telemetry & forecasts\n\u2022 All 5 security layers locked & verified",
+  "notes": "\u2022 Removed top red Security Warning banner while keeping all 5 security layers active\n\u2022 Clean v18 Liquid Glass UI & Satellite Map",
   "force": false,
-  "updated_at": "2026-11-26 18:30 IST"
+  "updated_at": "2026-11-26 18:38 IST"
 }
