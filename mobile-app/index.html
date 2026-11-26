@@ -10,9 +10,9 @@
 
   <title>AquaTwin AI</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="vendor/leaflet.css" />
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="vendor/leaflet.js"></script>
 
 <!-- AT_LEAFLET_CAPTURE_START -->
 
@@ -108,7 +108,7 @@
 
 <!-- POLISH_V2_END -->
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.6.1/dist/chart.umd.min.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
 
   <script src="data.js"></script>
 
@@ -842,7 +842,65 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 
 <!-- PROMOTION_PRECONNECT_END -->
 
-<script>window.AQUATWIN_VERSION = "1.147";</script>
+<script>window.AQUATWIN_VERSION = "1.148";</script>
+
+<!-- AQUATWIN_SMOOTH_FX_START -->
+<style id="at-smooth-fx-css">
+/* GPU-Accelerated 60/120fps Micro-Interactions & Spring Transitions */
+html, body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.view, main > section {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+@keyframes atSpringFadeIn {
+  0%   { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.985); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+.view.active {
+  animation: atSpringFadeIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+.card, .d-card, .stat-card, .dash-tile, .dash-item, .dash-action, .dash-hero, button, .tab {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.20s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease, box-shadow 0.22s ease !important;
+}
+.card:active, .d-card:active, .stat-card:active, .dash-tile:active, .dash-item:active, .dash-action:active, button:active {
+  transform: translate3d(0, 0, 0) scale(0.97) !important;
+}
+.tab:active {
+  transform: translate3d(0, 0, 0) scale(0.90) !important;
+}
+@keyframes atLivePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.22); opacity: 0.72; }
+}
+.dash-dot {
+  animation: atLivePulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: transform, opacity;
+}
+@keyframes atRingGlow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.32)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.60)); }
+}
+.dash-ring svg {
+  animation: atRingGlow 3.2s ease-in-out infinite;
+}
+.leaflet-container, .leaflet-tile-pane {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+<!-- AQUATWIN_SMOOTH_FX_END -->
 </head>
 
 <body>

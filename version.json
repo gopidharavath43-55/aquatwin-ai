@@ -1,8 +1,8 @@
 {
-  "version": "1.147",
-  "version_code": 147,
+  "version": "1.148",
+  "version_code": 148,
   "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-  "notes": "\u2022 Removed top red Security Warning banner while keeping all 5 security layers active\n\u2022 Clean v18 Liquid Glass UI & Satellite Map",
+  "notes": "\u2022 Bundled offline Leaflet & Chart.js for instant launch\n\u2022 GPU-accelerated spring animations & Android hardware acceleration\n\u2022 All 5 security layers locked & verified",
   "force": false,
-  "updated_at": "2026-11-26 18:38 IST"
+  "updated_at": "2026-11-26 19:00 IST"
 }
