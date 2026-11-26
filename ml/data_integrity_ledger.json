@@ -1,6 +1,6 @@
 {
   "schema": "aquatwin-hmac-sha256-v1",
-  "sealed_at_utc": "2026-11-26T12:27:47Z",
+  "sealed_at_utc": "2026-11-26T12:31:28Z",
   "file_count": 26,
   "hmac_sha256": "0f3bd5b244cf52483cd3b47cd25e8f10ff9fbdfa904740b569d13917b6e98eca",
   "files": {
