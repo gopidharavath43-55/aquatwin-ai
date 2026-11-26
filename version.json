@@ -1,8 +1,8 @@
 {
-    "version":  "1.145",
-    "version_code":  145,
-    "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Decoded overlay updates and restored clean v18 + 5-layer secured build",
-    "force":  false,
-    "updated_at":  "2026-11-26 18:21 IST"
+  "version": "1.146",
+  "version_code": 146,
+  "apk_url": "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
+  "notes": "\u2022 Restored clean v18 Liquid Glass UI, Demo switch & Satellite Map\n\u2022 Live 33 Telangana districts telemetry & forecasts\n\u2022 All 5 security layers locked & verified",
+  "force": false,
+  "updated_at": "2026-11-26 18:30 IST"
 }
