@@ -420,6 +420,24 @@ nav, .tabs, .tabbar, .bottom-nav, .at-tabbar-fixed {
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <!-- PROMOTION_PRECONNECT_END -->
+<!-- AQUATWIN_MAP_NOBUFFER_CSS_START -->
+<style id="at-map-nobuffer-css">
+#map, #aquatwin-map, .leaflet-container {
+  background: #132822 !important;
+}
+.leaflet-fade-anim .leaflet-tile,
+.leaflet-zoom-anim .leaflet-tile {
+  transition: none !important;
+}
+.leaflet-tile-loaded {
+  opacity: 1 !important;
+}
+.leaflet-tile-pane {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+</style>
+<!-- AQUATWIN_MAP_NOBUFFER_CSS_END -->
 </head>
 <body>
   <header>
@@ -3598,7 +3616,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.142";
+window.AQUATWIN_VERSION = "1.143";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -5807,35 +5825,97 @@ nav > div:not(#at-lg-tab-lens),
 
   function applyMapLayers(){
     if (!window.L || !window.L.tileLayer) return;
+    var BLANK_PX = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    var tileOpts = {
+      maxZoom: 19,
+      maxNativeZoom: 18,
+      keepBuffer: 8,
+      updateWhenIdle: true,
+      updateWhenZooming: false,
+      detectRetina: false,
+      crossOrigin: true,
+      errorTileUrl: BLANK_PX
+    };
     if (!satLayer){
-      satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-      });
+      satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", Object.assign({ zIndex: 10 }, tileOpts));
     }
     if (!labelLayer){
-      labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 19, opacity: 0.96, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-      });
+      labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", Object.assign({ zIndex: 20, opacity: 0.96 }, tileOpts));
     }
     if (!streetLayer){
-      streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
-        maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 4
-      });
+      streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", Object.assign({ zIndex: 10 }, tileOpts));
     }
+
+    function stripForeignTiles(m){
+      try {
+        m.eachLayer(function(l){
+          if (l instanceof L.TileLayer && l !== satLayer && l !== labelLayer && l !== streetLayer){
+            m.removeLayer(l);
+          }
+        });
+      } catch(e){}
+    }
+
     findLeafletMaps().forEach(function(m){
       try {
+        if (m.options) m.options.fadeAnimation = false;
+        stripForeignTiles(m);
+        if (!m._atNoBufGuard){
+          m._atNoBufGuard = true;
+          m.on("layeradd", function(ev){
+            var l = ev && ev.layer;
+            if (l && (l instanceof L.TileLayer) && l !== satLayer && l !== labelLayer && l !== streetLayer){
+              setTimeout(function(){ try { m.removeLayer(l); } catch(err){} }, 0);
+            }
+          });
+        }
         if (satEnabled){
           if (m.hasLayer(streetLayer)) m.removeLayer(streetLayer);
           if (!m.hasLayer(satLayer)) satLayer.addTo(m);
           if (!m.hasLayer(labelLayer)) labelLayer.addTo(m);
-          if (labelLayer.bringToFront) labelLayer.bringToFront();
+          if (satLayer.setZIndex) satLayer.setZIndex(10);
+          if (labelLayer.setZIndex) labelLayer.setZIndex(20);
         } else {
           if (m.hasLayer(satLayer)) m.removeLayer(satLayer);
           if (m.hasLayer(labelLayer)) m.removeLayer(labelLayer);
           if (!m.hasLayer(streetLayer)) streetLayer.addTo(m);
+          if (streetLayer.setZIndex) streetLayer.setZIndex(10);
         }
       } catch(e){}
     });
+
+    // Silently pre-warm India + Telangana satellite tiles (zoom 5..8) once so pinch-zoom is instant
+    if (!window.__AT_TILES_WARMED__){
+      window.__AT_TILES_WARMED__ = true;
+      var urls = [];
+      var boxes = [
+        [5, 22, 23, 14, 15],
+        [6, 45, 46, 28, 29],
+        [7, 91, 93, 56, 58],
+        [8, 182, 185, 113, 116]
+      ];
+      for (var b = 0; b < boxes.length; b++){
+        var z = boxes[b][0];
+        for (var x = boxes[b][1]; x <= boxes[b][2]; x++){
+          for (var y = boxes[b][3]; y <= boxes[b][4]; y++){
+            urls.push("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/" + z + "/" + y + "/" + x);
+            urls.push("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/" + z + "/" + y + "/" + x);
+          }
+        }
+      }
+      var idx = 0;
+      function warmNext(){
+        if (idx >= urls.length) return;
+        var batchEnd = Math.min(idx + 3, urls.length);
+        for (; idx < batchEnd; idx++){
+          var img = new Image();
+          img.crossOrigin = "anonymous";
+          img.src = urls[idx];
+        }
+        setTimeout(warmNext, 90);
+      }
+      setTimeout(warmNext, 350);
+    }
   }
 
   function syncMapAndSatellite(forceLayerRefresh){
