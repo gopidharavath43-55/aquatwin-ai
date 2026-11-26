@@ -1,8 +1,8 @@
 {
-    "version":  "1.140",
-    "version_code":  140,
+    "version":  "1.142",
+    "version_code":  142,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Verified final working build",
+    "notes":  "• Extreme 5-layer security hardening complete (HMAC-SHA256 data seal, Runtime XSS/Freeze, Android FLAG_SECURE/WebView lock, Zero-Trust FastAPI \u0026 Git pre-commit guard)",
     "force":  false,
-    "updated_at":  "2026-11-26 06:27 IST"
+    "updated_at":  "2026-11-26 06:53 IST"
 }

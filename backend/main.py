@@ -24,6 +24,21 @@ app = FastAPI(
     openapi_url=None if IS_PROD else "/openapi.json",
 )
 
+# AQUATWIN_ZERO_TRUST_V1
+try:
+    import sys as _at_sys
+    from pathlib import Path as _at_Path
+    _at_root = str(_at_Path(__file__).resolve().parent.parent)
+    if _at_root not in _at_sys.path:
+        _at_sys.path.insert(0, _at_root)
+    from backend.zero_trust_shield import attach_zero_trust as _attach_zero_trust
+    _attach_zero_trust(app)
+except Exception as _at_zt_err:
+    import logging as _at_log
+    _at_log.getLogger("aquatwin.zero_trust").warning("Zero-trust shield skipped: %s", _at_zt_err)
+
+
+
 # 2. Strict CORS allowlist (no wildcard "*")
 ALLOWED_ORIGINS = [
     "https://www-gold-five.vercel.app",

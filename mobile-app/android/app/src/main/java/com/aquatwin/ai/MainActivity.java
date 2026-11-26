@@ -1,80 +1,43 @@
 package com.aquatwin.ai;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.getcapacitor.BridgeActivity;
 
+// AQUATWIN_NATIVE_SECURITY_V1
 public class MainActivity extends BridgeActivity {
-
-    private void unlockHighRefreshRate() {
-        try {
-            Window window = getWindow();
-            if (window == null) return;
-            Display display = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                display = getDisplay();
-            }
-            if (display == null) {
-                WindowManager wm = getWindowManager();
-                if (wm != null) display = wm.getDefaultDisplay();
-            }
-            if (display != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Display.Mode current = display.getMode();
-                Display.Mode best = current;
-                for (Display.Mode m : display.getSupportedModes()) {
-                    if (m.getPhysicalWidth() == current.getPhysicalWidth()
-                        && m.getPhysicalHeight() == current.getPhysicalHeight()
-                        && m.getRefreshRate() > best.getRefreshRate()) {
-                        best = m;
-                    }
-                }
-                WindowManager.LayoutParams lp = window.getAttributes();
-                lp.preferredDisplayModeId = best.getModeId();
-                lp.preferredRefreshRate = best.getRefreshRate();
-                window.setAttributes(lp);
-            }
-        } catch (Exception ignored) {}
-    }
-
-    private void tuneWebViewFor120Fps() {
-        try {
-            if (getBridge() == null) return;
-            WebView webView = getBridge().getWebView();
-            if (webView == null) return;
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            webView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
-            webView.setVerticalScrollBarEnabled(false);
-            webView.setHorizontalScrollBarEnabled(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, false);
-            }
-            WebSettings ws = webView.getSettings();
-            if (ws != null) {
-                ws.setCacheMode(WebSettings.LOAD_DEFAULT);
-                ws.setDomStorageEnabled(true);
-                ws.setDatabaseEnabled(true);
-                ws.setMediaPlaybackRequiresUserGesture(false);
-            }
-        } catch (Exception ignored) {}
-    }
+    // Set to false temporarily only if you need to take demo screenshots
+    private static final boolean ENABLE_SCREEN_CAPTURE_LOCK = true;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        unlockHighRefreshRate();
-        tuneWebViewFor120Fps();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        unlockHighRefreshRate();
-        tuneWebViewFor120Fps();
+        // 1. Block unauthorized screenshots, screen recording & Recent Apps preview leaks
+        if (ENABLE_SCREEN_CAPTURE_LOCK) {
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            );
+        }
+
+        // 2. Disable remote Chrome DevTools WebView debugging in production
+        WebView.setWebContentsDebuggingEnabled(false);
+
+        // 3. Harden Capacitor WebView settings against file-URL & mixed-content exploits
+        try {
+            if (getBridge() != null && getBridge().getWebView() != null) {
+                WebSettings ws = getBridge().getWebView().getSettings();
+                ws.setAllowFileAccess(false);
+                ws.setAllowFileAccessFromFileURLs(false);
+                ws.setAllowUniversalAccessFromFileURLs(false);
+                ws.setGeolocationEnabled(false);
+                ws.setSaveFormData(false);
+                ws.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+            }
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -3598,7 +3598,7 @@ body.at-map-fullscreen-active .leaflet-bottom {
 }
 </style>
 <script id="at-updater-js">
-window.AQUATWIN_VERSION = "1.140";
+window.AQUATWIN_VERSION = "1.142";
 window.AQUATWIN_OTA_URL = "https://raw.githubusercontent.com/gopidharavath43-55/aquatwin-ai/main/version.json";
 
 (function(){
@@ -6170,5 +6170,170 @@ nav > div:not(#at-lg-tab-lens),
 })();
 </script>
 <!-- AQUATWIN_APPLE_LIQUID_OS_END -->
+<!-- AQUATWIN_RUNTIME_SECURITY_START -->
+<script id="at-runtime-security-js">
+(function(){
+  if (window.__AT_RUNTIME_SECURITY_V1__) return;
+  window.__AT_RUNTIME_SECURITY_V1__ = true;
+
+  var EXPECTED_FP = "7aad711b4085ad28b3379cf5fd9cba7f1a91ea34b9c35ba333448590b8992c41";
+  var TRUSTED_SCRIPT_HOSTS = {
+    "unpkg.com": true,
+    "cdn.jsdelivr.net": true,
+    "www-gold-five.vercel.app": true,
+    "aquatwin-ai.vercel.app": true,
+    "localhost": true,
+    "127.0.0.1": true
+  };
+  var TRUSTED_APK_PREFIX = "https://github.com/gopidharavath43-55/aquatwin-ai/releases/";
+
+  // 1. Safe HTML escaper & prototype-pollution-safe JSON parser
+  window.atEscapeHtml = function(str){
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  };
+
+  window.atSafeJsonParse = function(raw){
+    return JSON.parse(raw, function(k, v){
+      if (k === "__proto__" || k === "constructor" || k === "prototype") return undefined;
+      return v;
+    });
+  };
+
+  window.atIsTrustedApkUrl = function(url){
+    try {
+      var u = new URL(String(url || ""));
+      return u.protocol === "https:" && u.href.indexOf(TRUSTED_APK_PREFIX) === 0;
+    } catch(e){
+      return false;
+    }
+  };
+
+  // 2. Clickjacking & cross-origin iframe busting
+  try {
+    if (window.top && window.top !== window.self){
+      document.documentElement.style.display = "none";
+      window.top.location = window.self.location;
+    }
+  } catch(e){
+    document.documentElement.style.display = "none";
+  }
+
+  // 3. Guard window.open against untrusted APK or javascript: redirects
+  var origOpen = window.open;
+  if (typeof origOpen === "function"){
+    window.open = function(url){
+      var s = String(url || "").trim();
+      if (/^(javascript|vbscript|data):/i.test(s)) return null;
+      if (/\.apk(\?|$)/i.test(s) && !window.atIsTrustedApkUrl(s)) return null;
+      return origOpen.apply(window, arguments);
+    };
+  }
+
+  // 4. Deep-freeze telemetry objects in memory to prevent runtime tampering
+  function deepFreeze(obj, seen){
+    if (!obj || typeof obj !== "object") return obj;
+    if (!seen) seen = new Set();
+    if (seen.has(obj) || Object.isFrozen(obj)) return obj;
+    seen.add(obj);
+    Object.freeze(obj);
+    var keys = Object.keys(obj);
+    for (var i = 0; i < keys.length; i++){
+      deepFreeze(obj[keys[i]], seen);
+    }
+    return obj;
+  }
+
+  function lockRuntimeData(){
+    try {
+      if (window.AQUATWIN_ML_DATA) deepFreeze(window.AQUATWIN_ML_DATA);
+      if (window.TELANGANA_DATA) deepFreeze(window.TELANGANA_DATA);
+    } catch(e){}
+  }
+
+  // 5. Runtime Web Crypto SHA-256 verification of bundled 33-district dataset
+  function showTamperWarning(msg){
+    if (document.getElementById("at-sec-tamper-banner")) return;
+    var b = document.createElement("div");
+    b.id = "at-sec-tamper-banner";
+    b.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:2147483647;background:#991b1b;color:#fff;padding:10px 14px;font-size:12px;font-weight:700;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.45);";
+    b.textContent = msg;
+    if (document.body) document.body.appendChild(b);
+  }
+
+  function verifyTelemetryFingerprint(){
+    if (!EXPECTED_FP || !window.crypto || !window.crypto.subtle) return;
+    var list = (window.AQUATWIN_ML_DATA && Array.isArray(window.AQUATWIN_ML_DATA.districts)) ? window.AQUATWIN_ML_DATA.districts : null;
+    if (!list || !list.length) return;
+    var parts = list.map(function(d){
+      var name = String(d.district || "").trim().toLowerCase();
+      var val = (d.xgb_wqi != null) ? d.xgb_wqi : (d.wqi_score != null ? d.wqi_score : 0);
+      return name + ":" + Math.floor(Number(val) * 10 + 0.5);
+    }).sort();
+    var bytes = new TextEncoder().encode(parts.join("|"));
+    window.crypto.subtle.digest("SHA-256", bytes).then(function(buf){
+      var hex = Array.from(new Uint8Array(buf)).map(function(x){ return x.toString(16).padStart(2, "0"); }).join("");
+      if (hex !== EXPECTED_FP){
+        console.error("AQUATWIN_SECURITY_ALERT: Bundled telemetry hash mismatch!");
+        showTamperWarning("Security Warning: Local telemetry data failed integrity verification.");
+      } else {
+        console.log("AQUATWIN_SECURITY_V1: Runtime data frozen & SHA-256 verified.");
+      }
+    }).catch(function(){});
+  }
+
+  // 6. DOM XSS & unauthorized third-party script/link injection monitor
+  function sanitizeAddedNode(node){
+    if (!node || node.nodeType !== 1) return;
+    var tag = node.tagName ? node.tagName.toUpperCase() : "";
+    if (tag === "SCRIPT" && node.src){
+      try {
+        var su = new URL(node.src, window.location.href);
+        var sameOrigin = (su.origin === window.location.origin);
+        if (!sameOrigin && !TRUSTED_SCRIPT_HOSTS[su.hostname]){
+          console.warn("AQUATWIN_SECURITY: Blocked untrusted script:", su.href);
+          node.remove();
+          return;
+        }
+      } catch(e){}
+    }
+    if (tag === "A" && node.getAttribute("href")){
+      var href = String(node.getAttribute("href")).trim();
+      if (/^(javascript|vbscript):/i.test(href) || (/\.apk(\?|$)/i.test(href) && !window.atIsTrustedApkUrl(href))){
+        node.removeAttribute("href");
+      }
+    }
+    if (tag === "IFRAME" || tag === "OBJECT" || tag === "EMBED"){
+      node.remove();
+    }
+  }
+
+  if (typeof MutationObserver === "function"){
+    var secObs = new MutationObserver(function(muts){
+      for (var i = 0; i < muts.length; i++){
+        var added = muts[i].addedNodes;
+        for (var j = 0; j < added.length; j++) sanitizeAddedNode(added[j]);
+      }
+    });
+    secObs.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  function bootSecurity(){
+    lockRuntimeData();
+    verifyTelemetryFingerprint();
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", bootSecurity, { once: true });
+  } else {
+    bootSecurity();
+  }
+})();
+</script>
+<!-- AQUATWIN_RUNTIME_SECURITY_END -->
 </body>
 </html>

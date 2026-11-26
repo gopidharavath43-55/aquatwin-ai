@@ -1,0 +1,112 @@
+{
+  "schema": "aquatwin-hmac-sha256-v1",
+  "sealed_at_utc": "2026-11-26T01:29:55Z",
+  "file_count": 26,
+  "hmac_sha256": "840342a88a220a7b3bcdc0e5a5fc756bbd04669a27e05a33f2e1c610cf1dd051",
+  "files": {
+    "backend/main.py": {
+      "sha256": "a6d6a217ad31a0523e0bd2e5faa45e0384b3b9762cd599783208a30cccd3f1a9",
+      "bytes": 13177
+    },
+    "backend/zero_trust_shield.py": {
+      "sha256": "639c5db091567a610a2409b2a4a4e57b7a1df90b5f79f9f1e09ee1595e919865",
+      "bytes": 9622
+    },
+    "ml/api_server.py": {
+      "sha256": "24e1d372008a0cd68e31d6fd192945d91180de1cf42a3ac3e0e910b53a96d9d6",
+      "bytes": 15947
+    },
+    "ml/aquatwin_dl_v2.pt": {
+      "sha256": "102ba243a3098090ca4149fbf6feced3f67e2d97bf62d78f65e8bb7db55dc791",
+      "bytes": 322189
+    },
+    "ml/aquatwin_gw_1m.json": {
+      "sha256": "2fc6d2189e2e98c0c6159206256d9483ed8641204eafa2bafd96b058754fb2c8",
+      "bytes": 400659
+    },
+    "ml/aquatwin_gw_6m.json": {
+      "sha256": "f62acb689f48620a1fda5d6b82f15d5d800911bb30340e36bb9a24384345d199",
+      "bytes": 394259
+    },
+    "ml/aquatwin_lstm.pt": {
+      "sha256": "f71aadcc10c2fb60c70a381cc4bfe8b0fcbde314ab63f73211eeb92afc5738b9",
+      "bytes": 224619
+    },
+    "ml/aquatwin_st_attn_v3.pt": {
+      "sha256": "5948da2bb60b2363e71bab9f96f40958988f6e49ea9087686321abe922159ce1",
+      "bytes": 191529
+    },
+    "ml/aquatwin_xgb.json": {
+      "sha256": "cfe024610385945371597730d04bcc8a8b699517425110736e2511346a0c0978",
+      "bytes": 639278
+    },
+    "ml/aquatwin_xgb_1m.json": {
+      "sha256": "b189149f0d5c9533ca617bcb6c7500cea6651775b11068852edfffe74297a7c8",
+      "bytes": 779294
+    },
+    "ml/aquatwin_xgb_3m.json": {
+      "sha256": "9d05046885e4bf5b091d57e0a92ffffdf96c7a64318a3b774e87f89769359f2f",
+      "bytes": 771174
+    },
+    "ml/aquatwin_xgb_6m.json": {
+      "sha256": "7b2c03fcbe7e907c7eb74bf5c3fe2056cf4fe8b5254fc9bcf852414551cb03a6",
+      "bytes": 782076
+    },
+    "ml/ensemble_v2_report.json": {
+      "sha256": "0e5c1673aedabfa39554d777d0c82f5e88e1e3a994ad64ef3a5b89f69fc2860b",
+      "bytes": 792
+    },
+    "ml/ml_predictions.json": {
+      "sha256": "937448943f9d0dbadfbc9c08d43ab2feb0b9558003af14eb91c073f41d18bfef",
+      "bytes": 66498
+    },
+    "ml/model_benchmark.json": {
+      "sha256": "223cd11729227bf3dd52bab92f59c1ec4624e7aa7f63e0033161ca8598d9c763",
+      "bytes": 465
+    },
+    "ml/telangana_36m_timeseries.csv": {
+      "sha256": "fc8448720a689a8a1b3cec0cac1abfe61575e0a503065d168280681d6bb326d1",
+      "bytes": 138547
+    },
+    "ml/telangana_groundwater_data.csv": {
+      "sha256": "1d778f3b63642cb114ff21c292a45b4b0141a27e78e518ec0deccb2a8d2981f9",
+      "bytes": 1614
+    },
+    "ml/telangana_upgraded_dataset.csv": {
+      "sha256": "e19eaec63582cd3c77771d7b9a72ce3f7bfe83d54311477553469f086fd41262",
+      "bytes": 182388
+    },
+    "mobile-app/index.html": {
+      "sha256": "5c9d2a8b0167ccc1a8d770f1a3cc33caf44e62952dc016555665b11abd1768f4",
+      "bytes": 284010
+    },
+    "mobile-app/ml_data.js": {
+      "sha256": "46bdd4fb3a5d2d70077d930038f06e6633151dec4f856d9b3b41444762e58b35",
+      "bytes": 45214
+    },
+    "mobile-app/www/data.js": {
+      "sha256": "f95c2fbdc725d09a721091239f767f6877d974fba2e8c0dbf7bf77e1dd149535",
+      "bytes": 6748
+    },
+    "mobile-app/www/index.html": {
+      "sha256": "5c9d2a8b0167ccc1a8d770f1a3cc33caf44e62952dc016555665b11abd1768f4",
+      "bytes": 284010
+    },
+    "mobile-app/www/ml_data.js": {
+      "sha256": "46bdd4fb3a5d2d70077d930038f06e6633151dec4f856d9b3b41444762e58b35",
+      "bytes": 45214
+    },
+    "mobile-app/www/sw.js": {
+      "sha256": "198b248a11269545844559e187cbc289e97acf076c26a0df99914a343406e54e",
+      "bytes": 2062
+    },
+    "mobile-app/www/vercel.json": {
+      "sha256": "28bd1dbb3f18e3407b3543d90e3d138b0e615ad45c17f1028e0ba467c6bcec1b",
+      "bytes": 1681
+    },
+    "vercel.json": {
+      "sha256": "28bd1dbb3f18e3407b3543d90e3d138b0e615ad45c17f1028e0ba467c6bcec1b",
+      "bytes": 1681
+    }
+  }
+}

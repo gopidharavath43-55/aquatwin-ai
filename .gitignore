@@ -13,3 +13,12 @@ release/
 *.keystore
 keystore.properties
 .env
+# Extreme Security Ignores
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*keystore-backup*
+ml/gee_project.txt
+backups/
