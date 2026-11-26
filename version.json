@@ -1,8 +1,8 @@
 {
-    "version":  "1.138",
-    "version_code":  138,
+    "version":  "1.139",
+    "version_code":  139,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Fixed dock/range slider smoothness, Demo switch + 33-district Health \u0026 Vercel 100/day limit guard (Maps untouched)",
+    "notes":  "• AquaTwin AI update",
     "force":  false,
-    "updated_at":  "2026-11-26 06:18 IST"
+    "updated_at":  "2026-11-26 06:25 IST"
 }
