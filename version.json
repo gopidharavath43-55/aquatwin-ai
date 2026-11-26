@@ -1,8 +1,8 @@
 {
-    "version":  "1.131",
-    "version_code":  131,
+    "version":  "1.132",
+    "version_code":  132,
     "apk_url":  "https://github.com/gopidharavath43-55/aquatwin-ai/releases/latest/download/AquaTwin-AI.apk",
-    "notes":  "• Matched upper liquid glass header glow to 1000361615_3.jpg \u0026 restricted Map View toggle strictly to Map screen",
+    "notes":  "• Fixed Demo switch \u0026 33-district Health %, full-screen Map \u0026 top-right Map-only Satellite toggle",
     "force":  false,
-    "updated_at":  "2026-11-26 05:24 IST"
+    "updated_at":  "2026-11-26 05:30 IST"
 }
