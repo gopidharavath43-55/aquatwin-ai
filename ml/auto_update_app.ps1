@@ -209,3 +209,5 @@ if (-not $SkipGit) {
 }
 
 Write-Host "=== ALL UPDATED: APP + WEB BROWSER + GITHUB ===" -ForegroundColor Green
+# Auto-upload signed APK to GitHub Latest Release (no manual browser upload)
+if (Test-Path "C:\Users\gopid\aquatwin-ai\ml\github_auto_release.py") { python "C:\Users\gopid\aquatwin-ai\ml\github_auto_release.py" }
