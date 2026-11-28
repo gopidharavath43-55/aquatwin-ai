@@ -1,66 +1,96 @@
-const CACHE_CORE = "aquatwin-core-v1.149";
-const CACHE_TILES = "aquatwin-tiles-v1";
-const CORE_ASSETS = [
-  "./",
-  "./index.html",
-  "./data.js",
-  "./ml_data.js",
-  "./vendor/leaflet.css",
-  "./vendor/leaflet.js",
-  "./vendor/chart.umd.min.js",
-  "./tiles/manifest.js"
-];
+const APP_CACHE = 'aquatwin-ios27-liquid-v5';
+const TILE_CACHE = 'aquatwin-tiles-v12';
+const MAX_TILES = 4000;
+const BLANK_TILE_B64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+const IS_LOCAL_HTTP = self.location.protocol === 'http:' && /^(127\.0\.0\.1|localhost)$/i.test(self.location.hostname);
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_CORE)
-      .then((cache) => Promise.allSettled(CORE_ASSETS.map((u) => cache.add(u))))
-      .then(() => self.skipWaiting())
+function blankTileResponse() {
+  const bin = atob(BLANK_TILE_B64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Response(bytes, { status: 200, headers: { 'Content-Type': 'image/png' } });
+}
+
+self.addEventListener('install', (e) => {
+  self.skipWaiting();
+  if (IS_LOCAL_HTTP) return;
+  e.waitUntil(
+    caches.open(APP_CACHE).then((c) =>
+      c.addAll([
+        './',
+        './index.html',
+        './styles/liquid-glass.css',
+        './js/app.js',
+        './aquatwin_assistant.js',
+        './data.js',
+        './ml_data.js',
+        './ml_predictions.json',
+        './icon.png',
+        './fonts/InterVariable.woff2',
+        './appfont.woff2'
+      ]).catch(() => {})
+    )
   );
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(
-        keys.filter((k) => k !== CACHE_CORE && k !== CACHE_TILES).map((k) => caches.delete(k))
-      ))
-      .then(() => self.clients.claim())
+self.addEventListener('activate', (e) => {
+  if (IS_LOCAL_HTTP) {
+    e.waitUntil(
+      caches.keys()
+        .then((keys) => Promise.all(keys.map((k) => caches.delete(k))))
+        .then(() => self.registration.unregister())
+        .then(() => self.clients.matchAll({ type: 'window' }))
+        .then((clients) => clients.forEach((c) => { try { c.navigate(c.url); } catch (err) {} }))
+    );
+    return;
+  }
+  e.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== APP_CACHE && k !== TILE_CACHE).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", (event) => {
-  const req = event.request;
-  if (req.method !== "GET") return;
+self.addEventListener('fetch', (e) => {
+  if (IS_LOCAL_HTTP) return;
+  const req = e.request;
+  if (req.method !== 'GET') return;
   const url = new URL(req.url);
 
-  // Cache-First for bundled & ArcGIS map tiles -> zero buffering in Chrome
-  if (url.pathname.includes("/tiles/") || url.hostname === "server.arcgisonline.com") {
-    event.respondWith(
-      caches.open(CACHE_TILES).then((cache) =>
-        cache.match(req).then((cached) => {
-          if (cached) return cached;
-          return fetch(req).then((netRes) => {
-            if (netRes && (netRes.ok || netRes.type === "opaque")) {
-              cache.put(req, netRes.clone()).catch(() => {});
-            }
-            return netRes;
-          }).catch(() => cached || Response.error());
-        })
-      )
+  if (url.hostname.includes('arcgisonline.com') || url.hostname.includes('openstreetmap.org')) {
+    e.respondWith(
+      caches.open(TILE_CACHE).then(async (cache) => {
+        const hit = await cache.match(req);
+        if (hit) return hit;
+        try {
+          const resp = await fetch(req);
+          if (resp && (resp.ok || resp.type === 'opaque')) {
+            cache.put(req, resp.clone());
+            cache.keys().then((ks) => {
+              if (ks.length > MAX_TILES) ks.slice(0, ks.length - MAX_TILES).forEach((k) => cache.delete(k));
+            });
+          }
+          return resp;
+        } catch (err) {
+          return hit || blankTileResponse();
+        }
+      })
     );
     return;
   }
 
-  // Network-First with instant cache fallback for app shell & datasets
-  if (url.origin === self.location.origin) {
-    event.respondWith(
-      fetch(req).then((netRes) => {
-        if (netRes && netRes.ok) {
-          caches.open(CACHE_CORE).then((c) => c.put(req, netRes.clone())).catch(() => {});
+  if (url.origin === self.location.origin || url.hostname.includes('unpkg.com') || url.hostname.includes('jsdelivr.net')) {
+    e.respondWith(
+      caches.open(APP_CACHE).then(async (cache) => {
+        try {
+          const resp = await fetch(req, { cache: 'no-cache' });
+          if (resp && (resp.ok || resp.type === 'opaque')) cache.put(req, resp.clone());
+          return resp;
+        } catch (err) {
+          const cached = await cache.match(req, { ignoreSearch: true });
+          return cached || Response.error();
         }
-        return netRes;
-      }).catch(() => caches.match(req))
+      })
     );
   }
 });
